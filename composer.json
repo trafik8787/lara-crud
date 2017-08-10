@@ -1,0 +1,19 @@
+{
+    "name": "trafik8787/lara-crud",
+    "description": "CRUD for shop",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Shtirlic",
+            "email": "trafik8787@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "Trafik8787\\LaraCrud\\": ""
+      }
+    }
+}

@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
       "psr-4": {
-        "Trafik8787\\LaraCrud\\": ""
+        "Trafik8787\\LaraCrud\\": "src"
       }
     }
 }

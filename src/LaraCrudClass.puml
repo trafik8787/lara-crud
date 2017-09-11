@@ -1,0 +1,72 @@
+@startuml
+
+namespace Trafik8787\LaraCrud {
+    class Admin {
+        +__construct(Application $app)
+        ..__construct..
+        $this->app = $app;
+        $this->models = new ModelCollection();
+        $this->registerCoreContainerAliases();
+    }
+
+}
+
+namespace Trafik8787\LaraCrud\Models {
+    abstract class NodeModelConfigurationManager {
+        __construct()
+
+    }
+    class NodeModelConfiguration {
+
+    }
+}
+namespace Trafik8787\LaraCrud\Contracts {
+   interface NodeModelConfigurationInterface
+   interface AdminInterface
+}
+
+namespace Trafik8787\LaraCrud\Controllers {
+    class AdminController {
+    }
+}
+
+namespace ServiceProvider <<Rectangle>> {
+  class ServicesLaraCrudProvider {
+  }
+
+  class LaraCrudProvider {
+
+  }
+}
+
+
+    package App\Http <<Cloud>> {
+        namespace App\Providers {
+            class LaraCrudProvider {
+                #$nodes
+            }
+
+        }
+        namespace App\Http\Node {
+            class ContactNode
+        }
+        namespace App\Http\Node\Model {
+            class ContactModel
+        }
+    }
+
+App\Http\Node.ContactNode <|-- Trafik8787\LaraCrud\Models.NodeModelConfiguration
+
+App\Providers.LaraCrudProvider <|-- ServiceProvider.LaraCrudProvider
+ServiceProvider.ServicesLaraCrudProvider <|-- ServiceProvider.LaraCrudProvider
+
+Trafik8787\LaraCrud.Admin <|-- Trafik8787\LaraCrud\Contracts.AdminInterface
+Trafik8787\LaraCrud\Models.NodeModelConfigurationManager <|-- Trafik8787\LaraCrud\Contracts.NodeModelConfigurationInterface
+
+Trafik8787\LaraCrud\Models.NodeModelConfiguration <|-- Trafik8787\LaraCrud\Models.NodeModelConfigurationManager
+
+
+
+
+
+@enduml

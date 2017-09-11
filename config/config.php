@@ -7,5 +7,5 @@
  */
 
 return [
-  'file' => storage_path()
+    'url_prefix' => 'admin'
 ];

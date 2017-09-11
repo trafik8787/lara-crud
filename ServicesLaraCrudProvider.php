@@ -38,6 +38,7 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
         $this->app->instance('lara_admin_datatable', new DataTable($this->app));
         $this->app->instance('lara_admin', $this->admin = new Admin($this->app));
 
+        $this->registerCommands();
     }
 
 
@@ -45,5 +46,14 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
     protected function getConfig($key)
     {
         return $this->app['config']->get('lara-config.'.$key);
+    }
+
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Trafik8787\LaraCrud\Console\Commands\NodeGenerate::class
+            ]);
+        }
     }
 }

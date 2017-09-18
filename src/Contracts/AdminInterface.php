@@ -13,18 +13,10 @@ use Illuminate\Contracts\Routing\Registrar as RegistrarContract;
 
 interface AdminInterface
 {
-
     public function setModel($class, NodeModelConfigurationInterface $modelConf);
-
     public function setUrlDefaultModel (string $strModelName);
-
     public function initNode(array $nodes);
-
     public function initNodeClass (NodeModelConfigurationInterface $modelConf);
-
     public function getModels();
-
     public function getObjConfig($url);
-
-
 }

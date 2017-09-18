@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
-use Trafik8787\LaraCrud\Form\Form;
+use Trafik8787\LaraCrud\Form\FormTable;
 use Trafik8787\LaraCrud\Table\DataTable;
 
 class AdminController extends Controller
@@ -37,6 +37,7 @@ class AdminController extends Controller
 
 
     public function __construct(Request $request, AdminInterface $admin, Application $application, Route $route) {
+
 
         $this->configNode = $admin->getObjConfig($route);
         $this->app = $application;
@@ -72,7 +73,7 @@ class AdminController extends Controller
 
     public function inlineTable (Request $request, TableInterface $table)
     {
-        $table->setRequest($request->input());
+//        $table->setRequest($request->input());
        //dump($table->getRequest());
         //dd($table->);
         //$this->configNode->setRequest($request->input());
@@ -107,13 +108,15 @@ class AdminController extends Controller
 
     }
 
-    public function showEdit (Form $form)
+    public function showEdit (FormTable $form)
     {
-        $model = $this->configNode->getModelObj()->find(1);
-       
-     //   dd($model->firstname);
-       $model->firstname = 'ggggggggggggggggsssssssssaaaaa/////////////////--';
-       $model->save();
+//        dump($form);
+//        $model = $this->configNode->getModelObj()->find(1);
+//
+//        //   dd($model->firstname);
+//        $model->firstname = 'ggggggggggggggggsssssssssaaaaa/////////////////--';
+//        $model->save();
+        return $form->formRender();
     }
 
     public function showCreate ()

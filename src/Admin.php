@@ -8,17 +8,13 @@
 
 namespace Trafik8787\LaraCrud;
 
-
-use Closure;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\Request;
-
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
+use Trafik8787\LaraCrud\Form\FormTable;
 use Trafik8787\LaraCrud\Models\ModelCollection;
-use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
-use Trafik8787\LaraCrud\Table\DataTable;
+
 
 
 class Admin implements AdminInterface
@@ -30,7 +26,7 @@ class Admin implements AdminInterface
     public $nameModelArr; // url => Model
     public $modelConfig;
     public $models;
-
+    public $route;
     public $objConfig;
 
     public function __construct (Application $app) {
@@ -98,19 +94,14 @@ class Admin implements AdminInterface
      */
     public function getObjConfig ($route)
     {
-        //dd($route);
+        $this->route = $route;
         if (!empty($this->defaultUrlArr[$route->parameters['adminModel']])) {
 
             $obj = $this->defaultUrlArr[$route->parameters['adminModel']];
             $model = $this->nameModelArr[$route->parameters['adminModel']];
             $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
+
         }
-        //dd($route);
-
-        $this->objConfig->objRoute = $route;
-
-        $this->registerMetodNodeClass($model);
-       // $this->objConfig->objDataTable = new DataTable($this->app, $this->objConfig);
 
         return $this->objConfig;
     }
@@ -121,19 +112,22 @@ class Admin implements AdminInterface
     public function initNodeClass(NodeModelConfigurationInterface $modelConf)
     {
         $this->objConfig = $modelConf;
+        $this->objConfig->objRoute = $this->route;
         $this->setModel($modelConf->getModel(), $modelConf);
-        //$dataTable = new DataTable($this->app, $this->objConfig);
 
+        $this->registerMetodNodeClass();
 
         $this->app->call([$this, 'registerDatatable']);
         return $this;
     }
 
 //
-    public function registerDatatable (TableInterface $table)
+    public function registerDatatable (TableInterface $table, FormTable $form)
     {
 
         $table->objModel = $this->objConfig;
+        $form->injectObjConfig($this->objConfig);
+
     }
 
     /**
@@ -142,8 +136,9 @@ class Admin implements AdminInterface
      * showDisplay()
      * showInsertDisplay()
      */
-    public function registerMetodNodeClass($model= null)
+    public function registerMetodNodeClass()
     {
+
         //dd($this->getModels());
         if ($this->objConfig->objRoute->action['as'] === 'model.showTable') {
 
@@ -171,11 +166,9 @@ class Admin implements AdminInterface
     protected function registerCoreContainerAliases() {
 
         $aliases = [
-            //'lara_admin_datatable' => ['Trafik8787\LaraCrud\Table\DataTable', 'Trafik8787\LaraCrud\Contracts\TableInterface'],
+            'lara_form' => ['Trafik8787\LaraCrud\Form\FormTable', 'Trafik8787\LaraCrud\Contracts\FormManagerInterface'],
             'lara_admin_nodemodel' => ['Trafik8787\LaraCrud\Models\NodeModelConfiguration', 'Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface'],
             'lara_admin' => ['Trafik8787\LaraCrud\Admin', 'Trafik8787\LaraCrud\Contracts\AdminInterface'],
-
-
         ];
 
         foreach ($aliases as $key => $aliases) {

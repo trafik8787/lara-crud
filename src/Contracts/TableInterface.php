@@ -12,6 +12,9 @@ namespace Trafik8787\LaraCrud\Contracts;
 interface TableInterface
 {
 
-
+    public function render();
+    public function getColumn();
+    public function setRequest ($request);
+    public function getRequest ();
 
 }

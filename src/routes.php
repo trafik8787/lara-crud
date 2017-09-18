@@ -16,6 +16,11 @@ Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers'
         'uses' => 'AdminController@showTable',
     ]);
 
+    Route::post('{adminModel}', [
+        'as'   => 'model.ajax.dispaly.table',
+        'uses' => 'AdminController@inlineTable',
+    ]);
+
     Route::get('{adminModel}/{adminModelId}/edit', [
         'as'   => 'model.edit',
         'uses' => 'AdminController@showEdit',

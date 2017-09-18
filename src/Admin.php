@@ -15,8 +15,10 @@ use Illuminate\Http\Request;
 
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Models\ModelCollection;
 use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
+use Trafik8787\LaraCrud\Table\DataTable;
 
 
 class Admin implements AdminInterface
@@ -37,13 +39,6 @@ class Admin implements AdminInterface
         $this->registerCoreContainerAliases();
     }
 
-
-
-//    public function getModel ($strModelName)
-//    {
-//        //dd($this->nodes);
-//        return new $this->nameModelArr[$strModelName];
-//    }
     /**
      * @param array $nodes
      * todo инициализация Node классов
@@ -59,37 +54,28 @@ class Admin implements AdminInterface
             $this->defaultUrlArr[$url] = $nodeClass;
             $this->nameModelArr[$url] = $model;
 
-//            if (class_exists($nodeClass)) {
-//
-//                $this->initNodeClass(new $nodeClass($this->app, $model));
-//            }
         }
 
     }
 
 
-
     //преобразуем название модели в URL
+
+    /**
+     * @param string $strModelName
+     * @return string
+     */
     public function setUrlDefaultModel (string $strModelName)
     {
         return snake_case(class_basename($strModelName));
     }
 
+
     /**
-     * @param $nodeClass
+     * @param $class
+     * @param NodeModelConfigurationInterface $modelConf
+     * @return $this
      */
-    public function initNodeClass(NodeModelConfigurationInterface $modelConf)
-    {
-
-        $this->objConfig = $modelConf;
-
-
-        $this->setModel($modelConf->getModel(), $modelConf);
-
-        return $this;
-    }
-
-
     public function setModel($class, NodeModelConfigurationInterface $modelConf)
     {
         $this->models->put($class, $modelConf);
@@ -97,12 +83,19 @@ class Admin implements AdminInterface
     }
 
 
+    /**
+     * @return ModelCollection
+     */
     public function getModels()
     {
         return $this->models;
     }
 
 
+    /**
+     * @param $route
+     * @return mixed
+     */
     public function getObjConfig ($route)
     {
         //dd($route);
@@ -110,17 +103,38 @@ class Admin implements AdminInterface
 
             $obj = $this->defaultUrlArr[$route->parameters['adminModel']];
             $model = $this->nameModelArr[$route->parameters['adminModel']];
-            $this->initNodeClass(new $obj($this->app, $model));
+            $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
         }
         //dd($route);
 
         $this->objConfig->objRoute = $route;
 
         $this->registerMetodNodeClass($model);
+       // $this->objConfig->objDataTable = new DataTable($this->app, $this->objConfig);
 
         return $this->objConfig;
     }
 
+    /**
+     * @param $nodeClass
+     */
+    public function initNodeClass(NodeModelConfigurationInterface $modelConf)
+    {
+        $this->objConfig = $modelConf;
+        $this->setModel($modelConf->getModel(), $modelConf);
+        //$dataTable = new DataTable($this->app, $this->objConfig);
+
+
+        $this->app->call([$this, 'registerDatatable']);
+        return $this;
+    }
+
+//
+    public function registerDatatable (TableInterface $table)
+    {
+
+        $table->objModel = $this->objConfig;
+    }
 
     /**
      * вызов методов в классе
@@ -157,9 +171,10 @@ class Admin implements AdminInterface
     protected function registerCoreContainerAliases() {
 
         $aliases = [
+            //'lara_admin_datatable' => ['Trafik8787\LaraCrud\Table\DataTable', 'Trafik8787\LaraCrud\Contracts\TableInterface'],
             'lara_admin_nodemodel' => ['Trafik8787\LaraCrud\Models\NodeModelConfiguration', 'Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface'],
             'lara_admin' => ['Trafik8787\LaraCrud\Admin', 'Trafik8787\LaraCrud\Contracts\AdminInterface'],
-            'lara_admin_datatable' => ['Trafik8787\LaraCrud\Table\DataTable', 'Trafik8787\LaraCrud\Contracts\TableInterface'],
+
 
         ];
 
@@ -170,10 +185,5 @@ class Admin implements AdminInterface
         }
     }
 
-
-//    public function configNodeModel ()
-//    {
-//        $this->initNodeClass($model = new NodeModelConfiguration($this->app, $class));
-//    }
 
 }

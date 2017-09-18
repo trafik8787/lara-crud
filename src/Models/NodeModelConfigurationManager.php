@@ -24,6 +24,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public $url;
     public $objRoute;
     private static $objModel;
+   // public $objDataTable;
 
     public function __construct (Application $app, $model) {
 
@@ -53,7 +54,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     {
         return $this->class;
     }
-
 
     public function getAlias()
     {

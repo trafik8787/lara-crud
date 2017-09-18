@@ -9,6 +9,9 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Trafik8787\LaraCrud\Admin;
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\TableInterface;
+use Trafik8787\LaraCrud\Form\FormManager;
 use Trafik8787\LaraCrud\Models\ModelCollection;
 use Trafik8787\LaraCrud\Models\ModelRouter;
 use Illuminate\Contracts\Routing\Registrar as RegistrarContract;
@@ -32,13 +35,25 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
 
     public function register()
     {
+
         $this->app->singleton('lara_admin_nodemodel', function(){
             return new NodeModelConfiguration($this->app);
         });
-        $this->app->instance('lara_admin_datatable', new DataTable($this->app));
-        $this->app->instance('lara_admin', $this->admin = new Admin($this->app));
 
-        $this->registerCommands();
+        //$this->app->instance('lara_admin_datatable',  new DataTable($this->app));
+        $this->app->instance('lara_admin', $this->admin = new Admin($this->app));
+        $this->app->singleton(TableInterface::class, function () {
+            return new  DataTable($this->app);
+        });
+
+        $this->app->singleton(FormManagerInterface::class, FormManager::class);
+
+
+//        $this->app->singleton('sleeping_owl.breadcrumbs', function () {
+//            return $this->app->make(\SleepingOwl\Admin\Templates\Breadcrumbs::class);
+//        });
+
+//        $this->registerCommands();
     }
 
 

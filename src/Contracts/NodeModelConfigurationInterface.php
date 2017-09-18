@@ -24,9 +24,4 @@ interface NodeModelConfigurationInterface
     public function scopeTest ($query);
 
 
-
-
-
-
-
 }

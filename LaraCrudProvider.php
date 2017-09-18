@@ -29,6 +29,9 @@ class LaraCrudProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/lang', 'lara-crud');
         $this->loadRoutesFrom(__DIR__ . '/src/routes.php');
 
+        $this->publishes([
+            __DIR__.'./resources/assets' => public_path('vendor/lara-crud'),
+        ], 'public');
 
         $admin->initNode($this->nodes());
 

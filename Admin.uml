@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>PHP</ID>
+  <OriginalElement>\Trafik8787\LaraCrud\Admin</OriginalElement>
+  <nodes>
+    <node x="587.0" y="0.0">\Trafik8787\LaraCrud\LaraCrudProvider</node>
+    <node x="795.3661286756577" y="10.203404819809833">\Trafik8787\LaraCrud\Controllers\AdminController</node>
+    <node x="329.0" y="211.0">\Trafik8787\LaraCrud\Models\NodeModelConfiguration</node>
+    <node x="306.0" y="0.0">\Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface</node>
+    <node x="0.0" y="784.0">\Trafik8787\LaraCrud\Table\DataTable</node>
+    <node x="566.0" y="168.0">\Trafik8787\LaraCrud\ServicesLaraCrudProvider</node>
+    <node x="0.0" y="0.0">\Trafik8787\LaraCrud\Contracts\AdminInterface</node>
+    <node x="869.3437983639178" y="554.0959540128233">\App\Http\Node\ContactNode</node>
+    <node x="44.5" y="661.0">\Trafik8787\LaraCrud\Contracts\TableInterface</node>
+    <node x="8.0" y="211.0">\Trafik8787\LaraCrud\Admin</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="\Trafik8787\LaraCrud\Table\DataTable" target="\Trafik8787\LaraCrud\Contracts\TableInterface">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="\Trafik8787\LaraCrud\Models\NodeModelConfiguration" target="\Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface">
+      <point x="0.0" y="-59.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="\App\Http\Node\ContactNode" target="\Trafik8787\LaraCrud\Models\NodeModelConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="\Trafik8787\LaraCrud\ServicesLaraCrudProvider" target="\Trafik8787\LaraCrud\LaraCrudProvider">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="\Trafik8787\LaraCrud\Admin" target="\Trafik8787\LaraCrud\Contracts\AdminInterface">
+      <point x="0.0" y="-202.5" />
+      <point x="0.0" y="80.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.980065005417118" x="540.0" y="431.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constants</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

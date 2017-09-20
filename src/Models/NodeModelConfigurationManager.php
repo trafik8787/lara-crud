@@ -24,9 +24,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public $url;
     public $objRoute;
     private static $objModel;
+
+
+
+    protected $fieldName = [];
    // public $objDataTable;
 
-    public function __construct (Application $app, $model) {
+    public function __construct (Application $app, $model = null) {
 
         $this->app= $app;
         $this->model = $model;
@@ -69,5 +73,12 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     {
         return $this->titleEdit;
     }
+
+    public function fieldName(array $field)
+    {
+        $this->fieldName = $field;
+    }
+
+
 
 }

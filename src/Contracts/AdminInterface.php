@@ -16,7 +16,11 @@ interface AdminInterface
     public function setModel($class, NodeModelConfigurationInterface $modelConf);
     public function setUrlDefaultModel (string $strModelName);
     public function initNode(array $nodes);
-    public function initNodeClass (NodeModelConfigurationInterface $modelConf);
-    public function getModels();
-    public function getObjConfig($url);
+    public function initNodeClass (NodeModelConfigurationInterface $modelConf); //init class Node
+    public function getModels(); //collection models
+    public function getObjConfig($route, $request); //object class NodeModelConfiguration
+
+    public function setRequest ($recuest);
+    public function getRequest ();
+
 }

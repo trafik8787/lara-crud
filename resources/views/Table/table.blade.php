@@ -16,22 +16,25 @@
     <title>Document</title>
     <script type="text/javascript">
         $(document).ready(function() {
+            var pageNum;
             var table = $('#example').DataTable( {
                 "processing": true,
                 "serverSide": true,
+                "bPaginate":true,
                 "ajax": {
                     "url": "{{ url()->current()}}",
                     "dataType": "json",
-                    "type": "POST"
+                    "type": "POST",
+                    "data": function (d){
+
+                        d.numPage = (d.start/d.length) + 1;
+                    }
                 },
-                "columns": [
-                    { "data": "first_name" },
-                    { "data": "last_name" },
-                    { "data": "position" },
-                    { "data": "office" },
-                    { "data": "start_date" },
-                    { "data": "salary" }
-                ],
+                "drawCallback" : function() {
+                  //  pageNum = this.api().page.info().page;
+                },
+
+                "columns": JSON.parse('<?php echo $json_field?>'),
                 "oLanguage": {
                     "sProcessing": '<div class="preloader row"><div class="wrap-loading"><div class="loading loading-4"></div></div></div>'
                 }
@@ -41,26 +44,24 @@
     </script>
 </head>
 <body>
-<a href="{{ url()->current()}}/1/edit" class="btn btn-default">Edit</a>
+
+
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Start date</th>
-        <th>Salary</th>
+        @foreach ($name_field as $field)
+            <th>{{$field}}</th>
+        @endforeach
+
+            <th>Action</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Start date</th>
-        <th>Salary</th>
+        @foreach ($name_field as $field)
+            <th>{{$field}}</th>
+        @endforeach
+            <th>Action</th>
     </tr>
     </tfoot>
 </table>

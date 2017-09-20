@@ -16,6 +16,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 {
 
     public $tmp;
+    protected $buttonDelete;
 
     public function setTitle ($title)
     {
@@ -33,5 +34,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->titleEdit = $title;
     }
 
-
+    /**
+     * @param bool $value
+     */
+    public function buttonDelete (bool $value = true)
+    {
+        $this->buttonDelete = $value;
+    }
+    public function getButtonDelete ()
+    {
+        return $this->buttonDelete;
+    }
 }

@@ -15,13 +15,37 @@ interface NodeModelConfigurationInterface
 {
 
 
+    /**
+     * @return mixed
+     */
     public function getAlias ();
+
+    /**
+     * @return mixed
+     */
     public function getClass();
+
+    /**
+     * @return mixed
+     */
     public function getModel ();
+
+    /**
+     * @return mixed
+     */
     public function getTitle ();
+
+    /**
+     * @return mixed
+     */
+    public function getTitleEdit ();
     public function getModelObj (); //обект класса модели
 
     public function scopeTest ($query);
+
+
+    public function fieldName(array $field);
+
 
 
 }

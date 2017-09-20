@@ -34,21 +34,24 @@ class AdminController extends Controller
     public $app;
     private $model;
     private $dataTable;
-
+    private $request;
 
     public function __construct(Request $request, AdminInterface $admin, Application $application, Route $route) {
 
 
-        $this->configNode = $admin->getObjConfig($route);
+        $this->configNode = $admin->getObjConfig($route, $request->input());
         $this->app = $application;
         $this->model = $this->configNode->getModelObj();
-
-
+        /*Добавляем обьект запроса в класс Admin*/
+        //$admin->setRequest($request->input());
+        //dump($this->configNode);
 
     }
 
     public function showTable (TableInterface $table) {
 
+        //$table->setRequest($this->request);
+       // dd($this->model->paginate(2)->toArray());
        // dump($table);
         //ddd($request->input(''));
         //$this->configNode->objDataTable->setRequest($request->input());
@@ -71,9 +74,11 @@ class AdminController extends Controller
 
     }
 
+
     public function inlineTable (Request $request, TableInterface $table)
     {
-//        $table->setRequest($request->input());
+        //dd($request);
+        //$table->setRequest($request->input());
        //dump($table->getRequest());
         //dd($table->);
         //$this->configNode->setRequest($request->input());
@@ -81,36 +86,13 @@ class AdminController extends Controller
         //ddd($request->input('columns'));
         //ddd($request->input('columns'));
 
-
-      return Response::json([
-           'draw' => 1,
-           'recordsTotal' => 2,
-           'recordsFiltered' => 2,
-                'data' => [
-                    [
-                       'first_name' => 'Airi',
-                      'last_name' => 'Satou',
-                      'position' => 'Accountant',
-                      'office' => 'Tokyo',
-                      'start_date' => '28th Nov 08',
-                      'salary' => '$162,700'
-                    ],
-                    [
-                        'first_name' => 'Airi',
-                        'last_name' => 'Satou',
-                        'position' => 'Accountant',
-                        'office' => 'Tokyo',
-                        'start_date' => '28th Nov 08',
-                        'salary' => '$162,700'
-                    ]
-                ]
-       ]);
+        return $table->jsonResponseTable();
 
     }
 
     public function showEdit (FormTable $form)
     {
-//        dump($form);
+        //dump($form);
 //        $model = $this->configNode->getModelObj()->find(1);
 //
 //        //   dd($model->firstname);

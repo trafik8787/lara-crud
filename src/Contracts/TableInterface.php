@@ -9,12 +9,12 @@
 namespace Trafik8787\LaraCrud\Contracts;
 
 
+use Trafik8787\LaraCrud\Models\NodeModelConfigurationManager;
+
 interface TableInterface
 {
 
     public function render();
     public function getColumn();
-    public function setRequest ($request);
-    public function getRequest ();
-
+    public function jsonResponseTable();
 }

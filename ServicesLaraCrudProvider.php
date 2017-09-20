@@ -19,7 +19,6 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
     {
 
         parent::boot($admin);
-
     }
 
 
@@ -34,8 +33,9 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
         });
         //$this->app->instance('lara_admin_datatable',  new DataTable($this->app));
         $this->app->instance('lara_admin', $this->admin = new Admin($this->app));
+
         $this->app->singleton(TableInterface::class, function () {
-            return new  DataTable($this->app);
+            return new  DataTable($this->app, $this->admin);
         });
 
 

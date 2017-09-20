@@ -29,10 +29,13 @@ class Admin implements AdminInterface
     public $route;
     public $objConfig;
 
+    private $setRequest; //получает обьект Request из AdminController
+
     public function __construct (Application $app) {
         $this->app = $app;
         $this->models = new ModelCollection();
         $this->registerCoreContainerAliases();
+
     }
 
     /**
@@ -92,9 +95,11 @@ class Admin implements AdminInterface
      * @param $route
      * @return mixed
      */
-    public function getObjConfig ($route)
+    public function getObjConfig ($route, $request)
     {
         $this->route = $route;
+        $this->setRequest($request);
+
         if (!empty($this->defaultUrlArr[$route->parameters['adminModel']])) {
 
             $obj = $this->defaultUrlArr[$route->parameters['adminModel']];
@@ -138,7 +143,6 @@ class Admin implements AdminInterface
      */
     public function registerMetodNodeClass()
     {
-
         //dd($this->getModels());
         if ($this->objConfig->objRoute->action['as'] === 'model.showTable') {
 
@@ -154,7 +158,6 @@ class Admin implements AdminInterface
                 $this->objConfig->showInsertDisplay();
             }
         }
-
 
     }
 
@@ -179,4 +182,19 @@ class Admin implements AdminInterface
     }
 
 
+    /**
+     * @param $recuest
+     */
+    public function setRequest($recuest)
+    {
+        $this->setRequest = $recuest;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequest()
+    {
+        return $this->setRequest;
+    }
 }

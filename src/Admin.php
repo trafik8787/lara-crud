@@ -9,6 +9,8 @@
 namespace Trafik8787\LaraCrud;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
@@ -24,26 +26,24 @@ class Admin implements AdminInterface
     public $nodes;
     public $defaultUrlArr; //url формируем из названия модели по умолчанию url => Class
     public $nameModelArr; // url => Model
-    public $modelConfig;
     public $models;
     public $route;
     public $objConfig;
 
-    private $setRequest; //получает обьект Request из AdminController
+    private $request; //получает обьект Request из AdminController
 
-    public function __construct (Application $app) {
+    public function __construct ($node, Application $app) {
         $this->app = $app;
         $this->models = new ModelCollection();
-        $this->registerCoreContainerAliases();
 
+
+        $this->initNode($node);
     }
 
     /**
      * @param array $nodes
-     * todo инициализация Node классов
      */
-    public function initNode (array $nodes)
-    {
+    public function initNode (array $nodes) {
 
         $this->nodes = $nodes;
 
@@ -55,20 +55,21 @@ class Admin implements AdminInterface
 
         }
 
+        $this->app->call([$this, 'setRoute']);
+
+
     }
 
-
-    //преобразуем название модели в URL
 
     /**
      * @param string $strModelName
      * @return string
+     * преобразуем название модели в URL
      */
     public function setUrlDefaultModel (string $strModelName)
     {
         return snake_case(class_basename($strModelName));
     }
-
 
     /**
      * @param $class
@@ -81,7 +82,6 @@ class Admin implements AdminInterface
         return $this;
     }
 
-
     /**
      * @return ModelCollection
      */
@@ -92,109 +92,86 @@ class Admin implements AdminInterface
 
 
     /**
-     * @param $route
-     * @return mixed
+     *
      */
-    public function getObjConfig ($route, $request)
+    public function getObjConfig ()
     {
-        $this->route = $route;
-        $this->setRequest($request);
 
-        if (!empty($this->defaultUrlArr[$route->parameters['adminModel']])) {
+        if (!empty($this->defaultUrlArr[$this->route->parameters['adminModel']])) {
 
-            $obj = $this->defaultUrlArr[$route->parameters['adminModel']];
-            $model = $this->nameModelArr[$route->parameters['adminModel']];
+            $obj = $this->defaultUrlArr[$this->route->parameters['adminModel']];
+            $model = $this->nameModelArr[$this->route->parameters['adminModel']];
+
             $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
 
         }
 
-        return $this->objConfig;
     }
 
+
     /**
-     * @param $nodeClass
+     * @param NodeModelConfigurationInterface $modelConf
      */
     public function initNodeClass(NodeModelConfigurationInterface $modelConf)
     {
-        $this->objConfig = $modelConf;
-        $this->objConfig->objRoute = $this->route;
+
+
+        //$this->setModel($modelConf->getModel(), $modelConf);
+
+        if ($this->route->action['as'] === 'model.showTable') {
+
+            if (method_exists($modelConf, 'showDisplay')) {
+                $modelConf->showDisplay();
+            }
+
+        } elseif ($this->route->action['as'] === 'model.ajax.dispaly.table') {
+
+            if (method_exists($modelConf, 'showDisplay')) {
+                $modelConf->showDisplay();
+            }
+
+        } elseif ($this->route->action['as'] === 'model.edit') {
+            if (method_exists($modelConf, 'showEditDisplay')) {
+                $modelConf->showEditDisplay();
+            }
+        } elseif ($this->route->action['as'] === 'model.create') {
+            if (method_exists($modelConf, 'showInsertDisplay')) {
+                $modelConf->showInsertDisplay();
+            }
+        }
+
         $this->setModel($modelConf->getModel(), $modelConf);
 
-        $this->registerMetodNodeClass();
-
+        $this->objConfig = $modelConf;
         $this->app->call([$this, 'registerDatatable']);
-        return $this;
-    }
-
-//
-    public function registerDatatable (TableInterface $table, FormTable $form)
-    {
-
-        $table->objModel = $this->objConfig;
-        $form->injectObjConfig($this->objConfig);
-
-    }
-
-    /**
-     * вызов методов в классе
-     * showEditDisplay()
-     * showDisplay()
-     * showInsertDisplay()
-     */
-    public function registerMetodNodeClass()
-    {
-        //dd($this->getModels());
-        if ($this->objConfig->objRoute->action['as'] === 'model.showTable') {
-
-            if (method_exists($this->objConfig, 'showDisplay')) {
-                $this->objConfig->showDisplay();
-            }
-        } elseif ($this->objConfig->objRoute->action['as'] === 'model.edit') {
-            if (method_exists($this->objConfig, 'showEditDisplay')) {
-                $this->objConfig->showEditDisplay();
-            }
-        } elseif ($this->objConfig->objRoute->action['as'] === 'model.create') {
-            if (method_exists($this->objConfig, 'showInsertDisplay')) {
-                $this->objConfig->showInsertDisplay();
-            }
-        }
-
     }
 
 
     /**
-     * регистрация алиасов классов к интерфейсам
-     *
+     * @param NodeModelConfigurationInterface $nodeModelConfiguration
+     * @param TableInterface $table
+     * @param FormTable $form
      */
-    protected function registerCoreContainerAliases() {
-
-        $aliases = [
-            'lara_form' => ['Trafik8787\LaraCrud\Form\FormTable', 'Trafik8787\LaraCrud\Contracts\FormManagerInterface'],
-            'lara_admin_nodemodel' => ['Trafik8787\LaraCrud\Models\NodeModelConfiguration', 'Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface'],
-            'lara_admin' => ['Trafik8787\LaraCrud\Admin', 'Trafik8787\LaraCrud\Contracts\AdminInterface'],
-        ];
-
-        foreach ($aliases as $key => $aliases) {
-            foreach ($aliases as $alias) {
-                $this->app->alias($key, $alias);
-            }
-        }
+    public function registerDatatable (TableInterface $table, FormTable $form, Request $request)
+    {
+        $this->request = $request;
+        $table->objConfig = $this->objConfig;
+        return;
     }
-
 
     /**
      * @param $recuest
      */
-    public function setRequest($recuest)
+    public function setRoute(Route $route)
     {
-        $this->setRequest = $recuest;
+        $this->route = $route;
+        $this->getObjConfig ();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRequest()
-    {
-        return $this->setRequest;
+    public function getRequest () {
+        return $this->request;
     }
+
+
+
 }

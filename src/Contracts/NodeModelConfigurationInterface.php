@@ -45,7 +45,7 @@ interface NodeModelConfigurationInterface
 
 
     public function fieldName(array $field);
-
+    public function getButtonDelete ();
 
 
 }

@@ -7,6 +7,13 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
+use Trafik8787\LaraCrud\Contracts\AdminInterface;
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Contracts\TableInterface;
+use Trafik8787\LaraCrud\Form\FormTable;
+use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
+use Trafik8787\LaraCrud\Table\DataTable;
 
 
 class LaraCrudProvider extends ServiceProvider
@@ -21,7 +28,7 @@ class LaraCrudProvider extends ServiceProvider
     }
 
 
-    public function boot(Admin $admin)
+    public function boot()
     {
 
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'lara');
@@ -33,7 +40,7 @@ class LaraCrudProvider extends ServiceProvider
             __DIR__.'./resources/assets' => public_path('vendor/lara-crud'),
         ], 'public');
 
-        $admin->initNode($this->nodes());
+       //$admin->initNode($this->nodes());
 
     }
 
@@ -45,6 +52,13 @@ class LaraCrudProvider extends ServiceProvider
     public function register()
     {
 
+        $this->app->singleton(AdminInterface::class, function (){
+            return new Admin($this->nodes(), $this->app);
+        });
+
+        $this->app->singleton(NodeModelConfigurationInterface::class, NodeModelConfiguration::class);
+        $this->app->singleton(FormManagerInterface::class, FormTable::class);
+        $this->app->singleton(TableInterface::class, DataTable::class);
 
     }
 

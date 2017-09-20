@@ -10,6 +10,9 @@ namespace Trafik8787\LaraCrud\Contracts;
 
 
 use Illuminate\Contracts\Routing\Registrar as RegistrarContract;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Trafik8787\LaraCrud\Form\FormTable;
 
 interface AdminInterface
 {
@@ -18,9 +21,8 @@ interface AdminInterface
     public function initNode(array $nodes);
     public function initNodeClass (NodeModelConfigurationInterface $modelConf); //init class Node
     public function getModels(); //collection models
-    public function getObjConfig($route, $request); //object class NodeModelConfiguration
-
-    public function setRequest ($recuest);
-    public function getRequest ();
+    public function getObjConfig(); //object class NodeModelConfiguration
+    public function setRoute (Route $route);
+    public function registerDatatable (TableInterface $table, FormTable $form, Request $request);
 
 }

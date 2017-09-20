@@ -14,7 +14,7 @@ use Trafik8787\LaraCrud\Models\NodeModelConfigurationManager;
 interface TableInterface
 {
 
-    public function render();
+    public function render($admin);
     public function getColumn();
-    public function jsonResponseTable();
+    public function jsonResponseTable($admin);
 }

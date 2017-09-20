@@ -35,20 +35,23 @@ class AdminController extends Controller
     private $model;
     private $dataTable;
     private $request;
+    protected $admin;
 
-    public function __construct(Request $request, AdminInterface $admin, Application $application, Route $route) {
+    public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table) {
 
 
-        $this->configNode = $admin->getObjConfig($route, $request->input());
-        $this->app = $application;
-        $this->model = $this->configNode->getModelObj();
+//        $this->configNode = $admin->getObjConfig($route, $request->input());
+//        $this->app = $application;
+//        $this->model = $this->configNode->getModelObj();
         /*Добавляем обьект запроса в класс Admin*/
-        //$admin->setRequest($request->input());
+       // $admin->setRequest($request->input());
         //dump($this->configNode);
+        //$request->qweqweqwe = $admin->objConfig->getTitle();
 
+       // dump($admin->objConfig->getTitle());
     }
 
-    public function showTable (TableInterface $table) {
+    public function showTable (TableInterface $table, AdminInterface $admin) {
 
         //$table->setRequest($this->request);
        // dd($this->model->paginate(2)->toArray());
@@ -69,13 +72,13 @@ class AdminController extends Controller
 //        }
         //dump($this->configNode->objDataTable->getColumn());
         //dump(get_class_methods($this->configNode));
-        return $table->render();
-
+        return $table->render($admin);
+//
 
     }
 
 
-    public function inlineTable (Request $request, TableInterface $table)
+    public function inlineTable (TableInterface $table, AdminInterface $admin)
     {
         //dd($request);
         //$table->setRequest($request->input());
@@ -85,8 +88,8 @@ class AdminController extends Controller
 
         //ddd($request->input('columns'));
         //ddd($request->input('columns'));
-
-        return $table->jsonResponseTable();
+        //dump($admin);
+        return $table->jsonResponseTable($admin);
 
     }
 

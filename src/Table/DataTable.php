@@ -24,38 +24,27 @@ class DataTable implements TableInterface
 {
 
     public $objModel;
+    public $objConfig;
     private $request;
     private $admin;
 
-    public function __construct (Application $app, AdminInterface $admin) {
+    public function __construct (Application $app) {
         //получаем обект модели
-        $this->admin = $admin;
-
+//        $this->admin = $admin;
     }
 
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render ()
+    public function render ($admin)
     {
-        //dump(get_class_methods($this->getModelObj()->paginate(10)));
-
-       // $er = $this->getModelData(5, 2)->toArray();
-      //  dump($this->objModel);
-//        foreach ($er->toArray() as $item) {
-//            dump($item);
-//        }
-
-        //dump($this->getModelData(5, 1));
-       // dump($this->getModelObj()->getTableColumns());
 
         $data = array(
             'name_field' => $this->getModelObj()->getTableColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable()
         );
 
-        //dump($this->admin);
         return view('lara::Table.table', $data);
     }
 
@@ -65,7 +54,7 @@ class DataTable implements TableInterface
      */
     public function getColumn ()
     {
-        return DB::getSchemaBuilder()->getColumnListing($this->objModel->getModelObj()->getTable());
+        return DB::getSchemaBuilder()->getColumnListing($this->objConfig->getModelObj()->getTable());
     }
 
 
@@ -74,13 +63,13 @@ class DataTable implements TableInterface
      */
     private function getModelObj()
     {
-        return $this->objModel->getModelObj();
+        return $this->objConfig->getModelObj();
     }
 
 
-    public function jsonResponseTable ()
+    public function jsonResponseTable ($admin)
     {
-        $request = $this->admin->getRequest();
+        $request = $admin->getRequest();
 
 
         $obj = $this->getModelData($request['length'], $request['numPage']);
@@ -92,17 +81,13 @@ class DataTable implements TableInterface
             $data[] = $item;
         }
 
-
-
-            //dump($dataArr['data']);
-
-        //print_r($this->getModelObj()->count());
         return Response::json([
             'draw' => $request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
             'recordsFiltered' => $dataArr['total'],
             'data' => $data
         ]);
+
     }
 
 
@@ -129,7 +114,7 @@ class DataTable implements TableInterface
     public function getTemplateAction($id)
     {
 
-        return view('lara::Form.action', ['id' => $id, 'configNode' => $this->objModel])->render();
+        return view('lara::Form.action', ['id' => $id, 'configNode' => $this->objConfig])->render();
     }
 
 

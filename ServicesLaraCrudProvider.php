@@ -3,6 +3,9 @@
 namespace Trafik8787\LaraCrud;
 
 
+use Trafik8787\LaraCrud\Contracts\AdminInterface;
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Form\FormTable;
 use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
@@ -12,31 +15,16 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
 {
 
 
-    private $admin;
 
-
-    public function boot(Admin $admin)
-    {
-
-        parent::boot($admin);
-    }
+//    public function boot(AdminInterface $admin)
+//    {
+//
+//        parent::boot($admin);
+//    }
 
 
     public function register()
     {
-
-        $this->app->singleton('lara_admin_nodemodel', function(){
-            return new NodeModelConfiguration($this->app);
-        });
-        $this->app->singleton('lara_form', function (){
-            return new FormTable($this->app);
-        });
-        //$this->app->instance('lara_admin_datatable',  new DataTable($this->app));
-        $this->app->instance('lara_admin', $this->admin = new Admin($this->app));
-
-        $this->app->singleton(TableInterface::class, function () {
-            return new  DataTable($this->app, $this->admin);
-        });
 
 
     }

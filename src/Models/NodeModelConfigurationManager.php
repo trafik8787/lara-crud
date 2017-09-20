@@ -25,7 +25,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public $objRoute;
     private static $objModel;
 
-
+    protected $buttonDelete = true;
 
     protected $fieldName = [];
    // public $objDataTable;
@@ -34,7 +34,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
         $this->app= $app;
         $this->model = $model;
-
     }
 
     public function scopeTest ($query)
@@ -77,6 +76,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function fieldName(array $field)
     {
         $this->fieldName = $field;
+    }
+
+    public function getButtonDelete ()
+    {
+        return $this->buttonDelete;
     }
 
 

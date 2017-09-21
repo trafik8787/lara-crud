@@ -61,4 +61,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->buttonEdit = $value;
     }
 
+    /**
+     * @param array $value
+     */
+    public function fieldShowDisplay(array $value){
+        $this->fieldShowDisplay = $value;
+    }
+
 }

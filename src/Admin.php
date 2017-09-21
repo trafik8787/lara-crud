@@ -11,6 +11,7 @@ namespace Trafik8787\LaraCrud;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
@@ -29,6 +30,9 @@ class Admin implements AdminInterface
     public $models;
     public $route;
     public $objConfig;
+
+    public $TableColumns = [];
+    public $TableTypeColumns = [];
 
     private $request; //получает обьект Request из AdminController
 
@@ -158,9 +162,13 @@ class Admin implements AdminInterface
      */
     public function registerDatatable (TableInterface $table, FormTable $form, Request $request)
     {
+        //dump(get_class_methods(DB::connection()->getName()));
         $this->request = $request;
         $table->objConfig = $this->objConfig;
-        return;
+        $table->admin = $this;
+
+        $this->setTableColumnsType();
+
     }
 
     /**
@@ -177,5 +185,17 @@ class Admin implements AdminInterface
     }
 
 
+    /**
+     *todo create array table name column and type
+     */
+    public function setTableColumnsType ()
+    {
+        $table = $this->objConfig->getModelObj()->getTable();
+        $this->TableColumns = DB::connection()->getSchemaBuilder()->getColumnListing($table);
+        foreach ($this->TableColumns as $item) {
+            $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table, $item);
+        }
+
+    }
 
 }

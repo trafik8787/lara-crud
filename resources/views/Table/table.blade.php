@@ -55,7 +55,6 @@
         @foreach ($name_field as $field)
             <th>{{$field}}</th>
         @endforeach
-
             <th>Action</th>
     </tr>
     </thead>

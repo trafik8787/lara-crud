@@ -25,7 +25,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $buttonDelete = true;
     protected $buttonEdit = true;
-
+    protected $fieldShowDisplay = [];
     protected $fieldName = [];
 
 
@@ -121,5 +121,21 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->buttonEdit;
     }
 
+    /**
+     * @return array
+     */
+    public function getFieldShowDisplay(): array {
+        return $this->fieldShowDisplay;
+    }
 
+
+    public function getTableColumns()
+    {
+
+    }
+
+    public function getTableTypeColumns()
+    {
+        // TODO: Implement getTableTypeColumns() method.
+    }
 }

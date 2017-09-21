@@ -24,5 +24,5 @@ interface AdminInterface
     public function getObjConfig(); //object class NodeModelConfiguration
     public function setRoute (Route $route);
     public function registerDatatable (TableInterface $table, FormTable $form, Request $request);
-
+    public function setTableColumnsType ();
 }

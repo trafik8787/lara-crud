@@ -14,8 +14,45 @@ use Trafik8787\LaraCrud\Models\NodeModelConfigurationManager;
 interface TableInterface
 {
 
+    /**
+     * @param $admin
+     * @return mixed
+     */
     public function render($admin);
+
+    /**
+     * @return mixed
+     */
     public function getColumn();
+
+    /**
+     * @param $admin
+     * @return mixed
+     */
     public function jsonResponseTable($admin);
+
+    /**
+     * @param $admin
+     * @return mixed
+     */
+    public function getModelData($total, $curent_page, $searchValue, $order);
+
+    /**
+     * @param $admin
+     * @return mixed
+     */
     public function deleteRows($admin);
+
+    /**
+     * @return mixed
+     * todo измененные названия полей сортировка
+     */
+    public function nameColumns ():array;
+
+    /**
+     * @return array
+     * todo order[0][column]: получаем название поля по индексу переданному из DataTable
+     */
+    public function nameColumnsOrder (int $index):string;
+
 }

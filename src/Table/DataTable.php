@@ -25,6 +25,7 @@ class DataTable implements TableInterface
 
     public $objModel;
     public $objConfig;
+    public $admin;
 
     /**
      * DataTable constructor.
@@ -40,10 +41,13 @@ class DataTable implements TableInterface
      */
     public function render ($admin)
     {
-
+//        dump($this->objConfig);
+//        dump($this->admin);
+        //dump($this->nameColumns());
         //dump($this->getModelObj()->search('sdfsdf'));
+
         $data = array(
-            'name_field' => $this->getModelObj()->getTableColumns(), //названия полей для таблицы HTML
+            'name_field' => $this->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable()
         );
 
@@ -78,7 +82,7 @@ class DataTable implements TableInterface
         $request = $admin->getRequest();
 
 
-        $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value']);
+        $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
         $dataArr = $obj->toArray();
         $data = [];
 
@@ -104,8 +108,8 @@ class DataTable implements TableInterface
     public function getJsonColumnDataTable ()
     {
         $data_field = [];
-        foreach ($this->getModelObj()->getTableColumns() as $tableColumn) {
-            $data_field[] = array('data' => $tableColumn);
+        foreach ($this->nameColumns() as $field => $name) {
+            $data_field[] = array('data' => $field);
         }
         $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => '10%');
 
@@ -129,10 +133,24 @@ class DataTable implements TableInterface
      * @param $curent_page
      * @return mixed
      */
-    public function getModelData($total, $curent_page, $searchValue)
+    public function getModelData($total, $curent_page, $searchValue, $order)
     {
         $this->setPageCurent($curent_page);
-        return $this->getModelObj()->search($searchValue)->paginate($total);
+        $order_field = $this->nameColumnsOrder($order['column']);
+        $result = $this->getModelObj()->search($searchValue, $this->admin->TableColumns);
+        $result = $result->select(array_keys($this->nameColumns()))->orderBy($order_field, $order['dir']);
+
+
+        $result = $result->paginate($total);
+//        $result = $result->map(function ($object){
+//            //dump($object->id);
+////             print_r($object);
+////             die(1);
+//            return $object;
+//        });
+       // dump($result);
+
+        return $result;
     }
 
 
@@ -156,5 +174,53 @@ class DataTable implements TableInterface
     {
         $id = $admin->getRequest()->input('id');
         return $this->getModelObj()->find($id)->delete();
+    }
+
+
+    public function nameColumns ():array
+    {
+
+        $field = $this->admin->TableColumns;
+        $field_name = $this->objConfig->getFieldName();
+        $field_display = $this->objConfig->getFieldShowDisplay();
+
+        //поля доступные для выборки
+
+//        if (empty($field_display) and empty($field_name)) {
+//            return $field;
+//        }
+        //проверяем определен ли масив полей которые должны отображатся и осуществляем схождение масивов всех полей и обьявленных
+        if (!empty($field_display)) {
+            $field = array_intersect($field_display, $field);
+        }
+
+        $data = [];
+        foreach ($field as $fields) {
+
+            if (isset($field_name[$fields])) {
+                $data[$fields] = $field_name[$fields];
+            } else {
+                $data[$fields] = $fields;
+            }
+
+        }
+
+        return $data;
+
+    }
+
+
+    /**
+     * @return array
+     * todo order[0][column]: получаем название поля по индексу переданному из DataTable
+     */
+    public function nameColumnsOrder(int $index): string
+    {
+        $data = [];
+        foreach ($this->nameColumns() as $field => $name) {
+            $data[] = $field;
+        }
+        //dd($data[$index]);
+        return $data[$index];
     }
 }

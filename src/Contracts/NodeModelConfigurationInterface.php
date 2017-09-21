@@ -56,5 +56,12 @@ interface NodeModelConfigurationInterface
      */
     public function getButtonEdit(): bool;
 
+    /**
+     * @return mixed
+     */
+    public function getFieldShowDisplay(): array ;
+
+    public function getTableColumns();
+    public function getTableTypeColumns();
 
 }

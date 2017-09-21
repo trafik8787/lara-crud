@@ -15,4 +15,5 @@ interface NodeInterface
     public function showEditDisplay();
     public function showInsertDisplay();
     public function showDelete();
+
 }

@@ -61,7 +61,21 @@ interface NodeModelConfigurationInterface
      */
     public function getFieldShowDisplay(): array ;
 
-    public function getTableColumns();
-    public function getTableTypeColumns();
+    /**
+     * @return array
+     *
+     */
+    public function getTextLimit($object);
+
+    /**
+     * @return array
+     */
+    public function getFieldOrderBy(): array;
+
+
+    /**
+     * @return int
+     */
+    public function getShowEntries():int ;
 
 }

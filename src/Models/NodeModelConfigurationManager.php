@@ -27,7 +27,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $buttonEdit = true;
     protected $fieldShowDisplay = [];
     protected $fieldName = [];
-
+    protected $textLimit = [];
+    protected $fieldOrderBy = [0, 'asc'];
+    protected $showEntries = 10;
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -129,13 +131,33 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
 
-    public function getTableColumns()
+    /**
+     * @return array
+     *
+     */
+    public function getTextLimit($object)
     {
-
+        foreach ($this->textLimit as $field => $limit) {
+            $object->{$field} = str_limit($object->{$field}, $limit, $end = '...');
+        }
+        return $object;
     }
 
-    public function getTableTypeColumns()
+    /**
+     * @return array
+     */
+    public function getFieldOrderBy(): array
     {
-        // TODO: Implement getTableTypeColumns() method.
+        return $this->fieldOrderBy;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShowEntries():int
+    {
+        return $this->showEntries;
+    }
+
+
 }

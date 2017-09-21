@@ -33,6 +33,8 @@ class Admin implements AdminInterface
 
     public $TableColumns = [];
     public $TableTypeColumns = [];
+    public $KeyName;
+
 
     private $request; //получает обьект Request из AdminController
 
@@ -190,10 +192,17 @@ class Admin implements AdminInterface
      */
     public function setTableColumnsType ()
     {
-        $table = $this->objConfig->getModelObj()->getTable();
-        $this->TableColumns = DB::connection()->getSchemaBuilder()->getColumnListing($table);
+        //dd($this->objConfig->getModelObj()->getKeyName());
+        $model = $this->objConfig->getModelObj();
+
+        $table_name =  $model->getTable();
+
+        /*Primary Key*/
+        $this->KeyName = $model->getKeyName();
+
+        $this->TableColumns = DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
         foreach ($this->TableColumns as $item) {
-            $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table, $item);
+            $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table_name, $item);
         }
 
     }

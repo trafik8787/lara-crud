@@ -17,7 +17,8 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var pageNum;
+            var data_json = JSON.parse('{!! $data_json !!}');
+
             var table = $('#example').DataTable( {
                 "processing": true,
                 "serverSide": true,
@@ -32,12 +33,12 @@
                         d._token = "{{csrf_token()}}"
                     }
                 },
-                "drawCallback" : function() {
-                  //  pageNum = this.api().page.info().page;
-                },
 
-                "columns": JSON.parse('<?php echo $json_field?>'),
-
+                "columns": JSON.parse('{!! $json_field !!}'),
+                "order": [
+                    data_json.order
+                ],
+                "pageLength": data_json.pageLength,
                 "oLanguage": {
                     "sProcessing": '<div class="preloader row"><div class="wrap-loading"><div class="loading loading-4"></div></div></div>'
                 }

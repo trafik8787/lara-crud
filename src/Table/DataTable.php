@@ -41,14 +41,18 @@ class DataTable implements TableInterface
      */
     public function render ($admin)
     {
-//        dump($this->objConfig);
+//        dump($this->objConfig->getTextLimit());
 //        dump($this->admin);
         //dump($this->nameColumns());
         //dump($this->getModelObj()->search('sdfsdf'));
 
         $data = array(
             'name_field' => $this->nameColumns(), //названия полей для таблицы HTML
-            'json_field' => $this->getJsonColumnDataTable()
+            'json_field' => $this->getJsonColumnDataTable(),
+            'data_json' =>  json_encode([
+                'order' => $this->objConfig->getFieldOrderBy(), //сортировка
+                'pageLength' => $this->objConfig->getShowEntries()
+            ])
         );
 
         return view('lara::Table.table', $data);
@@ -86,8 +90,8 @@ class DataTable implements TableInterface
         $dataArr = $obj->toArray();
         $data = [];
 
-        foreach ($dataArr['data'] as $item) {
-            $item['Action'] = $this->getTemplateAction($item['id']);
+        foreach ($obj as $item) {
+            $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
             $data[] = $item;
         }
 
@@ -139,16 +143,12 @@ class DataTable implements TableInterface
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->getModelObj()->search($searchValue, $this->admin->TableColumns);
         $result = $result->select(array_keys($this->nameColumns()))->orderBy($order_field, $order['dir']);
-
-
         $result = $result->paginate($total);
-//        $result = $result->map(function ($object){
-//            //dump($object->id);
-////             print_r($object);
-////             die(1);
-//            return $object;
-//        });
-       // dump($result);
+
+        $result->map(function ($object){
+
+            return  $this->objConfig->getTextLimit($object);
+        });
 
         return $result;
     }
@@ -177,15 +177,16 @@ class DataTable implements TableInterface
     }
 
 
+    /**
+     * @return array
+     */
     public function nameColumns ():array
     {
 
         $field = $this->admin->TableColumns;
         $field_name = $this->objConfig->getFieldName();
         $field_display = $this->objConfig->getFieldShowDisplay();
-
         //поля доступные для выборки
-
 //        if (empty($field_display) and empty($field_name)) {
 //            return $field;
 //        }
@@ -206,7 +207,6 @@ class DataTable implements TableInterface
         }
 
         return $data;
-
     }
 
 

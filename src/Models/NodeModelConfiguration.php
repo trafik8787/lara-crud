@@ -68,4 +68,33 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->fieldShowDisplay = $value;
     }
 
+    /**
+     * @param string $field
+     * @param int $limit
+     * todo определить сокращение текста в конкретных полях и лимит символов
+     */
+    public function textLimit(string $field, int $limit) {
+        $this->textLimit[$field] = $limit;
+    }
+
+    /**
+     * @param int $field
+     * @param string $sort
+     */
+    public function fieldOrderBy(int $field, string $sort)
+    {
+        $this->fieldOrderBy = [$field, $sort];
+    }
+
+    /**
+     * @param int $count
+     */
+    public function showEntries (int $count)
+    {
+        $this->showEntries = $count;
+    }
+
+
+
+
 }

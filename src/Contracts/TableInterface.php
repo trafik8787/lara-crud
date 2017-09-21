@@ -17,4 +17,5 @@ interface TableInterface
     public function render($admin);
     public function getColumn();
     public function jsonResponseTable($admin);
+    public function deleteRows($admin);
 }

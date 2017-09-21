@@ -25,10 +25,6 @@ class AdminController extends Controller
 //});
 //
 
-//    public function showProfile(AdminInterface $admin) {
-//
-//        return $admin->getClass();
-//    }
     public $paramUrlNameModel;
     public $configNode;
     public $app;
@@ -95,12 +91,8 @@ class AdminController extends Controller
 
     public function showEdit (FormTable $form)
     {
-        //dump($form);
-//        $model = $this->configNode->getModelObj()->find(1);
-//
-//        //   dd($model->firstname);
-//        $model->firstname = 'ggggggggggggggggsssssssssaaaaa/////////////////--';
-//        $model->save();
+
+
         return $form->formRender();
     }
 
@@ -113,4 +105,12 @@ class AdminController extends Controller
     {
 
     }
+
+    public function deleteDelete (TableInterface $table, AdminInterface $admin) {
+
+
+        $table->deleteRows($admin);
+        //return redirect();
+    }
+
 }

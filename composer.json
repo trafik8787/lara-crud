@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+      "laravelcollective/html":"^5.2.0"
+    },
     "autoload": {
       "psr-4": {
         "Trafik8787\\LaraCrud\\": "src"

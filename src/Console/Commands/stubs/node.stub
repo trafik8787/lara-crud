@@ -2,11 +2,10 @@
 
 namespace App\Http\Node;
 
-use Trafik8787\LaraCrud\Contracts\AdminInterface;
-use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Contracts\NodeInterface;
 use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
 
-class NodeModelStud extends NodeModelConfiguration {
+class NodeModelStud extends NodeModelConfiguration implements NodeInterface {
 
 
     public function showDisplay ()

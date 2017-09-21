@@ -45,7 +45,16 @@ interface NodeModelConfigurationInterface
 
 
     public function fieldName(array $field);
-    public function getButtonDelete ();
+
+    /**
+     * @return mixed
+     */
+    public function getButtonDelete (): bool;
+
+    /**
+     * @return mixed
+     */
+    public function getButtonEdit(): bool;
 
 
 }

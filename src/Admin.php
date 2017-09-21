@@ -138,6 +138,10 @@ class Admin implements AdminInterface
             if (method_exists($modelConf, 'showInsertDisplay')) {
                 $modelConf->showInsertDisplay();
             }
+        } elseif ($this->route->action['as'] === 'model.delete') {
+            if (method_exists($modelConf, 'showDelete')) {
+                $modelConf->showDelete();
+            }
         }
 
         $this->setModel($modelConf->getModel(), $modelConf);

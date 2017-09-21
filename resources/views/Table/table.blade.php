@@ -14,6 +14,7 @@
     <link href="{{ asset('vendor/lara-crud/css/all.css') }}" rel="stylesheet">
 
     <title>Document</title>
+
     <script type="text/javascript">
         $(document).ready(function() {
             var pageNum;
@@ -28,6 +29,7 @@
                     "data": function (d){
 
                         d.numPage = (d.start/d.length) + 1;
+                        d._token = "{{csrf_token()}}"
                     }
                 },
                 "drawCallback" : function() {
@@ -35,6 +37,7 @@
                 },
 
                 "columns": JSON.parse('<?php echo $json_field?>'),
+
                 "oLanguage": {
                     "sProcessing": '<div class="preloader row"><div class="wrap-loading"><div class="loading loading-4"></div></div></div>'
                 }

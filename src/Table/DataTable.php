@@ -25,12 +25,13 @@ class DataTable implements TableInterface
 
     public $objModel;
     public $objConfig;
-    private $request;
-    private $admin;
 
+    /**
+     * DataTable constructor.
+     * @param Application $app
+     */
     public function __construct (Application $app) {
-        //получаем обект модели
-//        $this->admin = $admin;
+
     }
 
 
@@ -40,6 +41,7 @@ class DataTable implements TableInterface
     public function render ($admin)
     {
 
+        //dump($this->getModelObj()->search('sdfsdf'));
         $data = array(
             'name_field' => $this->getModelObj()->getTableColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable()
@@ -67,12 +69,16 @@ class DataTable implements TableInterface
     }
 
 
+    /**
+     * @param $admin
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function jsonResponseTable ($admin)
     {
         $request = $admin->getRequest();
 
 
-        $obj = $this->getModelData($request['length'], $request['numPage']);
+        $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value']);
         $dataArr = $obj->toArray();
         $data = [];
 
@@ -101,7 +107,7 @@ class DataTable implements TableInterface
         foreach ($this->getModelObj()->getTableColumns() as $tableColumn) {
             $data_field[] = array('data' => $tableColumn);
         }
-        $data_field[] = array('data' => 'Action', 'orderable' => false);
+        $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => '10%');
 
         return json_encode($data_field, true);
     }
@@ -118,11 +124,15 @@ class DataTable implements TableInterface
     }
 
 
-    public function getModelData($total, $curent_page)
+    /**
+     * @param $total
+     * @param $curent_page
+     * @return mixed
+     */
+    public function getModelData($total, $curent_page, $searchValue)
     {
         $this->setPageCurent($curent_page);
-
-        return $this->getModelObj()->paginate($total);
+        return $this->getModelObj()->search($searchValue)->paginate($total);
     }
 
 
@@ -137,4 +147,14 @@ class DataTable implements TableInterface
         });
     }
 
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function deleteRows($admin)
+    {
+        $id = $admin->getRequest()->input('id');
+        return $this->getModelObj()->find($id)->delete();
+    }
 }

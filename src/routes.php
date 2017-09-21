@@ -7,7 +7,7 @@
  */
 
 
-Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers'], function() {
+Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => ['web']], function() {
 
     //Route::get('qwe', ['as' => 'qwe','uses' => 'AdminController@showProfile']);
 
@@ -36,6 +36,12 @@ Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers'
         'uses' => 'AdminController@postStore',
     ]);
 
+
+    Route::delete('{adminModel}/{adminModelId}/delete', [
+        'as'   => 'model.delete',
+        'middleware' => ['web'],
+        'uses' => 'AdminController@deleteDelete',
+    ]);
 });
 
 //Route::namespace('Trafik8787\LaraCrud\Controllers\Admin')->group(function () {

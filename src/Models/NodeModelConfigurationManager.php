@@ -13,38 +13,51 @@ use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 
 abstract class NodeModelConfigurationManager implements NodeModelConfigurationInterface
 {
-
-
     protected $model;
     protected $class;
     protected $alias;
     protected $app;
     protected $title;
     protected $titleEdit;
-    public $url;
+    protected $url;
     public $objRoute;
     private static $objModel;
 
     protected $buttonDelete = true;
+    protected $buttonEdit = true;
 
     protected $fieldName = [];
-   // public $objDataTable;
 
+
+    /**
+     * NodeModelConfigurationManager constructor.
+     * @param Application $app
+     * @param null $model
+     */
     public function __construct (Application $app, $model = null) {
 
         $this->app= $app;
         $this->model = $model;
     }
 
+    /**
+     * @param $query
+     */
     public function scopeTest ($query)
     {
         $query->where('id', '=', 1);
     }
 
+    /**
+     * @return null
+     */
     public function getModel () {
         return $this->model;
     }
 
+    /**
+     * @return mixed
+     */
     public function getModelObj()
     {
         if (empty(self::$objModel)) {
@@ -53,36 +66,60 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return self::$objModel;
     }
 
+    /**
+     * @return mixed
+     */
     public function getClass()
     {
         return $this->class;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAlias()
     {
         return $this->alias;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTitle ()
     {
         return $this->title;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTitleEdit ()
     {
         return $this->titleEdit;
     }
 
-    public function fieldName(array $field)
-    {
-        $this->fieldName = $field;
+    /**
+     * @return array
+     */
+    public function getFieldName() {
+        return $this->fieldName;
     }
 
-    public function getButtonDelete ()
+    /**
+     * @return bool
+     */
+    public function getButtonDelete (): bool
     {
         return $this->buttonDelete;
     }
 
+    /**
+     * @return bool
+     */
+    public function getButtonEdit (): bool
+    {
+        return $this->buttonEdit;
+    }
 
 
 }

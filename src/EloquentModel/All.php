@@ -17,6 +17,6 @@ abstract class All extends Model
 
     public function scopeSearch ($query, $value) {
 
-        return $query->orWhere('name', 'like', '%' . Input::get('name') . '%')->get();
+        return $query->orWhere('firstname', 'like', '%' . $value . '%');
     }
 }

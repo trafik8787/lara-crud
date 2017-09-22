@@ -8,31 +8,24 @@
 
 namespace Trafik8787\LaraCrud\Form;
 
-
 use Illuminate\Contracts\Foundation\Application;
-use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+
 
 class FormTable extends FormManagerTable
 {
 
 
 
-    public function __construct (Application $app) {
-
-    }
-
-    public function injectObjConfig ($objConfig)
-    {
-        $this->objConfig = $objConfig;
-    }
-
-
-
-
-
-    public function formRender() {
+    public function formRenderEdit() {
+        dump($this->componentManager);
+        dump($this->admin);
+        dump($this->objConfig);
         return view('lara::Form.form');
+    }
+
+    public function getModelData () {
+
     }
 
 }

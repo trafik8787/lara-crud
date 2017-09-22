@@ -15,17 +15,17 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 {
     protected $model;
     protected $class;
+    public $admin;
     protected $alias;
     protected $app;
     protected $title;
-    protected $titleEdit;
     protected $url;
     public $objRoute;
     private static $objModel;
 
     protected $buttonDelete = true;
     protected $buttonEdit = true;
-    protected $fieldShowDisplay = [];
+    protected $fieldShow = [];
     protected $fieldName = [];
     protected $textLimit = [];
     protected $fieldOrderBy = [0, 'asc'];
@@ -92,13 +92,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->title;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTitleEdit ()
-    {
-        return $this->titleEdit;
-    }
 
     /**
      * @return array
@@ -126,8 +119,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getFieldShowDisplay(): array {
-        return $this->fieldShowDisplay;
+    public function getFieldShow(): array {
+        return $this->fieldShow;
     }
 
 

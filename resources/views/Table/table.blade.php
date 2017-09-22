@@ -49,7 +49,7 @@
 </head>
 <body>
 
-
+<h2>{{$titlePage}}</h2>
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>

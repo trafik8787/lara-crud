@@ -1,7 +1,9 @@
 <?php
 namespace Trafik8787\LaraCrud\Form;
 use Illuminate\Contracts\Foundation\Application;
+use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Form\Component\Text;
 
 /**
  * Created by PhpStorm.
@@ -12,14 +14,13 @@ use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
 abstract class FormManagerTable implements FormManagerInterface
 {
-    protected $objConfig;
+    public $objConfig;
+    public $admin;
+    protected $componentManager;
 
-    /**
-     * @return mixed
-     */
-    public function getObjConfig()
-    {
-        return $this->objConfig;
+    public function __construct (Application $app, ComponentManagerInterface $componentManager) {
+        $this->componentManager = $componentManager;
     }
+
 
 }

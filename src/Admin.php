@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
-use Trafik8787\LaraCrud\Form\FormTable;
 use Trafik8787\LaraCrud\Models\ModelCollection;
 
 
@@ -152,22 +152,26 @@ class Admin implements AdminInterface
 
         $this->setModel($modelConf->getModel(), $modelConf);
 
+        $modelConf->admin = $this;
         $this->objConfig = $modelConf;
         $this->app->call([$this, 'registerDatatable']);
     }
 
 
     /**
-     * @param NodeModelConfigurationInterface $nodeModelConfiguration
      * @param TableInterface $table
-     * @param FormTable $form
+     * @param FormManagerInterface $form
+     * @param Request $request
      */
-    public function registerDatatable (TableInterface $table, FormTable $form, Request $request)
+    public function registerDatatable (TableInterface $table, FormManagerInterface $form, Request $request)
     {
         //dump(get_class_methods(DB::connection()->getName()));
         $this->request = $request;
         $table->objConfig = $this->objConfig;
         $table->admin = $this;
+
+        $form->objConfig = $this->objConfig;
+        $form->admin = $this;
 
         $this->setTableColumnsType();
 

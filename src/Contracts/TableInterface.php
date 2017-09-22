@@ -18,7 +18,7 @@ interface TableInterface
      * @param $admin
      * @return mixed
      */
-    public function render($admin);
+    public function render();
 
     /**
      * @return mixed

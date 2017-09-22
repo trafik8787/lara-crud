@@ -32,14 +32,6 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     }
 
     /**
-     * @param $title
-     */
-    public function setTitleEdit ($title)
-    {
-        $this->titleEdit = $title;
-    }
-
-    /**
      * @param array $field
      */
     public function fieldName(array $field)
@@ -64,8 +56,8 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $value
      */
-    public function fieldShowDisplay(array $value){
-        $this->fieldShowDisplay = $value;
+    public function fieldShow(array $value){
+        $this->fieldShow = $value;
     }
 
     /**

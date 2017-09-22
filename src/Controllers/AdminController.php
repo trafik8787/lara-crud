@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Schema;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Form\FormTable;
@@ -33,7 +34,7 @@ class AdminController extends Controller
     private $request;
     protected $admin;
 
-    public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table) {
+    public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table, FormManagerInterface $form) {
 
 
 //        $this->configNode = $admin->getObjConfig($route, $request->input());
@@ -68,7 +69,7 @@ class AdminController extends Controller
 //        }
         //dump($this->configNode->objDataTable->getColumn());
         //dump(get_class_methods($this->configNode));
-        return $table->render($admin);
+        return $table->render();
 //
 
     }
@@ -89,11 +90,11 @@ class AdminController extends Controller
 
     }
 
-    public function showEdit (FormTable $form)
+    public function showEdit (FormManagerInterface $form, AdminInterface $admin)
     {
 
 
-        return $form->formRender();
+        return $form->formRenderEdit();
     }
 
     public function showCreate ()

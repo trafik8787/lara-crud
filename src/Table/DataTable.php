@@ -39,7 +39,7 @@ class DataTable implements TableInterface
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render ($admin)
+    public function render ()
     {
 //        dump($this->objConfig->getTextLimit());
 //        dump($this->admin);
@@ -49,6 +49,7 @@ class DataTable implements TableInterface
         $data = array(
             'name_field' => $this->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
+            'titlePage'  => $this->objConfig->getTitle(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries()
@@ -179,17 +180,15 @@ class DataTable implements TableInterface
 
     /**
      * @return array
+     * todo поля доступные для выборки
      */
     public function nameColumns ():array
     {
 
         $field = $this->admin->TableColumns;
         $field_name = $this->objConfig->getFieldName();
-        $field_display = $this->objConfig->getFieldShowDisplay();
-        //поля доступные для выборки
-//        if (empty($field_display) and empty($field_name)) {
-//            return $field;
-//        }
+        $field_display = $this->objConfig->getFieldShow();
+
         //проверяем определен ли масив полей которые должны отображатся и осуществляем схождение масивов всех полей и обьявленных
         if (!empty($field_display)) {
             $field = array_intersect($field_display, $field);

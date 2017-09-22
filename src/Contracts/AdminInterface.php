@@ -23,6 +23,6 @@ interface AdminInterface
     public function getModels(); //collection models
     public function getObjConfig(); //object class NodeModelConfiguration
     public function setRoute (Route $route);
-    public function registerDatatable (TableInterface $table, FormTable $form, Request $request);
+    public function registerDatatable (TableInterface $table, FormManagerInterface $form, Request $request);
     public function setTableColumnsType ();
 }

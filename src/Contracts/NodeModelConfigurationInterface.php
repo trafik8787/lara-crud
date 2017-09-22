@@ -35,12 +35,16 @@ interface NodeModelConfigurationInterface
      */
     public function getTitle ();
 
+
     /**
      * @return mixed
      */
-    public function getTitleEdit ();
     public function getModelObj (); //обект класса модели
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeTest ($query);
 
 
@@ -59,7 +63,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getFieldShowDisplay(): array ;
+    public function getFieldShow(): array ;
 
     /**
      * @return array

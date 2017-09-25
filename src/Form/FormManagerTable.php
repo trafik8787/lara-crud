@@ -17,9 +17,14 @@ abstract class FormManagerTable implements FormManagerInterface
     public $objConfig;
     public $admin;
     protected $componentManager;
+    protected $id;
 
     public function __construct (Application $app, ComponentManagerInterface $componentManager) {
         $this->componentManager = $componentManager;
+        
+        
+        
+
     }
 
 

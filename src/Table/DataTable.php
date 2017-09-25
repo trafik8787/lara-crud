@@ -41,18 +41,19 @@ class DataTable implements TableInterface
      */
     public function render ()
     {
-//        dump($this->objConfig->getTextLimit());
+
 //        dump($this->admin);
         //dump($this->nameColumns());
         //dump($this->getModelObj()->search('sdfsdf'));
 
         $data = array(
-            'name_field' => $this->nameColumns(), //названия полей для таблицы HTML
+            'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
             'titlePage'  => $this->objConfig->getTitle(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
-                'pageLength' => $this->objConfig->getShowEntries()
+                'pageLength' => $this->objConfig->getShowEntries(),
+                'rowsColorWidth' => $this->objConfig->getColumnColorWhere()
             ])
         );
 
@@ -113,10 +114,10 @@ class DataTable implements TableInterface
     public function getJsonColumnDataTable ()
     {
         $data_field = [];
-        foreach ($this->nameColumns() as $field => $name) {
+        foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data_field[] = array('data' => $field);
         }
-        $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => '10%');
+        $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
 
         return json_encode($data_field, true);
     }
@@ -143,11 +144,13 @@ class DataTable implements TableInterface
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->getModelObj()->search($searchValue, $this->admin->TableColumns);
-        $result = $result->select(array_keys($this->nameColumns()))->orderBy($order_field, $order['dir']);
+        $result = $result->select(array_keys($this->objConfig->nameColumns()))->orderBy($order_field, $order['dir']);
+        $result = $this->objConfig->getWhere($result);
         $result = $result->paginate($total);
 
         $result->map(function ($object){
 
+            $object = $this->objConfig->SetTableRowsRenderCollback($object);
             return  $this->objConfig->getTextLimit($object);
         });
 
@@ -178,35 +181,7 @@ class DataTable implements TableInterface
     }
 
 
-    /**
-     * @return array
-     * todo поля доступные для выборки
-     */
-    public function nameColumns ():array
-    {
 
-        $field = $this->admin->TableColumns;
-        $field_name = $this->objConfig->getFieldName();
-        $field_display = $this->objConfig->getFieldShow();
-
-        //проверяем определен ли масив полей которые должны отображатся и осуществляем схождение масивов всех полей и обьявленных
-        if (!empty($field_display)) {
-            $field = array_intersect($field_display, $field);
-        }
-
-        $data = [];
-        foreach ($field as $fields) {
-
-            if (isset($field_name[$fields])) {
-                $data[$fields] = $field_name[$fields];
-            } else {
-                $data[$fields] = $fields;
-            }
-
-        }
-
-        return $data;
-    }
 
 
     /**
@@ -216,7 +191,7 @@ class DataTable implements TableInterface
     public function nameColumnsOrder(int $index): string
     {
         $data = [];
-        foreach ($this->nameColumns() as $field => $name) {
+        foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data[] = $field;
         }
         //dd($data[$index]);

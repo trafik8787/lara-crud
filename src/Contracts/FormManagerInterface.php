@@ -11,5 +11,6 @@ namespace Trafik8787\LaraCrud\Contracts;
 
 interface FormManagerInterface
 {
+    public function renderForm();
 
 }

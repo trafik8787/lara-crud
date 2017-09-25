@@ -34,68 +34,63 @@ class AdminController extends Controller
     private $request;
     protected $admin;
 
+    /**
+     * AdminController constructor.
+     * @param Request $request
+     * @param AdminInterface $admin
+     * @param Application $application
+     * @param TableInterface $table
+     * @param FormManagerInterface $form
+     */
     public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table, FormManagerInterface $form) {
 
 
-//        $this->configNode = $admin->getObjConfig($route, $request->input());
-//        $this->app = $application;
-//        $this->model = $this->configNode->getModelObj();
-        /*Добавляем обьект запроса в класс Admin*/
-       // $admin->setRequest($request->input());
-        //dump($this->configNode);
-        //$request->qweqweqwe = $admin->objConfig->getTitle();
-
-       // dump($admin->objConfig->getTitle());
     }
 
+    /**
+     * @param TableInterface $table
+     * @param AdminInterface $admin
+     * @return mixed
+     */
     public function showTable (TableInterface $table, AdminInterface $admin) {
 
-        //$table->setRequest($this->request);
-       // dd($this->model->paginate(2)->toArray());
-       // dump($table);
-        //ddd($request->input(''));
-        //$this->configNode->objDataTable->setRequest($request->input());
-//        dump('1');
-//        dump(DB::getSchemaBuilder()->hasTable('contacts'));
-
-      //  dump($this->model->getTable());
-      //  dump(get_class_methods(DB::getSchemaBuilder()));
-        //dump(get_class_methods($this->model));
-
-       // dump($this->dataTable->getColumn());
-//        dump($table->obj);
-//        foreach ($this->model->all() as $item) {
-//            dump($item);
-//        }
-        //dump($this->configNode->objDataTable->getColumn());
-        //dump(get_class_methods($this->configNode));
         return $table->render();
-//
 
     }
 
 
+    /**
+     * @param TableInterface $table
+     * @param AdminInterface $admin
+     * @return mixed
+     */
     public function inlineTable (TableInterface $table, AdminInterface $admin)
     {
-        //dd($request);
-        //$table->setRequest($request->input());
-       //dump($table->getRequest());
-        //dd($table->);
-        //$this->configNode->setRequest($request->input());
 
-        //ddd($request->input('columns'));
-        //ddd($request->input('columns'));
-        //dump($admin);
         return $table->jsonResponseTable($admin);
 
     }
 
+    /**
+     * @param FormManagerInterface $form
+     * @param AdminInterface $admin
+     * @return mixed
+     */
     public function showEdit (FormManagerInterface $form, AdminInterface $admin)
     {
 
-
-        return $form->formRenderEdit();
+        //return view('lara::common.app');
+        return $form->renderForm();
     }
+
+    /**
+     *  todo обновление записи в базе
+     */
+    public function postUpdate ()
+    {
+
+    }
+
 
     public function showCreate ()
     {

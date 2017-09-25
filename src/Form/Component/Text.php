@@ -14,6 +14,9 @@ class Text extends ComponentManager
 
     protected $view = 'Form.Component.text';
 
-    
+    public function run ()
+    {
+        return view($this->view, ['obj' => $this]);
+    }
 
 }

@@ -9,6 +9,7 @@
 namespace Trafik8787\LaraCrud\Form;
 
 use Illuminate\Contracts\Foundation\Application;
+use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
 
@@ -17,14 +18,35 @@ class FormTable extends FormManagerTable
 
 
 
-    public function formRenderEdit() {
-        dump($this->componentManager);
+    public function renderForm() {
+        $this->id = $this->admin->route->parameters['adminModelId'];
+
+        $data = [
+          'id' => $this->id,
+          'urlAction' => $this->admin->route->parameters['adminModel'],
+            'objField' => $this->getFieldRender()
+        ];
+
+        dump($this->objConfig->nameColumns());
         dump($this->admin);
         dump($this->objConfig);
-        return view('lara::Form.form');
+        dump($this->componentManager);
+        $this->getModelData();
+        return view('lara::Form.form', $data);
     }
 
+
     public function getModelData () {
+
+        $result = $this->objConfig->getModelObj()->find($this->id);
+       // dump($result->lastname);
+    }
+
+    /**
+     * todo должен возвращать масив с отрендеренными tamplate component
+     */
+    public function getFieldRender ()
+    {
 
     }
 

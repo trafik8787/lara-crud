@@ -30,7 +30,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $textLimit = [];
     protected $fieldOrderBy = [0, 'asc'];
     protected $showEntries = 10;
+    protected $setWhere = [];
+    protected $columnColorWhere = [];
 
+
+    protected $closure;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -153,4 +157,79 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
 
+    /**
+     * @return array
+     * todo поля доступные для выборки
+     */
+    public function nameColumns ():array
+    {
+
+        $field = $this->admin->TableColumns;
+        $field_name = $this->getFieldName();
+        $field_display = $this->getFieldShow();
+
+        //проверяем определен ли масив полей которые должны отображатся и осуществляем схождение масивов всех полей и обьявленных
+        if (!empty($field_display)) {
+            $field = array_intersect($field_display, $field);
+        }
+
+        $data = [];
+        foreach ($field as $fields) {
+
+            if (isset($field_name[$fields])) {
+                $data[$fields] = $field_name[$fields];
+            } else {
+                $data[$fields] = $fields;
+            }
+
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function getWhere($query)
+    {
+        if (!empty($this->setWhere)) {
+            $query->where($this->setWhere[0], $this->setWhere[1], $this->setWhere[2]);
+        }
+
+        return $query;
+    }
+
+
+    /**
+     * @param $obj
+     * @return mixed
+     * todo хук для строк таблицы
+     */
+    public function SetTableRowsRenderCollback ($obj)
+    {
+        return $this->closure->call($this, $obj);
+    }
+
+
+    /**
+     * @return array|bool
+     * todo метод готовид масив для віделения цветами строк в таблице
+     */
+    public function getColumnColorWhere()
+    {
+        $data = false;
+        if (!empty($this->columnColorWhere)) {
+            foreach ($this->columnColorWhere as $item) {
+                $data[] = [
+                    'field' => $item[0],
+                    'operand' => $item[1],
+                    'value' => $item[2],
+                    'color' => $item[3],
+                ];
+            }
+        }
+
+        return $data;
+    }
 }

@@ -87,6 +87,29 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     }
 
 
+    /**
+     * @param $field
+     * @param $operator
+     * @param $value
+     */
+    public function setWhere ($field, $operator, $value)
+    {
+        $this->setWhere = func_get_args();
+    }
 
+
+    /**
+     * @param Closure $closure
+     */
+    public function tableRowsRenderCollback (Closure $closure)
+    {
+        $this->closure = $closure;
+
+    }
+
+    public function columnColorWhere ($field, $operator, $value, $color)
+    {
+        $this->columnColorWhere[] = func_get_args();
+    }
 
 }

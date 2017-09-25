@@ -76,10 +76,35 @@ interface NodeModelConfigurationInterface
      */
     public function getFieldOrderBy(): array;
 
+    /**
+     * @return array
+     * todo возвращяем масив для выборки
+     */
+    public function getWhere($query);
+
 
     /**
      * @return int
      */
     public function getShowEntries():int ;
+
+    /**
+     * @return array
+     * todo измененные названия полей сортировка
+     */
+    public function nameColumns():array ;
+
+    /**
+     * @param $obj
+     * @return mixed
+     * todo передача в функцию обратного вызова отрисовка каждой строки в таблице вызывается функция
+     */
+    public function SetTableRowsRenderCollback ($obj);
+
+
+    /**
+     * @return mixed
+     */
+    public function getColumnColorWhere ();
 
 }

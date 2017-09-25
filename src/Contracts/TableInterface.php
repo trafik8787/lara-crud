@@ -43,11 +43,6 @@ interface TableInterface
      */
     public function deleteRows($admin);
 
-    /**
-     * @return mixed
-     * todo измененные названия полей сортировка
-     */
-    public function nameColumns ():array;
 
     /**
      * @return array

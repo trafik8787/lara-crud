@@ -26,6 +26,11 @@ Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers'
         'uses' => 'AdminController@showEdit',
     ]);
 
+    Route::patch('{adminModel}/{adminModelId}/edit', [
+        'as'   => 'model.update',
+        'uses' => 'AdminController@postUpdate',
+    ]);
+
     Route::get('{adminModel}/create', [
         'as'   => 'model.create',
         'uses' => 'AdminController@showCreate',

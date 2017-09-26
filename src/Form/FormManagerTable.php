@@ -1,9 +1,9 @@
 <?php
 namespace Trafik8787\LaraCrud\Form;
 use Illuminate\Contracts\Foundation\Application;
-use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerInterface;
+use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
-use Trafik8787\LaraCrud\Form\Component\Text;
+
 
 /**
  * Created by PhpStorm.
@@ -18,9 +18,11 @@ abstract class FormManagerTable implements FormManagerInterface
     public $admin;
     protected $componentManager;
     protected $id;
+    protected $fieldBulder;
 
-    public function __construct (Application $app, ComponentManagerInterface $componentManager) {
-        $this->componentManager = $componentManager;
+    public function __construct (Application $app) {
+       // $this->componentManager = $componentManager;
+
     }
 
 
@@ -57,8 +59,22 @@ abstract class FormManagerTable implements FormManagerInterface
     }
 
 
-    public function renderForm()
+
+    /**
+     * @return array
+     * //получаем масив полей без индексного поля
+     */
+    public function getNameColumns ():array
     {
-        // TODO: Implement renderForm() method.
+        return array_diff_key($this->objConfig->nameColumns(), array($this->admin->KeyName => $this->admin->KeyName));
+    }
+
+    /**
+     * @return array
+     * //получаем масив полей и их типов
+     */
+    public function getTypeColumns():array
+    {
+        return array_diff_key($this->admin->TableTypeColumns, array($this->admin->KeyName => $this->admin->KeyName));
     }
 }

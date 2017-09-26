@@ -5,11 +5,13 @@ namespace Trafik8787\LaraCrud;
 
 use Illuminate\Support\ServiceProvider;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
+use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManager;
+use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 use Trafik8787\LaraCrud\Form\FormTable;
 use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
 use Trafik8787\LaraCrud\Table\DataTable;
@@ -58,7 +60,7 @@ class LaraCrudProvider extends ServiceProvider
         $this->app->singleton(NodeModelConfigurationInterface::class, NodeModelConfiguration::class);
         $this->app->singleton(FormManagerInterface::class, FormTable::class);
         $this->app->singleton(TableInterface::class, DataTable::class);
-        $this->app->singleton(ComponentManagerInterface::class, ComponentManager::class);
+        $this->app->singleton(ComponentManagerBuilderInterface::class, ComponentManagerBuilder::class);
 
     }
 

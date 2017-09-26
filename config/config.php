@@ -7,5 +7,5 @@
  */
 
 return [
-    'url_prefix' => 'admin'
+    'url_group' => 'admin'
 ];

@@ -11,6 +11,8 @@ namespace Trafik8787\LaraCrud\Contracts;
 
 
 
+use Closure;
+
 interface NodeModelConfigurationInterface
 {
 
@@ -106,5 +108,18 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function getColumnColorWhere ();
+
+    /**
+     * @return mixed
+     */
+    public function getNewAction ();
+
+
+    /**
+     * @param $closure
+     * @param $obj
+     * @return mixed
+     */
+    public function newActionCollback (Closure $closure, $obj);
 
 }

@@ -107,9 +107,36 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     }
 
+    /**
+     * @param $field
+     * @param $operator
+     * @param $value
+     * @param $color
+     */
     public function columnColorWhere ($field, $operator, $value, $color)
     {
         $this->columnColorWhere[] = func_get_args();
+    }
+
+    /**
+     * @param $nameButtonAction
+     * @param $url
+     * @param Closure $closure|string
+     */
+    public function addAction ($nameButtonAction, $url, $closure)
+    {
+
+        if (is_object($closure)) {
+            $this->newAction[$url] = [
+                'nameButton' => $nameButtonAction,
+                'closure'   => $closure
+            ];
+        } elseif (is_string($closure)) {
+            $this->newAction[$url] = [
+                'nameButton' => $nameButtonAction,
+                'action'   => $closure
+            ];
+        }
     }
 
 }

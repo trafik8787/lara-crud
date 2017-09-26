@@ -7,7 +7,7 @@
  */
 
 
-Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => ['web']], function() {
+Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => ['web']], function() {
 
     //Route::get('qwe', ['as' => 'qwe','uses' => 'AdminController@showProfile']);
 
@@ -24,6 +24,12 @@ Route::group(['prefix'=>'admin','namespace' => 'Trafik8787\LaraCrud\Controllers'
     Route::get('{adminModel}/{adminModelId}/edit', [
         'as'   => 'model.edit',
         'uses' => 'AdminController@showEdit',
+    ]);
+
+
+    Route::patch('{adminModel}/{adminModelId}/{newAction}', [
+        'as'   => 'model.postNewAction',
+        'uses' => 'AdminController@postNewAction',
     ]);
 
     Route::patch('{adminModel}/{adminModelId}/edit', [

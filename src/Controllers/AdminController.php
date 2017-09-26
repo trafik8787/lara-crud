@@ -104,9 +104,19 @@ class AdminController extends Controller
 
     public function deleteDelete (TableInterface $table, AdminInterface $admin) {
 
+        return $table->deleteRows($admin);
+    }
 
-        $table->deleteRows($admin);
-        //return redirect();
+    /**
+     * @param TableInterface $table
+     * @param AdminInterface $admin
+     * todo срабатывает при нажатии на новые кнопки Action
+     */
+    public function postNewAction (Request $request, TableInterface $table, AdminInterface $admin)
+    {
+
+        //dump($admin);
+        return $table->newAction();
     }
 
 }

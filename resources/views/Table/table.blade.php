@@ -3,9 +3,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var data_json = JSON.parse('{!! $data_json !!}');
-            data_json.rowsColorWidth.forEach(function (item, i, arr) {
-                console.log(item.value);
-            });
             var table = $('#example').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -31,26 +28,28 @@
                 },
                 "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 
-                    data_json.rowsColorWidth.forEach(function (item, i, arr) {
-                         if (item.operand == '==') {
-                            if (aData[item.field] == item.value) {
-                                $('td', nRow).css('background-color', item.color);
+                    if (data_json.rowsColorWidth != false) {
+                        data_json.rowsColorWidth.forEach(function (item, i, arr) {
+                            if (item.operand == '==') {
+                                if (aData[item.field] == item.value) {
+                                    $('td', nRow).css('background-color', item.color);
+                                }
+                            } else if (item.operand == '>') {
+                                if (aData[item.field] == item.value) {
+                                    $('td', nRow).css('background-color', item.color);
+                                }
+                            } else if (item.operand == '<') {
+                                if (aData[item.field] == item.value) {
+                                    $('td', nRow).css('background-color', item.color);
+                                }
+                            } else if (item.operand == '!=') {
+                                if (aData[item.field] == item.value) {
+                                    $('td', nRow).css('background-color', item.color);
+                                }
                             }
-                        } else if (item.operand == '>') {
-                            if (aData[item.field] == item.value) {
-                                $('td', nRow).css('background-color', item.color);
-                            }
-                        } else if (item.operand == '<') {
-                            if (aData[item.field] == item.value) {
-                                $('td', nRow).css('background-color', item.color);
-                            }
-                        } else if (item.operand == '!=') {
-                            if (aData[item.field] == item.value) {
-                                $('td', nRow).css('background-color', item.color);
-                            }
-                        }
 
-                    });
+                        });
+                    }
 
                 }
             });

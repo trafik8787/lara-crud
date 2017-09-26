@@ -124,7 +124,7 @@ class Admin implements AdminInterface
 
         //$this->setModel($modelConf->getModel(), $modelConf);
 
-        if ($this->route->action['as'] === 'model.showTable') {
+        if ($this->route->action['as'] === 'model.showTable' or $this->route->action['as'] === 'model.postNewAction') {
 
             if (method_exists($modelConf, 'showDisplay')) {
                 $modelConf->showDisplay();

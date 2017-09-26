@@ -21,11 +21,44 @@ abstract class FormManagerTable implements FormManagerInterface
 
     public function __construct (Application $app, ComponentManagerInterface $componentManager) {
         $this->componentManager = $componentManager;
-        
-        
-        
-
     }
 
 
+    public function getFieldType ($field)
+    {
+        $arrField = array(
+            'varchar' => 'text',
+            'text' => array('tag' => 'textarea'),
+            'date' => 'date',
+            'int' => 'number',
+            'bigint' => 'number',
+            'tinyint' => 'number',
+            'smallint' => 'number',
+            'mediumint' => 'number',
+            'float' => 'number',
+            'double' => 'number',
+            'bool'=> 'checkbox',
+            'boolean' => 'checkbox',
+            'bit' => 'checkbox',
+            'char' =>  array('tag' => 'textarea'),
+            'tinytext' => 'text',
+            'mediumtext' => array('tag' => 'textarea'),
+            'longtext' => array('tag' => 'textarea'),
+            'tinyblob' => 'text',
+            'blob' => 'text',
+            'mediumblob' => array('tag' => 'textarea'),
+            'longblob' => array('tag' => 'textarea'),
+            'datetime' => 'datetime',
+            'time' => 'time',
+            'year' => 'month',
+            'timestamp' => 'datetime');
+
+        return $arrField[$field];
+    }
+
+
+    public function renderForm()
+    {
+        // TODO: Implement renderForm() method.
+    }
 }

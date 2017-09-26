@@ -28,9 +28,9 @@ class FormTable extends FormManagerTable
         ];
 
         dump($this->objConfig->nameColumns());
-        dump($this->admin);
-        dump($this->objConfig);
-        dump($this->componentManager);
+        dump($this->admin->TableTypeColumns);
+//        dump($this->objConfig);
+        dump($this->getFieldRender());
         $this->getModelData();
         return view('lara::Form.form', $data);
     }

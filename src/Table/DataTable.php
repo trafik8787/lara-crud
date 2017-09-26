@@ -26,13 +26,13 @@ class DataTable implements TableInterface
     public $objModel;
     public $objConfig;
     public $admin;
-
+    public $app;
     /**
      * DataTable constructor.
      * @param Application $app
      */
     public function __construct (Application $app) {
-
+        $this->app = $app;
     }
 
 
@@ -42,7 +42,7 @@ class DataTable implements TableInterface
     public function render ()
     {
 
-//        dump($this->admin);
+        //dump(config('lara-config.url_group'));
         //dump($this->nameColumns());
         //dump($this->getModelObj()->search('sdfsdf'));
 
@@ -135,6 +135,38 @@ class DataTable implements TableInterface
 
 
     /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function newAction ()
+    {
+        $url = null;
+        $model = $this->getModelObj()->find($this->admin->route->parameters['adminModelId']);
+
+        foreach ($this->objConfig->getNewAction() as $url => $item) {
+
+            if ($url == $this->admin->route->parameters['newAction'] and isset($item['closure'])) {
+
+                $this->objConfig->newActionCollback($item['closure'], $model);
+
+            } elseif ($url == $this->admin->route->parameters['newAction'] and isset($item['action'])) {
+
+                return redirect()->route($item['action'],['id' => $model->{$this->admin->KeyName}]);
+            }
+
+        }
+
+    }
+
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function redirect ()
+    {
+        return redirect()->back();
+    }
+
+    /**
      * @param $total
      * @param $curent_page
      * @return mixed
@@ -149,9 +181,9 @@ class DataTable implements TableInterface
         $result = $result->paginate($total);
 
         $result->map(function ($object){
-
+            $object = $this->objConfig->getTextLimit($object);
             $object = $this->objConfig->SetTableRowsRenderCollback($object);
-            return  $this->objConfig->getTextLimit($object);
+            return  $object;
         });
 
         return $result;
@@ -177,7 +209,8 @@ class DataTable implements TableInterface
     public function deleteRows($admin)
     {
         $id = $admin->getRequest()->input('id');
-        return $this->getModelObj()->find($id)->delete();
+        $this->getModelObj()->find($id)->delete();
+        return $this->redirect();
     }
 
 

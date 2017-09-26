@@ -9,6 +9,7 @@
 namespace Trafik8787\LaraCrud\Models;
 
 use Illuminate\Contracts\Foundation\Application;
+use Mockery\Matcher\Closure;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 
 abstract class NodeModelConfigurationManager implements NodeModelConfigurationInterface
@@ -32,7 +33,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $showEntries = 10;
     protected $setWhere = [];
     protected $columnColorWhere = [];
-
+    protected $newAction = []; //кнопки Action
 
     protected $closure;
     /**
@@ -208,7 +209,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function SetTableRowsRenderCollback ($obj)
     {
-        return $this->closure->call($this, $obj);
+        return $this->closure !== null ? $this->closure->call($this, $obj) : $obj;
     }
 
 
@@ -231,5 +232,24 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
 
         return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNewAction() {
+
+        return $this->newAction;
+    }
+
+
+    /**
+     * @param $closure
+     * @param $obj
+     * todo запускает функцию обратного вызова новых кнопок Action
+     */
+    public function newActionCollback(\Closure $closure, $obj)
+    {
+        $closure !== null ? $closure->call($this, $obj) : $obj;
     }
 }

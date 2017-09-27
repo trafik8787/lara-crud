@@ -80,7 +80,7 @@ class AdminController extends Controller
     {
 
         //return view('lara::common.app');
-        return $form->renderForm('edit');
+        return $form->renderFormEdit();
     }
 
     /**
@@ -88,18 +88,18 @@ class AdminController extends Controller
      */
     public function postUpdate (FormManagerInterface $form)
     {
-        $form->updateForm();
+        return $form->updateForm();
     }
 
 
-    public function showCreate ()
+    public function showCreate (FormManagerInterface $form)
     {
-        dd('sdfgsdfgsdfghsdf');
+        return $form->renderFormInsert();
     }
 
-    public function postStore ()
+    public function postStore (FormManagerInterface $form)
     {
-        dd('jhykfghjdh');
+        return $form->insertForm();
     }
 
     public function deleteDelete (TableInterface $table, AdminInterface $admin) {

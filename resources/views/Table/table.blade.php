@@ -59,6 +59,7 @@
 
 
     <h2>{{$titlePage}}</h2>
+    <a href="{{ url()->current()}}/create" class="btn btn-success">Add</a>
     <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>

@@ -22,37 +22,33 @@ class FormTable extends FormManagerTable
      * @param string $form = edit|insert
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function renderForm(string $form) {
-        $this->id = $this->admin->route->parameters['adminModelId'];
+    public function renderFormEdit () {
 
-        if($form === 'edit'){
-            $metod = 'PATCH';
-        } elseif ($form === 'insert') {
-            $metod = 'POST';
-        }
+        $this->id = $this->admin->route->parameters['adminModelId'];
 
         $data = [
           'id' => $this->id,
           'urlAction' => $this->admin->route->parameters['adminModel'],
           'titlePage'  => $this->objConfig->getTitle(),
-          'formMetod' => $metod,
+          'formMetod' => 'PATCH',
           'objField' => $this->getFieldRender()
         ];
 
-
-
 //        dump($this->admin);
-////        dump($this->objConfig);
-//        dump($this->getFieldRender());
-//
-//        dump($this->getNameColumns());
-        //dump($this->getTypeColumns());
-
-//        dump($this->getArrayField());
-
         return view('lara::Form.form', $data);
     }
 
+    public function renderFormInsert ()
+    {
+        $data = [
+            'urlAction' => $this->admin->route->parameters['adminModel'],
+            'titlePage'  => $this->objConfig->getTitle(),
+            'formMetod' => 'POST',
+            'objField' => $this->getFieldRender()
+        ];
+
+        return view('lara::Form.form', $data);
+    }
 
     /**
      * @return mixed
@@ -61,35 +57,69 @@ class FormTable extends FormManagerTable
         return $this->objConfig->getModelObj()->find($this->id);
     }
 
+
     /**
+     * @return array
      * todo должен возвращать масив с отрендеренными tamplate component
      */
     public function getFieldRender ()
     {
         $model = $this->getModelData();
-        //dd($model->id);
+       // dd($model);
         $result = [];
         foreach ($this->getArrayField() as $nameField => $item) {
 
-            $result[] = (new ComponentManagerBuilder($nameField, $item))
-                ->classStyle()
-                ->type()
-                ->label()
-                ->value($model->{$nameField})
-                ->build()->run();
+            $objBilder = (new ComponentManagerBuilder($nameField, $item));
+            $objBilder->classStyle();
+            $objBilder->type();
+            $objBilder->label();
+
+            if ($model !== null) {
+                $objBilder->value($model->{$nameField});
+            }
+            $result[] = $objBilder->build()->run();
         }
         return $result;
     }
 
+
     /**
-     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateForm ()
     {
-        dump($this->admin->getRequest());
+        $arr_request = $this->admin->getRequest()->all();
+
+        unset($arr_request['_method']);
+        unset($arr_request['_token']);
+
+        $model = $this->objConfig->getModelObj()->find($arr_request[$this->admin->KeyName]);
+
+        foreach ($arr_request as $name => $item) {
+            $model->{$name} = $item;
+        }
+        $model->save();
+        return redirect()->back();
+    }
 
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function insertForm ()
+    {
+        $arr_request = $this->admin->getRequest()->all();
 
+        unset($arr_request['_token']);
+
+        $model = $this->objConfig->getModelObj();
+
+        foreach ($arr_request as $name => $item) {
+            $model->{$name} = $item;
+        }
+        $model->save();
+
+        return redirect()->back();
     }
 
 }

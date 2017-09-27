@@ -140,4 +140,57 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         }
     }
 
+
+    /**
+     * @param $funk
+     * todo хук после обновления
+     */
+    public function afterUpdate ($funk) {
+
+        $model = $this->getModelObj();
+        $model::updated($funk);
+    }
+
+    /**
+     * @param $funk
+     * todo хук перед обновлением
+     */
+    public function beforeUpdate ($funk) {
+
+        $model = $this->getModelObj();
+        $model::updating($funk);
+    }
+
+    /**
+     * @param $funk
+     * todo хук перед добавлением
+     */
+    public function beforeInsert($funk)
+    {
+        $model = $this->getModelObj();
+        $model::creating($funk);
+    }
+
+    /**
+     * @param $funk
+     * todo хук после добавления
+     */
+    public function afterInsert($funk)
+    {
+        $model = $this->getModelObj();
+        $model::created($funk);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

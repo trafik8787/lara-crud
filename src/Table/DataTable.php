@@ -45,7 +45,7 @@ class DataTable implements TableInterface
         //dump(config('lara-config.url_group'));
         //dump($this->nameColumns());
         //dump($this->getModelObj()->search('sdfsdf'));
-
+        //dd($this->objConfig->nameColumns());
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),

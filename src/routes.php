@@ -27,7 +27,7 @@ Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik87
     ]);
 
 
-    Route::patch('{adminModel}/{adminModelId}/{newAction}', [
+    Route::patch('{adminModel}/{adminModelId}/{newAction}/action', [
         'as'   => 'model.postNewAction',
         'uses' => 'AdminController@postNewAction',
     ]);

@@ -147,13 +147,16 @@ class DataTable implements TableInterface
             if ($url == $this->admin->route->parameters['newAction'] and isset($item['closure'])) {
 
                 $this->objConfig->newActionCollback($item['closure'], $model);
+                return $this->redirect();
+            }
 
-            } elseif ($url == $this->admin->route->parameters['newAction'] and isset($item['action'])) {
+            if ($url == $this->admin->route->parameters['newAction'] and isset($item['action'])) {
 
                 return redirect()->route($item['action'],['id' => $model->{$this->admin->KeyName}]);
             }
 
         }
+
 
     }
 

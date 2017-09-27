@@ -18,14 +18,25 @@ class FormTable extends FormManagerTable
 {
 
 
-
-    public function renderForm() {
+    /**
+     * @param string $form = edit|insert
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function renderForm(string $form) {
         $this->id = $this->admin->route->parameters['adminModelId'];
-        dump($this->getFieldRender('text'));
+
+        if($form === 'edit'){
+            $metod = 'PATCH';
+        } elseif ($form === 'insert') {
+            $metod = 'POST';
+        }
+
         $data = [
           'id' => $this->id,
           'urlAction' => $this->admin->route->parameters['adminModel'],
-            'objField' => $this->getFieldRender('text')
+          'titlePage'  => $this->objConfig->getTitle(),
+          'formMetod' => $metod,
+          'objField' => $this->getFieldRender()
         ];
 
 
@@ -34,26 +45,51 @@ class FormTable extends FormManagerTable
 ////        dump($this->objConfig);
 //        dump($this->getFieldRender());
 //
-        dump($this->getNameColumns());
-        dump($this->getTypeColumns());
+//        dump($this->getNameColumns());
+        //dump($this->getTypeColumns());
 
-        $this->getModelData();
+//        dump($this->getArrayField());
+
         return view('lara::Form.form', $data);
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getModelData () {
-
-        $result = $this->objConfig->getModelObj()->find($this->id);
-       // dump($result->lastname);
+        return $this->objConfig->getModelObj()->find($this->id);
     }
 
     /**
      * todo должен возвращать масив с отрендеренными tamplate component
      */
-    public function getFieldRender ($typeField)
+    public function getFieldRender ()
     {
-        return (new ComponentManagerBuilder($typeField))->classStyle()->build()->run();
+        $model = $this->getModelData();
+        //dd($model->id);
+        $result = [];
+        foreach ($this->getArrayField() as $nameField => $item) {
+
+            $result[] = (new ComponentManagerBuilder($nameField, $item))
+                ->classStyle()
+                ->type()
+                ->label()
+                ->value($model->{$nameField})
+                ->build()->run();
+        }
+        return $result;
+    }
+
+    /**
+     *
+     */
+    public function updateForm ()
+    {
+        dump($this->admin->getRequest());
+
+
+
     }
 
 }

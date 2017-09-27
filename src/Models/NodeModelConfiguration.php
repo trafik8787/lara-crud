@@ -33,6 +33,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     /**
      * @param array $field
+     * todo добавление полям lable
      */
     public function fieldName(array $field)
     {

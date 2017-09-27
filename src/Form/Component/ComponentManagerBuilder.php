@@ -20,17 +20,21 @@ use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 {
 
+    public $objField;
+
     public $type; //тип поля input
     public $classStyle;
     public $placeholder;
     public $value;
+    public $label;
     public $name;
     public $title;
 
 
-    public function __construct (string $typeField) {
+    public function __construct (string $nameField, $objField) {
 
-        $this->type = $typeField;
+        $this->name = $nameField;
+        $this->objField = $objField;
     }
 
     /**
@@ -65,6 +69,25 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $data
+     * @return $this
+     */
+    public function type ()
+    {
+        $this->type = $this->objField['typeField'];
+        return $this;
+    }
+
+    /**
+     *
+     * @return $this
+     */
+    public function label ()
+    {
+        $this->label = $this->objField['label'];
+        return $this;
+    }
 
     /**
      * @param string $data

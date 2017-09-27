@@ -7,5 +7,9 @@
  */
 
 return [
-    'url_group' => 'admin'
+    'url_group' => 'admin',
+    'field_disable' => [
+        'created_at',
+        'updated_at'
+    ]
 ];

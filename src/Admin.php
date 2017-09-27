@@ -136,7 +136,7 @@ class Admin implements AdminInterface
                 $modelConf->showDisplay();
             }
 
-        } elseif ($this->route->action['as'] === 'model.edit') {
+        } elseif ($this->route->action['as'] === 'model.edit' or $this->route->action['as'] === 'model.update') {
             if (method_exists($modelConf, 'showEditDisplay')) {
                 $modelConf->showEditDisplay();
             }
@@ -204,7 +204,8 @@ class Admin implements AdminInterface
         /*Primary Key*/
         $this->KeyName = $model->getKeyName();
 
-        $this->TableColumns = DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
+        $full_field =  DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
+        $this->TableColumns = array_diff($full_field, config('lara-config.field_disable'));;
         foreach ($this->TableColumns as $item) {
             $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table_name, $item);
         }

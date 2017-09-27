@@ -26,6 +26,7 @@ class Text
         $this->classStyle = $managerBuilder->classStyle;
         $this->placeholder = $managerBuilder->placeholder;
         $this->value = $managerBuilder->value;
+        $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
     }

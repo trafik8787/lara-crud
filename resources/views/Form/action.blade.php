@@ -13,7 +13,7 @@
 
 @if ($configNode->getNewAction())
     @foreach($configNode->getNewAction() as $url => $item)
-        {!! Form::open(array('style' => 'display: inline-block;', 'class' => '', 'url' => url()->current().'/'.$id.'/'.$url, 'method' => 'PATCH', 'files' => false)) !!}
+        {!! Form::open(array('style' => 'display: inline-block;', 'class' => '', 'url' => url()->current().'/'.$id.'/'.$url.'/action', 'method' => 'PATCH', 'files' => false)) !!}
             {{ Form::hidden('id', $id) }}
             <button type="submit" class="btn btn-default btn-sm">{{$item['nameButton']}}</button>
         {!! Form::close() !!}

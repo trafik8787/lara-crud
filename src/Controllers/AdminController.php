@@ -80,26 +80,26 @@ class AdminController extends Controller
     {
 
         //return view('lara::common.app');
-        return $form->renderForm();
+        return $form->renderForm('edit');
     }
 
     /**
      *  todo обновление записи в базе
      */
-    public function postUpdate ()
+    public function postUpdate (FormManagerInterface $form)
     {
-
+        $form->updateForm();
     }
 
 
     public function showCreate ()
     {
-
+        dd('sdfgsdfgsdfghsdf');
     }
 
     public function postStore ()
     {
-
+        dd('jhykfghjdh');
     }
 
     public function deleteDelete (TableInterface $table, AdminInterface $admin) {

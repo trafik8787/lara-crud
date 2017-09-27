@@ -1,6 +1,7 @@
 <?php
 namespace Trafik8787\LaraCrud\Form;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Collection;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
@@ -20,6 +21,7 @@ abstract class FormManagerTable implements FormManagerInterface
     protected $id;
     protected $fieldBulder;
 
+
     public function __construct (Application $app) {
        // $this->componentManager = $componentManager;
 
@@ -28,41 +30,31 @@ abstract class FormManagerTable implements FormManagerInterface
 
     public function getFieldType ($field)
     {
-        $arrField = array(
-            'varchar' => 'text',
-            'text' => array('tag' => 'textarea'),
+
+        $arrFieldTypeInput = array(
+            'string' => 'text',
+            'datetime' => 'datetime',
             'date' => 'date',
-            'int' => 'number',
-            'bigint' => 'number',
-            'tinyint' => 'number',
-            'smallint' => 'number',
-            'mediumint' => 'number',
-            'float' => 'number',
-            'double' => 'number',
+            'integer' => 'number',
             'bool'=> 'checkbox',
             'boolean' => 'checkbox',
-            'bit' => 'checkbox',
-            'char' =>  array('tag' => 'textarea'),
-            'tinytext' => 'text',
-            'mediumtext' => array('tag' => 'textarea'),
-            'longtext' => array('tag' => 'textarea'),
-            'tinyblob' => 'text',
+            'float' => 'number',
+            'text'  => 'text',
+            'time'  => 'datetime',
             'blob' => 'text',
-            'mediumblob' => array('tag' => 'textarea'),
-            'longblob' => array('tag' => 'textarea'),
-            'datetime' => 'datetime',
-            'time' => 'time',
-            'year' => 'month',
-            'timestamp' => 'datetime');
+            'bigint' => 'number',
+            'decimal' => 'text',
 
-        return $arrField[$field];
+           );
+
+        return $arrFieldTypeInput[$field];
     }
 
 
 
     /**
      * @return array
-     * //получаем масив полей без индексного поля
+     * //получаем масив полей и их нахваний без индексного поля
      */
     public function getNameColumns ():array
     {
@@ -77,4 +69,25 @@ abstract class FormManagerTable implements FormManagerInterface
     {
         return array_diff_key($this->admin->TableTypeColumns, array($this->admin->KeyName => $this->admin->KeyName));
     }
+
+    /**
+     * @return array
+     */
+    public function getArrayField ()
+    {
+        $data = [];
+        $typeColumn = $this->getTypeColumns();
+
+        foreach ($this->getNameColumns() as $name => $nameColumn) {
+
+            $data[$name] = [
+                'label' => $nameColumn,
+                'sqlType' => $typeColumn[$name],
+                'typeField' => $this->getFieldType($typeColumn[$name])
+            ];
+        }
+
+        return collect($data);
+    }
+
 }

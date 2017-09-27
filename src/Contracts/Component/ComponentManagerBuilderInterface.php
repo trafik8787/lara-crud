@@ -15,6 +15,8 @@ interface ComponentManagerBuilderInterface
     public function classStyle (string $data); //class CSS
     public function placeholder (string $data);
     public function value ($data);
+    public function type ();
+    public function label ();
     public function name (string $data);
     public function title (string $data);
     public function build(): Text;

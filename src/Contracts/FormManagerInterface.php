@@ -14,5 +14,6 @@ interface FormManagerInterface
     public function getFieldType ($field);
     public function getNameColumns ():array ;
     public function getTypeColumns ():array ;
+    public function getArrayField ();
 
 }

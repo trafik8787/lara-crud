@@ -20,6 +20,10 @@ class Text
 
     public $view = 'lara::Form.Component.text';
 
+    /**
+     * Text constructor.
+     * @param ComponentManagerBuilderInterface $managerBuilder
+     */
     public function __construct(ComponentManagerBuilderInterface $managerBuilder)
     {
         $this->type = $managerBuilder->type;
@@ -32,6 +36,9 @@ class Text
     }
 
 
+    /**
+     * @return string
+     */
     public function run ()
     {
         return view($this->view, ['obj' => $this])->render();

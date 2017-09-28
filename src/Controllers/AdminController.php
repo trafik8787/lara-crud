@@ -5,16 +5,9 @@ namespace Trafik8787\LaraCrud\Controllers;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Schema;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
-use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
-use Trafik8787\LaraCrud\Form\FormTable;
-use Trafik8787\LaraCrud\Table\DataTable;
 
 class AdminController extends Controller
 {
@@ -83,8 +76,11 @@ class AdminController extends Controller
         return $form->renderFormEdit();
     }
 
+
     /**
-     *  todo обновление записи в базе
+     * @param FormManagerInterface $form
+     * @return mixed
+     * todo обновление записи в базе
      */
     public function postUpdate (FormManagerInterface $form)
     {
@@ -92,16 +88,29 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * @param FormManagerInterface $form
+     * @return mixed
+     */
     public function showCreate (FormManagerInterface $form)
     {
         return $form->renderFormInsert();
     }
 
+    /**
+     * @param FormManagerInterface $form
+     * @return mixed
+     */
     public function postStore (FormManagerInterface $form)
     {
         return $form->insertForm();
     }
 
+    /**
+     * @param TableInterface $table
+     * @param AdminInterface $admin
+     * @return mixed
+     */
     public function deleteDelete (TableInterface $table, AdminInterface $admin) {
 
         return $table->deleteRows($admin);

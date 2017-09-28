@@ -7,6 +7,7 @@
                 "processing": true,
                 "serverSide": true,
                 "bPaginate": true,
+                'autoWidth': false,
                 "ajax": {
                     "url": "{{ url()->current()}}",
                     "dataType": "json",
@@ -57,26 +58,30 @@
         });
     </script>
 
-
-    <h2>{{$titlePage}}</h2>
-    <a href="{{ url()->current()}}/create" class="btn btn-success">Add</a>
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            @foreach ($name_field as $field)
-                <th>{{$field}}</th>
-            @endforeach
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            @foreach ($name_field as $field)
-                <th>{{$field}}</th>
-            @endforeach
-            <th>Action</th>
-        </tr>
-        </tfoot>
-    </table>
-
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{{$titlePage}}</h3>
+        </div>
+        <div class="box-body">
+            <a href="{{ url()->current()}}/create" class="btn btn-success">Add</a>
+            <table id="example" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    @foreach ($name_field as $field)
+                        <th>{{$field}}</th>
+                    @endforeach
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    @foreach ($name_field as $field)
+                        <th>{{$field}}</th>
+                    @endforeach
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 @endsection

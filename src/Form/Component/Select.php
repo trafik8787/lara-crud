@@ -18,6 +18,11 @@ class Select
     public $name;
     public $title;
 
+    public $view = 'lara::Form.Component.select';
+    /**
+     * Select constructor.
+     * @param ComponentManagerBuilderInterface $managerBuilder
+     */
     public function __construct(ComponentManagerBuilderInterface $managerBuilder)
     {
         $this->classStyle = $managerBuilder->classStyle;
@@ -26,5 +31,13 @@ class Select
         $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function run ()
+    {
+        return view($this->view, ['obj' => $this])->render();
     }
 }

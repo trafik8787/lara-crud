@@ -180,6 +180,27 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $model = $this->getModelObj();
         $model::created($funk);
     }
+
+    /**
+     * @param $funk
+     * todo хук перед удалением
+     */
+    public function beforeDelete ($funk)
+    {
+        $model = $this->getModelObj();
+        $model::deleting($funk);
+    }
+
+    /**
+     * @param $funk
+     * todo хук после удаления
+     */
+    public function afterDelete ($funk)
+    {
+        $model = $this->getModelObj();
+        $model::deleted($funk);
+    }
+
 }
 
 

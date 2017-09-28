@@ -1,40 +1,64 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{asset('vendor/lara-crud/js/jquery.js')}}"></script>
-    <script src="{{asset('vendor/lara-crud/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('vendor/lara-crud/js/jquery.dataTables.min.js') }}"></script>
-    <link href="{{ asset('vendor/lara-crud/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/lara-crud/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Data Tables</title>
 
-    <link href="{{ asset('vendor/lara-crud/css/all.css') }}" rel="stylesheet">
-    <title>Document</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/Ionicons/css/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/skins/_all-skins.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/iCheck/all.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/timepicker/bootstrap-timepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/select2/dist/css/select2.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/all.css')}}">
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+    <!-- jQuery 3 -->
+    <script src="{{asset('vendor/lara-crud/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{{asset('vendor/lara-crud/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{asset('vendor/lara-crud/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <!-- SlimScroll -->
+    <script src="{{asset('vendor/lara-crud/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{asset('vendor/lara-crud/bower_components/fastclick/lib/fastclick.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{asset('vendor/lara-crud/js/adminlte.min.js')}}"></script>
+    <!-- AdminLTE for demo purposes -->
+    {{--<script src="{{asset('vendor/lara-crud/js/demo.js')}}"></script>--}}
 </head>
-<body>
 
-<div class="container-fluid">
+
+
     @include('lara::common.header')
-    <div class="row">
-
-        <div class="col-md-1">
-            <ul>
-                <li><a href="/admin/article_model/">Article</a></li>
-                <li> <a href="/admin/contact_model">Contact</a></li>
-            </ul>
-        </div>
-
-        <div class="col-md-11">
 
             @yield('content')
-        </div>
 
-    </div>
+
+
     @include('lara::common.footer')
-</div>
 
-</body>
-</html>
+

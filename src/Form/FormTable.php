@@ -85,6 +85,7 @@ class FormTable extends FormManagerTable
 
     /**
      * @return \Illuminate\Http\RedirectResponse
+     * todo форма обновления
      */
     public function updateForm ()
     {
@@ -105,6 +106,7 @@ class FormTable extends FormManagerTable
 
     /**
      * @return \Illuminate\Http\RedirectResponse
+     * todo форма добавления
      */
     public function insertForm ()
     {

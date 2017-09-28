@@ -59,6 +59,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      */
     public function fieldShow(array $value){
         $this->fieldShow = $value;
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * todo групировка полей по вкладкам проект!!
+     */
+    public function tab ($name) {
+
     }
 
     /**

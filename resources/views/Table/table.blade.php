@@ -63,22 +63,31 @@
             <h3 class="box-title">{{$titlePage}}</h3>
         </div>
         <div class="box-body">
-            <a href="{{ url()->current()}}/create" class="btn btn-success">Add</a>
+            <div class="mailbox-controls text-right">
+                <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
+                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            </div>
+
             <table id="example" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                    <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
                     @foreach ($name_field as $field)
                         <th>{{$field}}</th>
                     @endforeach
                     <th>Action</th>
+
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
+                    <th>#</th>
                     @foreach ($name_field as $field)
                         <th>{{$field}}</th>
                     @endforeach
                     <th>Action</th>
+
                 </tr>
                 </tfoot>
             </table>

@@ -28,8 +28,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $buttonEdit = true;
     protected $fieldShow = [];
     protected $fieldName = [];
-    protected $textLimit = [];
-    protected $fieldOrderBy = [0, 'asc'];
+    public $textLimit = [];
+    protected $fieldOrderBy = [1, 'asc'];
     protected $showEntries = 10;
     protected $setWhere = [];
     protected $columnColorWhere = [];

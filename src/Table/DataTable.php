@@ -35,17 +35,13 @@ class DataTable implements TableInterface
         $this->app = $app;
     }
 
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function render ()
     {
-
         //dump(config('lara-config.url_group'));
-        //dump($this->nameColumns());
-        //dump($this->getModelObj()->search('sdfsdf'));
-        //dd($this->objConfig->nameColumns());
+
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
@@ -87,14 +83,16 @@ class DataTable implements TableInterface
     {
         $request = $admin->getRequest();
 
-
         $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
         $dataArr = $obj->toArray();
         $data = [];
 
         foreach ($obj as $item) {
+
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
+            $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="'.$this->admin->KeyName.'">';
             $data[] = $item;
+
         }
 
         return Response::json([
@@ -106,14 +104,14 @@ class DataTable implements TableInterface
 
     }
 
-
     /**
      * @return string
      * Формирование json для секции column DataTable
      */
     public function getJsonColumnDataTable ()
     {
-        $data_field = [];
+        $data_field[] = array('data' => '#', 'orderable' => false, 'width' => '5px');
+
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data_field[] = array('data' => $field);
         }
@@ -121,7 +119,6 @@ class DataTable implements TableInterface
 
         return json_encode($data_field, true);
     }
-
 
     /**
      * @param $id
@@ -133,13 +130,15 @@ class DataTable implements TableInterface
         return view('lara::Form.action', ['id' => $id, 'configNode' => $this->objConfig])->render();
     }
 
-
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function newAction ()
     {
         $url = null;
+
+        unset($this->objConfig->textLimit);
+
         $model = $this->getModelObj()->find($this->admin->route->parameters['adminModelId']);
 
         foreach ($this->objConfig->getNewAction() as $url => $item) {
@@ -156,7 +155,6 @@ class DataTable implements TableInterface
             }
 
         }
-
 
     }
 
@@ -184,8 +182,10 @@ class DataTable implements TableInterface
         $result = $result->paginate($total);
 
         $result->map(function ($object){
-            $object = $this->objConfig->getTextLimit($object);
+
             $object = $this->objConfig->SetTableRowsRenderCollback($object);
+            $object = $this->objConfig->getTextLimit($object);
+
             return  $object;
         });
 
@@ -217,9 +217,6 @@ class DataTable implements TableInterface
     }
 
 
-
-
-
     /**
      * @return array
      * todo order[0][column]: получаем название поля по индексу переданному из DataTable
@@ -230,7 +227,7 @@ class DataTable implements TableInterface
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data[] = $field;
         }
-        //dd($data[$index]);
-        return $data[$index];
+        // - 1 потому что первая колонка чекбоксы
+        return $data[$index-1];
     }
 }

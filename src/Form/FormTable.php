@@ -94,12 +94,21 @@ class FormTable extends FormManagerTable
         unset($arr_request['_method']);
         unset($arr_request['_token']);
 
+        $nameColumn = $this->objConfig->nameColumns();
         $model = $this->objConfig->getModelObj()->find($arr_request[$this->admin->KeyName]);
 
         foreach ($arr_request as $name => $item) {
-            $model->{$name} = $item;
+            if (!empty($nameColumn[$name])) {
+                $model->{$name} = $item;
+            }
         }
+
         $model->save();
+
+        if (!empty($arr_request['save_button'])) {
+            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
+        }
+
         return redirect()->back();
     }
 
@@ -114,12 +123,20 @@ class FormTable extends FormManagerTable
 
         unset($arr_request['_token']);
 
+        $nameColumn = $this->objConfig->nameColumns();
+
         $model = $this->objConfig->getModelObj();
 
         foreach ($arr_request as $name => $item) {
-            $model->{$name} = $item;
+            if (!empty($nameColumn[$name])) {
+                $model->{$name} = $item;
+            }
         }
         $model->save();
+
+        if (!empty($arr_request['save_button'])) {
+            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
+        }
 
         return redirect()->back();
     }

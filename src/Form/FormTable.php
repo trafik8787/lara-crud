@@ -67,16 +67,20 @@ class FormTable extends FormManagerTable
         $model = $this->getModelData();
        // dd($model);
         $result = [];
-        foreach ($this->getArrayField() as $nameField => $item) {
 
-            $objBilder = (new ComponentManagerBuilder($nameField, $item));
-            $objBilder->classStyle();
-            $objBilder->type();
-            $objBilder->label();
+        foreach ($this->getArrayField() as $item) {
 
-            if ($model !== null) {
-                $objBilder->value($model->{$nameField});
-            }
+            $objBilder = (new ComponentManagerBuilder($item));
+                $objBilder->classStyle();
+                $objBilder->type();
+                $objBilder->label();
+                $objBilder->placeholder();
+                $objBilder->title();
+
+                if ($model !== null) {
+                    $objBilder->value($model->{$item['field']});
+                }
+
             $result[] = $objBilder->build()->run();
         }
         return $result;

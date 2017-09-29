@@ -18,8 +18,6 @@ use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Models\ModelCollection;
 
-
-
 class Admin implements AdminInterface
 {
 
@@ -38,6 +36,11 @@ class Admin implements AdminInterface
 
     private $request; //получает обьект Request из AdminController
 
+    /**
+     * Admin constructor.
+     * @param $node
+     * @param Application $app
+     */
     public function __construct ($node, Application $app) {
         $this->app = $app;
         $this->models = new ModelCollection();

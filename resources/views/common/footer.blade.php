@@ -208,5 +208,11 @@
      immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div>
 </div>
+
+<script>
+    $(function () {
+        $('.select2').select2();
+    });
+</script>
 </body>
 </html>

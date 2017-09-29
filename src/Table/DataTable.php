@@ -8,17 +8,11 @@
 
 namespace Trafik8787\LaraCrud\Table;
 
-
-
 use Illuminate\Foundation\Application;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-use Trafik8787\LaraCrud\Contracts\AdminInterface;
-use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
-use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
-use Trafik8787\LaraCrud\Models\NodeModelConfigurationManager;
 
 class DataTable implements TableInterface
 {

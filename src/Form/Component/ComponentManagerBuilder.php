@@ -21,7 +21,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 {
 
     public $objField;
-
+    private $typeField;
     public $type; //тип поля input
     public $classStyle;
     public $placeholder;
@@ -31,19 +31,19 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $title;
 
 
-    public function __construct (string $nameField, $objField) {
+    public function __construct ($arrField) {
+       // dd($arrField);
 
-        $this->name = $nameField;
-        $this->objField = $objField;
+        $this->objField = $arrField;
     }
 
     /**
      * @param string $data
      * @return $this
      */
-    public function classStyle(string $data = 'form-control')
+    public function classStyle()
     {
-        $this->classStyle = $data;
+        $this->classStyle = $this->objField['classStyle'];
         return $this;
     }
 
@@ -52,9 +52,9 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param string $data
      * @return $this
      */
-    public function placeholder(string $data = 'Введите значение')
+    public function placeholder()
     {
-        $this->placeholder = $data;
+        $this->placeholder = $this->objField['placeholder'];
         return $this;
     }
 
@@ -75,7 +75,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      */
     public function type ()
     {
-        $this->type = $this->objField['typeField'];
+        $this->type = $this->objField['type'];
         return $this;
     }
 
@@ -93,9 +93,9 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param string $data
      * @return $this
      */
-    public function name(string $data= '')
+    public function name()
     {
-        $this->name = $data;
+        $this->name = $this->objField['field'];
         return $this;
     }
 
@@ -103,14 +103,24 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param string $data
      * @return $this
      */
-    public function title(string $data)
+    public function title()
     {
-        $this->title = $data;
+        $this->title = $this->objField['title'];
         return $this;
     }
 
-    public function build(): Text
+    /**
+     * @return Select|Text
+     */
+    public function build()
     {
-        return new Text($this);
+        switch ($this->objField['typeField']) {
+            case 'input':
+                return new Text($this);
+
+            case 'select':
+                return new Select($this);
+        }
+
     }
 }

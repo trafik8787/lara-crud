@@ -34,6 +34,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setWhere = [];
     protected $columnColorWhere = [];
     protected $newAction = []; //кнопки Action
+    protected $setTypeField = [];
+
+    //property field
+    protected $addFieldClass = [];
+    protected $addFieldTitle = [];
+    protected $addFieldPlaceholder = [];
+
 
     protected $closure;
     /**
@@ -251,5 +258,43 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function newActionCollback(\Closure $closure, $obj)
     {
         $closure !== null ? $closure->call($this, $obj) : $obj;
+    }
+
+    /**
+     * @param string $field
+     * @return bool|mixed
+     * todo получаем вид поля нвпример select по ключу по умолчанию input
+     */
+    public function getTypeField(string $field)
+    {
+        if (!empty($this->setTypeField[$field])) {
+            return $this->setTypeField[$field];
+        }
+       return 'input';
+    }
+
+
+    public function getFieldClass(string $field)
+    {
+        if (!empty($this->addFieldClass[$field])) {
+            return $this->addFieldClass[$field];
+        }
+        return null;
+    }
+
+    public function getFieldTitle(string $field)
+    {
+        if (!empty($this->addFieldTitle[$field])) {
+            return $this->addFieldTitle[$field];
+        }
+        return null;
+    }
+
+    public function getFieldPlaceholder(string $field)
+    {
+        if (!empty($this->addFieldPlaceholder[$field])) {
+            return $this->addFieldPlaceholder[$field];
+        }
+        return null;
     }
 }

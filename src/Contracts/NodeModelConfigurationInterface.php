@@ -50,6 +50,10 @@ interface NodeModelConfigurationInterface
     public function scopeTest ($query);
 
 
+    /**
+     * @param array $field
+     * @return mixed
+     */
     public function fieldName(array $field);
 
     /**
@@ -121,5 +125,34 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function newActionCollback (Closure $closure, $obj);
+
+    /**
+     * @param string $field
+     * @return mixed
+     * todo получаем вид поля нвпример select по ключу
+     */
+    public function getTypeField (string $field);
+
+
+    /**
+     * @param string $field
+     * @return mixed
+     * todo клас для поля
+     */
+    public function getFieldClass (string $field);
+
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getFieldTitle (string $field);
+
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getFieldPlaceholder (string $field);
+
+
 
 }

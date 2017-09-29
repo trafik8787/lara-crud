@@ -12,13 +12,45 @@ use Trafik8787\LaraCrud\Form\Component\Text;
 interface ComponentManagerBuilderInterface
 {
 
-    public function classStyle (string $data); //class CSS
-    public function placeholder (string $data);
+    /**
+     * @return mixed
+     */
+    public function classStyle (); //class CSS
+
+    /**
+     * @return mixed
+     */
+    public function placeholder ();
+
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function value ($data);
+
+    /**
+     * @return mixed
+     */
     public function type ();
+
+    /**
+     * @return mixed
+     */
     public function label ();
-    public function name (string $data);
-    public function title (string $data);
-    public function build(): Text;
+
+    /**
+     * @return mixed
+     */
+    public function name ();
+
+    /**
+     * @return mixed
+     */
+    public function title ();
+
+    /**
+     * @return mixed
+     */
+    public function build();
 
 }

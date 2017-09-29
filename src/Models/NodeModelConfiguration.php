@@ -210,6 +210,44 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $model::deleted($funk);
     }
 
+
+    /**
+     * @param array $arrTypeField
+     * todo выбор поля который будет отображатся в форме например input select
+     *
+     */
+    public function setTypeField (array $arrTypeField)
+    {
+        $this->setTypeField = $arrTypeField;
+    }
+
+    /**
+     * @param array $arr
+     * todo добавляем класс полю ввода
+     */
+    public function addFieldClass (array $arr)
+    {
+        $this->addFieldClass = $arr;
+    }
+
+    /**
+     * @param array $arr
+     * todo добавляет title полю ввода
+     */
+    public function addFieldTitle (array $arr)
+    {
+        $this->addFieldTitle = $arr;
+    }
+
+    /**
+     * @param array $arr
+     * todo добавляет Placeholder полю ввода
+     */
+    public function addFieldPlaceholder (array $arr)
+    {
+        $this->addFieldPlaceholder = $arr;
+    }
+
 }
 
 

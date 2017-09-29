@@ -154,5 +154,10 @@ interface NodeModelConfigurationInterface
     public function getFieldPlaceholder (string $field);
 
 
+    /**
+     * @param array $arrayValue
+     * @return mixed
+     */
+    public function getValue(string $nameField, $valueModel);
 
 }

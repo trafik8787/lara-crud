@@ -76,10 +76,9 @@ class FormTable extends FormManagerTable
                 $objBilder->label();
                 $objBilder->placeholder();
                 $objBilder->title();
+                $objBilder->name();
 
-                if ($model !== null) {
-                    $objBilder->value($model->{$item['field']});
-                }
+                $objBilder->value($this->objConfig->getValue($item['field'], $model->{$item['field']}));
 
             $result[] = $objBilder->build()->run();
         }

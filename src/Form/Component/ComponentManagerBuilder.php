@@ -21,7 +21,6 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 {
 
     public $objField;
-    private $typeField;
     public $type; //тип поля input
     public $classStyle;
     public $placeholder;
@@ -32,7 +31,6 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
 
     public function __construct ($arrField) {
-       // dd($arrField);
 
         $this->objField = $arrField;
     }
@@ -93,7 +91,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param string $data
      * @return $this
      */
-    public function name()
+    public function name ()
     {
         $this->name = $this->objField['field'];
         return $this;
@@ -115,11 +113,15 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public function build()
     {
         switch ($this->objField['typeField']) {
-            case 'input':
-                return new Text($this);
 
             case 'select':
                 return new Select($this);
+
+            case 'textarea':
+                return new Textarea($this);
+
+            default:
+                return new Text($this);
         }
 
     }

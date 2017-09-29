@@ -11,7 +11,12 @@ namespace Trafik8787\LaraCrud\Contracts;
 
 interface FormManagerInterface
 {
-    public function getType ($field);
+    /**
+     * @param $typeSql тип данных
+     * @param $nameField
+     * @return mixed
+     */
+    public function getDataType ($typeSql, $nameField);
     public function getNameColumns ():array ;
     public function getTypeColumns ():array ;
     public function getArrayField ();

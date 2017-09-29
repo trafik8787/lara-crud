@@ -219,6 +219,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     public function setTypeField (array $arrTypeField)
     {
         $this->setTypeField = $arrTypeField;
+        return $this;
     }
 
     /**
@@ -246,6 +247,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     public function addFieldPlaceholder (array $arr)
     {
         $this->addFieldPlaceholder = $arr;
+    }
+
+    /**
+     * @param array $arrFieldType
+     * todo устанавливаем значения полей по умолчанию
+     */
+    public function setValue (array $arrFieldType)
+    {
+        $this->setValue = $arrFieldType;
     }
 
 }

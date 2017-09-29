@@ -35,9 +35,14 @@ abstract class FormManagerTable implements FormManagerInterface
     /**
      * @param $field
      * @return mixed
+     * todo получить поля в зависимоти от типов данных
      */
-    public function getType ($field)
+    public function getDataType ($typeSql, $nameField)
     {
+
+        if (!empty($this->objConfig->getTypeField($nameField))) {
+            return $this->objConfig->getTypeField($nameField);
+        }
 
         $arrFieldTypeInput = array(
             'string' => 'text',
@@ -55,7 +60,8 @@ abstract class FormManagerTable implements FormManagerInterface
 
            );
 
-        return $arrFieldTypeInput[$field];
+
+        return $arrFieldTypeInput[$typeSql];
     }
 
 
@@ -96,8 +102,8 @@ abstract class FormManagerTable implements FormManagerInterface
                 'title' => $this->objConfig->getFieldTitle($name),
                 'placeholder' => $this->objConfig->getFieldPlaceholder($name),
                 'sqlType' => $typeColumn[$name],
-                'type' => $this->getType($typeColumn[$name]), //тип поля для input
-                'typeField' => $this->objConfig->getTypeField($name) //виды полей
+                'type' => $this->getDataType($typeColumn[$name], $name), //тип поля для input
+                'typeField' => $this->objConfig->getTypeField($name) //виды полей select input textarea
             ];
         }
 

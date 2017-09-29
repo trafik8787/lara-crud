@@ -40,7 +40,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addFieldClass = [];
     protected $addFieldTitle = [];
     protected $addFieldPlaceholder = [];
-
+    protected $setValue = [];
 
     protected $closure;
     /**
@@ -260,6 +260,27 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         $closure !== null ? $closure->call($this, $obj) : $obj;
     }
 
+
+    /**
+     * @param array $arrayValue
+     */
+    public function getValue (string $nameField, $valueModel)
+    {
+        if (!empty($this->setTypeField[$nameField]) and $this->setTypeField[$nameField] === 'select') {
+            return ['curentValue' => $valueModel, 'selectValue' => $this->setValue[$nameField]];
+        }
+
+        if (!empty($this->setValue[$nameField])) {
+            return $this->setValue[$nameField];
+        }
+
+        if (!empty($valueModel)) {
+            return $valueModel;
+        }
+
+        return null;
+    }
+
     /**
      * @param string $field
      * @return bool|mixed
@@ -270,10 +291,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         if (!empty($this->setTypeField[$field])) {
             return $this->setTypeField[$field];
         }
-       return 'input';
+        return null;
     }
 
 
+    /**
+     * @param string $field
+     * @return mixed|null
+     */
     public function getFieldClass(string $field)
     {
         if (!empty($this->addFieldClass[$field])) {
@@ -282,6 +307,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return null;
     }
 
+    /**
+     * @param string $field
+     * @return mixed|null
+     */
     public function getFieldTitle(string $field)
     {
         if (!empty($this->addFieldTitle[$field])) {
@@ -290,6 +319,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return null;
     }
 
+    /**
+     * @param string $field
+     * @return mixed|null
+     */
     public function getFieldPlaceholder(string $field)
     {
         if (!empty($this->addFieldPlaceholder[$field])) {

@@ -66,31 +66,33 @@
             <div class="mailbox-controls text-right">
                 <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
                 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
-                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                <button type="button" name="delete_group" class="btn btn-danger" onclick="$('#form-table-display').submit()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
             </div>
 
-            <table id="example" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
-                    @foreach ($name_field as $field)
-                        <th>{{$field}}</th>
-                    @endforeach
-                    <th>Action</th>
+            {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false)) !!}
+                <table id="example" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
+                        @foreach ($name_field as $field)
+                            <th>{{$field}}</th>
+                        @endforeach
+                        <th>Action</th>
 
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>#</th>
-                    @foreach ($name_field as $field)
-                        <th>{{$field}}</th>
-                    @endforeach
-                    <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        @foreach ($name_field as $field)
+                            <th>{{$field}}</th>
+                        @endforeach
+                        <th>Action</th>
 
-                </tr>
-                </tfoot>
-            </table>
+                    </tr>
+                    </tfoot>
+                </table>
+            {!! Form::close() !!}
         </div>
     </div>
 @endsection

@@ -99,6 +99,7 @@ abstract class FormManagerTable implements FormManagerInterface
                 'field' => $name,
                 'label' => $nameColumn,
                 'classStyle' => $this->objConfig->getFieldClass($name),
+                'disableEditor' => $this->objConfig->getDisableEditor($name),
                 'title' => $this->objConfig->getFieldTitle($name),
                 'placeholder' => $this->objConfig->getFieldPlaceholder($name),
                 'sqlType' => $typeColumn[$name],

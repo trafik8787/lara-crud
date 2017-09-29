@@ -212,7 +212,7 @@
 <script>
     $(function () {
         $('.select2').select2();
-        CKEDITOR.replace('editor-textarea');
+        CKEDITOR.replaceAll('editor-textarea');
     });
 </script>
 </body>

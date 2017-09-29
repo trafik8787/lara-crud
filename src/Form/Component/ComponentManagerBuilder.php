@@ -28,31 +28,48 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $label;
     public $name;
     public $title;
+    public $disableEditor;
 
-
-    public function __construct ($arrField) {
-
-        $this->objField = $arrField;
-    }
 
     /**
-     * @param string $data
+     * ComponentManagerBuilder constructor.
+     * @param null $arrField
+     */
+    public function __construct ($arrField = null) {
+
+        $this->objField = $arrField;
+
+    }
+
+
+    /**
+     * @param null $data
      * @return $this
      */
-    public function classStyle()
+    public function classStyle($data = null)
     {
-        $this->classStyle = $this->objField['classStyle'];
+        $this->classStyle = $data;
+
+        if ($data === null) {
+            $this->classStyle = $this->objField['classStyle'];
+        }
+
         return $this;
     }
 
 
     /**
-     * @param string $data
+     * @param null $data
      * @return $this
      */
-    public function placeholder()
+    public function placeholder($data = null)
     {
-        $this->placeholder = $this->objField['placeholder'];
+        $this->placeholder = $data;
+
+        if ($data === null) {
+            $this->placeholder = $this->objField['placeholder'];
+        }
+
         return $this;
     }
 
@@ -67,48 +84,89 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         return $this;
     }
 
+
     /**
-     * @param string $data
+     * @param null $data
      * @return $this
      */
-    public function type ()
+    public function type ($data = null)
     {
-        $this->type = $this->objField['type'];
+        $this->type = $data;
+
+        if ($data === null) {
+            $this->type = $this->objField['type'];
+        }
+
         return $this;
     }
 
+
     /**
-     *
+     * @param null $data
      * @return $this
      */
-    public function label ()
+    public function label ($data = null)
     {
-        $this->label = $this->objField['label'];
+        $this->label = $data;
+
+        if ($data === null) {
+            $this->label = $this->objField['label'];
+        }
+
         return $this;
     }
 
+
     /**
-     * @param string $data
+     * @param null $data
      * @return $this
      */
-    public function name ()
+    public function name ($data = null)
     {
-        $this->name = $this->objField['field'];
+        $this->name = $data;
+
+        if ($data === null) {
+            $this->name = $this->objField['field'];
+        }
+
         return $this;
     }
 
+
     /**
-     * @param string $data
+     * @param null $data
      * @return $this
      */
-    public function title()
+    public function title($data = null)
     {
-        $this->title = $this->objField['title'];
+        $this->title = $data;
+
+        if ($data === null) {
+            $this->title = $this->objField['title'];
+        }
+
         return $this;
     }
 
+
     /**
-     * @return Select|Text
+     * @param null $data
+     * @return $this
+     */
+    public function disableEditor($data = null)
+    {
+        $this->disableEditor = $data;
+
+        if ($data === null) {
+            $this->disableEditor = $this->objField['disableEditor'];
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Select|Text|Textarea
      */
     public function build()
     {
@@ -116,13 +174,16 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
             case 'select':
                 return new Select($this);
+                break;
 
             case 'textarea':
                 return new Textarea($this);
+                break;
 
             default:
                 return new Text($this);
         }
 
     }
+
 }

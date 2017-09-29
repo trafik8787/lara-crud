@@ -15,12 +15,12 @@ interface ComponentManagerBuilderInterface
     /**
      * @return mixed
      */
-    public function classStyle (); //class CSS
+    public function classStyle ($data); //class CSS
 
     /**
      * @return mixed
      */
-    public function placeholder ();
+    public function placeholder ($data);
 
     /**
      * @param $data

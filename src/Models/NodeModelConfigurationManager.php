@@ -42,6 +42,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addFieldPlaceholder = [];
     protected $setValue = [];
 
+    protected $disableEditor = [];
+
     protected $closure;
     /**
      * NodeModelConfigurationManager constructor.
@@ -262,9 +264,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
 
     /**
-     * @param array $arrayValue
+     * @param $nameField
+     * @param $valueModel
+     * @return array|mixed|null
      */
-    public function getValue (string $nameField, $valueModel)
+    public function getValue ($nameField, $valueModel)
     {
         if (!empty($this->setTypeField[$nameField]) and $this->setTypeField[$nameField] === 'select') {
             return ['curentValue' => $valueModel, 'selectValue' => $this->setValue[$nameField]];
@@ -329,5 +333,18 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $this->addFieldPlaceholder[$field];
         }
         return null;
+    }
+
+
+    /**
+     * @param string $field
+     * @return bool
+     */
+    public function getDisableEditor(string $field)
+    {
+        if (!empty($this->disableEditor[$field])) {
+            return true;
+        }
+        return false;
     }
 }

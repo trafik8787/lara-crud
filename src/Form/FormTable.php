@@ -69,7 +69,8 @@ class FormTable extends FormManagerTable
         $result = [];
 
         foreach ($this->getArrayField() as $item) {
-
+            $model_field_value = null;
+            //конструктор форм
             $objBilder = (new ComponentManagerBuilder($item));
                 $objBilder->classStyle();
                 $objBilder->type();
@@ -77,8 +78,14 @@ class FormTable extends FormManagerTable
                 $objBilder->placeholder();
                 $objBilder->title();
                 $objBilder->name();
+                $objBilder->disableEditor();
 
-                $objBilder->value($this->objConfig->getValue($item['field'], $model->{$item['field']}));
+
+                if (!empty($model->{$item['field']})) {
+                    $model_field_value = $model->{$item['field']};
+                }
+
+                $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
             $result[] = $objBilder->build()->run();
         }

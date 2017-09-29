@@ -158,6 +158,13 @@ interface NodeModelConfigurationInterface
      * @param array $arrayValue
      * @return mixed
      */
-    public function getValue(string $nameField, $valueModel);
+    public function getValue($nameField, $valueModel);
+
+
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getDisableEditor(string $field);
 
 }

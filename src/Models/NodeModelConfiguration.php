@@ -258,6 +258,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->setValue = $arrFieldType;
     }
 
+
+    /**
+     *
+     */
+    public function disableEditor ()
+    {
+        $this->disableEditor = func_get_args();
+    }
 }
 
 

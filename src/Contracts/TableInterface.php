@@ -50,4 +50,11 @@ interface TableInterface
      */
     public function nameColumnsOrder (int $index):string;
 
+
+    /**
+     * @param $arr_id
+     * @return mixed
+     */
+    public function groupDelete ($arr_id);
+
 }

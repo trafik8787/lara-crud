@@ -41,7 +41,16 @@ class Text
      */
     public function run ()
     {
+
         return view($this->view, ['obj' => $this])->render();
+    }
+
+
+    /**
+     * @return string
+     */
+    private function inputFile () {
+        return view('lara::Form.Component.file', ['obj' => $this])->render();
     }
 
 }

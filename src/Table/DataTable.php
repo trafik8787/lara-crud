@@ -35,7 +35,6 @@ class DataTable implements TableInterface
     public function render ()
     {
         //dump(config('lara-config.url_group'));
-
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
@@ -71,11 +70,17 @@ class DataTable implements TableInterface
 
     /**
      * @param $admin
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function jsonResponseTable ($admin)
     {
         $request = $admin->getRequest();
+        //dd($request);
+
+        if (!empty($request['selected'])) {
+            //груповое удаление
+            return $this->groupDelete($request['selected']);
+        }
 
         $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
         $dataArr = $obj->toArray();
@@ -84,7 +89,7 @@ class DataTable implements TableInterface
         foreach ($obj as $item) {
 
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
-            $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="'.$this->admin->KeyName.'">';
+            $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="'.$item->{$this->admin->KeyName}.'">';
             $data[] = $item;
 
         }
@@ -210,6 +215,15 @@ class DataTable implements TableInterface
         return $this->redirect();
     }
 
+    /**
+     * @param $arr_id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function groupDelete ($arr_id)
+    {
+        $this->getModelObj()->destroy($arr_id);
+        return $this->redirect();
+    }
 
     /**
      * @return array

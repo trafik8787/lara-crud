@@ -297,13 +297,9 @@
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
 
-                <li><a href="/admin/contact_model"><i class="fa fa-circle-o text-red"></i> <span>Contacts</span></a></li>
-                <li><a href="/admin/article_model"><i class="fa fa-circle-o text-yellow"></i> <span>Article</span></a></li>
+            {!! $navigate !!}
 
-            </ul>
         </section>
         <!-- /.sidebar -->
     </aside>

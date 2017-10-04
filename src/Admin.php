@@ -14,6 +14,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\Navigation\NavigationInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Models\ModelCollection;
@@ -28,7 +29,7 @@ class Admin implements AdminInterface
     public $models;
     public $route;
     public $objConfig;
-
+    public $navigation;
     public $TableColumns = [];
     public $TableTypeColumns = [];
     public $KeyName;
@@ -41,10 +42,10 @@ class Admin implements AdminInterface
      * @param $node
      * @param Application $app
      */
-    public function __construct ($node, Application $app) {
+    public function __construct ($node, $navigation, Application $app) {
         $this->app = $app;
         $this->models = new ModelCollection();
-
+        $this->navigation = $navigation;
 
         $this->initNode($node);
     }
@@ -59,6 +60,11 @@ class Admin implements AdminInterface
         foreach ($this->nodes as  $model => $nodeClass) {
 
             $url = $this->setUrlDefaultModel($model);
+
+            if (!empty($nodeClass::$alias_url)) {
+                $url = $nodeClass::$alias_url;
+            }
+
             $this->defaultUrlArr[$url] = $nodeClass;
             $this->nameModelArr[$url] = $model;
 
@@ -124,7 +130,7 @@ class Admin implements AdminInterface
     public function initNodeClass(NodeModelConfigurationInterface $modelConf)
     {
 
-
+        //dd($modelConf);
         //$this->setModel($modelConf->getModel(), $modelConf);
 
         if ($this->route->action['as'] === 'model.showTable' or $this->route->action['as'] === 'model.postNewAction') {
@@ -158,6 +164,7 @@ class Admin implements AdminInterface
         $modelConf->admin = $this;
         $this->objConfig = $modelConf;
         $this->app->call([$this, 'registerDatatable']);
+
     }
 
 
@@ -166,7 +173,7 @@ class Admin implements AdminInterface
      * @param FormManagerInterface $form
      * @param Request $request
      */
-    public function registerDatatable (TableInterface $table, FormManagerInterface $form, Request $request)
+    public function registerDatatable ( TableInterface $table, FormManagerInterface $form,  Request $request)
     {
         //dump(get_class_methods(DB::connection()->getName()));
         $this->request = $request;

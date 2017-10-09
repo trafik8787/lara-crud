@@ -26,7 +26,7 @@ class ServicesLaraCrudProvider extends LaraCrudProvider
     public function register()
     {
 
-
+        $this->registerCommands();
     }
 
 

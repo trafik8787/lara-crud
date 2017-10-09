@@ -38,6 +38,9 @@ class FormTable extends FormManagerTable
         return view('lara::Form.form', $data);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function renderFormInsert ()
     {
         $data = [

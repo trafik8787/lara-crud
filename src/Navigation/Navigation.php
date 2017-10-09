@@ -15,8 +15,6 @@ use Trafik8787\LaraCrud\Contracts\Navigation\NavigationInterface;
 class Navigation implements NavigationInterface
 {
 
-
-    public $nodeClass;
     public $navigation = [];
     public $navigation_tab = [];
     public $admin;
@@ -41,9 +39,9 @@ class Navigation implements NavigationInterface
 
         $defFlip = array_flip($this->admin->defaultUrlArr);
         foreach ($this->admin->navigation['tabs'] as $NameTab => $tab) {
-
-            foreach ($tab as $class_node =>  $item) {
-                $this->navigation_tab['tabs'][$NameTab][$defFlip[$class_node]] = $item;
+            $this->navigation_tab['tabs'][$NameTab]['settings'] = $tab['settings'];
+            foreach ($tab['node'] as $class_node =>  $item) {
+                $this->navigation_tab['tabs'][$NameTab]['node'][$defFlip[$class_node]] = $item;
             }
 
         }
@@ -58,14 +56,21 @@ class Navigation implements NavigationInterface
     public function getNavigation()
     {
         $priory=[];
+        $priory_tab=[];
+
+        foreach ($this->navigation_tab['tabs'] as $item) {
+            $priory_tab[] = $item['settings']['priory'];
+        }
 
         foreach ($this->navigation as $row) {
             $priory[] = $row['priory'];
         }
+
+        array_multisort($priory_tab, SORT_ASC, $this->navigation_tab['tabs']);
         array_multisort($priory, SORT_ASC, $this->navigation);
 
         $this->navigation = array_merge($this->navigation, $this->navigation_tab);
-        //dd($this->navigation);
+
         return $this->navigation;
     }
 
@@ -78,6 +83,9 @@ class Navigation implements NavigationInterface
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|View
+     */
     public function navigateViews ()
     {
         return view('lara::layouts.navigation', ['nav' => $this->getNavigation()]);

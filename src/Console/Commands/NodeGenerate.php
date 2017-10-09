@@ -2,7 +2,6 @@
 
 namespace Trafik8787\LaraCrud\Console\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -37,6 +36,7 @@ class NodeGenerate extends GeneratorCommand
 
     protected function replaceClass($stub, $name)
     {
+
         $stub = parent::replaceClass($stub, $name);
 
         if ($this->option('model') !== null) {

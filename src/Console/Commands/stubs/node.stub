@@ -27,4 +27,9 @@ class NodeModelStud extends NodeModelConfiguration implements NodeInterface {
 
     }
 
+    public function showDelete()
+    {
+
+    }
+
 }

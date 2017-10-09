@@ -258,7 +258,6 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->setValue = $arrFieldType;
     }
 
-
     /**
      *
      */

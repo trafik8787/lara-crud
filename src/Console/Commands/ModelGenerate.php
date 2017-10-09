@@ -5,7 +5,7 @@ namespace Trafik8787\LaraCrud\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class NodeGenerate extends GeneratorCommand
+class ModelGenerate extends GeneratorCommand
 {
 
     /**
@@ -13,7 +13,7 @@ class NodeGenerate extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'lara:node {name} {--model=}';
+    protected $signature = 'lara:model {name}';
 
     /**
      * The console command description.
@@ -26,12 +26,12 @@ class NodeGenerate extends GeneratorCommand
 
     public function getStub ()
     {
-        return __DIR__.'/stubs/node.stub';
+        return __DIR__.'/stubs/model.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return 'App\Http\Node';
+        return 'App\Http\Node\Model';
     }
 
     protected function replaceClass($stub, $name)
@@ -40,12 +40,7 @@ class NodeGenerate extends GeneratorCommand
         $stub = parent::replaceClass($stub, $name);
 
 
-        $this->call('lara:model', [
-            'name' => $this->argument('name').'Model'
-        ]);
-
-
-        return str_replace('NodeModelStud', trim($this->argument('name')), $stub);
+        return str_replace('ModelStud', trim($this->argument('name')), $stub);
     }
 
     protected function getArguments()

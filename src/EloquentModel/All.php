@@ -6,15 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class All extends Model
 {
-    //DB::connection()
+
     public function scopePopular($query, $id)
     {
         return $query->where('id', '=', $id);
     }
 
-//    public function getTableColumns() {
-//        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-//    }
 
     public function getTableTypeColumns() {
        // dd($this->getConnection()->getSchemaBuilder()->getColumnType($this->getTable(), 'firstname'));

@@ -9,6 +9,8 @@
 namespace Trafik8787\LaraCrud\Contracts;
 
 
+use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
+
 interface FormManagerInterface
 {
     /**

@@ -3,6 +3,7 @@ namespace Trafik8787\LaraCrud\Form;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
+use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
 
@@ -21,15 +22,6 @@ abstract class FormManagerTable implements FormManagerInterface
     protected $id;
     protected $fieldBulder;
 
-
-    /**
-     * FormManagerTable constructor.
-     * @param Application $app
-     */
-    public function __construct (Application $app) {
-
-
-    }
 
 
     /**
@@ -87,6 +79,7 @@ abstract class FormManagerTable implements FormManagerInterface
 
     /**
      * @return array
+     * todo подготовка масива полей для передачи в клас строителя
      */
     public function getArrayField ()
     {

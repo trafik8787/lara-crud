@@ -41,6 +41,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addFieldTitle = [];
     protected $addFieldPlaceholder = [];
     protected $setValue = [];
+    protected $tab = [];
 
     protected $disableEditor = [];
 
@@ -346,5 +347,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTab()
+    {
+        return $this->tab;
     }
 }

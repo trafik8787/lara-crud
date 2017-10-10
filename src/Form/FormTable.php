@@ -9,20 +9,25 @@
 namespace Trafik8787\LaraCrud\Form;
 
 use Illuminate\Contracts\Foundation\Application;
-use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerInterface;
-use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 
 
 class FormTable extends FormManagerTable
 {
 
+    private $tabs;
 
+    public function __construct (TabsInterface $tabs) {
+        $this->tabs = $tabs;
+    }
     /**
      * @param string $form = edit|insert
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function renderFormEdit () {
+
+
 
         $this->id = $this->admin->route->parameters['adminModelId'];
 
@@ -67,6 +72,11 @@ class FormTable extends FormManagerTable
      */
     public function getFieldRender ()
     {
+        /**
+         * добавляем в класс Tabs обьект конфигурации
+         */
+        $this->tabs->objConfig($this->objConfig);
+
         $model = $this->getModelData();
        // dd($model);
         $result = [];
@@ -90,15 +100,18 @@ class FormTable extends FormManagerTable
 
                 $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
-            $result[] = $objBilder->build()->run();
+           // $result[] = $objBilder->build()->run();
+            $result[] = $objBilder->build();
         }
+        $result = $this->tabs->build($result);
+
         return $result;
     }
 
 
     /**
      * @return \Illuminate\Http\RedirectResponse
-     * todo форма обновления
+     * todo метод срабатывает при обновлении
      */
     public function updateForm ()
     {
@@ -128,7 +141,7 @@ class FormTable extends FormManagerTable
 
     /**
      * @return \Illuminate\Http\RedirectResponse
-     * todo форма добавления
+     * todo метод срабатывает при добавлении
      */
     public function insertForm ()
     {

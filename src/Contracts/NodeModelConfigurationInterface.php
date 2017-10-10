@@ -167,4 +167,10 @@ interface NodeModelConfigurationInterface
      */
     public function getDisableEditor(string $field);
 
+
+    /**
+     * @return mixed
+     */
+    public function getTab ();
+
 }

@@ -264,6 +264,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->disableEditor = func_get_args();
     }
+
+    public function setFileUploadSeting ($field, $path, $status = null)
+    {
+        $this->setFileUploadSeting[$field] = [
+            'path' => (!empty($path)) ? $path : 'uploads',
+            'status' => ($status === 'multiple') ? 'multiple' : null //если пустой то предполагается что только одна картинка если multiple то множественные
+        ];
+    }
 }
 
 

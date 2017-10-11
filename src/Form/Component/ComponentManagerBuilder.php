@@ -9,6 +9,7 @@
 namespace Trafik8787\LaraCrud\Form\Component;
 
 
+use Illuminate\Support\Facades\Request;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 
 
@@ -178,6 +179,10 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
             case 'textarea':
                 return new Textarea($this);
+                break;
+
+            case 'file':
+                return new File($this);
                 break;
 
             default:

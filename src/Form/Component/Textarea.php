@@ -11,7 +11,6 @@ use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 
 class Textarea
 {
-    public $type; //тип поля input
     public $classStyle;
     public $placeholder;
     public $value;
@@ -27,7 +26,6 @@ class Textarea
      */
     public function __construct(ComponentManagerBuilderInterface $managerBuilder)
     {
-        $this->type = $managerBuilder->type;
         $this->classStyle = $managerBuilder->classStyle;
         $this->placeholder = $managerBuilder->placeholder;
         $this->value = $managerBuilder->value;

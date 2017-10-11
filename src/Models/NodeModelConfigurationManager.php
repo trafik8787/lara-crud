@@ -44,6 +44,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $tab = [];
 
     protected $disableEditor = [];
+    protected $setFileUploadSeting = []; //сохраняем масив с настройками для полей file
 
     protected $closure;
     /**
@@ -355,5 +356,18 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getTab()
     {
         return $this->tab;
+    }
+
+
+    /**
+     * @param null $field
+     * @return array|mixed
+     */
+    public function getFileUploadSeting($field = null)
+    {
+        if ($field !== null) {
+            return $this->setFileUploadSeting[$field];
+        };
+        return $this->setFileUploadSeting;
     }
 }

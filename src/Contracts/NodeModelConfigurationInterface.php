@@ -173,4 +173,10 @@ interface NodeModelConfigurationInterface
      */
     public function getTab ();
 
+
+    /**
+     * @return mixed
+     */
+    public function getFileUploadSeting($field = null);
+
 }

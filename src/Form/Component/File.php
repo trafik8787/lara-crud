@@ -7,18 +7,19 @@
  */
 namespace Trafik8787\LaraCrud\Form\Component;
 
+use Illuminate\Http\Request;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
 
-class Text
+class File
 {
-    public $type; //тип поля input
+
     public $classStyle;
     public $placeholder;
     public $value;
     public $name;
     public $title;
 
-    public $view = 'lara::Form.Component.text';
+    public $view = 'lara::Form.Component.file';
 
     /**
      * Text constructor.
@@ -26,7 +27,7 @@ class Text
      */
     public function __construct(ComponentManagerBuilderInterface $managerBuilder)
     {
-        $this->type = $managerBuilder->type;
+
         $this->classStyle = $managerBuilder->classStyle;
         $this->placeholder = $managerBuilder->placeholder;
         $this->value = $managerBuilder->value;

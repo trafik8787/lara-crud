@@ -10,16 +10,20 @@ namespace Trafik8787\LaraCrud\Form;
 
 use Illuminate\Contracts\Foundation\Application;
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
+use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
+use Trafik8787\LaraCrud\Form\Component\File;
 
 
 class FormTable extends FormManagerTable
 {
 
     private $tabs;
+    private $file;
 
-    public function __construct (TabsInterface $tabs) {
+    public function __construct (TabsInterface $tabs, UploadFileInterface $file) {
         $this->tabs = $tabs;
+        $this->file = $file;
     }
     /**
      * @param string $form = edit|insert
@@ -110,26 +114,14 @@ class FormTable extends FormManagerTable
 
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @param File $file
+     * @return \Illuminate\Http\RedirectResponse todo метод срабатывает при обновлении
      * todo метод срабатывает при обновлении
      */
     public function updateForm ()
     {
-        $arr_request = $this->admin->getRequest()->all();
 
-        unset($arr_request['_method']);
-        unset($arr_request['_token']);
-
-        $nameColumn = $this->objConfig->nameColumns();
-        $model = $this->objConfig->getModelObj()->find($arr_request[$this->admin->KeyName]);
-
-        foreach ($arr_request as $name => $item) {
-            if (!empty($nameColumn[$name])) {
-                $model->{$name} = $item;
-            }
-        }
-
-        $model->save();
+        $this->FormRequestModelSave('update');
 
         if (!empty($arr_request['save_button'])) {
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
@@ -145,20 +137,8 @@ class FormTable extends FormManagerTable
      */
     public function insertForm ()
     {
-        $arr_request = $this->admin->getRequest()->all();
 
-        unset($arr_request['_token']);
-
-        $nameColumn = $this->objConfig->nameColumns();
-
-        $model = $this->objConfig->getModelObj();
-
-        foreach ($arr_request as $name => $item) {
-            if (!empty($nameColumn[$name])) {
-                $model->{$name} = $item;
-            }
-        }
-        $model->save();
+        $this->FormRequestModelSave('insert');
 
         if (!empty($arr_request['save_button'])) {
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
@@ -167,4 +147,32 @@ class FormTable extends FormManagerTable
         return redirect()->back();
     }
 
+
+    public function FormRequestModelSave($type)
+    {
+        $model = [];
+        //конфиг добавляем в класс
+        $arr_request = $this->file->objConfig($this->objConfig);
+
+        $nameColumn = $this->objConfig->nameColumns();
+        if ($type === 'update') {
+
+            $model = $this->objConfig->getModelObj()->find($arr_request[$this->admin->KeyName]);
+
+            unset($arr_request['_method']);
+            unset($arr_request['_token']);
+
+        } elseif ($type === 'insert') {
+
+            $model = $this->objConfig->getModelObj();
+            unset($arr_request['_token']);
+        }
+
+        foreach ($arr_request as $name => $item) {
+            if (!empty($nameColumn[$name])) {
+                $model->{$name} = $item;
+            }
+        }
+        $model->save();
+    }
 }

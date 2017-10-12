@@ -6,10 +6,10 @@
         </div>
         <div class="box-body">
 
-            {!! Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'url' => url()->current(), 'method' => $formMetod, 'files' => true)) !!}
+            {!! Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}
 
                 @if (!empty($id))
-                    {{ Form::hidden('id', $id) }}
+                    {{ Form::hidden($keyName, $id) }}
                 @endif
 
 

@@ -29,14 +29,22 @@ class FormTable extends FormManagerTable
      * @param string $form = edit|insert
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function renderFormEdit () {
+    public function renderFormEdit ($id = null) {
 
 
-
-        $this->id = $this->admin->route->parameters['adminModelId'];
+        // todo два возможных источника ключа либо с роутера либо с метода getFormShow() если нужно вывести форму сразу
+        if ($id !== null) {
+            $this->id = $id;
+            $formActionUrl = url()->current().'/'.$id.'/edit';
+        } else {
+            $this->id = $this->admin->route->parameters['adminModelId'];
+            $formActionUrl = url()->current();
+        }
 
         $data = [
+          'keyName' => $this->admin->KeyName, //name primary Key
           'id' => $this->id,
+          'formActionUrl' => $formActionUrl ,
           'urlAction' => $this->admin->route->parameters['adminModel'],
           'titlePage'  => $this->objConfig->getTitle(),
           'formMetod' => 'PATCH',
@@ -82,7 +90,13 @@ class FormTable extends FormManagerTable
         $this->tabs->objConfig($this->objConfig);
 
         $model = $this->getModelData();
-       // dd($model);
+//        $we = $model->OneToMany;
+//       // dump($we);
+//        foreach ($we as $item) {
+//            dump($item->mobile);
+//        }
+
+
         $result = [];
 
         foreach ($this->getArrayField() as $item) {
@@ -121,7 +135,7 @@ class FormTable extends FormManagerTable
     public function updateForm ()
     {
 
-        $this->FormRequestModelSave('update');
+        $arr_request = $this->FormRequestModelSave('update');
 
         if (!empty($arr_request['save_button'])) {
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
@@ -138,7 +152,7 @@ class FormTable extends FormManagerTable
     public function insertForm ()
     {
 
-        $this->FormRequestModelSave('insert');
+        $arr_request = $this->FormRequestModelSave('insert');
 
         if (!empty($arr_request['save_button'])) {
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
@@ -155,6 +169,7 @@ class FormTable extends FormManagerTable
         $arr_request = $this->file->objConfig($this->objConfig);
 
         $nameColumn = $this->objConfig->nameColumns();
+        //для обновления
         if ($type === 'update') {
 
             $model = $this->objConfig->getModelObj()->find($arr_request[$this->admin->KeyName]);
@@ -162,6 +177,7 @@ class FormTable extends FormManagerTable
             unset($arr_request['_method']);
             unset($arr_request['_token']);
 
+            //для добавления
         } elseif ($type === 'insert') {
 
             $model = $this->objConfig->getModelObj();
@@ -174,5 +190,7 @@ class FormTable extends FormManagerTable
             }
         }
         $model->save();
+
+        return $arr_request;
     }
 }

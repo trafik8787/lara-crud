@@ -179,4 +179,11 @@ interface NodeModelConfigurationInterface
      */
     public function getFileUploadSeting($field = null);
 
+    /**
+     * @param null $field
+     * @return mixed
+     * todo метод определяет тип вывода если обьевлен форма редактирования виводится сразу может принимать id строки в таблице
+     */
+    public function getFormShow();
+
 }

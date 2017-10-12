@@ -27,4 +27,15 @@ abstract class All extends Model
 
         return $query;
     }
+
+    public function One ()
+    {
+        return $this->hasOne('App\Phone', 'contact_id');
+    }
+
+    public function OneToMany ()
+    {
+        return $this->hasMany('App\Phone', 'contacts_id', 'id');
+    }
+    
 }

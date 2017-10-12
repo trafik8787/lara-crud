@@ -35,6 +35,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $columnColorWhere = [];
     protected $newAction = []; //кнопки Action
     protected $setTypeField = [];
+    protected $formShowId;
 
     //property field
     protected $addFieldClass = [];
@@ -352,6 +353,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     /**
      * @return array
+     * todo вкладки
      */
     public function getTab()
     {
@@ -362,6 +364,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @param null $field
      * @return array|mixed
+     * todo настройки для поля file
      */
     public function getFileUploadSeting($field = null)
     {
@@ -369,5 +372,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $this->setFileUploadSeting[$field];
         };
         return $this->setFileUploadSeting;
+    }
+
+    /**
+     * @return mixed
+     * todo метод определяет тип вывода если обьевлен форма редактирования виводится сразу может принимать id строки в таблице
+     */
+    public function getFormShow()
+    {
+        return $this->formShowId;
     }
 }

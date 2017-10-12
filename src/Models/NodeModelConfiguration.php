@@ -121,6 +121,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $operator
      * @param $value
      * @param $color
+     * todo цвета строкам по условию
      */
     public function columnColorWhere ($field, $operator, $value, $color)
     {
@@ -131,6 +132,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $nameButtonAction
      * @param $url
      * @param Closure $closure|string
+     * todo добавляет действия над записями в виде кнопок
      */
     public function addAction ($nameButtonAction, $url, $closure)
     {
@@ -255,6 +257,19 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     public function setValue (array $arrFieldType)
     {
         $this->setValue = $arrFieldType;
+    }
+
+
+    /**
+     * @param null $id
+     * todo метод определяет тип вывода если обьевлен форма редактирования виводится сразу может принимать id строки в таблице
+     */
+    public function formShow ($id = null)
+    {
+        $this->formShowId = 1;
+        if ($id !== null) {
+            $this->formShowId = $id;
+        }
     }
 
     /**

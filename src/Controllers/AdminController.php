@@ -45,7 +45,11 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function showTable (TableInterface $table, AdminInterface $admin) {
+    public function showTable (TableInterface $table, AdminInterface $admin, FormManagerInterface $form) {
+
+        if ($admin->objConfig->getFormShow() !== null) {
+            return $form->renderFormEdit($admin->objConfig->getFormShow());
+        }
 
         return $table->render();
 

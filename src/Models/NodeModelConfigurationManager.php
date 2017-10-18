@@ -368,10 +368,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function getFileUploadSeting($field = null)
     {
-        if ($field !== null) {
+        if ($field !== null and !empty($this->setFileUploadSeting[$field])) {
             return $this->setFileUploadSeting[$field];
         };
-        return $this->setFileUploadSeting;
+        return false;
     }
 
     /**

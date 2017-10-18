@@ -41,7 +41,7 @@ class Navigation implements NavigationInterface
         foreach ($this->admin->navigation['tabs'] as $NameTab => $tab) {
             $this->navigation_tab['tabs'][$NameTab]['settings'] = $tab['settings'];
             foreach ($tab['node'] as $class_node =>  $item) {
-                $this->navigation_tab['tabs'][$NameTab]['node'][$defFlip[$class_node]] = $item;
+                $this->navigation_tab['tabs'][$NameTab]['node'][$url.$defFlip[$class_node]] = $item;
             }
 
         }

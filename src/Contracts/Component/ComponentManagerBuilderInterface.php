@@ -41,6 +41,11 @@ interface ComponentManagerBuilderInterface
     /**
      * @return mixed
      */
+    public function multiple ();
+
+    /**
+     * @return mixed
+     */
     public function name ();
 
     /**

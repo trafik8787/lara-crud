@@ -90,8 +90,9 @@ class FormTable extends FormManagerTable
         $this->tabs->objConfig($this->objConfig);
 
         $model = $this->getModelData();
-//        $we = $model->OneToMany;
-//       // dump($we);
+//        $we = $model->OneToMany->find(1);
+//        dump($we->number_phone = 55555555);
+//        $we->save();
 //        foreach ($we as $item) {
 //            dump($item->mobile);
 //        }
@@ -100,6 +101,7 @@ class FormTable extends FormManagerTable
         $result = [];
 
         foreach ($this->getArrayField() as $item) {
+
             $model_field_value = null;
             //конструктор форм
             $objBilder = (new ComponentManagerBuilder($item));
@@ -110,6 +112,8 @@ class FormTable extends FormManagerTable
                 $objBilder->title();
                 $objBilder->name();
                 $objBilder->disableEditor();
+                $objBilder->multiple();
+
 
 
                 if (!empty($model->{$item['field']})) {
@@ -162,10 +166,14 @@ class FormTable extends FormManagerTable
     }
 
 
+    /**
+     * @param $type
+     * @return mixed
+     */
     public function FormRequestModelSave($type)
     {
         $model = [];
-        //конфиг добавляем в класс
+        //конфиг добавляем в класс и возвращаем масив полей
         $arr_request = $this->file->objConfig($this->objConfig);
 
         $nameColumn = $this->objConfig->nameColumns();

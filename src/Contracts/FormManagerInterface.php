@@ -35,4 +35,9 @@ interface FormManagerInterface
      */
     public function getArrayField ();
 
+    /**
+     * @return mixed
+     */
+    public function getMultiple(string $field):bool;
+
 }

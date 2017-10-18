@@ -30,6 +30,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $name;
     public $title;
     public $disableEditor;
+    public $multiple;
 
 
     /**
@@ -85,6 +86,17 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $data
+     */
+    public function multiple ($data = null)
+    {
+        $this->multiple = $data;
+
+        if ($data === null) {
+            $this->multiple =  $this->objField['multiple'];
+        }
+    }
 
     /**
      * @param null $data

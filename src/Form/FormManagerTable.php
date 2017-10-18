@@ -58,6 +58,24 @@ abstract class FormManagerTable implements FormManagerInterface
 
 
 
+
+    /**
+     * @param string $field
+     * @return bool
+     * todo определяет является ли поле multiple
+     */
+    public function getMultiple(string $field):bool
+    {
+        if (!empty($this->objConfig->getFileUploadSeting($field))) {
+            $arr_file = $this->objConfig->getFileUploadSeting($field);
+            if ($arr_file['status'] === 'multiple') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /**
      * @return array
      * //получаем масив полей и их нахваний без индексного поля
@@ -97,7 +115,8 @@ abstract class FormManagerTable implements FormManagerInterface
                 'placeholder' => $this->objConfig->getFieldPlaceholder($name),
                 'sqlType' => $typeColumn[$name],
                 'type' => $this->getDataType($typeColumn[$name], $name), //тип поля для input
-                'typeField' => $this->objConfig->getTypeField($name) //виды полей select input textarea
+                'typeField' => $this->objConfig->getTypeField($name), //виды полей select input textarea
+                'multiple' => $this->getMultiple($name)
             ];
         }
 

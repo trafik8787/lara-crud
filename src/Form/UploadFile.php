@@ -18,6 +18,7 @@ class UploadFile implements UploadFileInterface
     private $request;
     private $field;
     private $objConfig;
+    private $jsonMultipleArr;
 
     public function __construct (Request $request) {
 
@@ -40,6 +41,7 @@ class UploadFile implements UploadFileInterface
         ]
          */
 
+
         if (!empty($this->request->file())) {
             foreach ($this->request->file() as $nameField => $item) {
                 //истинно если файлы не множественные
@@ -50,8 +52,9 @@ class UploadFile implements UploadFileInterface
                 //если множественный выбор
                 if (is_array($item)) {
                     foreach ($item as $rows) {
-                        $this->saveFile($rows);
+                        $this->jsonMultipleArr[] = $this->saveFile($nameField, $rows);
                     }
+                    $request_all[$nameField] = json_encode($this->jsonMultipleArr);
                 }
             }
 
@@ -83,8 +86,28 @@ class UploadFile implements UploadFileInterface
 
         $path = base_path('public/'.$fieldSetings['path']);
         $nameFile = $file->hashName();
-
+       // dd(get_class_methods($file));
+      //  dd($file->getSize());
         $file->move($path, $nameFile);
         return $fieldSetings['path'].'/'.$nameFile;
+    }
+
+
+    /**
+     * @param $size
+     * @param int $precision
+     * @return int|string
+     */
+    public static function formatBytes($size, $precision = 2)
+    {
+        if ($size > 0) {
+            $size = (int) $size;
+            $base = log($size) / log(1024);
+            $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
+
+            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+        } else {
+            return $size;
+        }
     }
 }

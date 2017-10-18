@@ -1,10 +1,10 @@
 @extends('lara::common.app')
 @section('content')
-    <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">{{$titlePage}}</h3>
-        </div>
-        <div class="box-body">
+    {{--<div class="box">--}}
+        {{--<div class="box-header">--}}
+            {{--<h3 class="box-title">{{$titlePage}}</h3>--}}
+        {{--</div>--}}
+        {{--<div class="box-body">--}}
 
             {!! Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}
 
@@ -25,6 +25,6 @@
                     <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-open"></span> Apply</button>
                 </div>
             {!! Form::close() !!}
-        </div>
-    </div>
+        {{--</div>--}}
+    {{--</div>--}}
 @endsection

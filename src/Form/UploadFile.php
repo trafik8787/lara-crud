@@ -19,10 +19,12 @@ class UploadFile implements UploadFileInterface
     private $field;
     private $objConfig;
     private $jsonMultipleArr;
+    private $uploadAllSettings;
 
     public function __construct (Request $request) {
 
         $this->request = $request;
+
     }
 
     /**
@@ -30,7 +32,7 @@ class UploadFile implements UploadFileInterface
      */
     public function setUploadFile()
     {
-        $request_all = $this->request->all();
+        $request_all = $this->request->input();
 
         /**
          * array:1 [▼
@@ -40,7 +42,6 @@ class UploadFile implements UploadFileInterface
         ]
         ]
          */
-
 
         if (!empty($this->request->file())) {
             foreach ($this->request->file() as $nameField => $item) {
@@ -54,15 +55,46 @@ class UploadFile implements UploadFileInterface
                     foreach ($item as $rows) {
                         $this->jsonMultipleArr[] = $this->saveFile($nameField, $rows);
                     }
+
+                    //добавляем еще файлы к существующим
+                    if (!empty($request_all[$nameField])) {
+                        $this->jsonMultipleArr = array_merge($this->jsonMultipleArr, $request_all[$nameField]);
+                    }
+
                     $request_all[$nameField] = json_encode($this->jsonMultipleArr);
                 }
             }
 
+        } else {
+            //если файлы существующие обновлять не добавляя новых
+            $request_all = $this->requestArrUpdateInput();
         }
 
         return $request_all;
     }
 
+
+    /**
+     * @return array|string
+     */
+    public function requestArrUpdateInput()
+    {
+        $request_all = $this->request->input();
+
+        if (!empty($this->objConfig->getFileUploadSetingAll())) {
+
+            foreach ($this->objConfig->getFileUploadSetingAll() as $nameField => $uploadAllSetting) {
+                if (!empty($request_all[$nameField]) and is_array($request_all[$nameField])) {
+                    $request_all[$nameField] = json_encode($request_all[$nameField]);
+                } else {
+                    //если удалены все картинки то создаем поле в масиве POST с нулевым значением чтоб обнулить поле в таблице
+                    $request_all[$nameField] = null;
+                }
+            }
+
+        }
+        return $request_all;
+    }
 
     /**
      * @param $obj

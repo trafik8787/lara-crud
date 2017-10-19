@@ -375,6 +375,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
     /**
+     * @return array
+     */
+    public function getFileUploadSetingAll() {
+        return $this->setFileUploadSeting;
+    }
+
+    /**
      * @return mixed
      * todo метод определяет тип вывода если обьевлен форма редактирования виводится сразу может принимать id строки в таблице
      */

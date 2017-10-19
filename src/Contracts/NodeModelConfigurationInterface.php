@@ -186,4 +186,9 @@ interface NodeModelConfigurationInterface
      */
     public function getFormShow();
 
+    /**
+     * @return mixed
+     */
+    public function getFileUploadSetingAll();
+
 }

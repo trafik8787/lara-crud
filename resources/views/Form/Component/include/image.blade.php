@@ -14,7 +14,9 @@
         <div class="box-body">
             <span class="mailbox-attachment-icon has-img">
                 <img src="/{{$value}}" alt="">
-                {{--<input type="hidden" value="{{$value}}" name="{{$name}}[]">--}}
+                @if(!empty($multiple) and !empty($value))
+                    <input type="hidden" value="{{$value}}" name="{{$name}}[]">
+                @endif
             </span>
 
             <div class="mailbox-attachment-info">

@@ -1,9 +1,11 @@
+{{--{{dd($obj)}}--}}
 @if (!empty($obj->value))
     <div class="form-group">
         <div class="col-md-1">
 
         </div>
         <div class="col-md-9">
+                {{--{{dd(json_decode($obj->value) )}}--}}
 
                     <ul class="mailbox-attachments clearfix">
 
@@ -11,14 +13,18 @@
 
                             @foreach(json_decode($obj->value) as $value)
 
-                                @include('lara::Form.Component.include.image', ['value' => $value, 'name' => $obj->name])
+                                @include('lara::Form.Component.include.image', ['value' => $value,
+                                                                                'name' => $obj->name,
+                                                                                'multiple' => $obj->multiple])
 
                             @endforeach
 
                         @else
-
-                            @include('lara::Form.Component.include.image', ['value' => $obj->value, 'name' => $obj->name])
-
+                            @empty(!File::exists($obj->value))
+                                @include('lara::Form.Component.include.image', ['value' => $obj->value,
+                                                                                'name' => $obj->name,
+                                                                                'multiple' => $obj->multiple])
+                            @endempty
                         @endif
                     </ul>
 

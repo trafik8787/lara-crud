@@ -18,6 +18,8 @@ class Select
     public $name;
     public $title;
     public $multiple;
+    public $options;
+
 
     public $view = 'lara::Form.Component.select';
     /**
@@ -33,6 +35,7 @@ class Select
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
         $this->multiple =  $managerBuilder->multiple;
+        $this->options =  $managerBuilder->options;
     }
 
     /**

@@ -56,6 +56,12 @@ interface ComponentManagerBuilderInterface
     /**
      * @return mixed
      */
+    public function options ();
+
+
+    /**
+     * @return mixed
+     */
     public function build();
 
 }

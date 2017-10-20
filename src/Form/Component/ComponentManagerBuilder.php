@@ -31,6 +31,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $title;
     public $disableEditor;
     public $multiple;
+    public $options;
 
 
     /**
@@ -203,4 +204,14 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
     }
 
+    public function options($data = null)
+    {
+        $this->classStyle = $data;
+
+        if ($data === null) {
+            $this->options = $this->objField['options'];
+        }
+
+        return $this;
+    }
 }

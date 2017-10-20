@@ -124,7 +124,8 @@ abstract class FormManagerTable implements FormManagerInterface
                 'sqlType' => $typeColumn[$name],
                 'type' => $this->getDataType($typeColumn[$name], $name), //тип поля для input
                 'typeField' => $this->objConfig->getTypeField($name), //виды полей select input textarea
-                'multiple' => $this->getMultiple($name)
+                'multiple' => $this->getMultiple($name),
+                'options' => $this->objConfig->getFieldOption($name)
             ];
         }
 

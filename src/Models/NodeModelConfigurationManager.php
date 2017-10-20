@@ -43,7 +43,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addFieldPlaceholder = [];
     protected $setValue = [];
     protected $tab = [];
-    protected $FieldOption = []; // Опции для передачи в классы полей
+    protected $fieldOption = []; // Опции для передачи в классы полей
     protected $objClassSelectAjax = []; // хранит обьект класса переданного для выборки для select2
 
     protected $disableEditor = [];
@@ -374,10 +374,16 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
 
-
-    public function getFieldOption()
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getFieldOption(string $field)
     {
-        
+        if (!empty($this->fieldOption[$field])) {
+            return $this->fieldOption[$field];
+        }
+        return null;
     }
     
     /**

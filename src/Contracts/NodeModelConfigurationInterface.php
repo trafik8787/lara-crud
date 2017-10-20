@@ -215,7 +215,7 @@ interface NodeModelConfigurationInterface
      * @return mixed
      * todo дополнительные опции для полей
      */
-    public function getFieldOption();
+    public function getFieldOption(string $field);
 
     /**
      * @return mixed

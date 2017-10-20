@@ -132,13 +132,14 @@ class FormTable extends FormManagerTable
                 $objBilder->name();
                 $objBilder->disableEditor();
                 $objBilder->multiple();
+                $objBilder->options();
 
 
 
                 if (!empty($model->{$item['field']})) {
                     $model_field_value = $model->{$item['field']};
                 }
-//                dump($this->objConfig->getValue($item['field'], $model_field_value));
+              //  dump($this->objConfig->getValue($item['field'], $model_field_value));
                 $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
            // $result[] = $objBilder->build()->run();
@@ -230,11 +231,11 @@ class FormTable extends FormManagerTable
     {
         $new_data = [];
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
-        $result = $data['model']->orWhere($data['select'], 'like', '%' . $this->request->input('term') . '%')->select($data['id'], $data['select'])->get()->toArray();
+        $result = $data['model']->orWhere($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select'])->get()->toArray();
         foreach ($result as $item) {
             $new_data[] =['id' => [$item[$data['id']]], 'text' =>$item[$data['select']]];
         }
-
+        // 'pagination' => ['more' => true]]
         return json_encode(['results' => $new_data]);
 
     }

@@ -43,6 +43,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addFieldPlaceholder = [];
     protected $setValue = [];
     protected $tab = [];
+    protected $FieldOption = []; // Опции для передачи в классы полей
+    protected $objClassSelectAjax = []; // хранит обьект класса переданного для выборки для select2
 
     protected $disableEditor = [];
     protected $setFileUploadSeting = []; //сохраняем масив с настройками для полей file
@@ -267,14 +269,34 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
 
     /**
-     * @param $nameField
-     * @param $valueModel
+     * @param $nameField // имя поля
+     * @param $valueModel //данные из базы
      * @return array|mixed|null
      */
     public function getValue ($nameField, $valueModel)
     {
-        if (!empty($this->setTypeField[$nameField]) and $this->setTypeField[$nameField] === 'select') {
-            return ['curentValue' => $valueModel, 'selectValue' => $this->setValue[$nameField]];
+
+        if (!empty($this->setTypeField[$nameField])) {
+
+            if (is_array($this->setTypeField[$nameField])) {
+
+                //если васив определяем тип поля
+                switch ($this->setTypeField[$nameField][0]) {
+                    case 'select':
+                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+                        //проверяем если передан класс то ничего не возвращаем
+                        if (empty($this->objClassSelectAjax[$nameField])) {
+                            return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+                        }
+                        break;
+                    case 'file':
+                        break;
+                    default:
+                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+                        return $this->setValue[$nameField];
+                }
+            }
+
         }
 
         if (!empty($this->setValue[$nameField])) {
@@ -289,6 +311,27 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
     /**
+     * @param array $arrFieldType
+     * todo устанавливаем значения полей по умолчанию
+     */
+    public function setValue (array $arrFieldType)
+    {
+        $this->setValue = $arrFieldType;
+    }
+
+    /**
+     * @param $nameField
+     * @param $fieldSetindArr
+     */
+    public function setFileUploadSeting ($nameField, $fieldSetindArr)
+    {
+        $this->setFileUploadSeting[$nameField] = [
+            'path' => (!empty($fieldSetindArr[1])) ? $fieldSetindArr[1] : 'uploads',
+            'status' => (!empty($fieldSetindArr[2]) and $fieldSetindArr[2] === 'multiple') ? 'multiple' : null //если пустой то предполагается что только одна картинка если multiple то множественные
+        ];
+    }
+
+    /**
      * @param string $field
      * @return bool|mixed
      * todo получаем вид поля нвпример select по ключу по умолчанию input
@@ -296,11 +339,27 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getTypeField(string $field)
     {
         if (!empty($this->setTypeField[$field])) {
+
+            if (is_array($this->setTypeField[$field])) {
+                return $this->setTypeField[$field][0];
+            }
+
             return $this->setTypeField[$field];
         }
         return null;
     }
 
+    /**
+     * @param string $field
+     * @return mixed|null
+     * todo получаем масив конфигурации поля
+     */
+    public function getTypeFieldAllArr(string $field) {
+        if (!empty($this->setTypeField[$field])) {
+            return $this->setTypeField[$field];
+        }
+        return null;
+    }
 
     /**
      * @param string $field
@@ -314,6 +373,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return null;
     }
 
+
+
+    public function getFieldOption()
+    {
+        
+    }
+    
     /**
      * @param string $field
      * @return mixed|null
@@ -388,5 +454,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getFormShow()
     {
         return $this->formShowId;
+    }
+
+    public function getObjClassSelectAjax($field)
+    {
+        return $this->objClassSelectAjax[$field];
     }
 }

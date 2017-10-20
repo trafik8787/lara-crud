@@ -1,4 +1,4 @@
-{{--{{dd($obj)}}--}}
+
 @if (!empty($obj->value))
     <div class="form-group">
         <div class="col-md-1">

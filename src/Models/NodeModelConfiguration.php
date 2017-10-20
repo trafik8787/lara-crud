@@ -214,11 +214,27 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     /**
      * @param array $arrTypeField
-     * todo выбор поля который будет отображатся в форме например input select
+     * todo выбор поля который будет отображатся в форме например input select file с настройками
      *
      */
     public function setTypeField (array $arrTypeField)
     {
+        foreach ($arrTypeField as $nameField => $item) {
+            if (is_array($item)) {
+                switch ($item[0]) {
+                    case 'file':
+                        $this->setFileUploadSeting($nameField, $item);
+                        break;
+                    case 'select':
+                        if (isset($item[1][0]) and class_exists($item[1][0])) {
+                            $this->objClassSelectAjax[$nameField] = ['id' => $item[1][1], 'select' => $item[1][2], 'model' => $this->app->make($item[1][0])];
+                        }
+                        break;
+                }
+
+            }
+        }
+
         $this->setTypeField = $arrTypeField;
         return $this;
     }
@@ -250,14 +266,6 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->addFieldPlaceholder = $arr;
     }
 
-    /**
-     * @param array $arrFieldType
-     * todo устанавливаем значения полей по умолчанию
-     */
-    public function setValue (array $arrFieldType)
-    {
-        $this->setValue = $arrFieldType;
-    }
 
 
     /**
@@ -280,13 +288,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->disableEditor = func_get_args();
     }
 
-    public function setFileUploadSeting ($field, $path, $status = null)
-    {
-        $this->setFileUploadSeting[$field] = [
-            'path' => (!empty($path)) ? $path : 'uploads',
-            'status' => ($status === 'multiple') ? 'multiple' : null //если пустой то предполагается что только одна картинка если multiple то множественные
-        ];
-    }
+
 }
 
 

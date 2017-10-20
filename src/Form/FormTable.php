@@ -8,28 +8,47 @@
 
 namespace Trafik8787\LaraCrud\Form;
 
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\Request;
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 use Trafik8787\LaraCrud\Form\Component\File;
 
 
+/**
+ * Class FormTable
+ * @package Trafik8787\LaraCrud\Form
+ */
 class FormTable extends FormManagerTable
 {
 
     private $tabs;
     private $file;
+    private $request;
 
-    public function __construct (TabsInterface $tabs, UploadFileInterface $file) {
+    /**
+     * FormTable constructor.
+     * @param TabsInterface $tabs
+     * @param UploadFileInterface $file
+     * @param Request $request
+     */
+    public function __construct (TabsInterface $tabs, UploadFileInterface $file, Request $request) {
         $this->tabs = $tabs;
         $this->file = $file;
+        $this->request = $request;
     }
     /**
      * @param string $form = edit|insert
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function renderFormEdit ($id = null) {
+
+        /**
+         * если запрос пришел от поля SELECT2
+         */
+        if ($this->request->ajax() and csrf_token() == $this->request->get('_token')) {
+            return $this->returnDataAjaxForSelect();
+        }
 
 
         // todo два возможных источника ключа либо с роутера либо с метода getFormShow() если нужно вывести форму сразу
@@ -119,7 +138,7 @@ class FormTable extends FormManagerTable
                 if (!empty($model->{$item['field']})) {
                     $model_field_value = $model->{$item['field']};
                 }
-
+//                dump($this->objConfig->getValue($item['field'], $model_field_value));
                 $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
            // $result[] = $objBilder->build()->run();
@@ -201,4 +220,23 @@ class FormTable extends FormManagerTable
 
         return $arr_request;
     }
+
+
+    /**
+     * @return string
+     * todo формируем ответ с данными для поля SELECT2
+     */
+    public function returnDataAjaxForSelect ()
+    {
+        $new_data = [];
+        $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
+        $result = $data['model']->orWhere($data['select'], 'like', '%' . $this->request->input('term') . '%')->select($data['id'], $data['select'])->get()->toArray();
+        foreach ($result as $item) {
+            $new_data[] =['id' => [$item[$data['id']]], 'text' =>$item[$data['select']]];
+        }
+
+        return json_encode(['results' => $new_data]);
+
+    }
+
 }

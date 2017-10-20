@@ -191,4 +191,36 @@ interface NodeModelConfigurationInterface
      */
     public function getFileUploadSetingAll();
 
+    /**
+     * @param array $arrFieldType
+     * @return mixed
+     */
+    public function setValue (array $arrFieldType);
+
+    /**
+     * @param $field
+     * @param $path
+     * @param null $status
+     * @return mixed
+     */
+    public function setFileUploadSeting ($nameField, $fieldSetindArr);
+
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getTypeFieldAllArr(string $field);
+
+    /**
+     * @return mixed
+     * todo дополнительные опции для полей
+     */
+    public function getFieldOption();
+
+    /**
+     * @return mixed
+     * todo метод получаем обьект класса переданного для SELECT2
+     */
+    public function getObjClassSelectAjax($field);
+
 }

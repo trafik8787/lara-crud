@@ -211,7 +211,7 @@
 
 <script>
     $(function () {
-        $('.select2').select2();
+
         CKEDITOR.replaceAll('editor-textarea');
     });
 </script>

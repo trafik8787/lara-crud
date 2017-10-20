@@ -72,6 +72,14 @@ abstract class FormManagerTable implements FormManagerInterface
                 return true;
             }
         }
+
+        if (!empty($this->objConfig->getTypeFieldAllArr($field))) {
+            $tmp = $this->objConfig->getTypeFieldAllArr($field);
+            if (!empty($tmp[2]) and $tmp[2] === 'multiple') {
+                return true;
+            }
+        }
+
         return false;
     }
 

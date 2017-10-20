@@ -75,8 +75,6 @@ class AdminController extends Controller
      */
     public function showEdit (FormManagerInterface $form, AdminInterface $admin)
     {
-
-        //return view('lara::common.app');
         return $form->renderFormEdit();
     }
 

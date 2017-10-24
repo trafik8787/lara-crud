@@ -1,4 +1,3 @@
-
 <div class="form-group">
     <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}}</label>
     <div class="col-md-9">
@@ -16,7 +15,6 @@
 <script>
     $(function () {
 
-
         $('.select2-{{$obj->name}}').select2({
             placeholder: "Search for a movie",
             width: 'resolve',
@@ -31,11 +29,15 @@
                         return term;
                     }
                 },
+                data: {
+                    id: 1, text: 'Lorem Ipsum'
+                },
                 initSelection: function (element, callback) {
 
-//                    callback({ id: 1, text: 'Text' });
+                    callback({ id: '{{$obj->value['ajaxCurentValue']}}', text: '{{$obj->value['ajaxCurrentText']}}' });
                 }
             @endif
         });
+
     });
 </script>

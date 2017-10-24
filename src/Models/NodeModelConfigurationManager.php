@@ -287,6 +287,17 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                         //проверяем если передан класс то ничего не возвращаем
                         if (empty($this->objClassSelectAjax[$nameField])) {
                             return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+                        } else {
+                            //данные для определения текущего значения выбраного из списка
+                            //получам текст для поля select
+                            $arr = ['ajaxCurentValue' => null, 'ajaxCurrentText' => null];
+                            if (!empty($this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']})) {
+                                $ajaxCurrentText = $this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']};
+                                $arr['ajaxCurentValue'] = $valueModel;
+                                $arr['ajaxCurrentText'] = $ajaxCurrentText;
+                            }
+
+                            return $arr;
                         }
                         break;
                     case 'file':

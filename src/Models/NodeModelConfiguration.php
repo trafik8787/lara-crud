@@ -226,6 +226,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                         $this->setFileUploadSeting($nameField, $item);
                         break;
                     case 'select':
+                        //проверяем если класс
                         if (isset($item[1][0]) and class_exists($item[1][0])) {
                             $this->objClassSelectAjax[$nameField] = ['id' => $item[1][1], 'select' => $item[1][2], 'model' => $this->app->make($item[1][0])];
                         }

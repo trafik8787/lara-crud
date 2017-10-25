@@ -42,13 +42,13 @@ class LaraCrudProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'lara');
-        $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'lara-config');
-        $this->loadTranslationsFrom(__DIR__ . '/lang', 'lara-crud');
-        $this->loadRoutesFrom(__DIR__ . '/src/routes.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lara');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'lara-config');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'lara-crud');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
         $this->publishes([
-            __DIR__.'./resources/assets' => public_path('vendor/lara-crud'),
+            __DIR__ . '/../resources/assets' => public_path('vendor/lara-crud'),
         ], 'public');
 
        //$admin->initNode($this->nodes());
@@ -56,12 +56,21 @@ class LaraCrudProvider extends ServiceProvider
     }
 
     /**
+     * @param $key
+     * @return mixed
+     */
+    protected function getConfig($key)
+    {
+        return $this->app['config']->get('lara-config.'.$key);
+    }
+    /**
      * Register the application services.
      *
      * @return void
      */
     public function register()
     {
+        $this->registerCommands();
 
         $this->app->singleton(AdminInterface::class, function (){
             return new Admin($this->nodes(), $this->navigation(), $this->app);
@@ -74,7 +83,19 @@ class LaraCrudProvider extends ServiceProvider
         $this->app->singleton(TabsInterface::class, Tabs::class);
         $this->app->singleton(UploadFileInterface::class, UploadFile::class);
 
-
     }
 
+
+    /**
+     *
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Trafik8787\LaraCrud\Console\Commands\NodeGenerate::class,
+                \Trafik8787\LaraCrud\Console\Commands\ModelGenerate::class
+            ]);
+        }
+    }
 }

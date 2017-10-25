@@ -18,7 +18,7 @@
     },
     "autoload": {
       "psr-4": {
-        "Trafik8787\\LaraCrud\\": "src",
+        "Trafik8787\\LaraCrud\\": "src/",
         "Trafik8787\\LaraCrud\\Tests\\": "tests/"
       }
     },
@@ -27,6 +27,5 @@
         "tests/TestCase.php"
       ]
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "dev"
 }

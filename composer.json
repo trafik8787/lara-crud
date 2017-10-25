@@ -9,7 +9,7 @@
             "email": "trafik8787@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "require": {
       "laravelcollective/html":"^5.2.0"
     },

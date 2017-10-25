@@ -9,7 +9,6 @@
             "email": "trafik8787@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
       "laravelcollective/html":"^5.2.0"
     },
@@ -27,5 +26,7 @@
       "classmap": [
         "tests/TestCase.php"
       ]
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

@@ -38,7 +38,7 @@ class Navigation implements NavigationInterface
         }
 
         $defFlip = array_flip($this->admin->defaultUrlArr);
-        if (!empty($this->admin->navigation)) {
+        if (!empty($this->admin->navigation['tabs'])) {
 
             foreach ($this->admin->navigation['tabs'] as $NameTab => $tab) {
                 $this->navigation_tab['tabs'][$NameTab]['settings'] = $tab['settings'];

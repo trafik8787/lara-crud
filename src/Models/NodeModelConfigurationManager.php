@@ -46,7 +46,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $fieldOption = []; // Опции для передачи в классы полей
     protected $objClassSelectAjax = []; // хранит обьект класса переданного для выборки для select2
 
-    protected $disableEditor = [];
+    protected $enableEditor = [];
     protected $setFileUploadSeting = []; //сохраняем масив с настройками для полей file
     protected $dashboard;
 
@@ -428,10 +428,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param string $field
      * @return bool
      */
-    public function getDisableEditor(string $field)
+    public function getEnableEditor(string $field)
     {
-        if (!empty($this->disableEditor[$field])) {
+        if (in_array($field, $this->enableEditor)) {
             return true;
+
         }
         return false;
     }

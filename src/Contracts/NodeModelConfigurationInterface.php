@@ -165,7 +165,7 @@ interface NodeModelConfigurationInterface
      * @param string $field
      * @return mixed
      */
-    public function getDisableEditor(string $field);
+    public function getEnableEditor(string $field);
 
 
     /**

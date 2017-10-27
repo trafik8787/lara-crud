@@ -29,7 +29,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $label;
     public $name;
     public $title;
-    public $disableEditor;
+    public $enableEditor;
     public $multiple;
     public $options;
 
@@ -167,12 +167,12 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param null $data
      * @return $this
      */
-    public function disableEditor($data = null)
+    public function enableEditor($data = null)
     {
-        $this->disableEditor = $data;
+        $this->enableEditor = $data;
 
         if ($data === null) {
-            $this->disableEditor = $this->objField['disableEditor'];
+            $this->enableEditor = $this->objField['enableEditor'];
         }
 
         return $this;

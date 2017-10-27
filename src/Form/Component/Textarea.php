@@ -16,7 +16,7 @@ class Textarea
     public $value;
     public $name;
     public $title;
-    public $disableEditor;
+    public $enableEditor;
 
     public $view = 'lara::Form.Component.textarea';
 
@@ -32,7 +32,7 @@ class Textarea
         $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
-        $this->disableEditor = $managerBuilder->disableEditor;
+        $this->enableEditor = $managerBuilder->enableEditor;
     }
 
 

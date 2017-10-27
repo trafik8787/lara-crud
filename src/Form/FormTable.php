@@ -130,7 +130,7 @@ class FormTable extends FormManagerTable
                 $objBilder->placeholder();
                 $objBilder->title();
                 $objBilder->name();
-                $objBilder->disableEditor();
+                $objBilder->enableEditor();
                 $objBilder->multiple();
                 $objBilder->options();
 

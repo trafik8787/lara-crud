@@ -284,9 +284,9 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      *
      */
-    public function disableEditor ()
+    public function enableEditor (array $field)
     {
-        $this->disableEditor = func_get_args();
+        $this->enableEditor = $field;
     }
 
 

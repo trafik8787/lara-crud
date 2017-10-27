@@ -11,7 +11,7 @@
     ],
     "require": {
        "laravelcollective/html":"^5.2.0",
-       "doctrine/dbal": "^2.6.2"
+       "doctrine/dbal": "2.6.*"
     },
     "require-dev": {
       "mockery/mockery": "0.9.*",

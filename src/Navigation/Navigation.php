@@ -38,14 +38,16 @@ class Navigation implements NavigationInterface
         }
 
         $defFlip = array_flip($this->admin->defaultUrlArr);
-        foreach ($this->admin->navigation['tabs'] as $NameTab => $tab) {
-            $this->navigation_tab['tabs'][$NameTab]['settings'] = $tab['settings'];
-            foreach ($tab['node'] as $class_node =>  $item) {
-                $this->navigation_tab['tabs'][$NameTab]['node'][$url.$defFlip[$class_node]] = $item;
+        if (!empty($this->admin->navigation)) {
+
+            foreach ($this->admin->navigation['tabs'] as $NameTab => $tab) {
+                $this->navigation_tab['tabs'][$NameTab]['settings'] = $tab['settings'];
+                foreach ($tab['node'] as $class_node => $item) {
+                    $this->navigation_tab['tabs'][$NameTab]['node'][$url . $defFlip[$class_node]] = $item;
+                }
+
             }
-
         }
-
 
     }
 
@@ -58,15 +60,20 @@ class Navigation implements NavigationInterface
         $priory=[];
         $priory_tab=[];
 
-        foreach ($this->navigation_tab['tabs'] as $item) {
-            $priory_tab[] = $item['settings']['priory'];
+        if (!empty($this->navigation_tab['tabs'])) {
+
+
+            foreach ($this->navigation_tab['tabs'] as $item) {
+                $priory_tab[] = $item['settings']['priory'];
+            }
+
+            array_multisort($priory_tab, SORT_ASC, $this->navigation_tab['tabs']);
         }
 
         foreach ($this->navigation as $row) {
             $priory[] = $row['priory'];
         }
 
-        array_multisort($priory_tab, SORT_ASC, $this->navigation_tab['tabs']);
         array_multisort($priory, SORT_ASC, $this->navigation);
 
         $this->navigation = array_merge($this->navigation, $this->navigation_tab);

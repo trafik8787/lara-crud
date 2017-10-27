@@ -45,6 +45,17 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
+    public function getDashboard (TableInterface $table, AdminInterface $admin)
+    {
+
+        return $table->renderDashboard();
+    }
+
+    /**
+     * @param TableInterface $table
+     * @param AdminInterface $admin
+     * @return mixed
+     */
     public function showTable (TableInterface $table, AdminInterface $admin, FormManagerInterface $form) {
 
         if ($admin->objConfig->getFormShow() !== null) {
@@ -129,5 +140,6 @@ class AdminController extends Controller
         //dump($admin);
         return $table->newAction();
     }
+
 
 }

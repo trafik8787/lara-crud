@@ -223,4 +223,14 @@ interface NodeModelConfigurationInterface
      */
     public function getObjClassSelectAjax($field);
 
+    /**
+     * @return mixed
+     */
+    public function setDashboard ($data);
+
+    /**
+     * @return mixed
+     */
+    public function getDashboard ();
+
 }

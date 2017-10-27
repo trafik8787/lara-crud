@@ -9,7 +9,8 @@
 
 Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => ['web']], function() {
 
-    //Route::get('qwe', ['as' => 'qwe','uses' => 'AdminController@showProfile']);
+    Route::get('', ['as' => 'Dashboard', 'uses' => 'AdminController@getDashboard']);
+
 
     Route::get('{adminModel}', [
         'as'   => 'model.showTable',

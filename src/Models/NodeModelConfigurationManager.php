@@ -48,6 +48,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $disableEditor = [];
     protected $setFileUploadSeting = []; //сохраняем масив с настройками для полей file
+    protected $dashboard;
+
 
     protected $closure;
     /**
@@ -473,8 +475,28 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->formShowId;
     }
 
+    /**
+     * @param $field
+     * @return mixed
+     */
     public function getObjClassSelectAjax($field)
     {
         return $this->objClassSelectAjax[$field];
+    }
+
+    /**
+     * @param $data
+     */
+    public function setDashboard($data)
+    {
+        $this->dashboard = $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDashboard()
+    {
+        return $this->dashboard;
     }
 }

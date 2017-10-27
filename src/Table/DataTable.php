@@ -49,6 +49,15 @@ class DataTable implements TableInterface
         return view('lara::Table.table', $data);
     }
 
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function renderDashboard()
+    {
+        return view('lara::Table.dashboard')->with('data', $this->objConfig->showDisplay());
+    }
+
     /**
      * @return array
      * todo получить список полей текущей таблицы

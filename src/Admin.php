@@ -111,15 +111,23 @@ class Admin implements AdminInterface
      */
     public function getObjConfig ()
     {
+        //dd($this->defaultUrlArr);
 
-        if (!empty($this->defaultUrlArr[$this->route->parameters['adminModel']])) {
+        if ($this->route->action['as'] === 'Dashboard') {
+            $obj = $this->defaultUrlArr['admin'];
+            $model = $this->nameModelArr['admin'];
+        } else {
 
-            $obj = $this->defaultUrlArr[$this->route->parameters['adminModel']];
-            $model = $this->nameModelArr[$this->route->parameters['adminModel']];
+            if (!empty($this->defaultUrlArr[$this->route->parameters['adminModel']])) {
 
-            $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
+                $obj = $this->defaultUrlArr[$this->route->parameters['adminModel']];
+                $model = $this->nameModelArr[$this->route->parameters['adminModel']];
 
+
+
+            }
         }
+        $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
 
     }
 
@@ -156,6 +164,10 @@ class Admin implements AdminInterface
         } elseif ($this->route->action['as'] === 'model.delete') {
             if (method_exists($modelConf, 'showDelete')) {
                 $modelConf->showDelete();
+            }
+        } elseif ($this->route->action['as'] === 'Dashboard') {
+            if (method_exists($modelConf, 'showDisplay')) {
+                $modelConf->showDisplay();
             }
         }
 

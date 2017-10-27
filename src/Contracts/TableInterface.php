@@ -23,6 +23,10 @@ interface TableInterface
     /**
      * @return mixed
      */
+    public function renderDashboard();
+    /**
+     * @return mixed
+     */
     public function getColumn();
 
     /**

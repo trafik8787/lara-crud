@@ -49,6 +49,9 @@ abstract class FormManagerTable implements FormManagerInterface
             'blob' => 'text',
             'bigint' => 'number',
             'decimal' => 'text',
+            'varchar' => 'text',
+            'tinyint' => 'number',
+            'simple_array' => 'text',
 
            );
 

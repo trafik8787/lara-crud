@@ -10,8 +10,7 @@
         }
     ],
     "require": {
-       "laravelcollective/html":"^5.2.0",
-       "doctrine/dbal": "2.6.*"
+       "laravelcollective/html":"^5.2.0"
     },
     "require-dev": {
       "mockery/mockery": "0.9.*",

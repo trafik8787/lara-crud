@@ -26,6 +26,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $buttonDelete = true;
     protected $buttonEdit = true;
+    protected $buttonAdd = true;
+    protected $buttonCopy = true;
+    protected $buttonGroupDelete = true;
+
+
     protected $fieldShow = [];
     protected $fieldName = [];
     public $textLimit = [];
@@ -36,6 +41,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $newAction = []; //кнопки Action
     protected $setTypeField = [];
     protected $formShowId;
+
+
 
     //property field
     protected $addFieldClass = [];
@@ -507,5 +514,29 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getDashboard()
     {
         return $this->dashboard;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getButtonAdd(): bool
+    {
+        return $this->buttonAdd;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getButtonCopy(): bool
+    {
+        return $this->buttonCopy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getButtonGroupDelete(): bool
+    {
+        return $this->buttonGroupDelete;
     }
 }

@@ -50,6 +50,30 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param bool $value
      */
+    public function buttonAdd (bool $value = true)
+    {
+        $this->buttonAdd = $value;
+    }
+
+    /**
+     * @param bool $value
+     */
+    public function buttonCopy (bool $value = true)
+    {
+        $this->buttonCopy = $value;
+    }
+
+    /**
+     * @param bool $value
+     */
+    public function buttonGroupDelete (bool $value = true)
+    {
+        $this->buttonGroupDelete = $value;
+    }
+
+    /**
+     * @param bool $value
+     */
     public function buttonEdit (bool $value = true){
         $this->buttonEdit = $value;
     }

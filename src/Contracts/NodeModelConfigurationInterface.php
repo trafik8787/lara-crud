@@ -66,6 +66,22 @@ interface NodeModelConfigurationInterface
      */
     public function getButtonEdit(): bool;
 
+
+    /**
+     * @return bool
+     */
+    public function getButtonAdd(): bool;
+
+    /**
+     * @return bool
+     */
+    public function getButtonCopy(): bool;
+
+    /**
+     * @return bool
+     */
+    public function getButtonGroupDelete(): bool;
+
     /**
      * @return mixed
      */

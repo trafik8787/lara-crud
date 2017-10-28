@@ -39,6 +39,9 @@ class DataTable implements TableInterface
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
             'titlePage'  => $this->objConfig->getTitle(),
+            'buttonAdd'  => $this->objConfig->getButtonAdd(),
+            'buttonCopy' => $this->objConfig->getButtonCopy(),
+            'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
@@ -98,7 +101,11 @@ class DataTable implements TableInterface
         foreach ($obj as $item) {
 
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
-            $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="'.$item->{$this->admin->KeyName}.'">';
+
+            if($this->objConfig->getButtonGroupDelete()) {
+                $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
+            }
+
             $data[] = $item;
 
         }
@@ -118,7 +125,10 @@ class DataTable implements TableInterface
      */
     public function getJsonColumnDataTable ()
     {
-        $data_field[] = array('data' => '#', 'orderable' => false, 'width' => '5px');
+        //отключение групового удаления
+        if ($this->objConfig->getButtonGroupDelete()) {
+            $data_field[] = array('data' => '#', 'orderable' => false, 'width' => '5px');
+        }
 
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data_field[] = array('data' => $field);
@@ -134,7 +144,7 @@ class DataTable implements TableInterface
      */
     public function getTemplateAction($id)
     {
-
+        //dd($id);
         return view('lara::Form.action', ['id' => $id, 'configNode' => $this->objConfig])->render();
     }
 
@@ -182,10 +192,14 @@ class DataTable implements TableInterface
      */
     public function getModelData($total, $curent_page, $searchValue, $order)
     {
+
+        $select = array_keys($this->objConfig->nameColumns());
+        $select[] = $this->admin->KeyName;
+
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->getModelObj()->search($searchValue, $this->admin->TableColumns);
-        $result = $result->select(array_keys($this->objConfig->nameColumns()))->orderBy($order_field, $order['dir']);
+        $result = $result->select($select)->orderBy($order_field, $order['dir']);
         $result = $this->objConfig->getWhere($result);
         $result = $result->paginate($total);
 

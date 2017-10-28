@@ -7,6 +7,5 @@
             {{$title}}
         </label>
         @endforeach
-
     </div>
 </div>

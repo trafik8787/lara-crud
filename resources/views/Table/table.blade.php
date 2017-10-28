@@ -60,20 +60,29 @@
 
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">{{$titlePage}}</h3>
+            {{--<h1 class="box-title">{{$titlePage}}</h1>--}}
+            <h2>{{$titlePage}}</h2>
         </div>
         <div class="box-body">
             <div class="mailbox-controls text-right">
-                <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
-                <button type="button" name="delete_group" class="btn btn-danger" onclick="$('#form-table-display').submit()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                @if($buttonAdd)
+                    <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
+                @endif
+                @if($buttonCopy)
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
+                @endif
+                @if($buttonGroupDelete)
+                    <button type="button" name="delete_group" class="btn btn-danger" onclick="$('#form-table-display').submit()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                @endif
             </div>
 
             {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false)) !!}
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        @if($buttonGroupDelete)
                         <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
+                        @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
                         @endforeach
@@ -83,7 +92,9 @@
                     </thead>
                     <tfoot>
                     <tr>
+                        @if($buttonGroupDelete)
                         <th>#</th>
+                        @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
                         @endforeach

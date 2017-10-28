@@ -41,8 +41,8 @@ abstract class FormManagerTable implements FormManagerInterface
             'datetime' => 'datetime',
             'date' => 'date',
             'integer' => 'number',
-            'bool'=> 'checkbox',
-            'boolean' => 'checkbox',
+            'bool'=> 'radio',
+            'boolean' => 'radio',
             'float' => 'number',
             'text'  => 'text',
             'time'  => 'datetime',
@@ -50,7 +50,7 @@ abstract class FormManagerTable implements FormManagerInterface
             'bigint' => 'number',
             'decimal' => 'text',
             'varchar' => 'text',
-            'tinyint' => 'number',
+            'tinyint' => 'radio',
             'simple_array' => 'text',
 
            );

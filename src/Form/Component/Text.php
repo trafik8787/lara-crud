@@ -17,6 +17,7 @@ class Text
     public $value;
     public $name;
     public $title;
+    public $label;
 
     public $view = 'lara::Form.Component.text';
 

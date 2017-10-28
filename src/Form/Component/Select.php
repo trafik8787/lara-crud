@@ -19,7 +19,7 @@ class Select
     public $title;
     public $multiple;
     public $options;
-
+    public $label;
 
     public $view = 'lara::Form.Component.select';
     /**

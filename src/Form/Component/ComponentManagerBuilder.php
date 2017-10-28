@@ -41,7 +41,6 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public function __construct ($arrField = null) {
 
         $this->objField = $arrField;
-
     }
 
 
@@ -189,15 +188,18 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
             case 'select':
                 return new Select($this);
                 break;
-
             case 'textarea':
                 return new Textarea($this);
                 break;
-
             case 'file':
                 return new File($this);
                 break;
-
+            case 'checkbox':
+                return new Checkbox($this);
+                break;
+            case 'radio':
+                return new Radio($this);
+                break;
             default:
                 return new Text($this);
         }

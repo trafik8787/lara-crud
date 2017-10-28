@@ -19,6 +19,7 @@ class File
     public $name;
     public $title;
     public $multiple;
+    public $label;
 
     public $view = 'lara::Form.Component.file';
 

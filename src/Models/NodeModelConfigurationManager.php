@@ -304,6 +304,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                         break;
                     case 'file':
                         break;
+
+                    case 'checkbox':
+                        return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+                        break;
+
+                    case 'radio':
+                        return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+                        break;
                     default:
                         $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
                         return $this->setValue[$nameField];

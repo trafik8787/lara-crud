@@ -33,8 +33,9 @@
                     id: 1, text: 'Lorem Ipsum'
                 },
                 initSelection: function (element, callback) {
-
-                    callback({ id: '{{$obj->value['ajaxCurentValue']}}', text: '{{$obj->value['ajaxCurrentText']}}' });
+                    @if(!empty($obj->value['ajaxCurentValue']))
+                        callback({ id: '{{$obj->value['ajaxCurentValue']}}', text: '{{$obj->value['ajaxCurrentText']}}' });
+                    @endif
                 }
             @endif
         });

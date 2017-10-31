@@ -81,6 +81,7 @@ class FormTable extends FormManagerTable
     {
         $data = [
             'urlAction' => $this->admin->route->parameters['adminModel'],
+            'formActionUrl' => url()->current(),
             'titlePage'  => $this->objConfig->getTitle(),
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender()

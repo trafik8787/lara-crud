@@ -7,7 +7,7 @@
  */
 
 
-Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => ['web']], function() {
+Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik8787\LaraCrud\Controllers', 'middleware' => config('lara-config.middleware')], function() {
 
     Route::get('', ['as' => 'Dashboard', 'uses' => 'AdminController@getDashboard']);
 
@@ -55,11 +55,3 @@ Route::group(['prefix'=>config('lara-config.url_group'),'namespace' => 'Trafik87
         'uses' => 'AdminController@deleteDelete',
     ]);
 });
-
-//Route::namespace('Trafik8787\LaraCrud\Controllers\Admin')->group(function () {
-//    Route::get('qwe', ['as' => 'qwe','uses' => 'AdminController@showProfile']);
-//});
-
-//Route::prefix('admin')->group(function () {
-//    Route::get('qwe', 'Trafik8787\LaraCrud\Controllers\Admin\AdminController@showProfile');
-//});

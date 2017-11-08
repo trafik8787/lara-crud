@@ -43,7 +43,7 @@ class LaraCrudProvider extends ServiceProvider
     {
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lara');
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'lara-config');
+        $this->mergeConfigFrom(__DIR__ . '/../config/lara-config.php', 'lara-config');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'lara-crud');
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
@@ -51,7 +51,10 @@ class LaraCrudProvider extends ServiceProvider
             __DIR__ . '/../resources/assets' => public_path('vendor/lara-crud'),
         ], 'public');
 
-       //$admin->initNode($this->nodes());
+        $this->publishes([
+            __DIR__ . '/../config/lara-config.php' => config_path('lara-config.php'),
+        ], 'config');
+
         view()->composer('lara::common.header', Navigation::class);
     }
 

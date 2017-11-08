@@ -7,6 +7,7 @@
  */
 
 return [
+    'middleware' => ['web'],
     'url_group' => 'admin',
     'field_disable' => [
         'created_at',

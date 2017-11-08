@@ -267,7 +267,20 @@
                     {{--<li>--}}
                         {{--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>--}}
                     {{--</li>--}}
-                    <li><a href="/logout">Logout</a></li>
+                    @if (!empty(Route::has('logout')))
+                        <li>
+
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>

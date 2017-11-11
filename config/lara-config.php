@@ -7,6 +7,7 @@
  */
 
 return [
+    'admin_panel_name' => ['LaraAdmin', '/admin'],
     'middleware' => ['web'],
     'url_group' => 'admin',
     'field_disable' => [

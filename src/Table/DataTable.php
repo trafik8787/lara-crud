@@ -87,12 +87,15 @@ class DataTable implements TableInterface
     public function jsonResponseTable ($admin)
     {
         $request = $admin->getRequest();
-        //dd($request);
 
-        if (!empty($request['selected'])) {
-            //груповое удаление
-            return $this->groupDelete($request['selected']);
+        //груповое удаление
+        if (isset($request['delete_group_'.csrf_token()])) {
+            return $this->groupDelete($request);
+        } elseif (isset($request['copy_'.csrf_token()])) {
+            return $this->copyData($request);
         }
+
+
 
         $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
         $dataArr = $obj->toArray();
@@ -103,7 +106,7 @@ class DataTable implements TableInterface
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
 
             if($this->objConfig->getButtonGroupDelete()) {
-                $item['#'] = '<input class="text-center" name="selected[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
+                $item['#'] = '<input class="text-center" name="selected_'.csrf_token().'[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
             }
 
             $data[] = $item;
@@ -242,10 +245,13 @@ class DataTable implements TableInterface
      * @param $arr_id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function groupDelete ($arr_id)
+    public function groupDelete ($request)
     {
-        $this->getModelObj()->destroy($arr_id);
-        return $this->redirect();
+        if (!empty($request['selected_'.csrf_token()])) {
+            $this->getModelObj()->destroy($request['selected_'.csrf_token()]);
+            return $this->redirect();
+        }
+
     }
 
     /**
@@ -260,5 +266,18 @@ class DataTable implements TableInterface
         }
         // - 1 потому что первая колонка чекбоксы
         return $data[$index-1];
+    }
+
+    /**
+     * @param $request
+     */
+    public function copyData($request)
+    {
+        if (!empty($request['selected_'.csrf_token()])) {
+
+            $newModel = $this->getModelObj()->find(collect($request['selected_'.csrf_token()])->first())->replicate();
+            $newModel->save();
+            return $this->redirect();
+        }
     }
 }

@@ -59,6 +59,13 @@ interface TableInterface
      * @param $arr_id
      * @return mixed
      */
-    public function groupDelete ($arr_id);
+    public function groupDelete ($request);
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function copyData ($request);
+
 
 }

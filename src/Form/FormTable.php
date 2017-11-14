@@ -196,7 +196,7 @@ class FormTable extends FormManagerTable
         $model = [];
         //конфиг добавляем в класс и возвращаем масив полей
         $arr_request = $this->file->objConfig($this->objConfig);
-
+//        dd($arr_request);
         $nameColumn = $this->objConfig->nameColumns();
         //для обновления
         if ($type === 'update') {

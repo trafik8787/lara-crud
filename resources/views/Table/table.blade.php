@@ -64,19 +64,20 @@
             <h2>{{$titlePage}}</h2>
         </div>
         <div class="box-body">
-            <div class="mailbox-controls text-right">
-                @if($buttonAdd)
-                    <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
-                @endif
-                @if($buttonCopy)
-                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
-                @endif
-                @if($buttonGroupDelete)
-                    <button type="button" name="delete_group" class="btn btn-danger" onclick="$('#form-table-display').submit()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-                @endif
-            </div>
-
             {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false)) !!}
+                <div class="mailbox-controls text-right">
+                    @if($buttonAdd)
+                        <a href="{{ url()->current()}}/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add New</a>
+                    @endif
+                    @if($buttonCopy)
+                        <button type="submit" name="copy_{{csrf_token()}}" class="btn btn-default"><span class="glyphicon glyphicon-copy"></span> Copy</button>
+                    @endif
+                    @if($buttonGroupDelete)
+                        <button type="submit" name="delete_group_{{csrf_token()}}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                    @endif
+                </div>
+
+
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>

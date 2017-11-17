@@ -22,6 +22,7 @@ class Select
     public $label;
 
     public $view = 'lara::Form.Component.select';
+    public $view_multiple = 'lara::Form.Component.select_multiple';
     /**
      * Select constructor.
      * @param ComponentManagerBuilderInterface $managerBuilder
@@ -36,6 +37,12 @@ class Select
         $this->title = $managerBuilder->title;
         $this->multiple =  $managerBuilder->multiple;
         $this->options =  $managerBuilder->options;
+
+        //в зависимоти от от того выбран ли multiple переоперделяем view
+        if ($this->multiple) {
+            $this->view = $this->view_multiple;
+        }
+
     }
 
     /**

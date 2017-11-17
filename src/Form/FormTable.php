@@ -8,11 +8,13 @@
 
 namespace Trafik8787\LaraCrud\Form;
 
+use App\Http\Node\Model\CategoryContactsModel;
 use Illuminate\Http\Request;
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 use Trafik8787\LaraCrud\Form\Component\File;
+use Trafik8787\LaraCrud\Models\Relationships;
 
 
 /**
@@ -37,9 +39,10 @@ class FormTable extends FormManagerTable
         $this->file = $file;
         $this->request = $request;
     }
+
     /**
-     * @param string $form = edit|insert
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param null $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
     public function renderFormEdit ($id = null) {
 
@@ -74,11 +77,19 @@ class FormTable extends FormManagerTable
         return view('lara::Form.form', $data);
     }
 
+
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
     public function renderFormInsert ()
     {
+        /**
+         * если запрос пришел от поля SELECT2
+         */
+        if ($this->request->ajax() and csrf_token() == $this->request->get('_token')) {
+            return $this->returnDataAjaxForSelect();
+        }
+
         $data = [
             'urlAction' => $this->admin->route->parameters['adminModel'],
             'formActionUrl' => url()->current(),
@@ -92,6 +103,7 @@ class FormTable extends FormManagerTable
 
     /**
      * @return mixed
+     * получаем запись для редактирования
      */
     public function getModelData () {
         return $this->objConfig->getModelObj()->find($this->id);
@@ -110,19 +122,14 @@ class FormTable extends FormManagerTable
         $this->tabs->objConfig($this->objConfig);
 
         $model = $this->getModelData();
-//        $we = $model->OneToMany->find(1);
-//        dump($we->number_phone = 55555555);
-//        $we->save();
-//        foreach ($we as $item) {
-//            dump($item->mobile);
-//        }
-
 
         $result = [];
 
         foreach ($this->getArrayField() as $item) {
 
-            $model_field_value = null;
+            //todo получаем данные из таблицы многие ко многим для вывода в поле
+            $this->objConfig->getCurentValueMultiple($item['field'], $model);
+
             //конструктор форм
             $objBilder = (new ComponentManagerBuilder($item));
                 $objBilder->classStyle();
@@ -135,15 +142,11 @@ class FormTable extends FormManagerTable
                 $objBilder->multiple();
                 $objBilder->options();
 
+                $model_field_value = !empty($model->{$item['field']}) ? $model->{$item['field']} : null;
 
-
-                if (!empty($model->{$item['field']})) {
-                    $model_field_value = $model->{$item['field']};
-                }
-              //  dump($this->objConfig->getValue($item['field'], $model_field_value));
                 $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
-           // $result[] = $objBilder->build()->run();
+
             $result[] = $objBilder->build();
         }
         $result = $this->tabs->build($result);
@@ -196,8 +199,9 @@ class FormTable extends FormManagerTable
         $model = [];
         //конфиг добавляем в класс и возвращаем масив полей
         $arr_request = $this->file->objConfig($this->objConfig);
-//        dd($arr_request);
+        //dd($arr_request);
         $nameColumn = $this->objConfig->nameColumns();
+       // dd($arr_request);
         //для обновления
         if ($type === 'update') {
 
@@ -206,19 +210,23 @@ class FormTable extends FormManagerTable
             unset($arr_request['_method']);
             unset($arr_request['_token']);
 
-            //для добавления
+        //для добавления
         } elseif ($type === 'insert') {
 
             $model = $this->objConfig->getModelObj();
+
             unset($arr_request['_token']);
         }
 
         foreach ($arr_request as $name => $item) {
             if (!empty($nameColumn[$name])) {
-                $model->{$name} = $item;
+                $model->{$name} = is_array($item) ? json_encode($item) : $item;
             }
         }
+
         $model->save();
+
+        $this->saveRelationTable($arr_request, $model);
 
         return $arr_request;
     }
@@ -234,11 +242,26 @@ class FormTable extends FormManagerTable
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
         $result = $data['model']->orWhere($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select'])->get()->toArray();
         foreach ($result as $item) {
-            $new_data[] =['id' => [$item[$data['id']]], 'text' =>$item[$data['select']]];
+            $new_data[] =['id' => [$item[$data['id']]], 'text' =>strip_tags($item[$data['select']])];
         }
         // 'pagination' => ['more' => true]]
         return json_encode(['results' => $new_data]);
 
     }
 
+
+    /**
+     * @param $arr_request
+     * @param $model
+     * todo метод сохраняет в промежуточную таблицу
+     */
+    public function saveRelationTable ($arr_request, $model)
+    {
+        foreach ($arr_request as $fieldName => $item) {
+            $data = $this->objConfig->getCurentValueMultiple($fieldName, $model);
+            if ($data !== false) {
+                $data->ManyToMany()->sync($item);
+            }
+        }
+    }
 }

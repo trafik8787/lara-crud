@@ -157,7 +157,7 @@ class Admin implements AdminInterface
             if (method_exists($modelConf, 'showEditDisplay')) {
                 $modelConf->showEditDisplay();
             }
-        } elseif ($this->route->action['as'] === 'model.create') {
+        } elseif ($this->route->action['as'] === 'model.create' or $this->route->action['as'] === 'model.store') {
             if (method_exists($modelConf, 'showInsertDisplay')) {
                 $modelConf->showInsertDisplay();
             }

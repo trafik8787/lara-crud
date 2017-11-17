@@ -23,13 +23,7 @@ interface RelationshipsInterface
     /**
      * @return mixed
      */
-    public function MenyToMany();
-
-    /**
-     * @return mixed
-     */
-    public function make ();
-
+    public function ManyToMany();
 
 
 }

@@ -205,11 +205,5 @@
 <div class="control-sidebar-bg"></div>
 </div>
 
-<script>
-    $(function () {
-
-        CKEDITOR.replaceAll('editor-textarea');
-    });
-</script>
 </body>
 </html>

@@ -57,6 +57,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setFileUploadSeting = []; //сохраняем масив с настройками для полей file
     protected $dashboard;
 
+    protected $modelTableSelect; //обьект модели подгрузки для select2
+    public $OtherTable; //таблица для записи multiple
+    protected $modelRelation; //хранит обьект класса Relationships
+
 
     protected $closure;
     /**
@@ -292,18 +296,39 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                 //если васив определяем тип поля
                 switch ($this->setTypeField[$nameField][0]) {
                     case 'select':
-                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+//                        dump($this->objClassSelectAjax[$nameField]);
+//                        dump($valueModel);
+
+                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1]; //?????? зачем
                         //проверяем если передан класс то ничего не возвращаем
                         if (empty($this->objClassSelectAjax[$nameField])) {
+
                             return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+
                         } else {
+
                             //данные для определения текущего значения выбраного из списка
                             //получам текст для поля select
                             $arr = ['ajaxCurentValue' => null, 'ajaxCurrentText' => null];
-                            if (!empty($this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']})) {
-                                $ajaxCurrentText = $this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']};
-                                $arr['ajaxCurentValue'] = $valueModel;
-                                $arr['ajaxCurrentText'] = $ajaxCurrentText;
+
+                            //проверяем если 'multiple' то будем брать данные из сторонней таблицы
+                            if ($this->setTypeField[$nameField][2] !== 'multiple') {
+
+                                if (!empty($this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']})) {
+
+                                    $ajaxCurrentText = $this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']};
+
+                                    $arr['ajaxCurentValue'] = $valueModel;
+
+                                    $arr['ajaxCurrentText'] = $ajaxCurrentText;
+                                }
+
+                            } else {
+//                                dump(
+//                                    $this->getOtherTable($nameField)
+//                                );
+                                $arr['ajaxCurentValueMultiple'] =  $this->getOtherTable($this->objClassSelectAjax[$nameField]);
+
                             }
 
                             return $arr;
@@ -538,5 +563,56 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getButtonGroupDelete(): bool
     {
         return $this->buttonGroupDelete;
+    }
+
+
+    /**
+     * @param $nameField
+     * @return mixed
+     */
+    public function getCurentValueMultiple($nameField, $model = null)
+    {
+
+        if (!empty($this->OtherTable[$nameField]) and $model !== null) {
+
+            $this->modelRelation = new Relationships($model, $this->OtherTable[$nameField]['model'],
+                $this->OtherTable[$nameField]['ralation_table'],
+                $this->OtherTable[$nameField]['foreign_key'],
+                $this->OtherTable[$nameField]['local_key']);
+
+            return $this->modelRelation;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param $objClassSelectAjax
+     * @return array|null
+     * todo метод формирует масив для вывода выбраных элементов при редктировании
+     */
+    public function getOtherTable($objClassSelectAjax)
+    {
+
+        $data = [];
+        if ($this->modelRelation !== null) {
+            foreach ($this->modelRelation->ManyToMany()->get() as $item) {
+                $data[] = ['id' => $item[$objClassSelectAjax['id']], 'text' => strip_tags($item[$objClassSelectAjax['select']])];
+            }
+            return $data;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $fieldName
+     * @return array
+     *  получаем масив для поля отношения к таблице данные таблицы и полей
+     */
+    public function getOtherTableArray($fieldName): array
+    {
+        return $this->OtherTable[$fieldName];
     }
 }

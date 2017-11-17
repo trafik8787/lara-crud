@@ -1,20 +1,15 @@
-
-{{--{{dd($obj->value['ajaxCurentValueMultiple'])}}--}}
 <div class="form-group">
     <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}}</label>
     <div class="col-md-9">
-        <select name="{{$obj->name}}" class="form-control select2-{{$obj->name}}">
-            @if(isset($obj->value['selectValue']))
-                @foreach($obj->value['selectValue'] as $value => $title)
-                    <option {{$obj->value['curentValue'] == $value ? 'selected="selected"' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>
+        <select name="{{$obj->name}}[]" class="form-control select2-{{$obj->name}}" multiple="multiple">
+            @if(isset($obj->value['ajaxCurentValueMultiple']))
+                @foreach($obj->value['ajaxCurentValueMultiple'] as $value)
+                    <option selected="selected" value="{{$value['id']}}">{{strip_tags($value['text'])}}</option>
                 @endforeach
             @endif
-
         </select>
     </div>
 </div>
-
-
 <script>
     $(document).ready(function () {
 
@@ -22,6 +17,7 @@
             placeholder: "Search for a movie",
             width: 'resolve',
             allowClear: false,
+            multiple: true,
             @if (empty($obj->value['selectValue']))
                 ajax: {
                     type: "GET",
@@ -35,7 +31,6 @@
                 }
             @endif
         });
-
 
     });
 </script>

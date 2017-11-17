@@ -265,7 +265,10 @@ class DataTable implements TableInterface
             $data[] = $field;
         }
         // - 1 потому что первая колонка чекбоксы
-        return $data[$index-1];
+        if ($this->objConfig->getButtonGroupDelete()) {
+            return $data[$index - 1];
+        }
+        return $data[$index];
     }
 
     /**

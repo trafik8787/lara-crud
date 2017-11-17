@@ -245,6 +245,12 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         foreach ($arrTypeField as $nameField => $item) {
             if (is_array($item)) {
+
+                //проверяем подключена ли к полю другая таблица
+                if (!empty($item[3])) {
+                    $this->setOtherTable($nameField, $item[3]);
+                }
+
                 switch ($item[0]) {
                     case 'file':
                         $this->setFileUploadSeting($nameField, $item);
@@ -252,10 +258,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                     case 'select':
                         //проверяем если класс
                         if (isset($item[1][0]) and class_exists($item[1][0])) {
+
+                            $this->modelTableSelect = $this->app->make($item[1][0]);
+
                             $this->objClassSelectAjax[$nameField] = [
                                 'id' => $item[1][1],
                                 'select' => $item[1][2],
-                                'model' => $this->app->make($item[1][0])
+                                'model' => $this->modelTableSelect
                             ];
                         }
                         break;
@@ -317,6 +326,27 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->enableEditor = $field;
     }
 
+    /**
+     * @param $data
+     * todo таблица в которую добавляются записи многие ко многим
+     */
+    public function setOtherTable($nameField, $data)
+    {
+        //проверяем масив ли это не пустой ли он и соотвецтвует ли критериям
+        if (!empty($data) and is_array($data) and class_exists($data[0])) {
+
+            $this->OtherTable[$nameField] = [
+                'model' => $this->app->make($data[0]),
+                'ralation_table' => $data[1], //таблица отношения многие ко многим
+                'foreign_key' => $data[2],
+                'local_key' => $data[3]
+            ];
+
+            return $this->OtherTable;
+        }
+
+        return false;
+    }
 
 }
 

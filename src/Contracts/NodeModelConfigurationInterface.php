@@ -249,4 +249,24 @@ interface NodeModelConfigurationInterface
      */
     public function getDashboard ();
 
+    /**
+     * @return mixed
+     * todo метод хранит модель и поля таблицы для meny to meny
+     */
+    public function getCurentValueMultiple ($nameField, $model);
+
+    /**
+     * @param $nameField
+     * @return mixed
+     * получаем данные таблицы отношения
+     */
+    public function getOtherTable ($objClassSelectAjax);
+
+
+    /**
+     * @param $fieldName
+     * @return array
+     * получаем масив для поля отношения к таблице данные таблицы и полей
+     */
+    public function getOtherTableArray ($fieldName):array;
 }

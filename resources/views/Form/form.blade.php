@@ -1,6 +1,7 @@
 @extends('lara::common.app')
 @section('content')
 
+
     <h2>{{$titlePage}}</h2>
 
     {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-repleace', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}

@@ -9,9 +9,12 @@ namespace Trafik8787\LaraCrud\Form\Component;
 
 use Illuminate\Http\Request;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
+use Trafik8787\LaraCrud\Traits\Helper;
 
 class File
 {
+
+    use Helper;
 
     public $classStyle;
     public $placeholder;

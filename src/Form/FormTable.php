@@ -10,6 +10,7 @@ namespace Trafik8787\LaraCrud\Form;
 
 use App\Http\Node\Model\CategoryContactsModel;
 use Illuminate\Http\Request;
+use Validator;
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
@@ -27,6 +28,7 @@ class FormTable extends FormManagerTable
     private $tabs;
     private $file;
     private $request;
+    protected $validator;
 
     /**
      * FormTable constructor.
@@ -170,7 +172,7 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
         }
 
-        return redirect()->back();
+        return redirect()->back()->withErrors($this->validator);
     }
 
 
@@ -187,7 +189,7 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
         }
 
-        return redirect()->back();
+        return redirect()->back()->withErrors($this->validator);
     }
 
 
@@ -219,6 +221,11 @@ class FormTable extends FormManagerTable
             unset($arr_request['_token']);
         }
 
+        //валидация
+        if ($this->RuleValidation($arr_request) !== true) {
+            return false;
+        }
+
         foreach ($arr_request as $name => $item) {
             if (!empty($nameColumn[$name])) {
                 $model->{$name} = is_array($item) ? json_encode($item) : $item;
@@ -232,6 +239,20 @@ class FormTable extends FormManagerTable
         return $arr_request;
     }
 
+
+    public function RuleValidation($arr_request)
+    {
+        if ($this->objConfig->getValidation() !== null) {
+            $this->validator = Validator::make($arr_request, $this->objConfig->getValidation());
+
+            if ($this->validator->passes()) {
+                return true;
+            }
+
+            return $this->validator;
+        }
+        return true;
+    }
 
     /**
      * @return string

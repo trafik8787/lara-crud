@@ -11,9 +11,13 @@ namespace Trafik8787\LaraCrud\Models;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery\Matcher\Closure;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Traits\Helper;
 
 abstract class NodeModelConfigurationManager implements NodeModelConfigurationInterface
 {
+
+    use Helper;
+
     protected $model;
     protected $class;
     public $admin;
@@ -62,6 +66,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $modelRelation; //хранит обьект класса Relationships
 
     protected $tooltip; //Подсказки tooltip.js
+    protected $validation = null;
 
     protected $closure;
     /**
@@ -306,7 +311,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
                             if (!empty($this->setTypeField[$nameField][2]) and $this->setTypeField[$nameField][2] === 'multiple') {
                                 //return ['curentValue' => array_flip(json_decode($valueModel)), 'selectValue' => $this->setTypeField[$nameField][1]];
-                                $curentValue = $valueModel ? array_flip(json_decode($valueModel)) : null;
+
+                                $curentValue = is_array(json_decode($valueModel)) ? array_flip(json_decode($valueModel)) : null;
+
                                 return ['curentValue' => $curentValue, 'selectValue' => $this->setTypeField[$nameField][1]];
                             } else {
                                 return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
@@ -642,5 +649,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
 
         return $this->tooltip[$fieldName];
+    }
+
+
+    /**
+     * @return null
+     */
+    public function getValidation()
+    {
+        return $this->validation;
     }
 }

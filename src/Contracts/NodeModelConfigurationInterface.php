@@ -277,4 +277,10 @@ interface NodeModelConfigurationInterface
     public function getTooltip ($fieldName);
 
 
+    /**
+     * @return mixed
+     */
+    public function getValidation ();
+
+
 }

@@ -357,6 +357,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->tooltip = $dataArr;
     }
 
+    public function Validation (array $dataArr)
+    {
+
+    }
+
 }
 
 

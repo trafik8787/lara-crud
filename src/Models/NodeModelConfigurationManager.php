@@ -305,7 +305,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
 
                             if (!empty($this->setTypeField[$nameField][2]) and $this->setTypeField[$nameField][2] === 'multiple') {
-                                return ['curentValue' => array_flip(json_decode($valueModel)), 'selectValue' => $this->setTypeField[$nameField][1]];
+                                //return ['curentValue' => array_flip(json_decode($valueModel)), 'selectValue' => $this->setTypeField[$nameField][1]];
+                                $curentValue = $valueModel ? array_flip(json_decode($valueModel)) : null;
+                                return ['curentValue' => $curentValue, 'selectValue' => $this->setTypeField[$nameField][1]];
                             } else {
                                 return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
                             }

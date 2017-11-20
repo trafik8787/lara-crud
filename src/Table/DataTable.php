@@ -105,7 +105,7 @@ class DataTable implements TableInterface
 
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
 
-            if($this->objConfig->getButtonGroupDelete()) {
+            if($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
                 $item['#'] = '<input class="text-center" name="selected_'.csrf_token().'[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
             }
 
@@ -129,7 +129,7 @@ class DataTable implements TableInterface
     public function getJsonColumnDataTable ()
     {
         //отключение групового удаления
-        if ($this->objConfig->getButtonGroupDelete()) {
+        if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
             $data_field[] = array('data' => '#', 'orderable' => false, 'width' => '5px');
         }
 
@@ -265,7 +265,7 @@ class DataTable implements TableInterface
             $data[] = $field;
         }
         // - 1 потому что первая колонка чекбоксы
-        if ($this->objConfig->getButtonGroupDelete()) {
+        if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
             return $data[$index - 1];
         }
         return $data[$index];

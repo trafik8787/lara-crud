@@ -81,7 +81,7 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        @if($buttonGroupDelete)
+                        @if($buttonGroupDelete or $buttonCopy)
                         <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
                         @endif
                         @foreach ($name_field as $field)
@@ -93,7 +93,7 @@
                     </thead>
                     <tfoot>
                     <tr>
-                        @if($buttonGroupDelete)
+                        @if($buttonGroupDelete or $buttonCopy)
                         <th>#</th>
                         @endif
                         @foreach ($name_field as $field)

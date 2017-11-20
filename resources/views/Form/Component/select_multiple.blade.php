@@ -7,6 +7,13 @@
                     <option selected="selected" value="{{$value['id']}}">{{strip_tags($value['text'])}}</option>
                 @endforeach
             @endif
+
+            {{--Нижний кусок работает для статического списка select в режиме multiple--}}
+            @if(isset($obj->value['selectValue']))
+                @foreach($obj->value['selectValue'] as $value => $title)
+                    <option {{isset($obj->value['curentValue'][$value]) ? 'selected=selected' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>
+                @endforeach
+            @endif
         </select>
     </div>
 </div>

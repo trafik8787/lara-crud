@@ -296,44 +296,47 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                 //если васив определяем тип поля
                 switch ($this->setTypeField[$nameField][0]) {
                     case 'select':
-//                        dump($this->objClassSelectAjax[$nameField]);
-//                        dump($valueModel);
 
-                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1]; //?????? зачем
+                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+
                         //проверяем если передан класс то ничего не возвращаем
-                        if (empty($this->objClassSelectAjax[$nameField])) {
+                        if (empty($this->objClassSelectAjax[$nameField])) {  // без аякса
 
-                            return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
 
-                        } else {
+                            if (!empty($this->setTypeField[$nameField][2]) and $this->setTypeField[$nameField][2] === 'multiple') {
+                                return ['curentValue' => array_flip(json_decode($valueModel)), 'selectValue' => $this->setTypeField[$nameField][1]];
+                            } else {
+                                return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
+                            }
+
+                        } else { //с аяксом
 
                             //данные для определения текущего значения выбраного из списка
                             //получам текст для поля select
                             $arr = ['ajaxCurentValue' => null, 'ajaxCurrentText' => null];
 
                             //проверяем если 'multiple' то будем брать данные из сторонней таблицы
-                            if ($this->setTypeField[$nameField][2] !== 'multiple') {
+                            if (empty($this->setTypeField[$nameField][2]) or $this->setTypeField[$nameField][2] !== 'multiple') {
 
                                 if (!empty($this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']})) {
 
                                     $ajaxCurrentText = $this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']};
 
                                     $arr['ajaxCurentValue'] = $valueModel;
-
                                     $arr['ajaxCurrentText'] = $ajaxCurrentText;
                                 }
 
                             } else {
-//                                dump(
-//                                    $this->getOtherTable($nameField)
-//                                );
+
                                 $arr['ajaxCurentValueMultiple'] =  $this->getOtherTable($this->objClassSelectAjax[$nameField]);
 
                             }
 
                             return $arr;
                         }
+
                         break;
+
                     case 'file':
                         break;
 

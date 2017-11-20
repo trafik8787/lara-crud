@@ -1,5 +1,3 @@
-
-{{--{{dd($obj->value['ajaxCurentValueMultiple'])}}--}}
 <div class="form-group">
     <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}}</label>
     <div class="col-md-9">
@@ -14,10 +12,8 @@
     </div>
 </div>
 
-
 <script>
-    $(document).ready(function () {
-
+    $(function () {
         $('.select2-{{$obj->name}}').select2({
             placeholder: "Search for a movie",
             width: 'resolve',
@@ -32,10 +28,14 @@
                         term.field = "{{$obj->name}}";
                         return term;
                     }
+                },
+                initSelection: function (element, callback) {
+                    @if(!empty($obj->value['ajaxCurentValue']))
+                        callback({ id: '{{$obj->value['ajaxCurentValue']}}', text: '{{$obj->value['ajaxCurrentText']}}' });
+                    @endif
                 }
             @endif
         });
-
 
     });
 </script>

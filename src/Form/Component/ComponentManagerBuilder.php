@@ -32,6 +32,8 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $enableEditor;
     public $multiple;
     public $options;
+    public $tooltip;
+
 
 
     /**
@@ -129,6 +131,21 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         return $this;
     }
 
+
+    /**
+     * @param null $data
+     * @return $this
+     */
+    public function tooltip ($data = null)
+    {
+        $this->tooltip =$data;
+
+        if ($data === null) {
+            $this->tooltip = $this->objField['tooltip'];
+        }
+
+        return $this;
+    }
 
     /**
      * @param null $data

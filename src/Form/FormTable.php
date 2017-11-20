@@ -141,6 +141,7 @@ class FormTable extends FormManagerTable
                 $objBilder->enableEditor();
                 $objBilder->multiple();
                 $objBilder->options();
+                $objBilder->tooltip();
 
                 $model_field_value = !empty($model->{$item['field']}) ? $model->{$item['field']} : null;
 

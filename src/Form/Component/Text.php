@@ -18,6 +18,7 @@ class Text
     public $name;
     public $title;
     public $label;
+    public $tooltip;
 
     public $view = 'lara::Form.Component.text';
 
@@ -34,6 +35,7 @@ class Text
         $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
+        $this->tooltip = $managerBuilder->tooltip;
     }
 
 

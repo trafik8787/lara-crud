@@ -61,6 +61,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public $OtherTable; //таблица для записи multiple
     protected $modelRelation; //хранит обьект класса Relationships
 
+    protected $tooltip; //Подсказки tooltip.js
 
     protected $closure;
     /**
@@ -617,5 +618,27 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getOtherTableArray($fieldName): array
     {
         return $this->OtherTable[$fieldName];
+    }
+
+
+    /**
+     * @param $fieldName
+     * @return bool
+     */
+    public function getTooltip($fieldName)
+    {
+        if (empty($this->tooltip[$fieldName])) {
+            return false;
+        }
+
+        if (is_array($this->tooltip[$fieldName])) {
+            $this->addFieldTitle[$fieldName] = $this->tooltip[$fieldName][0];
+            $this->tooltip[$fieldName] = isset($this->tooltip[$fieldName][1]) ? $this->tooltip[$fieldName][1] : 'top';
+        } else {
+            $this->addFieldTitle[$fieldName] = $this->tooltip[$fieldName];
+            $this->tooltip[$fieldName] = 'top';
+        }
+
+        return $this->tooltip[$fieldName];
     }
 }

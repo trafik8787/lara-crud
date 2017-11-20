@@ -348,6 +348,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         return false;
     }
 
+
+    /**
+     * @param array $dataArr
+     */
+    public function Tooltip (array $dataArr)
+    {
+        $this->tooltip = $dataArr;
+    }
+
 }
 
 

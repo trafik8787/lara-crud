@@ -20,6 +20,7 @@ class Select
     public $multiple;
     public $options;
     public $label;
+    public $tooltip;
 
     public $view = 'lara::Form.Component.select';
     public $view_multiple = 'lara::Form.Component.select_multiple';
@@ -37,6 +38,7 @@ class Select
         $this->title = $managerBuilder->title;
         $this->multiple =  $managerBuilder->multiple;
         $this->options =  $managerBuilder->options;
+        $this->tooltip = $managerBuilder->tooltip;
 
         //в зависимоти от от того выбран ли multiple переоперделяем view
         if ($this->multiple) {

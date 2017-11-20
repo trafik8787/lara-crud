@@ -21,4 +21,10 @@
         </div>
     {!! Form::close() !!}
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.fa-info-circle').tooltip();
+        })
+    </script>
+
 @endsection

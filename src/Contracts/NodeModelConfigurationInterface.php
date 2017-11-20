@@ -269,4 +269,12 @@ interface NodeModelConfigurationInterface
      * получаем масив для поля отношения к таблице данные таблицы и полей
      */
     public function getOtherTableArray ($fieldName):array;
+
+    /**
+     * @param $fieldName
+     * @return mixed
+     */
+    public function getTooltip ($fieldName);
+
+
 }

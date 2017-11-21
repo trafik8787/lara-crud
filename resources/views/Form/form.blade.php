@@ -28,4 +28,6 @@
         })
     </script>
 
+    @include('lara::Form.Component.include.validate-js')
+
 @endsection

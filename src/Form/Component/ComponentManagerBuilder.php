@@ -33,6 +33,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $multiple;
     public $options;
     public $tooltip;
+    public $one_to_many;
 
 
 
@@ -97,6 +98,14 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
         if ($data === null) {
             $this->multiple =  $this->objField['multiple'];
+        }
+    }
+
+    public function OneToMany ($data = null)
+    {
+        $this->one_to_many = $data;
+        if ($data === null) {
+            $this->one_to_many = $this->objField['one_to_many'];
         }
     }
 

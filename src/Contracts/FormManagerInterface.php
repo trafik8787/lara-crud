@@ -9,8 +9,6 @@
 namespace Trafik8787\LaraCrud\Contracts;
 
 
-use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
-
 interface FormManagerInterface
 {
     /**
@@ -40,4 +38,9 @@ interface FormManagerInterface
      */
     public function getMultiple(string $field):bool;
 
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function ConvertArrayRelationTable($nameField, $data);
 }

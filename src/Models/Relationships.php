@@ -15,11 +15,11 @@ use Trafik8787\LaraCrud\Contracts\Model\RelationshipsInterface;
  */
 class Relationships implements RelationshipsInterface
 {
-    protected $model;
-    protected $class;
-    protected $foreign_key;
-    protected $local_key;
-    protected $other_table; //связующая таблица
+    public $model;
+    public $class;
+    public $foreign_key;
+    public $local_key;
+    public $other_table; //связующая таблица
 
     /**
      * Relationships constructor.

@@ -1,11 +1,8 @@
 <?php
-namespace Trafik8787\LaraCrud\Form;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Collection;
-use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
-use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
-use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
+namespace Trafik8787\LaraCrud\Form;
+
+use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 
 /**
  * Created by PhpStorm.
@@ -13,7 +10,6 @@ use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
  * Date: 18.09.2017
  * Time: 13:07
  */
-
 abstract class FormManagerTable implements FormManagerInterface
 {
     public $objConfig;
@@ -23,13 +19,12 @@ abstract class FormManagerTable implements FormManagerInterface
     protected $fieldBulder;
 
 
-
     /**
      * @param $field
      * @return mixed
      * todo получить поля в зависимоти от типов данных
      */
-    public function getDataType ($typeSql, $nameField)
+    public function getDataType($typeSql, $nameField)
     {
 
         if (!empty($this->objConfig->getTypeField($nameField))) {
@@ -41,11 +36,11 @@ abstract class FormManagerTable implements FormManagerInterface
             'datetime' => 'datetime',
             'date' => 'date',
             'integer' => 'number',
-            'bool'=> 'radio',
+            'bool' => 'radio',
             'boolean' => 'radio',
             'float' => 'number',
-            'text'  => 'text',
-            'time'  => 'datetime',
+            'text' => 'text',
+            'time' => 'datetime',
             'blob' => 'text',
             'bigint' => 'number',
             'decimal' => 'text',
@@ -53,13 +48,11 @@ abstract class FormManagerTable implements FormManagerInterface
             'tinyint' => 'radio',
             'simple_array' => 'text',
 
-           );
+        );
 
 
         return $arrFieldTypeInput[$typeSql];
     }
-
-
 
 
     /**
@@ -67,7 +60,7 @@ abstract class FormManagerTable implements FormManagerInterface
      * @return bool
      * todo определяет является ли поле multiple
      */
-    public function getMultiple(string $field):bool
+    public function getMultiple(string $field): bool
     {
         if (!empty($this->objConfig->getFileUploadSeting($field))) {
             $arr_file = $this->objConfig->getFileUploadSeting($field);
@@ -91,7 +84,7 @@ abstract class FormManagerTable implements FormManagerInterface
      * @return array
      * //получаем масив полей и их нахваний без индексного поля
      */
-    public function getNameColumns ():array
+    public function getNameColumns(): array
     {
         //dd($this->objConfig->nameColumns());
         return array_diff_key($this->objConfig->nameColumns(), array($this->admin->KeyName => $this->admin->KeyName));
@@ -101,7 +94,7 @@ abstract class FormManagerTable implements FormManagerInterface
      * @return array
      * //получаем масив полей и их типов
      */
-    public function getTypeColumns():array
+    public function getTypeColumns(): array
     {
         return array_diff_key($this->admin->TableTypeColumns, array($this->admin->KeyName => $this->admin->KeyName));
     }
@@ -110,7 +103,7 @@ abstract class FormManagerTable implements FormManagerInterface
      * @return array
      * todo подготовка масива полей для передачи в клас строителя
      */
-    public function getArrayField ()
+    public function getArrayField()
     {
         $data = [];
         $typeColumn = $this->getTypeColumns();
@@ -129,11 +122,38 @@ abstract class FormManagerTable implements FormManagerInterface
                 'type' => $this->getDataType($typeColumn[$name], $name), //тип поля для input
                 'typeField' => $this->objConfig->getTypeField($name), //виды полей select input textarea
                 'multiple' => $this->getMultiple($name),
-                'options' => $this->objConfig->getFieldOption($name)
+                'options' => $this->objConfig->getFieldOption($name),
+                'one_to_many' => $this->objConfig->getOneToMany($name),
             ];
         }
 
         return collect($data);
     }
 
+
+    /**
+     * @param $data
+     * @return array
+     * todo преобразование масива из формы таблицы отношение один ко многим
+     */
+    public function ConvertArrayRelationTable($nameField, $data)
+    {
+
+        $result = [];
+
+        if ($this->objConfig->getOneToMany($nameField) !== false and !empty($data)) {
+
+            foreach ($data as $nameFieldRelation => $item) {
+                foreach ($item as $index => $itemArray) {
+                    foreach ($data as $nameFieldRelation2 => $item2) {
+                        $result[$index][$nameFieldRelation] = $itemArray;
+                    }
+                }
+            }
+
+            return $result;
+        }
+
+        return $data;
+    }
 }

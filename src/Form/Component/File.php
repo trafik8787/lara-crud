@@ -53,16 +53,5 @@ class File
         return view($this->view, ['obj' => $this])->render();
     }
 
-    /**
-     * @param $string
-     * @return bool
-     * todo проверяет является ли строка JSON
-     */
-    public function isJSON(){
-        $result = json_decode($this->value) ;
-        return ( json_last_error() === JSON_ERROR_NONE) ;
-    }
-
-
 
 }

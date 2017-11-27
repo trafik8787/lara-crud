@@ -9,7 +9,7 @@
 
                     <ul class="mailbox-attachments clearfix">
 
-                        @if($obj->isJSON())
+                        @if($obj->isJSON($obj->value))
 
                             @foreach(json_decode($obj->value) as $value)
 

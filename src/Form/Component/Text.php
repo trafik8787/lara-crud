@@ -8,9 +8,12 @@
 namespace Trafik8787\LaraCrud\Form\Component;
 
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
+use Trafik8787\LaraCrud\Traits\Helper;
 
 class Text
 {
+    use Helper;
+
     public $type; //тип поля input
     public $classStyle;
     public $placeholder;
@@ -19,8 +22,14 @@ class Text
     public $title;
     public $label;
     public $tooltip;
+    public $multiple;
+    public $one_to_many;
+
 
     public $view = 'lara::Form.Component.text';
+    public $view_date = 'lara::Form.Component.text_date';
+    public $view_multiple = 'lara::Form.Component.text_multiple';
+
 
     /**
      * Text constructor.
@@ -36,6 +45,20 @@ class Text
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
         $this->tooltip = $managerBuilder->tooltip;
+        $this->multiple = $managerBuilder->multiple;
+        $this->one_to_many = $managerBuilder->one_to_many;
+
+
+//        switch ($this->type) {
+//            case 'date':
+//                $this->view = $this->view_date;
+//
+//        }
+
+        if ($this->one_to_many) {
+            $this->view = $this->view_multiple;
+        }
+
     }
 
 

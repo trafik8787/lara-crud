@@ -42,6 +42,7 @@
     <script src="{{asset('vendor/lara-crud/bower_components/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('vendor/lara-crud/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="{{asset('vendor/lara-crud/bower_components/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('vendor/lara-crud/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 
     <script src="{{asset('vendor/lara-crud/bower_components/jquery-validation/jquery.validate.min.js')}}"></script>
 

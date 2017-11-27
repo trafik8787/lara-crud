@@ -282,5 +282,23 @@ interface NodeModelConfigurationInterface
      */
     public function getValidation ();
 
+    /**
+     * @return mixed
+     */
+    public function getOneToMany ($fieldName);
+
+    /**
+     * @param $fieldName
+     * @return mixed
+     */
+    public function getCurentValueOneToMany ($nameField, $model);
+
+    /**
+     * @param $objClass
+     * @return mixed
+     * todo получает данные из связаной таблицы один ко многим
+     */
+    public function getOtherTableOneToMany($objClass);
+
 
 }

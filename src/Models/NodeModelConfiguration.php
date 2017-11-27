@@ -247,8 +247,12 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
             if (is_array($item)) {
 
                 //проверяем подключена ли к полю другая таблица
-                if (!empty($item[3])) {
+                if (!empty($item[3]) and $item[2] === 'multiple') {
                     $this->setOtherTable($nameField, $item[3]);
+                }
+
+                if (!empty($item[3]) and $item[2] === 'one-to-many') {
+                    $this->setOneToMany($nameField, $item[3]);
                 }
 
                 switch ($item[0]) {
@@ -268,6 +272,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                             ];
                         }
                         break;
+
                 }
 
             }
@@ -348,7 +353,6 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         return false;
     }
 
-
     /**
      * @param array $dataArr
      */
@@ -363,6 +367,26 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     public function Validation (array $dataArr)
     {
         $this->validation = $dataArr;
+    }
+
+
+    /**
+     * @param $data
+     * todo данные для полей один ко многим
+     */
+    public function setOneToMany($nameField, $data)
+    {
+
+        if (class_exists($data[0])) {
+            $this->fieldOneToMany[$nameField] = [
+                'model' => $data[0],
+                'list_fields' => isset($data[1]) ? $data[1] : null,
+                'foreign_key' => isset($data[2]) ? $data[2] : null,
+                'local_key' => isset($data[3]) ? $data[3] : null
+
+            ];
+        }
+
     }
 
 }

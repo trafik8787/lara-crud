@@ -8,6 +8,7 @@
 
 namespace Trafik8787\LaraCrud\Models;
 
+use App;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery\Matcher\Closure;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
@@ -67,6 +68,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $tooltip; //Подсказки tooltip.js
     protected $validation = null;
+
+    protected $fieldOneToMany; //хранит масив полей с данными для отношения один ко многим
+
+    protected $primary_key_relation; //название поля id таблицы один ко многим
 
     protected $closure;
     /**
@@ -358,8 +363,23 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                         return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
                         break;
                     default:
-                        $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+
+                        //если подключено отношение один ко многим
+                        if ($this->getOneToMany($nameField) !== false) {
+
+                            $arr['selectValue'] = $this->getOtherTableOneToMany($this->getOneToMany($nameField));
+                            $arr['primary_key_relation'] = $this->primary_key_relation;
+                            return $arr;
+
+                        }
+
+                        if (empty($valueModel)) {
+                            $this->setValue[$nameField] = $this->setTypeField[$nameField][1];
+                        } else {
+                            return $valueModel;
+                        }
                         return $this->setValue[$nameField];
+
                 }
             }
 
@@ -619,6 +639,28 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return null;
     }
 
+
+    /**
+     * @param $objClass
+     * @return null
+     * todo получает данные из связаной таблицы один ко многим
+     */
+    public function getOtherTableOneToMany($objClass)
+    {
+        $select = null;
+        if ($objClass['list_fields'] !== null) {
+            //получаем названия полей таблицы для выборки
+            $this->primary_key_relation = App::make($objClass['model'])->getKeyName();
+            $select = array_keys($objClass['list_fields']);
+            array_unshift($select, $this->primary_key_relation);
+        }
+
+        if ($this->modelRelation !== null) {
+            return $this->modelRelation->OneToMany()->get($select)->toArray();
+        }
+        return null;
+    }
+
     /**
      * @param $fieldName
      * @return array
@@ -658,5 +700,38 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getValidation()
     {
         return $this->validation;
+    }
+
+    /**
+     * @return mixed
+     * todo проверяем есть ли отношение на этом поле если есть то возвражаем в противном случае false
+     */
+    public function getOneToMany($fieldName)
+    {
+        if (!empty($this->fieldOneToMany[$fieldName])) {
+            return $this->fieldOneToMany[$fieldName];
+        }
+        return false;
+    }
+
+    /**
+     * @param $nameField
+     * @param null $model
+     * @return bool|Relationships
+     */
+    public function getCurentValueOneToMany($nameField, $model = null)
+    {
+        if ($this->getOneToMany($nameField) and $model !== null) {
+
+            $relate = $this->getOneToMany($nameField);
+
+            $this->modelRelation = new Relationships($model, $relate['model'],
+                null,
+                $relate['foreign_key'],
+                $relate['local_key']);
+            return $this->modelRelation;
+        }
+
+        return false;
     }
 }

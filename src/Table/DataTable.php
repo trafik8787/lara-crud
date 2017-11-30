@@ -261,13 +261,13 @@ class DataTable implements TableInterface
     public function nameColumnsOrder(int $index): string
     {
         $data = [];
+        $i = null;
+        //делаем так чтоб масив начинался с нуля
         foreach ($this->objConfig->nameColumns() as $field => $name) {
-            $data[] = $field;
+            $i = ++$i;
+            $data[$i] = $field;
         }
-        // - 1 потому что первая колонка чекбоксы
-        if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
-            return $data[$index - 1];
-        }
+
         return $data[$index];
     }
 

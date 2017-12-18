@@ -7,16 +7,10 @@
  */
 
 namespace Trafik8787\LaraCrud\Contracts;
-
-
-
-
 use Closure;
 
 interface NodeModelConfigurationInterface
 {
-
-
     /**
      * @return mixed
      */
@@ -287,8 +281,10 @@ interface NodeModelConfigurationInterface
      */
     public function getOneToMany ($fieldName);
 
+
     /**
-     * @param $fieldName
+     * @param $nameField
+     * @param $model
      * @return mixed
      */
     public function getCurentValueOneToMany ($nameField, $model);
@@ -300,5 +296,11 @@ interface NodeModelConfigurationInterface
      */
     public function getOtherTableOneToMany($objClass);
 
+
+    /**
+     * @return bool
+     * todo определяем будет ли отображен столбец checkbox
+     */
+    public function getBolleanCheckedColumn(): bool;
 
 }

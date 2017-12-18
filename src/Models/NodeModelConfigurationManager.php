@@ -5,12 +5,9 @@
  * Date: 30.08.2017
  * Time: 22:43
  */
-
 namespace Trafik8787\LaraCrud\Models;
-
 use App;
 use Illuminate\Contracts\Foundation\Application;
-use Mockery\Matcher\Closure;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Traits\Helper;
 
@@ -730,6 +727,15 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                 $relate['foreign_key'],
                 $relate['local_key']);
             return $this->modelRelation;
+        }
+
+        return false;
+    }
+
+    public function getBolleanCheckedColumn(): bool
+    {
+        if ($this->getButtonGroupDelete() === true OR $this->getButtonCopy() === true) {
+            return true;
         }
 
         return false;

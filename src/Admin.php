@@ -14,7 +14,6 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
-use Trafik8787\LaraCrud\Contracts\Navigation\NavigationInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Models\ModelCollection;

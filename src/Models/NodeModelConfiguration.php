@@ -5,9 +5,7 @@
  * Date: 28.08.2017
  * Time: 20:26
  */
-
 namespace Trafik8787\LaraCrud\Models;
-
 use Closure;
 
 class NodeModelConfiguration extends NodeModelConfigurationManager

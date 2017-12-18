@@ -260,12 +260,18 @@ class DataTable implements TableInterface
      */
     public function nameColumnsOrder(int $index): string
     {
+
         $data = [];
         $i = null;
-        //делаем так чтоб масив начинался с нуля
+
         foreach ($this->objConfig->nameColumns() as $field => $name) {
-            $i = ++$i;
-            $data[$i] = $field;
+            //в зависимости от того будет ли столбец чекбоксов определяем будет ли начинатся масив с нуля или с единицы
+            if ($this->objConfig->getBolleanCheckedColumn() === false) {
+                $data[] = $field;
+            } else {
+                $i = ++$i;
+                $data[$i] = $field;
+            }
         }
 
         return $data[$index];

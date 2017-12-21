@@ -151,7 +151,6 @@ class FormTable extends FormManagerTable
             $objBilder->tooltip();
             $objBilder->OneToMany();
 
-
             $model_field_value = !empty($model->{$item['field']}) ? $model->{$item['field']} : null;
 
             $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
@@ -209,9 +208,8 @@ class FormTable extends FormManagerTable
         $model = [];
         //конфиг добавляем в класс и возвращаем масив полей
         $arr_request = $this->file->objConfig($this->objConfig);
-
         $nameColumn = $this->objConfig->nameColumns();
-        // dd($arr_request);
+
         //для обновления
         if ($type === 'update') {
 
@@ -224,7 +222,6 @@ class FormTable extends FormManagerTable
         } elseif ($type === 'insert') {
 
             $model = $this->objConfig->getModelObj();
-
             unset($arr_request['_token']);
         }
 
@@ -232,17 +229,12 @@ class FormTable extends FormManagerTable
         if ($this->RuleValidation($arr_request) !== true) {
             return false;
         }
-
+//        dd($arr_request);
         foreach ($arr_request as $name => $item) {
-            //конвертация масива от таблицы отношения один ко многим
-            $item = $this->ConvertArrayRelationTable($name, $item);
 
-            /**
-             *  проверка если это отношение один ко многим присваиваем полю null чтоб потому что в противном случае слишком большой
-             *  json может вызвать ошибку ибо может не хватить длины поля
-             */
             if ($this->objConfig->getOneToMany($name)) {
-                $item = null;
+                $arrId = $this->saveRelationTableOneToMany($name, $item, $model);
+                $item = json_encode($arrId);
             }
 
             /**
@@ -258,7 +250,6 @@ class FormTable extends FormManagerTable
         //сохранить отношение многие ко многим
         $this->saveRelationTable($arr_request, $model);
         //сохранить отношение один ко многим
-        $this->saveRelationTableOneToMany($arr_request, $model);
 
         return $arr_request;
     }
@@ -320,53 +311,60 @@ class FormTable extends FormManagerTable
      * @param $model
      * todo сохраняем в таблицу отношения один ко многим
      */
-    public function saveRelationTableOneToMany($arr_request, $model)
+    public function saveRelationTableOneToMany($fieldName, $item, $model)
     {
 
-        foreach ($arr_request as $fieldName => $item) {
-            //преобразование масива перед сохранением в связаную таблицу
-            $item = $this->ConvertArrayRelationTable($fieldName, $item);
+        //преобразование масива перед сохранением в связаную таблицу
+        $item = $this->ConvertArrayRelationTable($fieldName, $item);
 
-            $data = $this->objConfig->getCurentValueOneToMany($fieldName, $model);
-            if ($data !== false) {
-                //получаем первичный ключ связанной таблицы
-                $primary_key = App::make($data->class)->getKeyName();
-                //получаем данные из таблицы только id выбираем
-                $item_id = [];
+        $data = $this->objConfig->getCurentValueOneToMany($fieldName, $model);
+        if ($data !== false) {
+            //получаем первичный ключ связанной таблицы
+            $primary_key = App::make($data->class)->getKeyName();
+            //получаем данные из таблицы только id выбираем
+            $item_id = [];
 
-                if (!empty($item)) {
-                    foreach ($item as $rows) {
-                        $item_id[] = (int)isset($rows[$primary_key]) ? $rows[$primary_key] : null;
-                    }
+            if (!empty($item)) {
+                foreach ($item as $rows) {
+                    $item_id[] = (int)isset($rows[$primary_key]) ? $rows[$primary_key] : null;
                 }
-
-                $data_table_id = $data->OneToMany()->get([$primary_key])->map(function ($item, $key) use ($primary_key) {
-                    return $item->{$primary_key};
-                })->toArray();
-
-                //получаем масив ключей которые нужно удалить
-                $deleteItem = array_diff($data_table_id, $item_id);
-
-                if (!empty($deleteItem)) {
-                    $data->OneToMany()->whereIn($primary_key, $deleteItem)->delete();
-                }
-
-                if (!empty($item)) {
-                    foreach ($item as $itemArr) {
-                        //находим id
-                        if (!empty($itemArr[$primary_key]) and $itemArr[$primary_key] !== null) {
-                            $id = $itemArr[$primary_key];
-                            unset($itemArr[$primary_key]);
-                            $data->OneToMany()->find($id)->update($itemArr);
-                        } else {
-                            unset($itemArr[$primary_key]);
-                            $data->OneToMany()->createMany([$itemArr]);
-                        }
-
-                    }
-                }
-
             }
+
+            $data_table_id = $this->getArrIdKeyTableOneToMany($data, $primary_key);
+
+            //получаем масив ключей которые нужно удалить
+            $deleteItem = array_diff($data_table_id, $item_id);
+
+            if (!empty($deleteItem)) {
+                $data->OneToMany()->whereIn($primary_key, $deleteItem)->delete();
+            }
+
+            if (!empty($item)) {
+                foreach ($item as $itemArr) {
+                    //находим id
+                    if (!empty($itemArr[$primary_key]) and $itemArr[$primary_key] !== null) {
+                        $id = $itemArr[$primary_key];
+                        unset($itemArr[$primary_key]);
+                        $data->OneToMany()->find($id)->update($itemArr);
+                    } else {
+                        unset($itemArr[$primary_key]);
+                        $ret = $data->OneToMany()->createMany([$itemArr]);
+                    }
+
+                }
+            }
+
         }
+
+        return $this->getArrIdKeyTableOneToMany($data, $primary_key) ?? null;
     }
+
+
+    public function getArrIdKeyTableOneToMany($data, $primary_key)
+    {
+        return $data->OneToMany()->get([$primary_key])->map(function ($item, $key) use ($primary_key) {
+            return $item->{$primary_key};
+        })->toArray();
+    }
+
 }

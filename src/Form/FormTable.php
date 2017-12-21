@@ -9,14 +9,14 @@
 namespace Trafik8787\LaraCrud\Form;
 
 use App;
-use App\Http\Node\Model\CategoryContactsModel;
+
 use Illuminate\Http\Request;
 use Validator;
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 use Trafik8787\LaraCrud\Form\Component\File;
-use Trafik8787\LaraCrud\Models\Relationships;
+
 
 
 /**

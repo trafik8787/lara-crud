@@ -8,11 +8,9 @@
 
 namespace Trafik8787\LaraCrud\Contracts;
 
-
-use Illuminate\Contracts\Routing\Registrar as RegistrarContract;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Trafik8787\LaraCrud\Form\FormTable;
+use Trafik8787\LaraCrud\Contracts\Model\ModelRouterInterface;
 
 interface AdminInterface
 {
@@ -27,7 +25,7 @@ interface AdminInterface
      * @param string $strModelName
      * @return mixed
      */
-    public function setUrlDefaultModel (string $strModelName);
+    public function setUrlDefaultModel (string $strModelName, $nodeClass);
 
     /**
      * @param array $nodes
@@ -55,7 +53,19 @@ interface AdminInterface
      * @param Route $route
      * @return mixed
      */
-    public function setRoute (Route $route);
+    public function setRoute (ModelRouterInterface $modelRouter);
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function getDefaultUrlArr ($url);
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function getNameModelArr($url);
 
     /**
      * @param TableInterface $table

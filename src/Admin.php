@@ -14,6 +14,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
+use Trafik8787\LaraCrud\Contracts\Model\ModelRouterInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 use Trafik8787\LaraCrud\Models\ModelCollection;
@@ -32,7 +33,6 @@ class Admin implements AdminInterface
     public $TableColumns = [];
     public $TableTypeColumns = [];
     public $KeyName;
-
 
     private $request; //получает обьект Request из AdminController
 
@@ -58,11 +58,7 @@ class Admin implements AdminInterface
 
         foreach ($this->nodes as  $model => $nodeClass) {
 
-            $url = $this->setUrlDefaultModel($model);
-
-            if (!empty($nodeClass::$alias_url)) {
-                $url = $nodeClass::$alias_url;
-            }
+            $url = $this->setUrlDefaultModel($model, $nodeClass);
 
             $this->defaultUrlArr[$url] = $nodeClass;
             $this->nameModelArr[$url] = $model;
@@ -70,19 +66,40 @@ class Admin implements AdminInterface
         }
 
         $this->app->call([$this, 'setRoute']);
-
-
     }
 
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function getDefaultUrlArr ($url)
+    {
+        return $this->defaultUrlArr[$url];
+    }
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function getNameModelArr($url)
+    {
+        return $this->nameModelArr[$url];
+    }
 
     /**
      * @param string $strModelName
      * @return string
      * преобразуем название модели в URL
      */
-    public function setUrlDefaultModel (string $strModelName)
+    public function setUrlDefaultModel (string $strModelName, $nodeClass)
     {
-        return snake_case(class_basename($strModelName));
+        $url = snake_case(class_basename($strModelName));
+
+        if (!empty($nodeClass::$alias_url)) {
+            $url = str_slug($nodeClass::$alias_url, '-');
+        }
+
+        return $url;
     }
 
     /**
@@ -106,24 +123,23 @@ class Admin implements AdminInterface
 
 
     /**
-     *
+     * @return mixed|void
      */
     public function getObjConfig ()
     {
-        //dd($this->defaultUrlArr);
 
         if ($this->route->action['as'] === 'Dashboard') {
-            $obj = $this->defaultUrlArr['admin'];
-            $model = $this->nameModelArr['admin'];
+
+            $url = config('lara-config.url_group');
+            $obj = $this->getDefaultUrlArr($url);
+            $model = $this->getNameModelArr($url);
+
         } else {
 
-            if (!empty($this->defaultUrlArr[$this->route->parameters['adminModel']])) {
+            if (!empty($this->getDefaultUrlArr($this->route->parameters['adminModel']))) {
 
-                $obj = $this->defaultUrlArr[$this->route->parameters['adminModel']];
-                $model = $this->nameModelArr[$this->route->parameters['adminModel']];
-
-
-
+                $obj = $this->getDefaultUrlArr($this->route->parameters['adminModel']);
+                $model = $this->getNameModelArr($this->route->parameters['adminModel']);
             }
         }
         $this->initNodeClass(new $obj($this->app, $model)); //создает обьект $this->objConfig класса NodeModelConfigurationInterface
@@ -137,16 +153,10 @@ class Admin implements AdminInterface
     public function initNodeClass(NodeModelConfigurationInterface $modelConf)
     {
 
-        //dd($modelConf);
-        //$this->setModel($modelConf->getModel(), $modelConf);
-
-        if ($this->route->action['as'] === 'model.showTable' or $this->route->action['as'] === 'model.postNewAction') {
-
-            if (method_exists($modelConf, 'showDisplay')) {
-                $modelConf->showDisplay();
-            }
-
-        } elseif ($this->route->action['as'] === 'model.ajax.dispaly.table') {
+        if ($this->route->action['as'] === 'model.showTable' or
+            $this->route->action['as'] === 'model.postNewAction' or
+            $this->route->action['as'] === 'model.ajax.dispaly.table' or
+            $this->route->action['as'] === 'Dashboard') {
 
             if (method_exists($modelConf, 'showDisplay')) {
                 $modelConf->showDisplay();
@@ -164,10 +174,6 @@ class Admin implements AdminInterface
             if (method_exists($modelConf, 'showDelete')) {
                 $modelConf->showDelete();
             }
-        } elseif ($this->route->action['as'] === 'Dashboard') {
-            if (method_exists($modelConf, 'showDisplay')) {
-                $modelConf->showDisplay();
-            }
         }
 
         $this->setModel($modelConf->getModel(), $modelConf);
@@ -184,9 +190,8 @@ class Admin implements AdminInterface
      * @param FormManagerInterface $form
      * @param Request $request
      */
-    public function registerDatatable ( TableInterface $table, FormManagerInterface $form,  Request $request)
+    public function registerDatatable (TableInterface $table, FormManagerInterface $form,  Request $request)
     {
-        //dump(get_class_methods(DB::connection()->getName()));
         $this->request = $request;
         $table->objConfig = $this->objConfig;
         $table->admin = $this;
@@ -201,23 +206,26 @@ class Admin implements AdminInterface
     /**
      * @param $recuest
      */
-    public function setRoute(Route $route)
+    public function setRoute(ModelRouterInterface $modelRouter)
     {
-        $this->route = $route;
+        $this->route = $modelRouter->getRoute();
         $this->getObjConfig ();
     }
 
+    /**
+     * @return mixed
+     */
     public function getRequest () {
         return $this->request;
     }
 
 
     /**
-     *todo create array table name column and type
+     * @return mixed|void
+     * todo create array table name column and type
      */
     public function setTableColumnsType ()
     {
-        //dd($this->objConfig->getModelObj()->getKeyName());
         $model = $this->objConfig->getModelObj();
 
         $table_name =  $model->getTable();
@@ -226,7 +234,7 @@ class Admin implements AdminInterface
         $this->KeyName = $model->getKeyName();
 
         $full_field =  DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
-        $this->TableColumns = array_diff($full_field, config('lara-config.field_disable'));;
+        $this->TableColumns = array_diff($full_field, config('lara-config.field_disable'));
         foreach ($this->TableColumns as $item) {
             $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table_name, $item);
         }

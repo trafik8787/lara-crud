@@ -23,17 +23,28 @@ class ModelGenerate extends GeneratorCommand
     protected $description = 'Command description';
 
 
-
+    /**
+     * @return string
+     */
     public function getStub ()
     {
         return __DIR__.'/stubs/model.stub';
     }
 
+    /**
+     * @param string $rootNamespace
+     * @return string
+     */
     protected function getDefaultNamespace($rootNamespace)
     {
         return 'App\Http\Node\Model';
     }
 
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
     protected function replaceClass($stub, $name)
     {
 
@@ -43,6 +54,9 @@ class ModelGenerate extends GeneratorCommand
         return str_replace('ModelStud', trim($this->argument('name')), $stub);
     }
 
+    /**
+     * @return array
+     */
     protected function getArguments()
     {
         $arguments = parent::getArguments();
@@ -50,24 +64,5 @@ class ModelGenerate extends GeneratorCommand
 
         return $arguments;
     }
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-//    public function handle()
-//    {
-////        if ($this->option('model') !== null) {
-////
-////            $this->call('make:model', [
-////                'name' => 'App\Http\Node\Model\\'.$this->option('model')
-////            ]);
-////
-////        } else {
-////            $this->call('make:model', [
-////                'name' => 'App\Http\Node\Model\\'.$this->argument('name').'Model'
-////            ]);
-////        }
-//        $this->info('sdfsdfsdf');
-//   }
+
 }

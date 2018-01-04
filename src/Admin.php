@@ -41,10 +41,12 @@ class Admin implements AdminInterface
      * @param $node
      * @param Application $app
      */
-    public function __construct ($node, $navigation, Application $app) {
+    public function __construct ($node, $navigation, Application $app, $route) {
         $this->app = $app;
         $this->models = new ModelCollection();
         $this->navigation = $navigation;
+
+        $this->route = $route;
 
         $this->initNode($node);
     }
@@ -65,7 +67,7 @@ class Admin implements AdminInterface
 
         }
 
-        $this->app->call([$this, 'setRoute']);
+        $this->setRoute();
     }
 
     /**
@@ -206,9 +208,8 @@ class Admin implements AdminInterface
     /**
      * @param $recuest
      */
-    public function setRoute(ModelRouterInterface $modelRouter)
+    public function setRoute()
     {
-        $this->route = $modelRouter->getRoute();
         $this->getObjConfig ();
     }
 

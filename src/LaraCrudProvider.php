@@ -3,6 +3,7 @@
 namespace Trafik8787\LaraCrud;
 
 
+use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
@@ -77,10 +78,10 @@ class LaraCrudProvider extends ServiceProvider
         $this->registerCommands();
 
         $this->app->singleton(AdminInterface::class, function (){
-            return new Admin($this->nodes(), $this->navigation(), $this->app);
+            return new Admin($this->nodes(), $this->navigation(), $this->app, $this->app->make(Route::class));
         });
 
-        $this->app->singleton(ModelRouterInterface::class, ModelRouter::class);
+        //$this->app->singleton(ModelRouterInterface::class, ModelRouter::class);
         $this->app->singleton(NodeModelConfigurationInterface::class, NodeModelConfiguration::class);
         $this->app->singleton(FormManagerInterface::class, FormTable::class);
         $this->app->singleton(TableInterface::class, DataTable::class);

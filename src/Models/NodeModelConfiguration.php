@@ -97,7 +97,12 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * todo определить сокращение текста в конкретных полях и лимит символов
      */
     public function textLimit(string $field, int $limit) {
-        $this->textLimit[$field] = $limit;
+
+        if (is_array($field)) {
+            $this->textLimit = $field;
+        } else {
+            $this->textLimit[$field] = $limit;
+        }
     }
 
     /**

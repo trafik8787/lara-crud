@@ -201,8 +201,9 @@ class DataTable implements TableInterface
 
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
-        $result = $this->getModelObj()->search($searchValue, $this->admin->TableColumns);
-        $result = $result->select($select)->orderBy($order_field, $order['dir']);
+        $result = $this->getModelObj()->select($select);
+        $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
+        $result = $result->orderBy($order_field, $order['dir']);
         $result = $this->objConfig->getWhere($result);
         $result = $result->paginate($total);
 
@@ -215,6 +216,24 @@ class DataTable implements TableInterface
         });
 
         return $result;
+    }
+
+
+    /**
+     * @param $objModel
+     * @param $searchValue
+     * @param $TableColumns
+     * @return mixed
+     */
+    public function searchModel ($objModel, $searchValue, $TableColumns)
+    {
+
+        foreach ($TableColumns as $tableColumn) {
+
+            $objModel->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+        }
+
+        return $objModel;
     }
 
 

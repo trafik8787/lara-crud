@@ -68,4 +68,11 @@ interface TableInterface
     public function copyData ($request);
 
 
+    /**
+     * @param $objModel
+     * @param $searchValue
+     * @param $TableColumns
+     * @return mixed
+     */
+    public function searchModel ($objModel, $searchValue, $TableColumns);
 }

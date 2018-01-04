@@ -53,7 +53,7 @@ interface AdminInterface
      * @param Route $route
      * @return mixed
      */
-    public function setRoute (ModelRouterInterface $modelRouter);
+    public function setRoute ();
 
     /**
      * @param $url

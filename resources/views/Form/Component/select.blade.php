@@ -29,11 +29,11 @@
                         return term;
                     }
                 },
-                initSelection: function (element, callback) {
-                    @if(!empty($obj->value['ajaxCurentValue']))
+                @if(!empty($obj->value['ajaxCurentValue']))
+                    initSelection: function (element, callback) {
                         callback({ id: '{{$obj->value['ajaxCurentValue']}}', text: '{{$obj->value['ajaxCurrentText']}}' });
-                    @endif
-                }
+                    }
+                @endif
             @endif
         });
 

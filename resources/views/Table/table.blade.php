@@ -7,6 +7,7 @@
                 "processing": true,
                 "serverSide": true,
                 "bPaginate": true,
+                "stateSave": true,
                 'autoWidth': false,
                 "ajax": {
                     "url": "{{ url()->current()}}",

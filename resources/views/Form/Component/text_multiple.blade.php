@@ -3,9 +3,9 @@
                 class="fa fa-fw fa-info-circle" data-toggle="tooltip" data-placement="{{$obj->tooltip}}"
                 data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
-        <button id="addRow">Add</button>
+        <button class="addRow-{{$obj->name}}">Add</button>
         <input type="hidden" class="form-control" name="{{$obj->name}}" value="">
-        <table class="table table-bordered table-hover dataTable one-to-many-table" role="grid">
+        <table class="table table-bordered table-hover dataTable one-to-many-table-{{$obj->name}}" role="grid">
             <thead>
             <tr>
                 @foreach($obj->one_to_many['list_fields'] as $item)
@@ -14,7 +14,8 @@
                 <th>#</th>
             </tr>
             </thead>
-            @if(!empty($obj->value))
+
+            @if(!empty($obj->value['selectValue']))
                 <tbody>
                 @foreach($obj->value['selectValue'] as $item)
                     <tr>
@@ -47,7 +48,7 @@
 
     $(document).ready(function () {
 
-        var t = $('.one-to-many-table').DataTable({
+        var t = $('table.one-to-many-table-{{$obj->name}}').DataTable({
             "bInfo": false,
             "bFilter": false,
             "bLengthChange": false,
@@ -60,12 +61,12 @@
 
         var counter = '{{count($obj->value['selectValue']) + 1}}';
 
-        $('#addRow').on('click', function () {
+        $('.addRow-{{$obj->name}}').on('click', function () {
             t.row.add([
                 @foreach($obj->one_to_many['list_fields'] as $nameField => $item)
                     '<input type="text" class="form-control" name="{{$obj->name}}[{{$nameField}}][' + counter + ']" value="">',
                 @endforeach
-                    '<button type="button" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+                    '<button type="button" class="btn btn-danger remove-{{$obj->name}}"><i class="glyphicon glyphicon-remove-sign"></i></button>'
             ]).draw(false);
 
             counter++;
@@ -75,7 +76,7 @@
             return false;
         });
 
-        $(document).on('click', '.remove', function () {
+        $(document).on('click', '.remove-{{$obj->name}}', function () {
             var rows = t
                 .rows($(this).parents('tr'))
                 .remove()

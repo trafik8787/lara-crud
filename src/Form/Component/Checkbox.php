@@ -22,6 +22,7 @@ class Checkbox
     public $label;
     public $classStyle;
     public $tooltip;
+    public $required;
 
     public $view = 'lara::Form.Component.checkbox';
 
@@ -37,6 +38,7 @@ class Checkbox
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
         $this->tooltip = $managerBuilder->tooltip;
+        $this->required = $managerBuilder->required;
     }
 
     /**

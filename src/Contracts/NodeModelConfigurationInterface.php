@@ -303,4 +303,10 @@ interface NodeModelConfigurationInterface
      */
     public function getBolleanCheckedColumn(): bool;
 
+
+    /**
+     * @param $fieldName
+     * @return mixed
+     */
+    public function getRequired ($fieldName);
 }

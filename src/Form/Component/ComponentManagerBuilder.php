@@ -34,6 +34,8 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $options;
     public $tooltip;
     public $one_to_many;
+    public $required;
+
 
 
 
@@ -101,6 +103,9 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         }
     }
 
+    /**
+     * @param null $data
+     */
     public function OneToMany ($data = null)
     {
         $this->one_to_many = $data;
@@ -232,12 +237,32 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
 
     }
 
+    /**
+     * @param null $data
+     * @return $this
+     */
     public function options($data = null)
     {
         $this->classStyle = $data;
 
         if ($data === null) {
             $this->options = $this->objField['options'];
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @param null $data
+     * @return $this
+     */
+    public function required($data = false)
+    {
+        $this->required = $data;
+
+        if ($data === false) {
+            $this->required = $this->objField['required'];
         }
 
         return $this;

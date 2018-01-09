@@ -24,6 +24,7 @@ class File
     public $multiple;
     public $label;
     public $tooltip;
+    public $required;
 
     public $view = 'lara::Form.Component.file';
 
@@ -42,6 +43,7 @@ class File
         $this->title = $managerBuilder->title;
         $this->multiple =  $managerBuilder->multiple;
         $this->tooltip = $managerBuilder->tooltip;
+        $this->required = $managerBuilder->required;
     }
 
 

@@ -150,6 +150,7 @@ class FormTable extends FormManagerTable
             $objBilder->options();
             $objBilder->tooltip();
             $objBilder->OneToMany();
+            $objBilder->required();
 
             $model_field_value = !empty($model->{$item['field']}) ? $model->{$item['field']} : null;
 
@@ -267,7 +268,7 @@ class FormTable extends FormManagerTable
             if ($this->validator->passes()) {
                 return true;
             }
-
+            //dd($this->validator->getRules());
             return $this->validator;
         }
         return true;

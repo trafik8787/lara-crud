@@ -24,6 +24,8 @@ class Text
     public $tooltip;
     public $multiple;
     public $one_to_many;
+    public $required;
+
 
 
     public $view = 'lara::Form.Component.text';
@@ -47,6 +49,7 @@ class Text
         $this->tooltip = $managerBuilder->tooltip;
         $this->multiple = $managerBuilder->multiple;
         $this->one_to_many = $managerBuilder->one_to_many;
+        $this->required = $managerBuilder->required;
 
 
 //        switch ($this->type) {
@@ -67,7 +70,6 @@ class Text
      */
     public function run ()
     {
-
         return view($this->view, ['obj' => $this])->render();
     }
 

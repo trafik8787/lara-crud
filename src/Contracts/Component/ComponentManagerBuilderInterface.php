@@ -62,6 +62,13 @@ interface ComponentManagerBuilderInterface
     /**
      * @return mixed
      */
-    public function build();
+    public function build ();
+
+
+    /**
+     * @param bool $data
+     * @return mixed
+     */
+    public function required();
 
 }

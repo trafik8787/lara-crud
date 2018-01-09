@@ -699,6 +699,20 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->validation;
     }
 
+
+    /**
+     * @param $fieldName
+     * @return bool|int
+     *
+     */
+    public function getRequired ($fieldName)
+    {
+        if (!empty($this->validation[$fieldName])) {
+            return strpos($this->validation[$fieldName], 'required');
+        }
+        return false;
+    }
+
     /**
      * @return mixed
      * todo проверяем есть ли отношение на этом поле если есть то возвражаем в противном случае false

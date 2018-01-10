@@ -70,6 +70,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $primary_key_relation; //название поля id таблицы один ко многим
 
+    public static $navigation_title;
+
     protected $closure;
     /**
      * NodeModelConfigurationManager constructor.

@@ -33,6 +33,7 @@ class Admin implements AdminInterface
     public $TableColumns = [];
     public $TableTypeColumns = [];
     public $KeyName;
+    private $NavigationParams;
 
     private $request; //получает обьект Request из AdminController
 
@@ -97,11 +98,54 @@ class Admin implements AdminInterface
     {
         $url = snake_case(class_basename($strModelName));
 
+        //переопределяем параметры меню
+        $this->setNavigationParams($nodeClass);
+
         if (!empty($nodeClass::$alias_url)) {
             $url = str_slug($nodeClass::$alias_url, '-');
         }
 
         return $url;
+    }
+
+
+    /**
+     * @param $nodeClass
+     * @return bool
+     */
+    public function getNavigation($nodeClass) {
+
+        if (!empty($this->navigation[$nodeClass])) {
+            return $this->navigation[$nodeClass];
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param $nodeClass
+     */
+    public function setNavigationParams($nodeClass)
+    {
+        if (!empty($nodeClass::$navigation_title)) {
+            $this->NavigationParams[$nodeClass] = [
+                'title' => $nodeClass::$navigation_title
+            ];
+        }
+    }
+
+
+    /**
+     * @param $nodeClass
+     * @return bool
+     */
+    public function getNavigationParams($nodeClass)
+    {
+        if (!empty($this->NavigationParams[$nodeClass])) {
+            return $this->NavigationParams[$nodeClass];
+        }
+        return false;
     }
 
     /**

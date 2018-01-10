@@ -79,4 +79,24 @@ interface AdminInterface
      * @return mixed
      */
     public function setTableColumnsType ();
+
+
+    /**
+     * @param $nodeClass
+     * @return mixed
+     */
+    public function setNavigationParams($nodeClass);
+
+    /**
+     * @param $nodeClass
+     * @return mixed
+     */
+    public function getNavigationParams($nodeClass);
+
+    /**
+     * @param $nodeClass
+     * @return mixed
+     */
+    public function getNavigation($nodeClass);
+
 }

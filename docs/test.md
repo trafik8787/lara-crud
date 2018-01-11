@@ -1,10 +1,10 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: Test
+permalink: /test/
 ---
 
-Some information about you!
+# Test
 
 ### More Information
 

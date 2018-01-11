@@ -15,6 +15,14 @@ avatar: https://avatars2.githubusercontent.com/u/4068440?s=460&v=4
 # Flags below are optional
 #
 
+
+languages: ["en", "ru"]
+exclude_from_localizations: ["assets", "CNAME"]
+defaultLang: en
+languageNames:
+  ru: Russian
+  en: English
+
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:

@@ -1,0 +1,14 @@
+global:
+  tagline: Italiano
+  about: Riquardo
+  twitter: Twitter
+  github: GitHub
+langs:
+  it: Italiano
+  en: English
+  es: Español
+pages:
+  example: Esempio
+  includeexample: Il testo che segue è un parametro di Jekyll include liquid tag
+titles:
+  pagination: Paginatura

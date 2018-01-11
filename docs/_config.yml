@@ -11,6 +11,7 @@ description: Administrative panel for laravel which will help to speed up the de
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars2.githubusercontent.com/u/4068440?s=460&v=4
 
+baseurl: /lara-crud
 #
 # Flags below are optional
 #

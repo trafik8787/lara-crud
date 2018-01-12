@@ -1,11 +1,20 @@
 {
     "name": "trafik8787/lara-crud",
-    "description": "CRUD for shop",
+    "description": "Simple flexible and multifunctional Admin Panel CRUD in which all the necessary for 95% of the cases are developed.",
+    "homepage": "https://trafik8787.github.io/lara-crud",
+    "keywords": [
+      "laravel",
+      "admin",
+      "administrator",
+      "crud",
+      "lara",
+      "panel"
+    ],
     "license": "MIT",
     "version": "1.0.0",
     "authors": [
         {
-            "name": "Shtirlic",
+            "name": "Shtirlic Vitaliy",
             "email": "trafik8787@gmail.com"
         }
     ],

@@ -20,7 +20,7 @@ class ModelGenerate extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate model';
 
 
     /**
@@ -47,10 +47,7 @@ class ModelGenerate extends GeneratorCommand
      */
     protected function replaceClass($stub, $name)
     {
-
         $stub = parent::replaceClass($stub, $name);
-
-
         return str_replace('ModelStud', trim($this->argument('name')), $stub);
     }
 

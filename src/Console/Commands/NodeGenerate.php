@@ -20,7 +20,7 @@ class NodeGenerate extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Creates a class and model';
 
 
 
@@ -36,14 +36,11 @@ class NodeGenerate extends GeneratorCommand
 
     protected function replaceClass($stub, $name)
     {
-
         $stub = parent::replaceClass($stub, $name);
-
 
         $this->call('lara:model', [
             'name' => $this->argument('name').'Model'
         ]);
-
 
         return str_replace('NodeModelStud', trim($this->argument('name')), $stub);
     }

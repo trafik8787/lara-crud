@@ -101,7 +101,8 @@ class LaraCrudProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \Trafik8787\LaraCrud\Console\Commands\NodeGenerate::class,
-                \Trafik8787\LaraCrud\Console\Commands\ModelGenerate::class
+                \Trafik8787\LaraCrud\Console\Commands\ModelGenerate::class,
+                \Trafik8787\LaraCrud\Console\Commands\InstallCommand::class
             ]);
         }
     }

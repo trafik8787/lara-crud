@@ -30,6 +30,7 @@ abstract class Command extends ConsoleCommand
         }
 
         $this->call('vendor:publish', ['--tag' => 'config']);
+        $this->call('vendor:publish', ['--tag' => 'public']);
 
         $this->files = $files;
 

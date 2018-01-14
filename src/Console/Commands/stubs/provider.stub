@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Trafik8787\LaraCrud\LaraCrudProvider as ServiceProvider;
 
-class NameProvider extends ServiceProvider
+class LaraCrudProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

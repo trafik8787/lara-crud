@@ -18,7 +18,7 @@ abstract class Command extends ConsoleCommand
     protected $files;
 
 
-    public function fire(Filesystem $files) {
+    public function handle(Filesystem $files) {
 
 
         if (! defined('SLEEPINGOWL_STUB_PATH')) {

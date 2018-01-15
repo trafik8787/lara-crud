@@ -10,13 +10,13 @@ namespace Trafik8787\LaraCrud;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
-use Trafik8787\LaraCrud\Contracts\Model\ModelRouterInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
+use Trafik8787\LaraCrud\Models\HomeModel;
+use Trafik8787\LaraCrud\Models\HomeNode;
 use Trafik8787\LaraCrud\Models\ModelCollection;
 
 class Admin implements AdminInterface
@@ -77,7 +77,10 @@ class Admin implements AdminInterface
      */
     public function getDefaultUrlArr ($url)
     {
-        return $this->defaultUrlArr[$url];
+        if (!empty($this->defaultUrlArr[$url])) {
+            return $this->defaultUrlArr[$url];
+        }
+        return false;
     }
 
     /**
@@ -86,7 +89,11 @@ class Admin implements AdminInterface
      */
     public function getNameModelArr($url)
     {
-        return $this->nameModelArr[$url];
+        if (!empty($this->nameModelArr[$url])) {
+            return $this->nameModelArr[$url];
+        }
+
+        return false;
     }
 
     /**
@@ -177,8 +184,19 @@ class Admin implements AdminInterface
         if ($this->route->action['as'] === 'Dashboard') {
 
             $url = config('lara-config.url_group');
-            $obj = $this->getDefaultUrlArr($url);
-            $model = $this->getNameModelArr($url);
+
+            if ($this->getDefaultUrlArr($url)) {
+                $obj = $this->getDefaultUrlArr($url);
+            } else {
+                $obj = HomeNode::class;
+            }
+
+            if ($this->getNameModelArr($url)) {
+                $model = $this->getNameModelArr($url);
+            } else {
+                $model = HomeModel::class;
+            }
+
 
         } else {
 

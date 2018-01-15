@@ -13,7 +13,7 @@ class NodeGenerate extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'lara:node {name} {--model=}';
+    protected $signature = 'lara:node {name} {--tableExample=}';
 
     /**
      * The console command description.
@@ -38,9 +38,17 @@ class NodeGenerate extends GeneratorCommand
     {
         $stub = parent::replaceClass($stub, $name);
 
-        $this->call('lara:model', [
-            'name' => $this->argument('name').'Model'
-        ]);
+        if (!empty($this->option('tableExample'))) {
+            $this->call('lara:model', [
+                'name' => $this->argument('name') . 'Model',
+                '--tableExample' => $this->option('tableExample')
+            ]);
+        } else {
+
+            $this->call('lara:model', [
+                'name' => $this->argument('name') . 'Model'
+            ]);
+        }
 
         return str_replace('NodeModelStud', trim($this->argument('name')), $stub);
     }

@@ -27,6 +27,7 @@
     "autoload": {
       "psr-4": {
         "Trafik8787\\LaraCrud\\": "src/",
+        "Trafik8787\\LaraCrud\\Seeder\\": "src/Console/Commands/Example/seeds",
         "Trafik8787\\LaraCrud\\Tests\\": "tests/"
       }
     },

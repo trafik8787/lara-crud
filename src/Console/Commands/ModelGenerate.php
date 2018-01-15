@@ -13,7 +13,7 @@ class ModelGenerate extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'lara:model {name}';
+    protected $signature = 'lara:model {name} {--tableExample=}';
 
     /**
      * The console command description.
@@ -48,7 +48,13 @@ class ModelGenerate extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        return str_replace('ModelStud', trim($this->argument('name')), $stub);
+
+        $table = null;
+        if (!empty($this->option('tableExample'))) {
+            $table = 'protected $table = \''.$this->option('tableExample').'\';';
+        }
+
+        return str_replace(['ModelStud', 'TableStud'], [trim($this->argument('name')), $table], $stub);
     }
 
     /**

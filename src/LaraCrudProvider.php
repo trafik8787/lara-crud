@@ -50,6 +50,10 @@ class LaraCrudProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
         $this->publishes([
+            __DIR__ . '/../src/Console/Commands/Example/migrations' => base_path('database/migrations'),
+        ], 'migration');
+
+        $this->publishes([
             __DIR__ . '/../resources/assets' => public_path('vendor/lara-crud'),
         ], 'public');
 
@@ -102,7 +106,8 @@ class LaraCrudProvider extends ServiceProvider
             $this->commands([
                 \Trafik8787\LaraCrud\Console\Commands\NodeGenerate::class,
                 \Trafik8787\LaraCrud\Console\Commands\ModelGenerate::class,
-                \Trafik8787\LaraCrud\Console\Commands\InstallCommand::class
+                \Trafik8787\LaraCrud\Console\Commands\InstallCommand::class,
+                \Trafik8787\LaraCrud\Console\Commands\InstallExample::class
             ]);
         }
     }

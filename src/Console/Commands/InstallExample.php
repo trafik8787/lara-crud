@@ -19,7 +19,7 @@ class InstallExample extends Command
 
 
     protected $class_install = [
-        //CreateProviderExample::class,
+        CreateProviderExample::class,
         CreateMigrationExample::class
     ];
 

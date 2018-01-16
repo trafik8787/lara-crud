@@ -25,6 +25,10 @@ class ArticleTableExampleSeeder extends Seeder
 
         });
 
-        factory(\App\Http\Node\Model\ArticleExampleModel::class, 5)->create();
+        factory(\App\Http\Node\Model\ArticleExampleModel::class, 50)->create();
+
+
+
+
     }
 }

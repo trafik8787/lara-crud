@@ -268,9 +268,9 @@ class DataTable implements TableInterface
     {
         if (!empty($request['selected_'.csrf_token()])) {
             $this->getModelObj()->destroy($request['selected_'.csrf_token()]);
-            return $this->redirect();
         }
 
+        return $this->redirect();
     }
 
     /**

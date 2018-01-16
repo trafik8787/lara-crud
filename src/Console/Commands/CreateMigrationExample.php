@@ -11,12 +11,17 @@ namespace Trafik8787\LaraCrud\Console\Commands;
 class CreateMigrationExample extends Installer {
 
 
-
+    /**
+     *
+     */
     public function showInfo()
     {
         $this->command->line('Run migration: <info>✔</info>');
     }
 
+    /**
+     *
+     */
     public function install()
     {
 
@@ -31,12 +36,18 @@ class CreateMigrationExample extends Installer {
     }
 
 
+    /**
+     * @return bool
+     */
     public function installed()
     {
         return false;
     }
 
 
+    /**
+     * @return string
+     */
     protected function getFilePath()
     {
         return app_path('Providers/LaraCrudProvider.php');

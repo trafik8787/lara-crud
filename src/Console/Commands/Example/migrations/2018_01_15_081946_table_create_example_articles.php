@@ -17,6 +17,9 @@ class TableCreateExampleArticles extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description');
+            $table->date('date');
+            $table->integer('public');
+            $table->integer('category');
             $table->timestamps();
         });
     }

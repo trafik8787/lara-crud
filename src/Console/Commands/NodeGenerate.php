@@ -23,22 +23,45 @@ class NodeGenerate extends GeneratorCommand
     protected $description = 'Creates a class and model';
 
 
-
+    /**
+     * @return string
+     */
     public function getStub ()
     {
+        if (!empty($this->option('tableExample'))) {
+            return $this->getExampleStub();
+        }
         return __DIR__.'/stubs/node.stub';
     }
 
+    /**
+     * @return string
+     */
+    public function getExampleStub ()
+    {
+        return __DIR__.'/stubs/node_inslude_example.stub';
+    }
+
+    /**
+     * @param string $rootNamespace
+     * @return string
+     */
     protected function getDefaultNamespace($rootNamespace)
     {
         return 'App\Http\Node';
     }
 
+    /**
+     * @param string $stub
+     * @param string $name
+     * @return mixed
+     */
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
 
         if (!empty($this->option('tableExample'))) {
+
             $this->call('lara:model', [
                 'name' => $this->argument('name') . 'Model',
                 '--tableExample' => $this->option('tableExample')
@@ -53,6 +76,9 @@ class NodeGenerate extends GeneratorCommand
         return str_replace('NodeModelStud', trim($this->argument('name')), $stub);
     }
 
+    /**
+     * @return array
+     */
     protected function getArguments()
     {
         $arguments = parent::getArguments();
@@ -60,24 +86,5 @@ class NodeGenerate extends GeneratorCommand
 
         return $arguments;
     }
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-//    public function handle()
-//    {
-////        if ($this->option('model') !== null) {
-////
-////            $this->call('make:model', [
-////                'name' => 'App\Http\Node\Model\\'.$this->option('model')
-////            ]);
-////
-////        } else {
-////            $this->call('make:model', [
-////                'name' => 'App\Http\Node\Model\\'.$this->argument('name').'Model'
-////            ]);
-////        }
-//        $this->info('sdfsdfsdf');
-//   }
+
 }

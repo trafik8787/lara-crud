@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/select2/dist/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/iCheck/all.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/timepicker/bootstrap-timepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/AdminLTE.min.css')}}">
 
@@ -40,14 +37,11 @@
     <script src="{{asset('vendor/lara-crud/bower_components/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('vendor/lara-crud/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="{{asset('vendor/lara-crud/bower_components/ckeditor/ckeditor.js')}}"></script>
-    <script src="{{asset('vendor/lara-crud/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 
     <script src="{{asset('vendor/lara-crud/bower_components/jquery-validation/jquery.validate.min.js')}}"></script>
 
-    <!-- AdminLTE App -->
     <script src="{{asset('vendor/lara-crud/js/adminlte.min.js')}}"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{--<script src="{{asset('vendor/lara-crud/js/demo.js')}}"></script>--}}
+
 </head>
 
 

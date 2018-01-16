@@ -19,6 +19,7 @@
     ],
     "require": {
        "php": ">=7.0",
+       "doctrine/dbal": "^2.5",
        "laravelcollective/html":"^5.2.0"
     },
     "require-dev": {
@@ -41,7 +42,7 @@
     "prefer-stable": true,
     "extra": {
       "branch-alias": {
-        "dev-master": "1.2-dev"
+        "dev-master": "1.2.1-dev"
       },
       "laravel": {
         "providers": [

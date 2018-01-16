@@ -8,6 +8,10 @@
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
+/**
+ * Class CreateProviderExample
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 class CreateProviderExample extends Installer {
 
 

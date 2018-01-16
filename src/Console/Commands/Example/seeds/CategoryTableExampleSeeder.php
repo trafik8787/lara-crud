@@ -6,6 +6,10 @@ use Faker\Generator;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class CategoryTableExampleSeeder
+ * @package Trafik8787\LaraCrud\Seeder
+ */
 class CategoryTableExampleSeeder extends Seeder
 {
     /**

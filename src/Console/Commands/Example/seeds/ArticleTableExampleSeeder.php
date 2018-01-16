@@ -27,8 +27,5 @@ class ArticleTableExampleSeeder extends Seeder
 
         factory(\App\Http\Node\Model\ArticleExampleModel::class, 50)->create();
 
-
-
-
     }
 }

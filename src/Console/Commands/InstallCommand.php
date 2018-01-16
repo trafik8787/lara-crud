@@ -9,7 +9,10 @@
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
-
+/**
+ * Class InstallCommand
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 class InstallCommand extends Command
 {
 

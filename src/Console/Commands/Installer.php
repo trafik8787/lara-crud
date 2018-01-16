@@ -10,6 +10,10 @@ namespace Trafik8787\LaraCrud\Console\Commands;
 
 use Trafik8787\LaraCrud\Contracts\Console\InstallerInterface;
 
+/**
+ * Class Installer
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 abstract class Installer implements InstallerInterface
 {
     protected $command;

@@ -8,6 +8,10 @@
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
+/**
+ * Class CreateMigrationExample
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 class CreateMigrationExample extends Installer {
 
 

@@ -18,6 +18,9 @@ abstract class Command extends ConsoleCommand
     protected $files;
 
 
+    /**
+     * @param Filesystem $files
+     */
     public function handle(Filesystem $files) {
 
 
@@ -37,8 +40,14 @@ abstract class Command extends ConsoleCommand
         $this->Installalation();
     }
 
+    /**
+     * @return mixed
+     */
     abstract protected function Installalation();
 
+    /**
+     * @return mixed
+     */
     public function files()
     {
         return $this->files;

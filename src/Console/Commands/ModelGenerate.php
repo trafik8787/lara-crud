@@ -5,6 +5,10 @@ namespace Trafik8787\LaraCrud\Console\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Class ModelGenerate
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 class ModelGenerate extends GeneratorCommand
 {
 

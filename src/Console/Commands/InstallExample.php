@@ -9,7 +9,10 @@
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
-
+/**
+ * Class InstallExample
+ * @package Trafik8787\LaraCrud\Console\Commands
+ */
 class InstallExample extends Command
 {
 
@@ -23,6 +26,9 @@ class InstallExample extends Command
         CreateMigrationExample::class
     ];
 
+    /**
+     *
+     */
     protected function Installalation() {
 
         collect($this->class_install)->map(function ($class){

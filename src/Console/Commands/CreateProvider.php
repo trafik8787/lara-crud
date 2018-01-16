@@ -23,6 +23,9 @@ class CreateProvider extends Installer {
         // TODO: Implement showInfo() method.
     }
 
+    /**
+     *
+     */
     public function install()
     {
 
@@ -55,53 +58,5 @@ class CreateProvider extends Installer {
     {
         return app_path('Providers/LaraCrudProvider.php');
     }
-
-
-
-
-//    protected $name = 'lara:provider:make';
-//
-//    /**
-//     * The console command description.
-//     *
-//     * @var string
-//     */
-//    protected $description = 'Create a new provider class';
-//
-//    /**
-//     * The type of class being generated.
-//     *
-//     * @var string
-//     */
-//    protected $type = 'Provider';
-//
-//    protected function alreadyExists($rawName)
-//    {
-//        return class_exists($rawName);
-//    }
-//
-//    public function getStub ()
-//    {
-//        return __DIR__.'/stubs/provider.stub';
-//    }
-//
-//    protected function getDefaultNamespace($rootNamespace)
-//    {
-//        return 'App\Providers';
-//    }
-//
-//    protected function replaceClass($stub, $name)
-//    {
-//        $stub = parent::replaceClass($stub, $name);
-//        return str_replace('NameProvider', trim($this->argument('model')), $stub);
-//    }
-//
-//    protected function getArguments()
-//    {
-//        $arguments = parent::getArguments();
-//        $arguments[] = ['model', InputArgument::REQUIRED, 'The name of the provider class'];
-//
-//        return $arguments;
-//    }
 
 }

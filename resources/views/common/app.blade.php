@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/select2/dist/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/iCheck/all.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/timepicker/bootstrap-timepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/AdminLTE.min.css')}}">
 

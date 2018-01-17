@@ -20,6 +20,7 @@ class ArticleTableExampleSeeder extends Seeder
             return [
                 'title' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'description' => $faker->text($maxNbChars = 150),
+                'date' => $faker->date($format = 'Y-m-d', $max = 'now')
             ];
 
 

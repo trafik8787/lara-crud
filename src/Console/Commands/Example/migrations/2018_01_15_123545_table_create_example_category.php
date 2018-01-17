@@ -15,10 +15,10 @@ class TableCreateExampleCategory extends Migration
     {
         Schema::create('example_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('url');
-            $table->text('title');
-            $table->text('description');
-            $table->text('name');
+            $table->text('url')->nullable();
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('name')->nullable();
             $table->timestamps();
         });
     }

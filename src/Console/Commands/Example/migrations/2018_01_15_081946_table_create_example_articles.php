@@ -18,11 +18,11 @@ class TableCreateExampleArticles extends Migration
     {
         Schema::create('example_articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('description');
-            $table->date('date');
-            $table->integer('public');
-            $table->integer('category');
+            $table->string('title')->nullable();
+            $table->string('description')->nullable();
+            $table->date('date')->nullable();
+            $table->integer('public')->nullable();
+            $table->integer('category')->nullable();
             $table->timestamps();
         });
     }

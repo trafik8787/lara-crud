@@ -5,8 +5,39 @@ published: true
 ---
 
 
-Nextaaaa you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
-
-![_config.yml]({{ site.baseurl }}/images/config.png)
-
-The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
+    protected $navigation = [
+    
+            'App\Http\Node\ExampleNode' => [
+                'priory' => 1,
+                'title' => 'Example',
+                'icon' => 'fa-user-secret'
+            ],
+    
+            'tabs' => [
+    
+                'Tab1' => [
+    
+                    'settings' => [
+                       'icon' => 'fa-user-secret',
+                        'priory' => 2,
+                    ],
+    
+                    'node' => [
+    
+                        'App\Http\Node\Articles' => [
+                            'priory' => 2,
+                            'title' => 'Articles',
+                            'icon' => 'fa-tree'
+                        ]
+                    ]
+                ],
+    
+            ],
+    
+            'App\Http\Node\Users' => [
+                'priory' => 3,
+                'title' => 'Users',
+                'icon' => 'fa-tree'
+            ],
+    
+        ];

@@ -1,8 +1,11 @@
 ---
 layout: post
 title: Field Settings
+keywords: admin, lara-crud, administrator, admin-panel, laravel, field-settings
 published: true
 ---
+
+#### The methods should be called inside the functions `public function showDisplay ()`, `public function showEditDisplay ()`, `public function showInsertDisplay ()`. [Node Class Example](/Node-Class/#class-ExampleNode)
 
 ## Available Methods
 ***
@@ -35,9 +38,13 @@ published: true
 
 [$this->Tooltip](#metod-Tooltip)
 
+[$this->addFieldClass](#metod-addFieldClass)
+
+[$this->setTypeField](#metod-setTypeField)
+
 
 ## Method Listing
-***
+
 
 <a name="metod-setTitle"> 
 
@@ -180,6 +187,8 @@ Override the sort in the default table. The call works only in the `showDisplay`
 
 Defines the selection of data from the database table by condition. The call works only in the `showDisplay` method:
 
+## Parameter List
+
 >***field***
 >
 > The name of the field of the database table that is present in the condition.
@@ -203,6 +212,8 @@ Defines the selection of data from the database table by condition. The call wor
 #### $this->columnColorWhere(<span style="color: #693">string</span> $field, <span style="color: #693">string</span> $operator, <span style="color: #693">mixed</span> $parametr, <span style="color: #693">string</span> $color)
 
 Sets the color of a table row to a condition. The call works only in the `showDisplay` method:
+
+## Parameter List
 
 >***field***
 >
@@ -232,5 +243,104 @@ Sets the color of a table row to a condition. The call works only in the `showDi
 Sets the prompts for the fields in the form. Accepts an associative array in the form of keys appear fields of the database table and prompt text, you can also determine the direction of the display of the prompts `left, right, top, bottom`:
 
     Example:
-    $this->Tooltip(['lastname' => ['Lastname toptip', 'right'], 'firstname' => 'Firstname toptip', 'email' => ['Email toptip', 'top']]);      
-                               
+    $this->Tooltip(['lastname' => ['Lastname toptip', 'right'], 'firstname' => 'Firstname toptip', 'email' => ['Email toptip', 'top']]);
+    
+
+&nbsp;             
+<a name="metod-addFieldClass"> 
+
+#### $this->addFieldClass(<span style="color: #693">array</span> $array)
+
+Add a css class field
+
+    Example:
+    $this->addFieldClass(['firstname' => 'my-class']);
+    
+    
+    
+&nbsp;     
+<a name="metod-setTypeField"> 
+
+#### $this->setTypeField(<span style="color: #693">array</span> [$field => <span style="color: #693">mixed</span> $param])
+
+## Parameter List
+
+>***array***
+>
+> Takes the array settings field.
+
+>***param***
+>
+> Can be an array or string.
+
+## Example of setting `text` fields. You can override the field type.
+    
+    Example:
+    $this->setTypeField([
+        'field_name' => 'textarea' or 'text' or 'number' or 'tel' ...,
+        ...
+    ]);
+
+## Example of setting the `radio` field.
+
+    Example:
+    $this->setTypeField([
+      'field_name' => ['radio', ['1' => 'Yes', '0' => 'No', '3' => 'Maybe']],
+      ...
+    ]);               
+
+## Example of setting the `checkbox` field.
+
+    Example:
+    $this->setTypeField([
+      'field_name' => ['checkbox', '1'],
+      ...
+    ]);
+    
+## Example of configuring the `select` field.    
+
+     Example:
+     $this->setTypeField([
+        'field_name' => ['select', ['1' => '111', '2' => '222']],
+        ...
+     ]);    
+        
+## Example of configuring the `select` field. The data in the field is loaded with Ajax.
+
+    Example:
+    $this->setTypeField([
+      'field_name' => ['select', [CategoryModel::class, 'id', 'title']],
+      ...
+    ]);    
+    
+## Example of setting the field `select` relation many to many data in the field are loaded Ajax.
+
+    Example:
+    /**
+    * category_contacts - Relationship table    
+    */
+    $this->setTypeField([
+      'field_name' => ['select', [CategoryModel::class, 'id', 'title'], 'multiple', [CategoryModel::class, 'category_contacts', 'contacts_id', 'category_id']],
+      ... or
+      'field_name' => ['select', ['1' => 'Yes', '2' => 'No', '3' => 'Maybe'], 'multiple', [CategoryModel::class, 'category_contacts2', 'contacts_id', 'category_id']]
+    ]);             
+    
+## An example of setting the `file` field. 
+    
+## Parameter List
+
+>***file***
+>
+> Field Type
+
+>***file_upload_directory***
+>
+> The name of the directory where the files are downloaded. `public\file_upload_directory`. 
+
+> If the `multiple` constant is set multiple downloads of files.
+
+    Example:
+    $this->setTypeField([
+      'field_name' => ['file', 'file_upload_directory', 'multiple'],
+      ...
+    ]);                               

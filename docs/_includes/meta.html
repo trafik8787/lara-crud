@@ -12,6 +12,12 @@
     {% endif %}
     <meta name="author" content="{{ site.name }}" />
 
+    {%if page.keywords %}
+        <meta name="keywords" content="{{ page.keywords }}" />
+    {% else %}
+        <meta name="keywords" content="{{ site.keywords }}" />
+    {% endif %}
+
     {% if page.title %}
     <meta property="og:title" content="{{ page.title }}" />
     <meta property="twitter:title" content="{{ page.title }}" />

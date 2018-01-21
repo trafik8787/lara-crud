@@ -5,13 +5,13 @@ permalink: /documentation/
 ---
 ***
 
-- [Field Settings](/Field-Settings)
-- [Node Class](/Node-Class)
-- [Relations](/Relations)
-- [Validation](/Validation)
-- [Callback](/Callback)
-- [Navigation](/Navigation)
-- [Configuration](/Configuration)
+- [Field Settings]({{ site.baseurl }}/Field-Settings)
+- [Node Class]({{ site.baseurl }}/Node-Class)
+- [Relations]({{ site.baseurl }}/Relations)
+- [Validation]({{ site.baseurl }}/Validation)
+- [Callback]({{ site.baseurl }}/Callback)
+- [Navigation]({{ site.baseurl }}/Navigation)
+- [Configuration]({{ site.baseurl }}/Configuration)
 
 
 ## Introduction

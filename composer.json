@@ -14,9 +14,15 @@
     "authors": [
         {
             "name": "Shtirlic Vitaliy",
-            "email": "trafik8787@gmail.com"
+            "email": "trafik8787@gmail.com",
+            "homepage": "https://trafik8787.github.io/lara-crud",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "email": "trafik8787@gmail.com",
+        "docs": "https://trafik8787.github.io/lara-crud/documentation/"
+    },
     "require": {
        "php": ">=7.0",
        "doctrine/dbal": "^2.5",

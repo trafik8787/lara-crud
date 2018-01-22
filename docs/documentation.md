@@ -67,5 +67,5 @@ The command creates two classes in the class `ExampleNode` and `ExampleNodeModel
 
 You can go to http://you_domain/admin/example_node_model        
     
-**Next documentation** [Navigation](/Navigation)
+**Next documentation** [Navigation]({{ site.baseurl }}/Navigation)
     

@@ -5,7 +5,7 @@ keywords: admin, lara-crud, administrator, admin-panel, laravel, field-settings
 published: true
 ---
 
-#### The methods should be called inside the functions `public function showDisplay ()`, `public function showEditDisplay ()`, `public function showInsertDisplay ()`. [Node Class Example](/Node-Class/#class-ExampleNode)
+#### The methods should be called inside the functions `public function showDisplay ()`, `public function showEditDisplay ()`, `public function showInsertDisplay ()`. [Node Class Example]({{ site.baseurl }}/Node-Class/#class-ExampleNode)
 
 ## Available Methods
 ***

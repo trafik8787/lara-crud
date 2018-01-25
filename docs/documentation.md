@@ -29,7 +29,7 @@ A place to include any other types of information that you'd like to include abo
 
     ```
     
-2. Run the installation and wait for it to finish.
+2. Run the installation and wait for it to finish. (Beforehand, make sure that you are connected to the database)
      
     ```
     artisan lara:example

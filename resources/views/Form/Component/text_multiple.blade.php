@@ -33,7 +33,7 @@
                             @endif
                         @endforeach
                         <td>
-                            <button type="button" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove-sign"></i>
+                            <button type="button" class="btn btn-danger remove-{{$obj->name}}"><i class="glyphicon glyphicon-remove-sign"></i>
                             </button>
                         </td>
 

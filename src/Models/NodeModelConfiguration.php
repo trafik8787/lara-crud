@@ -367,9 +367,10 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $dataArr
      */
-    public function Validation (array $dataArr)
+    public function Validation (array $dataArr, array $messages = [])
     {
         $this->validation = $dataArr;
+        $this->validation_messages = $messages;
     }
 
 

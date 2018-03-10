@@ -262,13 +262,13 @@ class FormTable extends FormManagerTable
      */
     public function RuleValidation($arr_request)
     {
-        if ($this->objConfig->getValidation() !== null) {
-            $this->validator = Validator::make($arr_request, $this->objConfig->getValidation());
+        if ($this->objConfig->getValidationRule() !== null) {
+            $this->validator = Validator::make($arr_request, $this->objConfig->getValidationRule(), $this->objConfig->getValidationMessage());
 
             if ($this->validator->passes()) {
                 return true;
             }
-            //dd($this->validator->getRules());
+
             return $this->validator;
         }
         return true;

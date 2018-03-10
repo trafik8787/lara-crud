@@ -65,6 +65,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $tooltip; //Подсказки tooltip.js
     protected $validation = null;
+    protected $validation_messages = [];
 
     protected $fieldOneToMany; //хранит масив полей с данными для отношения один ко многим
 
@@ -696,11 +697,20 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return null
      */
-    public function getValidation()
+    public function getValidationRule()
     {
         return $this->validation;
     }
 
+
+    /**
+     * @return array
+     */
+    public function getValidationMessage () {
+
+        return $this->validation_messages;
+
+    }
 
     /**
      * @param $fieldName

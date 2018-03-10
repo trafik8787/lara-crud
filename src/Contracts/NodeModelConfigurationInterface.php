@@ -274,7 +274,13 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getValidation ();
+    public function getValidationRule ();
+
+
+    /**
+     * @return mixed
+     */
+    public function getValidationMessage ();
 
     /**
      * @return mixed

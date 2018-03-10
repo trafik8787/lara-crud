@@ -84,12 +84,18 @@ class UploadFile implements UploadFileInterface
         if (!empty($this->objConfig->getFileUploadSetingAll())) {
 
             foreach ($this->objConfig->getFileUploadSetingAll() as $nameField => $uploadAllSetting) {
-                if (!empty($request_all[$nameField]) and is_array($request_all[$nameField])) {
-                    $request_all[$nameField] = json_encode($request_all[$nameField]);
+
+                if (!empty($request_all[$nameField])) {
+
+                    if (is_array($request_all[$nameField])) {
+                        $request_all[$nameField] = json_encode($request_all[$nameField]);
+                    }
+
                 } else {
                     //если удалены все картинки то создаем поле в масиве POST с нулевым значением чтоб обнулить поле в таблице
                     $request_all[$nameField] = null;
                 }
+
             }
 
         }

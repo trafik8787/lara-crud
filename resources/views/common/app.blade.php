@@ -40,6 +40,7 @@
     <script src="{{asset('vendor/lara-crud/bower_components/jquery-validation/jquery.validate.min.js')}}"></script>
 
     <script src="{{asset('vendor/lara-crud/js/adminlte.min.js')}}"></script>
+    <script src="{{asset('vendor/lara-crud/js/app.js')}}"></script>
 
 </head>
 

@@ -167,7 +167,7 @@ class FormTable extends FormManagerTable
 
     /**
      * @param File $file
-     * @return \Illuminate\Http\RedirectResponse todo метод срабатывает при обновлении
+     * @return \Illuminate\Http\RedirectResponse
      * todo метод срабатывает при обновлении
      */
     public function updateForm()
@@ -209,6 +209,7 @@ class FormTable extends FormManagerTable
         $model = [];
         //конфиг добавляем в класс и возвращаем масив полей
         $arr_request = $this->file->objConfig($this->objConfig);
+
         $nameColumn = $this->objConfig->nameColumns();
 
         //для обновления

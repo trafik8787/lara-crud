@@ -5,7 +5,7 @@
             <h3 class="box-title">File</h3>
 
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                <button type="button" class="btn btn-box-tool close-bloc-image">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
@@ -16,6 +16,8 @@
                 <img src="/{{$value}}" alt="">
                 @if(!empty($multiple) and !empty($value))
                     <input type="hidden" value="{{$value}}" name="{{$name}}[]">
+                @elseif(empty($multiple) and !empty($value))
+                    <input type="hidden" value="{{$value}}" name="{{$name}}">
                 @endif
             </span>
 

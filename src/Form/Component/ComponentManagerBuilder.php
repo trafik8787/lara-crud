@@ -243,7 +243,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      */
     public function options($data = null)
     {
-        $this->classStyle = $data;
+        $this->options = $data;
 
         if ($data === null) {
             $this->options = $this->objField['options'];

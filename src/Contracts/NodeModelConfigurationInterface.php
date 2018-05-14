@@ -60,6 +60,10 @@ interface NodeModelConfigurationInterface
      */
     public function getButtonEdit(): bool;
 
+    /**
+     * @return boll
+     */
+    public function getButtonApply (): bool;
 
     /**
      * @return bool

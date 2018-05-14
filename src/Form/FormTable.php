@@ -74,6 +74,7 @@ class FormTable extends FormManagerTable
             'formActionUrl' => $formActionUrl,
             'urlAction' => $this->admin->route->parameters['adminModel'],
             'titlePage' => $this->objConfig->getTitle(),
+            'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'PATCH',
             'objField' => $this->getFieldRender()
         ];
@@ -99,6 +100,7 @@ class FormTable extends FormManagerTable
             'urlAction' => $this->admin->route->parameters['adminModel'],
             'formActionUrl' => url()->current(),
             'titlePage' => $this->objConfig->getTitle(),
+            'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender()
         ];
@@ -196,7 +198,7 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
         }
 
-        return redirect()->back()->withErrors($this->validator);
+        return redirect()->back()->withErrors($this->validator)->exceptInput();
     }
 
 

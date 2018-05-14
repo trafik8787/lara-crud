@@ -1,7 +1,6 @@
 @extends('lara::common.app')
 @section('content')
 
-    {{--<h2>{{$titlePage}}</h2>--}}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">{{$titlePage}}</h3>
@@ -22,8 +21,11 @@
                     <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
                                 class="glyphicon glyphicon-floppy-saved"></span> Save
                     </button>
-                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-open"></span> Apply
-                    </button>
+                    @if($buttonApply)
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-floppy-open"></span> Apply
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -33,9 +35,7 @@
         $(document).ready(function () {
             $('.fa-info-circle').tooltip();
         });
-        //        $('.datepicker').datepicker({
-        //            autoclose: true
-        //        });
+
         $(document).on('click', '.btn-add', function (e) {
             e.preventDefault();
 

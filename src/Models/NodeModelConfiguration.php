@@ -47,6 +47,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     /**
      * @param bool $value
+     * Enable/Disable button Apply in form
+     */
+    public function buttonApply (bool $value = true)
+    {
+        $this->buttonApply = $value;
+    }
+
+    /**
+     * @param bool $value
      */
     public function buttonAdd (bool $value = true)
     {

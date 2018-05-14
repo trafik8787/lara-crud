@@ -29,6 +29,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $buttonDelete = true;
     protected $buttonEdit = true;
     protected $buttonAdd = true;
+    protected $buttonApply = true;
     protected $buttonCopy = true;
     protected $buttonGroupDelete = true;
 
@@ -151,6 +152,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->buttonDelete;
     }
 
+    /**
+     * @return bool
+     */
+    public function getButtonApply (): bool
+    {
+        return $this->buttonApply;
+    }
     /**
      * @return bool
      */

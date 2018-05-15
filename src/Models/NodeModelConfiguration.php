@@ -7,6 +7,7 @@
  */
 namespace Trafik8787\LaraCrud\Models;
 use Closure;
+use Illuminate\View\View;
 
 class NodeModelConfiguration extends NodeModelConfigurationManager
 {
@@ -400,6 +401,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
             ];
         }
 
+    }
+
+    /**
+     * @param $view
+     * //кастомный вывод
+     */
+    public function renderCustom ($view)
+    {
+        $this->view = $view;
     }
 
 }

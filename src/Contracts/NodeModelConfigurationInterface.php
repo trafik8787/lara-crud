@@ -319,4 +319,11 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function getRequired ($fieldName);
+
+
+    /**
+     * @return mixed
+     */
+    public function getRenderCustom();
+
 }

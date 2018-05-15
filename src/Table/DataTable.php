@@ -52,6 +52,16 @@ class DataTable implements TableInterface
         return view('lara::Table.table', $data);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function customRender ()
+    {
+        $data = $this->objConfig->getRenderCustom();
+
+        return view('lara::Table.dashboard', compact('data'));
+    }
+
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

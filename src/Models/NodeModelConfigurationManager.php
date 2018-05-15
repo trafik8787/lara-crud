@@ -75,6 +75,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public static $navigation_title;
 
     protected $closure;
+
+    protected $view = null; //для кастомного вида
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -766,6 +768,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function getBolleanCheckedColumn(): bool
     {
         if ($this->getButtonGroupDelete() === true OR $this->getButtonCopy() === true) {
@@ -774,4 +779,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
         return false;
     }
+
+
+    /**
+     * @return mixed|null
+     */
+    public function getRenderCustom ()
+    {
+        return $this->view;
+    }
+
 }

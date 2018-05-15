@@ -62,6 +62,12 @@ class AdminController extends Controller
             return $form->renderFormEdit($admin->objConfig->getFormShow());
         }
 
+        if ($admin->objConfig->getRenderCustom() !== null) {
+            return $table->customRender();
+        }
+
+
+
         return $table->render();
 
     }

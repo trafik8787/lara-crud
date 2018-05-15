@@ -75,4 +75,10 @@ interface TableInterface
      * @return mixed
      */
     public function searchModel ($objModel, $searchValue, $TableColumns);
+
+    /**
+     * @return mixed
+     */
+    public function customRender ();
+
 }

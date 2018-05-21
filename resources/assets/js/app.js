@@ -5,3 +5,15 @@ $(document).ready(function () {
     });
 
 });
+
+function confirmDelete($msg) {
+
+    var result = confirm($msg);
+
+    if (result) {
+        return true;
+    } else {
+        return false;
+    }
+
+}

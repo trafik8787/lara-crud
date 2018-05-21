@@ -324,6 +324,13 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getRenderCustom();
+    public function getRenderCustom ();
+
+
+    /**
+     * @param $param
+     * @return mixed
+     */
+    public function getAlertDelete ($param);
 
 }

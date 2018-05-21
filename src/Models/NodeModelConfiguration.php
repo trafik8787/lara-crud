@@ -412,6 +412,18 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->view = $view;
     }
 
+
+    /**
+     * @param array|string|null $msg
+     */
+    public function alertDelete ($msg = 'Are you sure you want to delete?', $event = 'onsubmit', $func = 'confirmDelete')
+    {
+        $this->alertDelete = [
+            'msg' => $msg,
+            'event' => $event,
+            'func'  => $func
+        ];
+    }
 }
 
 

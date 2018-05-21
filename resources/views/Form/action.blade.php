@@ -3,9 +3,10 @@
 @endif
 
 @if($configNode->getButtonDelete())
-    {!! Form::open(array('style' => 'display: inline-block;', 'class' => '', 'url' => url()->current().'/'.$id.'/delete', 'method' => 'DELETE', 'files' => false)) !!}
+
+    {!! Form::open(array('style' => 'display: inline-block;', 'class' => '', $configNode->getAlertDelete('event') => 'return '.$configNode->getAlertDelete('func').'("'.$configNode->getAlertDelete('msg').'")', 'url' => url()->current().'/'.$id.'/delete', 'method' => 'DELETE', 'files' => false)) !!}
         {{ Form::hidden('id', $id) }}
-        <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-fw fa-remove"></i> {{__('lara-crud::datatable.lDelete')}}</button>
+        <button type="submit" class="btn btn-danger btn-flat button-delete-row-datatable"><i class="fa fa-fw fa-remove"></i> {{__('lara-crud::datatable.lDelete')}}</button>
     {!! Form::close() !!}
 
 @endif

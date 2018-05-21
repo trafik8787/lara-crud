@@ -77,6 +77,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $closure;
 
     protected $view = null; //для кастомного вида
+    protected $alertDelete;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -787,6 +788,16 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getRenderCustom ()
     {
         return $this->view;
+    }
+
+
+    /**
+     * @param $param
+     * @return mixed
+     */
+    public function getAlertDelete($param)
+    {
+        return $this->alertDelete[$param];
     }
 
 }

@@ -6,6 +6,10 @@
                 @foreach($obj->value['selectValue'] as $value => $title)
                     <option {{$obj->value['curentValue'] == $value ? 'selected="selected"' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>
                 @endforeach
+            @else
+                @if(!empty($obj->value['ajaxCurentValue']))
+                    <option selected="selected" value="{{$obj->value['ajaxCurentValue']}}">{{strip_tags($obj->value['ajaxCurrentText'])}}</option>
+                @endif
             @endif
 
         </select>

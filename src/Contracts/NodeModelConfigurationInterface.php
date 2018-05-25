@@ -333,4 +333,11 @@ interface NodeModelConfigurationInterface
      */
     public function getAlertDelete ($param);
 
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetBeforeShowFormCollback($obj, $view);
 }

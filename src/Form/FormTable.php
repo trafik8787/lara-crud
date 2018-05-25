@@ -161,7 +161,16 @@ class FormTable extends FormManagerTable
 
             $result[] = $objBilder->build();
         }
+
+
+        /**
+         * hooks before render edit
+         */
+
+        $result = $this->objConfig->SetBeforeShowFormCollback($model, $result);
+
         $result = $this->tabs->build($result);
+
 
         return $result;
     }

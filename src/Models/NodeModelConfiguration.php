@@ -153,6 +153,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     }
 
+    public function beforeShowFormCollback (Closure $closure)
+    {
+        $this->closure = $closure;
+    }
+
     /**
      * @param $field
      * @param $operator

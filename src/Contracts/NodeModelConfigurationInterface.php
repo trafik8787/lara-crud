@@ -340,4 +340,18 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function SetBeforeShowFormCollback($obj, $view);
+
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetShowChildRows($obj, $view);
+
+    /**
+     * @return mixed
+     */
+    public function getShowChildRows();
+
 }

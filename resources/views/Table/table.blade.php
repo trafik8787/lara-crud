@@ -59,6 +59,55 @@
 
             });
 //            table.row( $(this).parents('tr') ).html('<button>sdf</button>');
+
+
+
+
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td.details-control', function () {
+                tr = $(this).closest('tr');
+                row = table.row( tr );
+
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    $.ajax({
+                        type: "POST",
+                        data: {_token: "{{csrf_token()}}", child_rows: true},
+                        success: function(msg){
+                            row.child(msg).show();
+                            tr.addClass('shown');
+                        }
+                    });
+
+                }
+            });
+
+
+
+            function format ( d ) {
+                // `d` is the original data object for the row
+                return '<table class="table" cellpadding="5" cellspacing="0" border="0">'+
+                    '<tr>'+
+                        '<td>Full name:</td>'+
+                        '<td>'+d.name+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td>Extension number:</td>'+
+                        '<td>'+d.extn+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td>Extra info:</td>'+
+                        '<td>And any further details here (images etc)...</td>'+
+                    '</tr>'+
+                    '</table>';
+            }
+
+
         });
     </script>
 
@@ -85,6 +134,7 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th></th>
                         @if($buttonGroupDelete or $buttonCopy)
                         <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
                         @endif
@@ -97,6 +147,7 @@
                     </thead>
                     <tfoot>
                     <tr>
+                        <th></th>
                         @if($buttonGroupDelete or $buttonCopy)
                         <th>#</th>
                         @endif

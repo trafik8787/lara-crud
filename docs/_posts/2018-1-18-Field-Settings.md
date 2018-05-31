@@ -10,37 +10,41 @@ published: true
 ## Available Methods
 ***
 
-[$this->setTitle](#metod-setTitle)
+[$this->setTitle()](#metod-setTitle)
 
-[$this->fieldShow](#metod-fieldShow)
+[$this->fieldShow()](#metod-fieldShow)
 
-[$this->fieldName](#metod-fieldName)
+[$this->fieldName()](#metod-fieldName)
 
-[$this->buttonDelete](#metod-buttonDelete)
+[$this->buttonDelete()](#metod-buttonDelete)
 
-[$this->buttonEdit](#metod-buttonEdit)
+[$this->buttonEdit()](#metod-buttonEdit)
 
-[$this->buttonAdd](#metod-buttonAdd)
+[$this->buttonAdd()](#metod-buttonAdd)
 
-[$this->buttonCopy](#metod-buttonCopy)
+[$this->buttonCopy()](#metod-buttonCopy)
 
-[$this->buttonGroupDelete](#metod-buttonGroupDelete)
+[$this->buttonGroupDelete()](#metod-buttonGroupDelete)
 
-[$this->textLimit](#metod-textLimit)
+[$this->textLimit()](#metod-textLimit)
 
-[$this->showEntries](#metod-showEntries)
+[$this->showEntries()](#metod-showEntries)
 
-[$this->fieldOrderBy](#metod-fieldOrderBy)
+[$this->fieldOrderBy()](#metod-fieldOrderBy)
 
-[$this->setWhere](#metod-setWhere)
+[$this->setWhere()](#metod-setWhere)
 
-[$this->columnColorWhere](#metod-columnColorWhere)
+[$this->columnColorWhere()](#metod-columnColorWhere)
 
-[$this->Tooltip](#metod-Tooltip)
+[$this->Tooltip()](#metod-Tooltip)
 
-[$this->addFieldClass](#metod-addFieldClass)
+[$this->addFieldClass()](#metod-addFieldClass)
 
-[$this->setTypeField](#metod-setTypeField)
+[$this->setTypeField()](#metod-setTypeField)
+
+[$this->renderCustom()](#metod-renderCustom)
+
+[$this->alertDelete()](#metod-alertDelete)
 
 
 ## Method Listing
@@ -76,7 +80,7 @@ Defines the list and order of the order of the fields that will be available in 
 Overrides the names of fields in tables or forms:
 
     Example:
-    $this->fieldName('firstname' => 'Firstname', 'lastname' => 'Lastname']);
+    $this->fieldName(['firstname' => 'Firstname', 'lastname' => 'Lastname']);
     
 
 &nbsp;    
@@ -343,4 +347,54 @@ Add a css class field
     $this->setTypeField([
       'field_name' => ['file', 'file_upload_directory', 'multiple'],
       ...
-    ]);                               
+    ]); 
+    
+&nbsp;    
+<a name="metod-renderCustom"> 
+
+#### $this->renderCustom(<span style="color: #693">mixed</span> $view)
+
+Overrides the output form on the page:
+
+    Example:
+    $this->renderCustom($this->app->make(TestController::class)->index());   
+    
+    
+&nbsp;    
+<a name="metod-alertDelete"> 
+
+#### $this->alertDelete(<span style="color: #693">string</span> $msg, <span style="color: #693">string</span> $event,  <span style="color: #693">string</span> $func)
+
+Overrides the output form on the page:
+
+## Parameter List
+
+>***msg***
+>
+> The message that will be displayed.
+
+>***event***
+>
+> Event before the output of which the message will be displayed 
+
+>***func***
+>
+> JS function name for event handling
+
+
+    Example:
+    $this->alertDelete('Are you sure you want to delete?', 'onsubmit', 'confirmDelete');
+    
+    JS:
+    
+    function confirmDelete($msg) {
+    
+        var result = confirm($msg);
+    
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }                                  

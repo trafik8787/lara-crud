@@ -429,6 +429,20 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
             'func'  => $func
         ];
     }
+
+    /**
+     * @param Closure|null $closure
+     */
+    public function showChildRows(Closure $closure = null)
+    {
+        $this->showChildRows = $closure;
+
+        if ($closure === null) {
+            $this->showChildRows = true;
+        }
+
+
+    }
 }
 
 

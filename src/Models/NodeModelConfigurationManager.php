@@ -78,6 +78,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $view = null; //для кастомного вида
     protected $alertDelete;
+    protected $showChildRows; //обратный вызов для child rows
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -275,6 +276,31 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $view;
         }
 
+    }
+
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetShowChildRows($obj, $view)
+    {
+        if ($this->showChildRows !== null) {
+            $return = $this->showChildRows->call($this, $obj, $view);
+        } else {
+            $return = false;
+        }
+
+        return $return;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowChildRows()
+    {
+        return $this->showChildRows;
     }
 
 

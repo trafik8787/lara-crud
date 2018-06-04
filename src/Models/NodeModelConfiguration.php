@@ -274,9 +274,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                         break;
                     case 'select':
                         //проверяем если класс
-                        if (isset($item[1][0]) and class_exists($item[1][0])) {
-
-                            $this->modelTableSelect = $this->app->make($item[1][0]);
+                        if (isset($item[1][0])) {
+                            //можем передать имя класса или обьект модели
+                           if(is_object($item[1][0])) {
+                               $this->modelTableSelect = $item[1][0];
+                           } elseif (class_exists($item[1][0])) {
+                               $this->modelTableSelect = $this->app->make($item[1][0]);
+                           }
 
                             $this->objClassSelectAjax[$nameField] = [
                                 'id' => $item[1][1],

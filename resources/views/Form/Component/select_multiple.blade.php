@@ -35,6 +35,7 @@
                     data: function (term) {
                         term._token = "{{csrf_token()}}";
                         term.field = "{{$obj->name}}";
+                        term.curent_url = "{{json_encode(request()->input())}}";
                         return term;
                     }
                 }

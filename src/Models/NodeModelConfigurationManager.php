@@ -286,13 +286,21 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function SetShowChildRows($obj, $view)
     {
-        if ($this->showChildRows !== null) {
-            $return = $this->showChildRows->call($this, $obj, $view);
+
+        if ($this->showChildRows === true) {
+
+            return true;
+
         } else {
-            $return = false;
+
+            if ($this->showChildRows !== null) {
+               // dd(1345345);
+                return $this->showChildRows->call($this, $obj, $view);
+            }
+
+            return false;
         }
 
-        return $return;
     }
 
     /**
@@ -300,7 +308,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function getShowChildRows()
     {
-        return $this->showChildRows;
+        if ($this->showChildRows !== null or $this->showChildRows === true) {
+            return true;
+        }
+
+        return false;
     }
 
 

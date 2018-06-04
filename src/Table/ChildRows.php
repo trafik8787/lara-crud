@@ -16,6 +16,7 @@ class ChildRows implements ChildRowsInterface
 {
     protected $request;
     protected $model;
+    protected $arrayNameColumns;
     protected $view = 'lara::Table.child_rows';
 
     public function __construct (Request $request) {
@@ -37,13 +38,14 @@ class ChildRows implements ChildRowsInterface
 
     public function render($objConfig)
     {
-        if ($objConfig->getShowChildRows()) {
-
-            $result = $objConfig->SetShowChildRows($this->model, view($this->view));
-
-            return $result;
+       // dd( $objConfig->nameColumns());
+        $result =  $objConfig->SetShowChildRows($this->model, view($this->view));
+        if ($result === true) {
+            return view($this->view, ['model' => $this->model]);
         }
-//        $this->view = $objConfig->
+
+        return $result;
 
     }
+
 }

@@ -64,9 +64,9 @@
 
 
             // Add event listener for opening and closing details
-            $('#example tbody').on('click', 'td.details-control', function () {
-                tr = $(this).closest('tr');
-                row = table.row( tr );
+            $('#example tbody').on('click', 'td .details-control-div', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
 
                 if ( row.child.isShown() ) {
                     // This row is already open - close it
@@ -77,7 +77,7 @@
                     // Open this row
                     $.ajax({
                         type: "POST",
-                        data: {_token: "{{csrf_token()}}", child_rows: true},
+                        data: {_token: "{{csrf_token()}}", child_rows: true, id: $(this).data('id')},
                         success: function(msg){
                             row.child(msg).show();
                             tr.addClass('shown');
@@ -87,25 +87,6 @@
                 }
             });
 
-
-
-            function format ( d ) {
-                // `d` is the original data object for the row
-                return '<table class="table" cellpadding="5" cellspacing="0" border="0">'+
-                    '<tr>'+
-                        '<td>Full name:</td>'+
-                        '<td>'+d.name+'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td>Extension number:</td>'+
-                        '<td>'+d.extn+'</td>'+
-                    '</tr>'+
-                    '<tr>'+
-                        '<td>Extra info:</td>'+
-                        '<td>And any further details here (images etc)...</td>'+
-                    '</tr>'+
-                    '</table>';
-            }
 
 
         });
@@ -134,9 +115,11 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th></th>
+                        @if($childRowsColumnBool)
+                            <th></th>
+                        @endif
                         @if($buttonGroupDelete or $buttonCopy)
-                        <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
+                            <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
                         @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
@@ -147,9 +130,11 @@
                     </thead>
                     <tfoot>
                     <tr>
-                        <th></th>
+                        @if($childRowsColumnBool)
+                            <th></th>
+                        @endif
                         @if($buttonGroupDelete or $buttonCopy)
-                        <th>#</th>
+                            <th>#</th>
                         @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>

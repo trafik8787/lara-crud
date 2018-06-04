@@ -45,6 +45,7 @@ class DataTable implements TableInterface
             'buttonAdd'  => $this->objConfig->getButtonAdd(),
             'buttonCopy' => $this->objConfig->getButtonCopy(),
             'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
+            'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
@@ -122,7 +123,10 @@ class DataTable implements TableInterface
 
         foreach ($obj as $item) {
 
-            $arr_button = array(' ' => '<div class="details-control-div">+</div>');
+            $arr_button = [];
+            if ($this->objConfig->getShowChildRows()) {
+                $arr_button = array(' ' => '<div class="details-control-div" data-id="'.$item->{$this->admin->KeyName}.'">+</div>');
+            }
 
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
 
@@ -131,11 +135,11 @@ class DataTable implements TableInterface
             }
 
             $arr2 = array_merge($arr_button, $item->toArray());
-//            die(print_r($arr2));
+            //die(print_r($arr2));
             $data[] = $arr2;
 
         }
-       // die(print_r($data));
+        //die(print_r($data));
         return Response::json([
             'draw' => $request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
@@ -151,9 +155,9 @@ class DataTable implements TableInterface
      */
     public function getJsonColumnDataTable ()
     {
-
-        if ($this->objConfig->getShowChildRows() !== null) {
-            $data_field[] = array('className' => 'details-control','data' => null, 'orderable' => false, 'defaultContent' => '', 'width' => '5px');
+        //child Rows
+        if ($this->objConfig->getShowChildRows()) {
+            $data_field[] = array('data' => ' ', 'orderable' => false, 'width' => '5px');
         }
 
         //отключение групового удаления
@@ -165,7 +169,7 @@ class DataTable implements TableInterface
             $data_field[] = array('data' => $field);
         }
         $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
-//        dd($data_field);
+       // dd($data_field);
         return json_encode($data_field, true);
     }
 

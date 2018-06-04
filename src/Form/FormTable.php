@@ -285,7 +285,7 @@ class FormTable extends FormManagerTable
     {
         $new_data = [];
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
-        $result = $data['model']->orWhere($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select'])->get()->toArray();
+        $result = $data['model']->where($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select'])->get()->toArray();
         foreach ($result as $item) {
             $new_data[] = ['id' => [$item[$data['id']]], 'text' => strip_tags($item[$data['select']])];
         }

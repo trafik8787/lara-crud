@@ -1,7 +1,8 @@
-{{dump($model)}}
 <table class="table" cellpadding="5" cellspacing="0" border="0">
-    <tr>
-        <td>fghf</td>
-
-    </tr>
+    @foreach($model->toArray() as $name => $rows)
+        <tr>
+            <td>{{ $name }}</td>
+            <td>{!! $rows !!}</td>
+        </tr>
+    @endforeach
 </table>

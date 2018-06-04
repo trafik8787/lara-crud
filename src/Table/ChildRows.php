@@ -38,8 +38,8 @@ class ChildRows implements ChildRowsInterface
 
     public function render($objConfig)
     {
-       // dd( $objConfig->nameColumns());
-        $result =  $objConfig->SetShowChildRows($this->model, view($this->view));
+
+        $result = $objConfig->SetShowChildRows($this->model, view($this->view));
         if ($result === true) {
             return view($this->view, ['model' => $this->model]);
         }
@@ -47,5 +47,6 @@ class ChildRows implements ChildRowsInterface
         return $result;
 
     }
+
 
 }

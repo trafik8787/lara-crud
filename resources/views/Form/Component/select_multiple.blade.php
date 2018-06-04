@@ -2,7 +2,7 @@
     <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}} @if ($obj->required !== false) <span class="text-red">*</span> @endif @if(($obj->tooltip))<i class="fa fa-fw fa-info-circle" data-toggle="tooltip" data-placement="{{$obj->tooltip}}" data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
         <input type="hidden" name="{{$obj->name}}" value="">
-        <select name="{{$obj->name}}[]" class="form-control select2-{{$obj->name}}" multiple="multiple">
+        <select name="{{$obj->name}}[]" class="form-control select2-{{$obj->name}} {{$obj->classStyle}}" multiple="multiple">
             @if(isset($obj->value['ajaxCurentValueMultiple']))
                 @foreach($obj->value['ajaxCurentValueMultiple'] as $value)
                     <option selected="selected" value="{{$value['id']}}">{{strip_tags($value['text'])}}</option>

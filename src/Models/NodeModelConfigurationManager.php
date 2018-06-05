@@ -79,6 +79,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $view = null; //для кастомного вида
     protected $alertDelete;
     protected $showChildRows; //обратный вызов для child rows
+    protected $ajaxBeforeLoadSelect; //хук перед загрузкой данных в select
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -854,4 +855,24 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->alertDelete[$param];
     }
 
+    /**
+     * @param $model
+     * @param $request
+     * @return mixed
+     */
+    public function setAjaxBeforeLoadSelect ($model, $request)
+    {
+        $data = null;
+
+        if (!empty($this->ajaxBeforeLoadSelect)) {
+            $request->get_param = json_decode(htmlspecialchars_decode($request->get_param));
+            $data = $this->ajaxBeforeLoadSelect->call($this, $model, $request);
+        }
+
+        if ($data !== null) {
+            return $data;
+        }
+
+        return $model;
+    }
 }

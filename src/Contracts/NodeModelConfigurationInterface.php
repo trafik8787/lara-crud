@@ -354,4 +354,11 @@ interface NodeModelConfigurationInterface
      */
     public function getShowChildRows();
 
+    /**
+     * @param $model
+     * @param $request
+     * @return mixed
+     */
+    public function setAjaxBeforeLoadSelect ($model, $request);
+
 }

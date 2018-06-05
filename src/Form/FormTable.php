@@ -294,7 +294,11 @@ class FormTable extends FormManagerTable
     {
         $new_data = [];
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
-        $result = $data['model']->where($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select'])->get()->toArray();
+
+        $model = $this->objConfig->setAjaxBeforeLoadSelect($data['model'] ,$this->request);
+        $model = $model->where($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select']);
+        $result = $model->get()->toArray();
+
         foreach ($result as $item) {
             $new_data[] = ['id' => [$item[$data['id']]], 'text' => strip_tags($item[$data['select']])];
         }
@@ -373,6 +377,11 @@ class FormTable extends FormManagerTable
     }
 
 
+    /**
+     * @param $data
+     * @param $primary_key
+     * @return mixed
+     */
     public function getArrIdKeyTableOneToMany($data, $primary_key)
     {
         return $data->OneToMany()->get([$primary_key])->map(function ($item, $key) use ($primary_key) {

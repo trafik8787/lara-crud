@@ -361,4 +361,10 @@ interface NodeModelConfigurationInterface
      */
     public function setAjaxBeforeLoadSelect ($model, $request);
 
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getDefaultSelected (string $field);
+
 }

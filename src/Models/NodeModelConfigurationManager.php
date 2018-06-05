@@ -80,6 +80,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $alertDelete;
     protected $showChildRows; //обратный вызов для child rows
     protected $ajaxBeforeLoadSelect; //хук перед загрузкой данных в select
+    protected $arrField; //определяем выбор selected по умолчанию
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -379,14 +380,18 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                         //проверяем если передан класс то ничего не возвращаем
                         if (empty($this->objClassSelectAjax[$nameField])) {  // без аякса
 
-
                             if (!empty($this->setTypeField[$nameField][2]) and $this->setTypeField[$nameField][2] === 'multiple') {
-                                //return ['curentValue' => array_flip(json_decode($valueModel)), 'selectValue' => $this->setTypeField[$nameField][1]];
 
                                 $curentValue = is_array(json_decode($valueModel)) ? array_flip(json_decode($valueModel)) : null;
 
                                 return ['curentValue' => $curentValue, 'selectValue' => $this->setTypeField[$nameField][1]];
                             } else {
+//
+                                //предопределенный выбор
+                                if (empty($valueModel)) {
+                                    $valueModel = $this->getDefaultSelected($nameField);
+                                }
+
                                 return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
                             }
 
@@ -874,5 +879,18 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
 
         return $model;
+    }
+
+
+    /**
+     * @param string $field
+     * @return mixed|null
+     */
+    public function getDefaultSelected (string $field)
+    {
+        if (!empty($this->arrField[$field])) {
+            return $this->arrField[$field];
+        }
+        return null;
     }
 }

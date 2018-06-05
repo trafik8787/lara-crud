@@ -23,12 +23,10 @@
 
             <div class="mailbox-attachment-info">
                 <a href="#" class="mailbox-attachment-name">
-                    <i class="fa fa-camera"></i> {{File::name($value)}}</a>
-                <span class="mailbox-attachment-size">
-                                        {{\Trafik8787\LaraCrud\Form\UploadFile::formatBytes(File::size($value), 1)}}
-                    <a href="#" class="btn btn-default btn-xs pull-right"><i
-                                class="fa fa-cloud-download"></i></a>
-                                            </span>
+                    <span class="mailbox-attachment-size">
+                       {{\Trafik8787\LaraCrud\Form\UploadFile::formatBytes(File::size($value), 1)}}
+                    </span>
+                </a>
             </div>
         </div>
     </div>

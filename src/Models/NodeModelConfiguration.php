@@ -455,6 +455,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->ajaxBeforeLoadSelect = $closure;
     }
+
+    public function setDefaultSelected(array $arrField)
+    {
+        $this->arrField = $arrField;
+    }
 }
 
 

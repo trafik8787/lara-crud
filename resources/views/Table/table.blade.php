@@ -59,6 +59,36 @@
 
             });
 //            table.row( $(this).parents('tr') ).html('<button>sdf</button>');
+
+
+
+
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td .details-control-div', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    $.ajax({
+                        type: "POST",
+                        data: {_token: "{{csrf_token()}}", child_rows: true, id: $(this).data('id')},
+                        success: function(msg){
+                            row.child(msg).show();
+                            tr.addClass('shown');
+                        }
+                    });
+
+                }
+            });
+
+
+
         });
     </script>
 
@@ -85,8 +115,11 @@
                 <table id="example" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        @if($childRowsColumnBool)
+                            <th></th>
+                        @endif
                         @if($buttonGroupDelete or $buttonCopy)
-                        <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
+                            <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></th>
                         @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
@@ -97,8 +130,11 @@
                     </thead>
                     <tfoot>
                     <tr>
+                        @if($childRowsColumnBool)
+                            <th></th>
+                        @endif
                         @if($buttonGroupDelete or $buttonCopy)
-                        <th>#</th>
+                            <th>#</th>
                         @endif
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>

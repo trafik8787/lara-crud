@@ -12,6 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Trafik8787\LaraCrud\Contracts\ChildRowsInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 
 class DataTable implements TableInterface
@@ -21,12 +22,14 @@ class DataTable implements TableInterface
     public $objConfig;
     public $admin;
     public $app;
+    public $childRows;
     /**
      * DataTable constructor.
      * @param Application $app
      */
-    public function __construct (Application $app) {
+    public function __construct (Application $app, ChildRowsInterface $childRows) {
         $this->app = $app;
+        $this->childRows = $childRows;
     }
 
     /**
@@ -42,6 +45,7 @@ class DataTable implements TableInterface
             'buttonAdd'  => $this->objConfig->getButtonAdd(),
             'buttonCopy' => $this->objConfig->getButtonCopy(),
             'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
+            'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
@@ -101,8 +105,14 @@ class DataTable implements TableInterface
         //груповое удаление
         if (isset($request['delete_group_'.csrf_token()])) {
             return $this->groupDelete($request);
+        //копирование
         } elseif (isset($request['copy_'.csrf_token()])) {
             return $this->copyData($request);
+        //запрос на child rows
+        } elseif(isset($request['child_rows'])) {
+            return $this->childRows
+                ->model($this->getModelObj())
+                ->render($this->objConfig);
         }
 
 
@@ -113,16 +123,23 @@ class DataTable implements TableInterface
 
         foreach ($obj as $item) {
 
+            $arr_button = [];
+            if ($this->objConfig->getShowChildRows()) {
+                $arr_button = array(' ' => '<div class="details-control-div" data-id="'.$item->{$this->admin->KeyName}.'">+</div>');
+            }
+
             $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
 
             if($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
                 $item['#'] = '<input class="text-center" name="selected_'.csrf_token().'[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
             }
 
-            $data[] = $item;
+            $arr2 = array_merge($arr_button, $item->toArray());
+            //die(print_r($arr2));
+            $data[] = $arr2;
 
         }
-
+        //die(print_r($data));
         return Response::json([
             'draw' => $request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
@@ -138,6 +155,11 @@ class DataTable implements TableInterface
      */
     public function getJsonColumnDataTable ()
     {
+        //child Rows
+        if ($this->objConfig->getShowChildRows()) {
+            $data_field[] = array('data' => ' ', 'orderable' => false, 'width' => '5px');
+        }
+
         //отключение групового удаления
         if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
             $data_field[] = array('data' => '#', 'orderable' => false, 'width' => '5px');
@@ -147,7 +169,7 @@ class DataTable implements TableInterface
             $data_field[] = array('data' => $field);
         }
         $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
-
+       // dd($data_field);
         return json_encode($data_field, true);
     }
 

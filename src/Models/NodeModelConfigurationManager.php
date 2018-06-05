@@ -78,6 +78,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $view = null; //для кастомного вида
     protected $alertDelete;
+    protected $showChildRows; //обратный вызов для child rows
+    protected $ajaxBeforeLoadSelect; //хук перед загрузкой данных в select
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -259,6 +261,59 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function SetTableRowsRenderCollback ($obj)
     {
         return $this->closure !== null ? $this->closure->call($this, $obj) : $obj;
+    }
+
+    /**
+     * @param $obj
+     * @return mixed
+     * todo хук перед открытием формы редактирования
+     */
+    public function SetBeforeShowFormCollback($obj, $view)
+    {
+        if ($this->closure !== null) {
+            $return = $this->closure->call($this, $obj, $view);
+            return $return ? $return: $view;
+        } else {
+            return $view;
+        }
+
+    }
+
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetShowChildRows($obj, $view)
+    {
+
+        if ($this->showChildRows === true) {
+
+            return true;
+
+        } else {
+
+            if ($this->showChildRows !== null) {
+               // dd(1345345);
+                return $this->showChildRows->call($this, $obj, $view);
+            }
+
+            return false;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowChildRows()
+    {
+        if ($this->showChildRows !== null or $this->showChildRows === true) {
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -800,4 +855,24 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->alertDelete[$param];
     }
 
+    /**
+     * @param $model
+     * @param $request
+     * @return mixed
+     */
+    public function setAjaxBeforeLoadSelect ($model, $request)
+    {
+        $data = null;
+
+        if (!empty($this->ajaxBeforeLoadSelect)) {
+            $request->get_param = json_decode(htmlspecialchars_decode($request->get_param));
+            $data = $this->ajaxBeforeLoadSelect->call($this, $model, $request);
+        }
+
+        if ($data !== null) {
+            return $data;
+        }
+
+        return $model;
+    }
 }

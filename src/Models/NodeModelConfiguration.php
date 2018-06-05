@@ -153,6 +153,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
 
     }
 
+    public function beforeShowFormCollback (Closure $closure)
+    {
+        $this->closure = $closure;
+    }
+
     /**
      * @param $field
      * @param $operator
@@ -427,6 +432,28 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
             'event' => $event,
             'func'  => $func
         ];
+    }
+
+    /**
+     * @param Closure|null $closure
+     */
+    public function showChildRows(Closure $closure = null)
+    {
+        $this->showChildRows = $closure;
+
+        if ($closure === null) {
+            $this->showChildRows = true;
+        }
+
+
+    }
+
+    /**
+     * @param Closure|null $closure
+     */
+    public function ajaxBeforeLoadSelect(Closure $closure = null)
+    {
+        $this->ajaxBeforeLoadSelect = $closure;
     }
 }
 

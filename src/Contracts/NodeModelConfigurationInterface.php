@@ -333,4 +333,32 @@ interface NodeModelConfigurationInterface
      */
     public function getAlertDelete ($param);
 
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetBeforeShowFormCollback($obj, $view);
+
+
+    /**
+     * @param $obj
+     * @param $view
+     * @return mixed
+     */
+    public function SetShowChildRows($obj, $view);
+
+    /**
+     * @return mixed
+     */
+    public function getShowChildRows();
+
+    /**
+     * @param $model
+     * @param $request
+     * @return mixed
+     */
+    public function setAjaxBeforeLoadSelect ($model, $request);
+
 }

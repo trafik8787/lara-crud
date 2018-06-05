@@ -388,10 +388,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                             } else {
 //
                                 //предопределенный выбор
-                                if (empty($valueModel)) {
-                                    $valueModel = $this->getDefaultSelected($nameField);
-                                }
-
+                                $valueModel = !empty($this->getDefaultSelected($nameField)) ? $this->getDefaultSelected($nameField) : $valueModel;
                                 return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
                             }
 

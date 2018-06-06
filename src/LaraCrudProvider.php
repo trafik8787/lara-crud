@@ -5,6 +5,7 @@ namespace Trafik8787\LaraCrud;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
+use Trafik8787\LaraCrud\Contracts\ActionTableInterface;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\ChildRowsInterface;
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
@@ -21,6 +22,7 @@ use Trafik8787\LaraCrud\Form\UploadFile;
 use Trafik8787\LaraCrud\Models\ModelRouter;
 use Trafik8787\LaraCrud\Models\NodeModelConfiguration;
 use Trafik8787\LaraCrud\Navigation\Navigation;
+use Trafik8787\LaraCrud\Table\ActionTable;
 use Trafik8787\LaraCrud\Table\ChildRows;
 use Trafik8787\LaraCrud\Table\DataTable;
 
@@ -95,6 +97,7 @@ class LaraCrudProvider extends ServiceProvider
         $this->app->singleton(TabsInterface::class, Tabs::class);
         $this->app->singleton(UploadFileInterface::class, UploadFile::class);
         $this->app->singleton(ChildRowsInterface::class, ChildRows::class);
+        $this->app->singleton(ActionTableInterface::class, ActionTable::class);
 
 
     }

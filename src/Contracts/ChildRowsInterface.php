@@ -11,7 +11,21 @@ namespace Trafik8787\LaraCrud\Contracts;
 
 interface ChildRowsInterface
 {
+    /**
+     * @param null $view
+     * @return mixed
+     */
     public function view ($view = null);
+
+    /**
+     * @param null $model
+     * @return mixed
+     */
     public function model ($model = null);
+
+    /**
+     * @param $objConfig
+     * @return mixed
+     */
     public function render($objConfig);
 }

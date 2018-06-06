@@ -124,7 +124,9 @@
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
                         @endforeach
-                        <th>{{__('lara-crud::datatable.lAction')}}</th>
+                        @if($buttonAction)
+                            <th>{{__('lara-crud::datatable.lAction')}}</th>
+                        @endif
 
                     </tr>
                     </thead>
@@ -139,7 +141,9 @@
                         @foreach ($name_field as $field)
                             <th>{{$field}}</th>
                         @endforeach
-                        <th>{{__('lara-crud::datatable.lAction')}}</th>
+                        @if($buttonAction)
+                            <th>{{__('lara-crud::datatable.lAction')}}</th>
+                        @endif
 
                     </tr>
                     </tfoot>

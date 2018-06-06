@@ -143,6 +143,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->setWhere = func_get_args();
     }
 
+    /**
+     * @param Closure $closure
+     */
+    public function setModelCollback(Closure $closure)
+    {
+        $this->setModelCollback = $closure;
+    }
 
     /**
      * @param Closure $closure

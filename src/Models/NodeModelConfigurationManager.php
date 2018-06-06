@@ -81,6 +81,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $showChildRows; //обратный вызов для child rows
     protected $ajaxBeforeLoadSelect; //хук перед загрузкой данных в select
     protected $arrField; //определяем выбор selected по умолчанию
+    protected $setModelCollback = null; //функция обратного вызова для получения модели выборки таблицы
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -889,5 +890,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $this->arrField[$field];
         }
         return null;
+    }
+
+    /**
+     * @param $model
+     * @return mixed
+     */
+    public function getModelCollback($model)
+    {
+        return $this->setModelCollback !== null ? $this->setModelCollback->call($this, $model) : $model;
     }
 }

@@ -898,6 +898,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function getModelCollback($model)
     {
-        return $this->setModelCollback !== null ? $this->setModelCollback->call($this, $model) : $model;
+
+        if ($this->setModelCollback !== null) {
+            $query = $this->setModelCollback->call($this, $model);
+            return $query;
+        } else {
+            //die(print_r(($model)));
+            return $model;
+        }
     }
 }

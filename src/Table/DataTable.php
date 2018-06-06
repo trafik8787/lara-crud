@@ -234,12 +234,13 @@ class DataTable implements TableInterface
 
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
-        $result = $this->getModelObj()->select($select);
+        $result = $this->objConfig->getWhere($this->getModelObj());
         //хук модели таблицы
         $result = $this->objConfig->getModelCollback($result);
+        $result = $result->select($select);
         $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
         $result = $result->orderBy($order_field, $order['dir']);
-        $result = $this->objConfig->getWhere($result);
+
         $result = $result->paginate($total);
 
         $result->map(function ($object){
@@ -265,7 +266,10 @@ class DataTable implements TableInterface
 
         foreach ($TableColumns as $tableColumn) {
 
-            $objModel->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+//            $objModel->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+            $objModel->where(function ($query) use ($tableColumn, $searchValue){
+                $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+            });
         }
 
         return $objModel;

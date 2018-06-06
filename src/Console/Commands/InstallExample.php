@@ -29,11 +29,12 @@ class InstallExample extends Command
     /**
      *
      */
-    protected function Installalation() {
+    protected function Installalation()
+    {
 
-        collect($this->class_install)->map(function ($class){
+        collect($this->class_install)->map(function ($class) {
             return new $class($this);
-        })->each(function ($class){
+        })->each(function ($class) {
             $class->showInfo();
             $class->install();
         });

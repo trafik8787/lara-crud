@@ -16,27 +16,27 @@ interface FormManagerInterface
      * @param $nameField
      * @return mixed
      */
-    public function getDataType ($typeSql, $nameField);
+    public function getDataType($typeSql, $nameField);
 
     /**
      * @return array
      */
-    public function getNameColumns ():array ;
+    public function getNameColumns(): array;
 
     /**
      * @return array
      */
-    public function getTypeColumns ():array ;
+    public function getTypeColumns(): array;
 
     /**
      * @return mixed
      */
-    public function getArrayField ();
+    public function getArrayField();
 
     /**
      * @return mixed
      */
-    public function getMultiple(string $field):bool;
+    public function getMultiple(string $field): bool;
 
     /**
      * @param $data

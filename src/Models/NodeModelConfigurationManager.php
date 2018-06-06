@@ -5,7 +5,9 @@
  * Date: 30.08.2017
  * Time: 22:43
  */
+
 namespace Trafik8787\LaraCrud\Models;
+
 use App;
 use Illuminate\Contracts\Foundation\Application;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
@@ -33,7 +35,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $buttonCopy = true;
     protected $buttonGroupDelete = true;
 
-
     protected $fieldShow = [];
     protected $fieldName = [];
     public $textLimit = [];
@@ -44,8 +45,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $newAction = []; //кнопки Action
     protected $setTypeField = [];
     protected $formShowId;
-
-
 
     //property field
     protected $addFieldClass = [];
@@ -69,11 +68,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $validation_messages = [];
 
     protected $fieldOneToMany; //хранит масив полей с данными для отношения один ко многим
-
     protected $primary_key_relation; //название поля id таблицы один ко многим
-
     public static $navigation_title;
-
     protected $closure;
 
     protected $view = null; //для кастомного вида
@@ -82,21 +78,24 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $ajaxBeforeLoadSelect; //хук перед загрузкой данных в select
     protected $arrField; //определяем выбор selected по умолчанию
     protected $setModelCollback = null; //функция обратного вызова для получения модели выборки таблицы
+    protected $showChildRowsClass;
+
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
      * @param null $model
      */
-    public function __construct (Application $app, $model = null) {
+    public function __construct(Application $app, $model = null)
+    {
 
-        $this->app= $app;
+        $this->app = $app;
         $this->model = $model;
     }
 
     /**
      * @param $query
      */
-    public function scopeTest ($query)
+    public function scopeTest($query)
     {
         $query->where('id', '=', 1);
     }
@@ -104,7 +103,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return null
      */
-    public function getModel () {
+    public function getModel()
+    {
         return $this->model;
     }
 
@@ -138,7 +138,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return mixed
      */
-    public function getTitle ()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -147,14 +147,15 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getFieldName() {
+    public function getFieldName()
+    {
         return $this->fieldName;
     }
 
     /**
      * @return bool
      */
-    public function getButtonDelete (): bool
+    public function getButtonDelete(): bool
     {
         return $this->buttonDelete;
     }
@@ -162,14 +163,15 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return bool
      */
-    public function getButtonApply (): bool
+    public function getButtonApply(): bool
     {
         return $this->buttonApply;
     }
+
     /**
      * @return bool
      */
-    public function getButtonEdit (): bool
+    public function getButtonEdit(): bool
     {
         return $this->buttonEdit;
     }
@@ -177,7 +179,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getFieldShow(): array {
+    public function getFieldShow(): array
+    {
         return $this->fieldShow;
     }
 
@@ -205,7 +208,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return mixed
      */
-    public function getShowEntries():int
+    public function getShowEntries(): int
     {
         return $this->showEntries;
     }
@@ -215,7 +218,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @return array
      * todo поля доступные для выборки
      */
-    public function nameColumns ():array
+    public function nameColumns(): array
     {
 
         $field = $this->admin->TableColumns;
@@ -260,7 +263,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @return mixed
      * todo хук для строк таблицы
      */
-    public function SetTableRowsRenderCollback ($obj)
+    public function SetTableRowsRenderCollback($obj)
     {
         return $this->closure !== null ? $this->closure->call($this, $obj) : $obj;
     }
@@ -274,7 +277,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     {
         if ($this->closure !== null) {
             $return = $this->closure->call($this, $obj, $view);
-            return $return ? $return: $view;
+            return $return ? $return : $view;
         } else {
             return $view;
         }
@@ -285,33 +288,20 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @param $obj
      * @param $view
-     * @return mixed
+     * @return bool|mixed
      */
-    public function SetShowChildRows($obj, $view)
+    public function SetShowChildRows()
     {
-
-        if ($this->showChildRows === true) {
-
-            return true;
-
-        } else {
-
-            if ($this->showChildRows !== null) {
-               // dd(1345345);
-                return $this->showChildRows->call($this, $obj, $view);
-            }
-
-            return false;
-        }
-
+        return $this->showChildRowsClass;
     }
 
+
     /**
-     * @return mixed
+     * @return bool|mixed
      */
     public function getShowChildRows()
     {
-        if ($this->showChildRows !== null or $this->showChildRows === true) {
+        if (!empty($this->showChildRowsClass)) {
             return true;
         }
 
@@ -321,7 +311,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     /**
      * @return array|bool
-     * todo метод готовид масив для віделения цветами строк в таблице
+     * todo метод готовид масив для выделения цветами строк в таблице
      */
     public function getColumnColorWhere()
     {
@@ -343,7 +333,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getNewAction() {
+    public function getNewAction()
+    {
 
         return $this->newAction;
     }
@@ -365,7 +356,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param $valueModel //данные из базы
      * @return array|mixed|null
      */
-    public function getValue ($nameField, $valueModel)
+    public function getValue($nameField, $valueModel)
     {
 
         if (!empty($this->setTypeField[$nameField])) {
@@ -412,7 +403,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
                             } else {
 
-                                $arr['ajaxCurentValueMultiple'] =  $this->getOtherTable($this->objClassSelectAjax[$nameField]);
+                                $arr['ajaxCurentValueMultiple'] = $this->getOtherTable($this->objClassSelectAjax[$nameField]);
 
                             }
 
@@ -469,7 +460,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param array $arrFieldType
      * todo устанавливаем значения полей по умолчанию
      */
-    public function setValue (array $arrFieldType)
+    public function setValue(array $arrFieldType)
     {
         $this->setValue = $arrFieldType;
     }
@@ -478,7 +469,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param $nameField
      * @param $fieldSetindArr
      */
-    public function setFileUploadSeting ($nameField, $fieldSetindArr)
+    public function setFileUploadSeting($nameField, $fieldSetindArr)
     {
         $this->setFileUploadSeting[$nameField] = [
             'path' => (!empty($fieldSetindArr[1])) ? $fieldSetindArr[1] : 'uploads',
@@ -509,7 +500,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @return mixed|null
      * todo получаем масив конфигурации поля
      */
-    public function getTypeFieldAllArr(string $field) {
+    public function getTypeFieldAllArr(string $field)
+    {
         if (!empty($this->setTypeField[$field])) {
             return $this->setTypeField[$field];
         }
@@ -540,7 +532,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
         return null;
     }
-    
+
     /**
      * @param string $field
      * @return mixed|null
@@ -574,8 +566,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     {
         if (in_array($field, $this->enableEditor)) {
             return true;
-
         }
+
         return false;
     }
 
@@ -605,7 +597,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getFileUploadSetingAll() {
+    public function getFileUploadSetingAll()
+    {
         return $this->setFileUploadSeting;
     }
 
@@ -775,10 +768,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return array
      */
-    public function getValidationMessage () {
-
+    public function getValidationMessage()
+    {
         return $this->validation_messages;
-
     }
 
     /**
@@ -786,11 +778,12 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @return bool|int
      *
      */
-    public function getRequired ($fieldName)
+    public function getRequired($fieldName)
     {
         if (!empty($this->validation[$fieldName])) {
             return strpos($this->validation[$fieldName], 'required');
         }
+
         return false;
     }
 
@@ -803,6 +796,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         if (!empty($this->fieldOneToMany[$fieldName])) {
             return $this->fieldOneToMany[$fieldName];
         }
+
         return false;
     }
 
@@ -843,7 +837,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return mixed|null
      */
-    public function getRenderCustom ()
+    public function getRenderCustom()
     {
         return $this->view;
     }
@@ -863,7 +857,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param $request
      * @return mixed
      */
-    public function setAjaxBeforeLoadSelect ($model, $request)
+    public function setAjaxBeforeLoadSelect($model, $request)
     {
         $data = null;
 
@@ -884,7 +878,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param string $field
      * @return mixed|null
      */
-    public function getDefaultSelected (string $field)
+    public function getDefaultSelected(string $field)
     {
         if (!empty($this->arrField[$field])) {
             return $this->arrField[$field];
@@ -898,7 +892,6 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function getModelCollback($model)
     {
-
         if ($this->setModelCollback !== null) {
             $query = $this->setModelCollback->call($this, $model);
             return $query;

@@ -25,6 +25,7 @@ class Select
 
     public $view = 'lara::Form.Component.select';
     public $view_multiple = 'lara::Form.Component.select_multiple';
+
     /**
      * Select constructor.
      * @param ComponentManagerBuilderInterface $managerBuilder
@@ -37,8 +38,8 @@ class Select
         $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
-        $this->multiple =  $managerBuilder->multiple;
-        $this->options =  $managerBuilder->options;
+        $this->multiple = $managerBuilder->multiple;
+        $this->options = $managerBuilder->options;
         $this->tooltip = $managerBuilder->tooltip;
         $this->required = $managerBuilder->required;
 
@@ -52,7 +53,7 @@ class Select
     /**
      * @return mixed
      */
-    public function run ()
+    public function run()
     {
         return view($this->view, ['obj' => $this])->render();
     }

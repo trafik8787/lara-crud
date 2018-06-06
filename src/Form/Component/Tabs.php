@@ -5,7 +5,9 @@
  * Date: 09.10.2017
  * Time: 18:29
  */
+
 namespace Trafik8787\LaraCrud\Form\Component;
+
 use Trafik8787\LaraCrud\Contracts\Component\TabsInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
 
@@ -59,7 +61,8 @@ class Tabs implements TabsInterface
      * @param $nameTab
      * @param $itam
      */
-    public function TabFore1 ($result, $nameTab, $itam) {
+    public function TabFore1($result, $nameTab, $itam)
+    {
 
         foreach ($result as $arr_item) {
 

@@ -34,12 +34,12 @@ class LaraCrudProvider extends ServiceProvider
     protected $nodes = [];
 
 
-    public function nodes ()
+    public function nodes()
     {
         return $this->nodes;
     }
 
-    public function navigation ()
+    public function navigation()
     {
         return $this->navigation;
     }
@@ -74,8 +74,9 @@ class LaraCrudProvider extends ServiceProvider
      */
     protected function getConfig($key)
     {
-        return $this->app['config']->get('lara-config.'.$key);
+        return $this->app['config']->get('lara-config.' . $key);
     }
+
     /**
      * Register the application services.
      *
@@ -85,7 +86,7 @@ class LaraCrudProvider extends ServiceProvider
     {
         $this->registerCommands();
 
-        $this->app->singleton(AdminInterface::class, function (){
+        $this->app->singleton(AdminInterface::class, function () {
             return new Admin($this->nodes(), $this->navigation(), $this->app, $this->app->make(Route::class));
         });
 
@@ -98,7 +99,6 @@ class LaraCrudProvider extends ServiceProvider
         $this->app->singleton(UploadFileInterface::class, UploadFile::class);
         $this->app->singleton(ChildRowsInterface::class, ChildRows::class);
         $this->app->singleton(ActionTableInterface::class, ActionTable::class);
-
 
     }
 

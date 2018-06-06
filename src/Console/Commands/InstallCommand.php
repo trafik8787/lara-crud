@@ -15,28 +15,22 @@ namespace Trafik8787\LaraCrud\Console\Commands;
  */
 class InstallCommand extends Command
 {
-
     protected $name = 'lara:install';
-
     protected $description = 'Installation Class';
-
-
     protected $class_install = [
         CreateProvider::class
     ];
 
-    protected function Installalation() {
-
-        collect($this->class_install)->map(function ($class){
+    protected function Installalation()
+    {
+        collect($this->class_install)->map(function ($class) {
             return new $class($this);
 
         })->filter(function ($class) {
             return !$class->installed();
-        })->each(function ($class){
+        })->each(function ($class) {
             $class->showInfo();
             $class->install();
         });
-
     }
-
 }

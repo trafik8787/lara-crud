@@ -5,6 +5,7 @@
  * Date: 13.01.2018
  * Time: 16:06
  */
+
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
@@ -12,8 +13,8 @@ namespace Trafik8787\LaraCrud\Console\Commands;
  * Class CreateMigrationExample
  * @package Trafik8787\LaraCrud\Console\Commands
  */
-class CreateMigrationExample extends Installer {
-
+class CreateMigrationExample extends Installer
+{
 
     /**
      *
@@ -39,7 +40,6 @@ class CreateMigrationExample extends Installer {
         $this->command->call('db:seed', ['--class' => 'Trafik8787\LaraCrud\Seeder\CategoryTableExampleSeeder']);
     }
 
-
     /**
      * @return bool
      */
@@ -48,7 +48,6 @@ class CreateMigrationExample extends Installer {
         return false;
     }
 
-
     /**
      * @return string
      */
@@ -56,6 +55,5 @@ class CreateMigrationExample extends Installer {
     {
         return app_path('Providers/LaraCrudProvider.php');
     }
-
 
 }

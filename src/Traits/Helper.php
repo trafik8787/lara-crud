@@ -1,5 +1,6 @@
 <?php
-namespace  Trafik8787\LaraCrud\Traits;
+
+namespace Trafik8787\LaraCrud\Traits;
 /**
  * Created by PhpStorm.
  * User: Vitalik
@@ -9,8 +10,9 @@ namespace  Trafik8787\LaraCrud\Traits;
 
 trait Helper
 {
-    public function isJSON($data){
+    public function isJSON($data)
+    {
         $result = json_decode($data);
-        return ( json_last_error() === JSON_ERROR_NONE) ;
+        return (json_last_error() === JSON_ERROR_NONE);
     }
 }

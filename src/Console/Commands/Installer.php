@@ -18,7 +18,8 @@ abstract class Installer implements InstallerInterface
 {
     protected $command;
 
-    public function __construct($command) {
+    public function __construct($command)
+    {
         $this->command = $command;
     }
 

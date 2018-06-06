@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/Ionicons/css/ionicons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+    <link rel="stylesheet"
+          href="{{asset('vendor/lara-crud/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/bower_components/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/timepicker/bootstrap-timepicker.min.css')}}">
@@ -45,13 +46,11 @@
 </head>
 
 
+@include('lara::common.header')
 
-    @include('lara::common.header')
-
-            @yield('content')
-
+@yield('content')
 
 
-    @include('lara::common.footer')
+@include('lara::common.footer')
 
 

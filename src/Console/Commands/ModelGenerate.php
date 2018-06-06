@@ -30,9 +30,9 @@ class ModelGenerate extends GeneratorCommand
     /**
      * @return string
      */
-    public function getStub ()
+    public function getStub()
     {
-        return __DIR__.'/stubs/model.stub';
+        return __DIR__ . '/stubs/model.stub';
     }
 
     /**
@@ -55,7 +55,7 @@ class ModelGenerate extends GeneratorCommand
 
         $table = null;
         if (!empty($this->option('tableExample'))) {
-            $table = 'protected $table = \''.$this->option('tableExample').'\';';
+            $table = 'protected $table = \'' . $this->option('tableExample') . '\';';
         }
 
         return str_replace(['ModelStud', 'TableStud'], [trim($this->argument('name')), $table], $stub);

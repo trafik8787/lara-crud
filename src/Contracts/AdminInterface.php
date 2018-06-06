@@ -25,7 +25,7 @@ interface AdminInterface
      * @param string $strModelName
      * @return mixed
      */
-    public function setUrlDefaultModel (string $strModelName, $nodeClass);
+    public function setUrlDefaultModel(string $strModelName, $nodeClass);
 
     /**
      * @param array $nodes
@@ -37,7 +37,7 @@ interface AdminInterface
      * @param NodeModelConfigurationInterface $modelConf
      * @return mixed
      */
-    public function initNodeClass (NodeModelConfigurationInterface $modelConf); //init class Node
+    public function initNodeClass(NodeModelConfigurationInterface $modelConf); //init class Node
 
     /**
      * @return mixed
@@ -53,13 +53,13 @@ interface AdminInterface
      * @param Route $route
      * @return mixed
      */
-    public function setRoute ();
+    public function setRoute();
 
     /**
      * @param $url
      * @return mixed
      */
-    public function getDefaultUrlArr ($url);
+    public function getDefaultUrlArr($url);
 
     /**
      * @param $url
@@ -73,12 +73,12 @@ interface AdminInterface
      * @param Request $request
      * @return mixed
      */
-    public function registerDatatable (TableInterface $table, FormManagerInterface $form, Request $request);
+    public function registerDatatable(TableInterface $table, FormManagerInterface $form, Request $request);
 
     /**
      * @return mixed
      */
-    public function setTableColumnsType ();
+    public function setTableColumnsType();
 
 
     /**

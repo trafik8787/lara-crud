@@ -5,9 +5,13 @@
  * Date: 28.08.2017
  * Time: 20:26
  */
+
 namespace Trafik8787\LaraCrud\Models;
+
 use Closure;
+use Request;
 use Illuminate\View\View;
+use Trafik8787\LaraCrud\Table\ChildRows;
 
 class NodeModelConfiguration extends NodeModelConfigurationManager
 {
@@ -16,7 +20,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param $title
      */
-    public function setTitle ($title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -25,7 +29,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param $url
      */
-    public function url ($url)
+    public function url($url)
     {
         $this->url = $url;
     }
@@ -38,10 +42,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->fieldName = $field;
     }
+
     /**
      * @param bool $value
      */
-    public function buttonDelete (bool $value = true)
+    public function buttonDelete(bool $value = true)
     {
         $this->buttonDelete = $value;
     }
@@ -50,7 +55,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param bool $value
      * Enable/Disable button Apply in form
      */
-    public function buttonApply (bool $value = true)
+    public function buttonApply(bool $value = true)
     {
         $this->buttonApply = $value;
     }
@@ -58,7 +63,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param bool $value
      */
-    public function buttonAdd (bool $value = true)
+    public function buttonAdd(bool $value = true)
     {
         $this->buttonAdd = $value;
     }
@@ -66,7 +71,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param bool $value
      */
-    public function buttonCopy (bool $value = true)
+    public function buttonCopy(bool $value = true)
     {
         $this->buttonCopy = $value;
     }
@@ -74,7 +79,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param bool $value
      */
-    public function buttonGroupDelete (bool $value = true)
+    public function buttonGroupDelete(bool $value = true)
     {
         $this->buttonGroupDelete = $value;
     }
@@ -82,14 +87,16 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param bool $value
      */
-    public function buttonEdit (bool $value = true){
+    public function buttonEdit(bool $value = true)
+    {
         $this->buttonEdit = $value;
     }
 
     /**
      * @param array $value
      */
-    public function fieldShow(array $value){
+    public function fieldShow(array $value)
+    {
         $this->fieldShow = $value;
     }
 
@@ -97,7 +104,8 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $name
      * todo групировка полей по вкладкам проект!!
      */
-    public function tab ($name, array $field) {
+    public function tab($name, array $field)
+    {
         $this->tab[$name] = $field;
     }
 
@@ -106,7 +114,8 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param int $limit
      * todo определить сокращение текста в конкретных полях и лимит символов
      */
-    public function textLimit(string $field, int $limit) {
+    public function textLimit(string $field, int $limit)
+    {
 
         if (is_array($field)) {
             $this->textLimit = $field;
@@ -127,7 +136,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param int $count
      */
-    public function showEntries (int $count)
+    public function showEntries(int $count)
     {
         $this->showEntries = $count;
     }
@@ -138,7 +147,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $operator
      * @param $value
      */
-    public function setWhere ($field, $operator, $value)
+    public function setWhere($field, $operator, $value)
     {
         $this->setWhere = func_get_args();
     }
@@ -154,13 +163,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param Closure $closure
      */
-    public function tableRowsRenderCollback (Closure $closure)
+    public function tableRowsRenderCollback(Closure $closure)
     {
         $this->closure = $closure;
 
     }
 
-    public function beforeShowFormCollback (Closure $closure)
+    public function beforeShowFormCollback(Closure $closure)
     {
         $this->closure = $closure;
     }
@@ -172,7 +181,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $color
      * todo цвета строкам по условию
      */
-    public function columnColorWhere ($field, $operator, $value, $color)
+    public function columnColorWhere($field, $operator, $value, $color)
     {
         $this->columnColorWhere[] = func_get_args();
     }
@@ -180,21 +189,21 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param $nameButtonAction
      * @param $url
-     * @param Closure $closure|string
+     * @param Closure $closure |string
      * todo добавляет действия над записями в виде кнопок
      */
-    public function addAction ($nameButtonAction, $url, $closure)
+    public function addAction($nameButtonAction, $url, $closure)
     {
 
         if (is_object($closure)) {
             $this->newAction[$url] = [
                 'nameButton' => $nameButtonAction,
-                'closure'   => $closure
+                'closure' => $closure
             ];
         } elseif (is_string($closure)) {
             $this->newAction[$url] = [
                 'nameButton' => $nameButtonAction,
-                'action'   => $closure
+                'action' => $closure
             ];
         }
     }
@@ -204,7 +213,8 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $funk
      * todo хук после обновления
      */
-    public function afterUpdate ($funk) {
+    public function afterUpdate($funk)
+    {
 
         $model = $this->getModelObj();
         $model::updated($funk);
@@ -214,7 +224,8 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $funk
      * todo хук перед обновлением
      */
-    public function beforeUpdate ($funk) {
+    public function beforeUpdate($funk)
+    {
 
         $model = $this->getModelObj();
         $model::updating($funk);
@@ -244,7 +255,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $funk
      * todo хук перед удалением
      */
-    public function beforeDelete ($funk)
+    public function beforeDelete($funk)
     {
         $model = $this->getModelObj();
         $model::deleting($funk);
@@ -254,7 +265,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $funk
      * todo хук после удаления
      */
-    public function afterDelete ($funk)
+    public function afterDelete($funk)
     {
         $model = $this->getModelObj();
         $model::deleted($funk);
@@ -266,7 +277,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * todo выбор поля который будет отображатся в форме например input select file с настройками
      *
      */
-    public function setTypeField (array $arrTypeField)
+    public function setTypeField(array $arrTypeField)
     {
         foreach ($arrTypeField as $nameField => $item) {
             if (is_array($item)) {
@@ -288,11 +299,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                         //проверяем если класс
                         if (isset($item[1][0])) {
                             //можем передать имя класса или обьект модели
-                           if(is_object($item[1][0])) {
-                               $this->modelTableSelect = $item[1][0];
-                           } elseif (class_exists($item[1][0])) {
-                               $this->modelTableSelect = $this->app->make($item[1][0]);
-                           }
+                            if (is_object($item[1][0])) {
+                                $this->modelTableSelect = $item[1][0];
+                            } elseif (class_exists($item[1][0])) {
+                                $this->modelTableSelect = $this->app->make($item[1][0]);
+                            }
 
                             $this->objClassSelectAjax[$nameField] = [
                                 'id' => $item[1][1],
@@ -315,7 +326,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param array $arr
      * todo добавляем класс полю ввода
      */
-    public function addFieldClass (array $arr)
+    public function addFieldClass(array $arr)
     {
         $this->addFieldClass = $arr;
     }
@@ -324,7 +335,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param array $arr
      * todo добавляет title полю ввода
      */
-    public function addFieldTitle (array $arr)
+    public function addFieldTitle(array $arr)
     {
         $this->addFieldTitle = $arr;
     }
@@ -333,18 +344,17 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param array $arr
      * todo добавляет Placeholder полю ввода
      */
-    public function addFieldPlaceholder (array $arr)
+    public function addFieldPlaceholder(array $arr)
     {
         $this->addFieldPlaceholder = $arr;
     }
-
 
 
     /**
      * @param null $id
      * todo метод определяет тип вывода если обьевлен форма редактирования виводится сразу может принимать id строки в таблице
      */
-    public function formShow ($id = null)
+    public function formShow($id = null)
     {
         $this->formShowId = 1;
         if ($id !== null) {
@@ -352,10 +362,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         }
     }
 
+
     /**
-     *
+     * @param array $field
      */
-    public function enableEditor (array $field)
+    public function enableEditor(array $field)
     {
         $this->enableEditor = $field;
     }
@@ -385,7 +396,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $dataArr
      */
-    public function Tooltip (array $dataArr)
+    public function Tooltip(array $dataArr)
     {
         $this->tooltip = $dataArr;
     }
@@ -393,7 +404,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $dataArr
      */
-    public function Validation (array $dataArr, array $messages = [])
+    public function Validation(array $dataArr, array $messages = [])
     {
         $this->validation = $dataArr;
         $this->validation_messages = $messages;
@@ -423,7 +434,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $view
      * //кастомный вывод
      */
-    public function renderCustom ($view)
+    public function renderCustom($view)
     {
         $this->view = $view;
     }
@@ -432,12 +443,12 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array|string|null $msg
      */
-    public function alertDelete ($msg = 'Are you sure you want to delete?', $event = 'onsubmit', $func = 'confirmDelete')
+    public function alertDelete($msg = 'Are you sure you want to delete?', $event = 'onsubmit', $func = 'confirmDelete')
     {
         $this->alertDelete = [
             'msg' => $msg,
             'event' => $event,
-            'func'  => $func
+            'func' => $func
         ];
     }
 
@@ -446,13 +457,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      */
     public function showChildRows(Closure $closure = null)
     {
-        $this->showChildRows = $closure;
 
-        if ($closure === null) {
-            $this->showChildRows = true;
-        }
+        $this->showChildRowsClass = new ChildRows(Request::input(), $closure);
 
 
+        return $this->showChildRowsClass;
     }
 
     /**
@@ -463,6 +472,9 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->ajaxBeforeLoadSelect = $closure;
     }
 
+    /**
+     * @param array $arrField
+     */
     public function setDefaultSelected(array $arrField)
     {
         $this->arrField = $arrField;

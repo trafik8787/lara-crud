@@ -19,7 +19,6 @@ class CategoryTableExampleSeeder extends Seeder
      */
     public function run(Factory $factory, Generator $faker)
     {
-
         $factory->define(\App\Http\Node\Model\CategoryExampleModel::class, function () use ($faker) {
 
             return [
@@ -33,7 +32,5 @@ class CategoryTableExampleSeeder extends Seeder
         });
 
         factory(\App\Http\Node\Model\CategoryExampleModel::class, 10)->create();
-
-
     }
 }

@@ -15,7 +15,7 @@ interface ActionTableInterface
      * @param $objConfig
      * @return mixed
      */
-    public function objConfig ($objConfig);
+    public function objConfig($objConfig);
 
     /**
      * @param int $id
@@ -26,6 +26,6 @@ interface ActionTableInterface
     /**
      * @return bool
      */
-    public function enableColumnAction():bool;
+    public function enableColumnAction(): bool;
 
 }

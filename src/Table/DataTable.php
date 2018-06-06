@@ -23,35 +23,35 @@ class DataTable implements TableInterface
     public $objConfig;
     public $admin;
     public $app;
-    public $childRows;
     public $actionTable;
+
     /**
      * DataTable constructor.
      * @param Application $app
      */
-    public function __construct (Application $app, ChildRowsInterface $childRows, ActionTableInterface $actionTable) {
+    public function __construct(Application $app, ActionTableInterface $actionTable)
+    {
         $this->app = $app;
-        $this->childRows = $childRows;
         $this->actionTable = $actionTable;
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render ()
+    public function render()
     {
 
         //dump(config('lara-config.url_group'));
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
-            'titlePage'  => $this->objConfig->getTitle(),
-            'buttonAdd'  => $this->objConfig->getButtonAdd(),
+            'titlePage' => $this->objConfig->getTitle(),
+            'buttonAdd' => $this->objConfig->getButtonAdd(),
             'buttonCopy' => $this->objConfig->getButtonCopy(),
             'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
             'buttonAction' => $this->actionTable->enableColumnAction(),
             'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
-            'data_json' =>  json_encode([
+            'data_json' => json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
                 'rowsColorWidth' => $this->objConfig->getColumnColorWhere()
@@ -64,7 +64,7 @@ class DataTable implements TableInterface
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function customRender ()
+    public function customRender()
     {
         $data = $this->objConfig->getRenderCustom();
 
@@ -84,7 +84,7 @@ class DataTable implements TableInterface
      * @return array
      * todo получить список полей текущей таблицы
      */
-    public function getColumn ()
+    public function getColumn()
     {
         return DB::getSchemaBuilder()->getColumnListing($this->objConfig->getModelObj()->getTable());
     }
@@ -103,23 +103,22 @@ class DataTable implements TableInterface
      * @param $admin
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function jsonResponseTable ($admin)
+    public function jsonResponseTable($admin)
     {
         $request = $admin->getRequest();
 
         //груповое удаление
-        if (isset($request['delete_group_'.csrf_token()])) {
+        if (isset($request['delete_group_' . csrf_token()])) {
             return $this->groupDelete($request);
-        //копирование
-        } elseif (isset($request['copy_'.csrf_token()])) {
+            //копирование
+        } elseif (isset($request['copy_' . csrf_token()])) {
             return $this->copyData($request);
-        //запрос на child rows
-        } elseif(isset($request['child_rows'])) {
-            return $this->childRows
+            //запрос на child rows
+        } elseif (isset($request['child_rows'])) {
+            return $this->objConfig->SetShowChildRows()
                 ->model($this->getModelObj())
                 ->render($this->objConfig);
         }
-
 
 
         $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
@@ -130,7 +129,7 @@ class DataTable implements TableInterface
 
             $arr_button = [];
             if ($this->objConfig->getShowChildRows()) {
-                $arr_button = array(' ' => '<div class="details-control-div" data-id="'.$item->{$this->admin->KeyName}.'">+</div>');
+                $arr_button = array(' ' => '<a href="#" class="details-control-div" data-id="' . $item->{$this->admin->KeyName} . '"><span class="glyphicon glyphicon-plus-sign"></span></a>');
             }
 
             if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
@@ -138,8 +137,8 @@ class DataTable implements TableInterface
             }
 
 
-            if($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
-                $item['#'] = '<input class="text-center" name="selected_'.csrf_token().'[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
+            if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
+                $item['#'] = '<input class="text-center" name="selected_' . csrf_token() . '[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
             }
 
             $arr2 = array_merge($arr_button, $item->toArray());
@@ -161,7 +160,7 @@ class DataTable implements TableInterface
      * @return string
      * Формирование json для секции column DataTable
      */
-    public function getJsonColumnDataTable ()
+    public function getJsonColumnDataTable()
     {
         //child Rows
         if ($this->objConfig->getShowChildRows()) {
@@ -187,7 +186,7 @@ class DataTable implements TableInterface
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function newAction ()
+    public function newAction()
     {
         $url = null;
 
@@ -205,7 +204,7 @@ class DataTable implements TableInterface
 
             if ($url == $this->admin->route->parameters['newAction'] and isset($item['action'])) {
 
-                return redirect()->route($item['action'],['id' => $model->{$this->admin->KeyName}]);
+                return redirect()->route($item['action'], ['id' => $model->{$this->admin->KeyName}]);
             }
 
         }
@@ -216,7 +215,7 @@ class DataTable implements TableInterface
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function redirect ()
+    public function redirect()
     {
         return redirect()->back();
     }
@@ -243,12 +242,12 @@ class DataTable implements TableInterface
 
         $result = $result->paginate($total);
 
-        $result->map(function ($object){
+        $result->map(function ($object) {
 
             $object = $this->objConfig->SetTableRowsRenderCollback($object);
             $object = $this->objConfig->getTextLimit($object);
 
-            return  $object;
+            return $object;
         });
 
         return $result;
@@ -261,13 +260,13 @@ class DataTable implements TableInterface
      * @param $TableColumns
      * @return mixed
      */
-    public function searchModel ($objModel, $searchValue, $TableColumns)
+    public function searchModel($objModel, $searchValue, $TableColumns)
     {
 
         foreach ($TableColumns as $tableColumn) {
 
 //            $objModel->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
-            $objModel->where(function ($query) use ($tableColumn, $searchValue){
+            $objModel->where(function ($query) use ($tableColumn, $searchValue) {
                 $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
             });
         }
@@ -280,9 +279,9 @@ class DataTable implements TableInterface
      * @param $currentPage
      * todo установка номера страницы
      */
-    public function setPageCurent ($currentPage)
+    public function setPageCurent($currentPage)
     {
-        Paginator::currentPageResolver(function() use ($currentPage) {
+        Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
     }
@@ -303,10 +302,10 @@ class DataTable implements TableInterface
      * @param $arr_id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function groupDelete ($request)
+    public function groupDelete($request)
     {
-        if (!empty($request['selected_'.csrf_token()])) {
-            $this->getModelObj()->destroy($request['selected_'.csrf_token()]);
+        if (!empty($request['selected_' . csrf_token()])) {
+            $this->getModelObj()->destroy($request['selected_' . csrf_token()]);
         }
 
         return $this->redirect();
@@ -340,9 +339,9 @@ class DataTable implements TableInterface
      */
     public function copyData($request)
     {
-        if (!empty($request['selected_'.csrf_token()])) {
+        if (!empty($request['selected_' . csrf_token()])) {
 
-            $newModel = $this->getModelObj()->find(collect($request['selected_'.csrf_token()])->first())->replicate();
+            $newModel = $this->getModelObj()->find(collect($request['selected_' . csrf_token()])->first())->replicate();
             $newModel->save();
             return $this->redirect();
         }

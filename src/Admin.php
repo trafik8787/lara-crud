@@ -34,7 +34,6 @@ class Admin implements AdminInterface
     public $TableTypeColumns = [];
     public $KeyName;
     private $NavigationParams;
-
     private $request; //получает обьект Request из AdminController
 
     /**
@@ -42,11 +41,11 @@ class Admin implements AdminInterface
      * @param $node
      * @param Application $app
      */
-    public function __construct ($node, $navigation, Application $app, $route) {
+    public function __construct($node, $navigation, Application $app, $route)
+    {
         $this->app = $app;
         $this->models = new ModelCollection();
         $this->navigation = $navigation;
-
         $this->route = $route;
 
         $this->initNode($node);
@@ -55,11 +54,12 @@ class Admin implements AdminInterface
     /**
      * @param array $nodes
      */
-    public function initNode (array $nodes) {
+    public function initNode(array $nodes)
+    {
 
         $this->nodes = $nodes;
 
-        foreach ($this->nodes as  $model => $nodeClass) {
+        foreach ($this->nodes as $model => $nodeClass) {
 
             $url = $this->setUrlDefaultModel($model, $nodeClass);
 
@@ -75,7 +75,7 @@ class Admin implements AdminInterface
      * @param $url
      * @return mixed
      */
-    public function getDefaultUrlArr ($url)
+    public function getDefaultUrlArr($url)
     {
         if (!empty($this->defaultUrlArr[$url])) {
             return $this->defaultUrlArr[$url];
@@ -101,7 +101,7 @@ class Admin implements AdminInterface
      * @return string
      * преобразуем название модели в URL
      */
-    public function setUrlDefaultModel (string $strModelName, $nodeClass)
+    public function setUrlDefaultModel(string $strModelName, $nodeClass)
     {
         $url = snake_case(class_basename($strModelName));
 
@@ -120,7 +120,8 @@ class Admin implements AdminInterface
      * @param $nodeClass
      * @return bool
      */
-    public function getNavigation($nodeClass) {
+    public function getNavigation($nodeClass)
+    {
 
         if (!empty($this->navigation[$nodeClass])) {
             return $this->navigation[$nodeClass];
@@ -178,7 +179,7 @@ class Admin implements AdminInterface
     /**
      * @return mixed|void
      */
-    public function getObjConfig ()
+    public function getObjConfig()
     {
 
         if ($this->route->action['as'] === 'Dashboard') {
@@ -254,7 +255,7 @@ class Admin implements AdminInterface
      * @param FormManagerInterface $form
      * @param Request $request
      */
-    public function registerDatatable (TableInterface $table, FormManagerInterface $form,  Request $request)
+    public function registerDatatable(TableInterface $table, FormManagerInterface $form, Request $request)
     {
         $this->request = $request;
         $table->objConfig = $this->objConfig;
@@ -272,13 +273,14 @@ class Admin implements AdminInterface
      */
     public function setRoute()
     {
-        $this->getObjConfig ();
+        $this->getObjConfig();
     }
 
     /**
      * @return mixed
      */
-    public function getRequest () {
+    public function getRequest()
+    {
         return $this->request;
     }
 
@@ -287,17 +289,18 @@ class Admin implements AdminInterface
      * @return mixed|void
      * todo create array table name column and type
      */
-    public function setTableColumnsType ()
+    public function setTableColumnsType()
     {
         $model = $this->objConfig->getModelObj();
 
-        $table_name =  $model->getTable();
+        $table_name = $model->getTable();
 
         /*Primary Key*/
         $this->KeyName = $model->getKeyName();
 
-        $full_field =  DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
+        $full_field = DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
         $this->TableColumns = array_diff($full_field, config('lara-config.field_disable'));
+
         foreach ($this->TableColumns as $item) {
             $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table_name, $item);
         }

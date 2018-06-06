@@ -7,6 +7,7 @@
  */
 
 namespace Trafik8787\LaraCrud\Console\Commands;
+
 use Illuminate\Console\Command as ConsoleCommand;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
@@ -14,21 +15,19 @@ use Illuminate\Filesystem\Filesystem;
 abstract class Command extends ConsoleCommand
 {
     use ConfirmableTrait;
-
     protected $files;
-
 
     /**
      * @param Filesystem $files
      */
-    public function handle(Filesystem $files) {
+    public function handle(Filesystem $files)
+    {
 
-
-        if (! defined('SLEEPINGOWL_STUB_PATH')) {
-            define('SLEEPINGOWL_STUB_PATH', __DIR__.'/stubs');
+        if (!defined('SLEEPINGOWL_STUB_PATH')) {
+            define('SLEEPINGOWL_STUB_PATH', __DIR__ . '/stubs');
         }
 
-        if (! $this->confirmToProceed('Lara-Crud Admin')) {
+        if (!$this->confirmToProceed('Lara-Crud Admin')) {
             return;
         }
 

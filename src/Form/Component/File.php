@@ -5,6 +5,7 @@
  * Date: 22.09.2017
  * Time: 12:46
  */
+
 namespace Trafik8787\LaraCrud\Form\Component;
 
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class File
         $this->label = $managerBuilder->label;
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
-        $this->multiple =  $managerBuilder->multiple;
+        $this->multiple = $managerBuilder->multiple;
         $this->tooltip = $managerBuilder->tooltip;
         $this->required = $managerBuilder->required;
     }
@@ -50,7 +51,7 @@ class File
     /**
      * @return string
      */
-    public function run ()
+    public function run()
     {
         return view($this->view, ['obj' => $this])->render();
     }

@@ -294,6 +294,10 @@ class DataTable implements TableInterface
      */
     public function deleteRows($admin)
     {
+        if ($this->objConfig->getButtonDelete() === false) {
+            return $this->redirect();
+        }
+
         $id = $admin->getRequest()->input('id');
         $this->getModelObj()->find($id)->delete();
         return $this->redirect();

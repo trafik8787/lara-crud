@@ -12,6 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Trafik8787\LaraCrud\Contracts\ActionTableInterface;
 use Trafik8787\LaraCrud\Contracts\ChildRowsInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 
@@ -23,13 +24,15 @@ class DataTable implements TableInterface
     public $admin;
     public $app;
     public $childRows;
+    public $actionTable;
     /**
      * DataTable constructor.
      * @param Application $app
      */
-    public function __construct (Application $app, ChildRowsInterface $childRows) {
+    public function __construct (Application $app, ChildRowsInterface $childRows, ActionTableInterface $actionTable) {
         $this->app = $app;
         $this->childRows = $childRows;
+        $this->actionTable = $actionTable;
     }
 
     /**
@@ -37,6 +40,7 @@ class DataTable implements TableInterface
      */
     public function render ()
     {
+
         //dump(config('lara-config.url_group'));
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
@@ -45,6 +49,7 @@ class DataTable implements TableInterface
             'buttonAdd'  => $this->objConfig->getButtonAdd(),
             'buttonCopy' => $this->objConfig->getButtonCopy(),
             'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
+            'buttonAction' => $this->actionTable->enableColumnAction(),
             'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
             'data_json' =>  json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
@@ -128,18 +133,21 @@ class DataTable implements TableInterface
                 $arr_button = array(' ' => '<div class="details-control-div" data-id="'.$item->{$this->admin->KeyName}.'">+</div>');
             }
 
-            $item['Action'] = $this->getTemplateAction($item->{$this->admin->KeyName});
+            if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
+                $item['Action'] = $this->actionTable->objConfig($this->objConfig)->render($item->{$this->admin->KeyName});
+            }
+
 
             if($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
                 $item['#'] = '<input class="text-center" name="selected_'.csrf_token().'[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
             }
 
             $arr2 = array_merge($arr_button, $item->toArray());
-            //die(print_r($arr2));
+
             $data[] = $arr2;
 
         }
-        //die(print_r($data));
+
         return Response::json([
             'draw' => $request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
@@ -168,19 +176,12 @@ class DataTable implements TableInterface
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             $data_field[] = array('data' => $field);
         }
-        $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
-       // dd($data_field);
-        return json_encode($data_field, true);
-    }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getTemplateAction($id)
-    {
-        //dd($id);
-        return view('lara::Form.action', ['id' => $id, 'configNode' => $this->objConfig])->render();
+        if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
+            $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
+        }
+
+        return json_encode($data_field, true);
     }
 
     /**

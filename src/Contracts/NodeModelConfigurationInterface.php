@@ -367,4 +367,10 @@ interface NodeModelConfigurationInterface
      */
     public function getDefaultSelected (string $field);
 
+
+    /**
+     * @param $model
+     * @return mixed
+     */
+    public function getModelCollback($model);
 }

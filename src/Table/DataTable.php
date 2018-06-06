@@ -235,6 +235,8 @@ class DataTable implements TableInterface
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->getModelObj()->select($select);
+        //хук модели таблицы
+        $result = $this->objConfig->getModelCollback($result);
         $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
         $result = $result->orderBy($order_field, $order['dir']);
         $result = $this->objConfig->getWhere($result);

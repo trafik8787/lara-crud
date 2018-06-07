@@ -88,8 +88,12 @@
 
     <div class="box">
         <div class="box-header">
-            {{--<h1 class="box-title">{{$titlePage}}</h1>--}}
+
             <h2>{{$titlePage}}</h2>
+
+            <div class="row">
+                <div class="col-md-12">{!! $addViewCustom !!}</div>
+            </div>
         </div>
         <div class="box-body">
             {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false)) !!}

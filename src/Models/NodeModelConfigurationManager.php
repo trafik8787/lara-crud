@@ -79,6 +79,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $arrField; //определяем выбор selected по умолчанию
     protected $setModelCollback = null; //функция обратного вызова для получения модели выборки таблицы
     protected $showChildRowsClass;
+    protected $addViewsCustomTop; //хук вывод произвольного вида над формой или таблицей
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -896,8 +897,20 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             $query = $this->setModelCollback->call($this, $model);
             return $query;
         } else {
-            //die(print_r(($model)));
             return $model;
         }
+    }
+
+
+    /**
+     * @param $model
+     * @return bool|mixed
+     */
+    public function setViewsCustomTop($model)
+    {
+        if (!empty($this->addViewsCustomTop)) {
+            return $this->addViewsCustomTop->call($this, $model);
+        }
+        return false;
     }
 }

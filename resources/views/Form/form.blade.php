@@ -4,6 +4,11 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">{{$titlePage}}</h3>
+
+            <div class="row">
+                <div class="col-md-12">{!! $addViewCustom !!}</div>
+            </div>
+
         </div>
         {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-repleace', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}
 

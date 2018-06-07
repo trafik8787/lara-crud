@@ -78,7 +78,8 @@ class FormTable extends FormManagerTable
             'titlePage' => $this->objConfig->getTitle(),
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'PATCH',
-            'objField' => $this->getFieldRender()
+            'objField' => $this->getFieldRender(),
+            'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData())
         ];
 
 //        dump($this->admin);
@@ -108,7 +109,8 @@ class FormTable extends FormManagerTable
             'titlePage' => $this->objConfig->getTitle(),
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'POST',
-            'objField' => $this->getFieldRender()
+            'objField' => $this->getFieldRender(),
+            'addViewCustom' => $this->objConfig->setViewsCustomTop($this->objConfig->getModelObj())
         ];
 
         return view('lara::Form.form', $data);

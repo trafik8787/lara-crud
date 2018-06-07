@@ -5,6 +5,7 @@
  * Date: 22.09.2017
  * Time: 12:46
  */
+
 namespace Trafik8787\LaraCrud\Form\Component;
 
 use Trafik8787\LaraCrud\Contracts\Component\ComponentManagerBuilderInterface;
@@ -43,7 +44,7 @@ class Textarea
     /**
      * @return string
      */
-    public function run ()
+    public function run()
     {
         return view($this->view, ['obj' => $this])->render();
     }

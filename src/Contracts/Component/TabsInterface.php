@@ -15,7 +15,8 @@ interface TabsInterface
      * @param $obj
      * @return mixed
      */
-    public function objConfig ($obj);
+    public function objConfig($obj);
+
     /**
      * @return mixed
      * todo название вкладки
@@ -31,6 +32,6 @@ interface TabsInterface
     /**
      * @return mixed
      */
-    public function TabFore1 ($result, $nameTab, $itam);
+    public function TabFore1($result, $nameTab, $itam);
 
 }

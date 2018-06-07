@@ -3,7 +3,8 @@
         <ul class="nav nav-tabs">
             {{--{!! dd($data_tabs) !!}--}}
             @foreach($data_tabs as $name_tab => $tab)
-                <li @if ($loop->first) class="active" @endif><a href="#{{$name_tab}}" data-toggle="tab">{{$name_tab}}</a></li>
+                <li @if ($loop->first) class="active" @endif><a href="#{{$name_tab}}"
+                                                                data-toggle="tab">{{$name_tab}}</a></li>
             @endforeach
         </ul>
         <div class="tab-content">

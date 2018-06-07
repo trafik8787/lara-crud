@@ -5,6 +5,7 @@
  * Date: 12.10.2017
  * Time: 17:42
  */
+
 namespace Trafik8787\LaraCrud\Contracts\Model;
 
 interface RelationshipsInterface

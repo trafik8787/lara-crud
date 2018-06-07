@@ -5,6 +5,7 @@
  * Date: 02.10.2017
  * Time: 16:11
  */
+
 namespace Trafik8787\LaraCrud\Navigation;
 
 use Illuminate\Foundation\Application;
@@ -27,11 +28,12 @@ class Navigation implements NavigationInterface
      * Navigation constructor.
      * @param AdminInterface $admin
      */
-    public function __construct (AdminInterface $admin) {
+    public function __construct(AdminInterface $admin)
+    {
 
         $this->admin = $admin;
 
-        $url = '/'.config('lara-config.url_group').'/';
+        $url = '/' . config('lara-config.url_group') . '/';
 
         foreach ($this->admin->defaultUrlArr as $nodeClass => $item) {
 
@@ -44,7 +46,7 @@ class Navigation implements NavigationInterface
                     $naw = array_replace($this->admin->getNavigation($item), $this->admin->getNavigationParams($item));
                 }
 
-                $this->navigation[$url.$nodeClass] = $naw;
+                $this->navigation[$url . $nodeClass] = $naw;
             }
 
         }
@@ -75,8 +77,8 @@ class Navigation implements NavigationInterface
      */
     public function getNavigation()
     {
-        $priory=[];
-        $priory_tab=[];
+        $priory = [];
+        $priory_tab = [];
 
         if (!empty($this->navigation_tab['tabs'])) {
 
@@ -102,7 +104,8 @@ class Navigation implements NavigationInterface
     /**
      * @param View $view
      */
-    public function compose(View $view) {
+    public function compose(View $view)
+    {
 
         $view->with('navigate', $this->navigateViews());
     }
@@ -111,7 +114,7 @@ class Navigation implements NavigationInterface
     /**
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function navigateViews ()
+    public function navigateViews()
     {
         return view('lara::layouts.navigation', ['nav' => $this->getNavigation()]);
     }

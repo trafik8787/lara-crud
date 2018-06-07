@@ -30,20 +30,20 @@ class NodeGenerate extends GeneratorCommand
     /**
      * @return string
      */
-    public function getStub ()
+    public function getStub()
     {
         if (!empty($this->option('tableExample'))) {
             return $this->getExampleStub();
         }
-        return __DIR__.'/stubs/node.stub';
+        return __DIR__ . '/stubs/node.stub';
     }
 
     /**
      * @return string
      */
-    public function getExampleStub ()
+    public function getExampleStub()
     {
-        return __DIR__.'/stubs/node_inslude_example.stub';
+        return __DIR__ . '/stubs/node_inslude_example.stub';
     }
 
     /**

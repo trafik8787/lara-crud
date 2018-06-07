@@ -30,7 +30,7 @@ class ActionTable implements ActionTableInterface
     /**
      * @param $objConfig
      */
-    public function objConfig ($objConfig)
+    public function objConfig($objConfig)
     {
         $this->objConfig = $objConfig;
         return $this;
@@ -50,7 +50,7 @@ class ActionTable implements ActionTableInterface
     /**
      * @return bool
      */
-    public function enableColumnAction():bool
+    public function enableColumnAction(): bool
     {
         if (!$this->objConfig->getButtonEdit()
             and !$this->objConfig->getButtonDelete()
@@ -61,8 +61,6 @@ class ActionTable implements ActionTableInterface
 
         return true;
     }
-
-
 
 
 }

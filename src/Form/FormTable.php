@@ -18,7 +18,6 @@ use Trafik8787\LaraCrud\Form\Component\ComponentManagerBuilder;
 use Trafik8787\LaraCrud\Form\Component\File;
 
 
-
 /**
  * Class FormTable
  * @package Trafik8787\LaraCrud\Form
@@ -302,7 +301,7 @@ class FormTable extends FormManagerTable
         $new_data = [];
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
 
-        $model = $this->objConfig->setAjaxBeforeLoadSelect($data['model'] ,$this->request);
+        $model = $this->objConfig->setAjaxBeforeLoadSelect($data['model'], $this->request);
         $model = $model->where($data['select'], 'like', '%' . $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select']);
         $result = $model->get()->toArray();
 

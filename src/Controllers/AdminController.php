@@ -35,8 +35,8 @@ class AdminController extends Controller
      * @param TableInterface $table
      * @param FormManagerInterface $form
      */
-    public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table, FormManagerInterface $form) {
-
+    public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table, FormManagerInterface $form)
+    {
 
     }
 
@@ -45,9 +45,8 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function getDashboard (TableInterface $table, AdminInterface $admin)
+    public function getDashboard(TableInterface $table, AdminInterface $admin)
     {
-
         return $table->renderDashboard();
     }
 
@@ -56,7 +55,8 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function showTable (TableInterface $table, AdminInterface $admin, FormManagerInterface $form) {
+    public function showTable(TableInterface $table, AdminInterface $admin, FormManagerInterface $form)
+    {
 
         if ($admin->objConfig->getFormShow() !== null) {
             return $form->renderFormEdit($admin->objConfig->getFormShow());
@@ -66,10 +66,7 @@ class AdminController extends Controller
             return $table->customRender();
         }
 
-
-
         return $table->render();
-
     }
 
 
@@ -78,11 +75,9 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function inlineTable (TableInterface $table, AdminInterface $admin)
+    public function inlineTable(TableInterface $table, AdminInterface $admin)
     {
-
         return $table->jsonResponseTable($admin);
-
     }
 
     /**
@@ -90,7 +85,7 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function showEdit (FormManagerInterface $form, AdminInterface $admin)
+    public function showEdit(FormManagerInterface $form, AdminInterface $admin)
     {
         return $form->renderFormEdit();
     }
@@ -101,7 +96,7 @@ class AdminController extends Controller
      * @return mixed
      * todo обновление записи в базе
      */
-    public function postUpdate (FormManagerInterface $form)
+    public function postUpdate(FormManagerInterface $form)
     {
         return $form->updateForm();
     }
@@ -111,7 +106,7 @@ class AdminController extends Controller
      * @param FormManagerInterface $form
      * @return mixed
      */
-    public function showCreate (FormManagerInterface $form)
+    public function showCreate(FormManagerInterface $form)
     {
         return $form->renderFormInsert();
     }
@@ -120,7 +115,7 @@ class AdminController extends Controller
      * @param FormManagerInterface $form
      * @return mixed
      */
-    public function postStore (FormManagerInterface $form)
+    public function postStore(FormManagerInterface $form)
     {
         return $form->insertForm();
     }
@@ -130,8 +125,8 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * @return mixed
      */
-    public function deleteDelete (TableInterface $table, AdminInterface $admin) {
-
+    public function deleteDelete(TableInterface $table, AdminInterface $admin)
+    {
         return $table->deleteRows($admin);
     }
 
@@ -140,10 +135,8 @@ class AdminController extends Controller
      * @param AdminInterface $admin
      * todo срабатывает при нажатии на новые кнопки Action
      */
-    public function postNewAction (Request $request, TableInterface $table, AdminInterface $admin)
+    public function postNewAction(Request $request, TableInterface $table, AdminInterface $admin)
     {
-
-        //dump($admin);
         return $table->newAction();
     }
 

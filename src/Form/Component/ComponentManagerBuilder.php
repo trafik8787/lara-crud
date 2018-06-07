@@ -37,13 +37,12 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     public $required;
 
 
-
-
     /**
      * ComponentManagerBuilder constructor.
      * @param null $arrField
      */
-    public function __construct ($arrField = null) {
+    public function __construct($arrField = null)
+    {
 
         $this->objField = $arrField;
     }
@@ -94,19 +93,19 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
     /**
      * @param string $data
      */
-    public function multiple ($data = null)
+    public function multiple($data = null)
     {
         $this->multiple = $data;
 
         if ($data === null) {
-            $this->multiple =  $this->objField['multiple'];
+            $this->multiple = $this->objField['multiple'];
         }
     }
 
     /**
      * @param null $data
      */
-    public function OneToMany ($data = null)
+    public function OneToMany($data = null)
     {
         $this->one_to_many = $data;
         if ($data === null) {
@@ -118,7 +117,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param null $data
      * @return $this
      */
-    public function type ($data = null)
+    public function type($data = null)
     {
         $this->type = $data;
 
@@ -134,7 +133,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param null $data
      * @return $this
      */
-    public function label ($data = null)
+    public function label($data = null)
     {
         $this->label = $data;
 
@@ -150,9 +149,9 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param null $data
      * @return $this
      */
-    public function tooltip ($data = null)
+    public function tooltip($data = null)
     {
-        $this->tooltip =$data;
+        $this->tooltip = $data;
 
         if ($data === null) {
             $this->tooltip = $this->objField['tooltip'];
@@ -165,7 +164,7 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
      * @param null $data
      * @return $this
      */
-    public function name ($data = null)
+    public function name($data = null)
     {
         $this->name = $data;
 

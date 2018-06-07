@@ -24,6 +24,7 @@ interface TableInterface
      * @return mixed
      */
     public function renderDashboard();
+
     /**
      * @return mixed
      */
@@ -52,20 +53,20 @@ interface TableInterface
      * @return array
      * todo order[0][column]: получаем название поля по индексу переданному из DataTable
      */
-    public function nameColumnsOrder (int $index):string;
+    public function nameColumnsOrder(int $index): string;
 
 
     /**
      * @param $arr_id
      * @return mixed
      */
-    public function groupDelete ($request);
+    public function groupDelete($request);
 
     /**
      * @param $request
      * @return mixed
      */
-    public function copyData ($request);
+    public function copyData($request);
 
 
     /**
@@ -74,11 +75,11 @@ interface TableInterface
      * @param $TableColumns
      * @return mixed
      */
-    public function searchModel ($objModel, $searchValue, $TableColumns);
+    public function searchModel($objModel, $searchValue, $TableColumns);
 
     /**
      * @return mixed
      */
-    public function customRender ();
+    public function customRender();
 
 }

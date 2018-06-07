@@ -5,6 +5,7 @@
  * Date: 13.01.2018
  * Time: 16:06
  */
+
 namespace Trafik8787\LaraCrud\Console\Commands;
 
 
@@ -12,8 +13,8 @@ namespace Trafik8787\LaraCrud\Console\Commands;
  * Class CreateProviderExample
  * @package Trafik8787\LaraCrud\Console\Commands
  */
-class CreateProviderExample extends Installer {
-
+class CreateProviderExample extends Installer
+{
 
 
     public function showInfo()
@@ -30,7 +31,7 @@ class CreateProviderExample extends Installer {
         $contents = str_replace(
             '__NAMESPACE__',
             $ns,
-            $this->command->files()->get(SLEEPINGOWL_STUB_PATH.'/provider_example.stub')
+            $this->command->files()->get(SLEEPINGOWL_STUB_PATH . '/provider_example.stub')
         );
 
         $this->command->files()->put($file, $contents);
@@ -49,8 +50,6 @@ class CreateProviderExample extends Installer {
     {
         return app_path('Providers/LaraCrudProvider.php');
     }
-
-
 
 
 }

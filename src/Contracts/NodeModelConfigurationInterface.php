@@ -7,6 +7,7 @@
  */
 
 namespace Trafik8787\LaraCrud\Contracts;
+
 use Closure;
 
 interface NodeModelConfigurationInterface
@@ -14,7 +15,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getAlias ();
+    public function getAlias();
 
     /**
      * @return mixed
@@ -24,24 +25,24 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getModel ();
+    public function getModel();
 
     /**
      * @return mixed
      */
-    public function getTitle ();
+    public function getTitle();
 
 
     /**
      * @return mixed
      */
-    public function getModelObj (); //обект класса модели
+    public function getModelObj(); //обект класса модели
 
     /**
      * @param $query
      * @return mixed
      */
-    public function scopeTest ($query);
+    public function scopeTest($query);
 
 
     /**
@@ -53,7 +54,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getButtonDelete (): bool;
+    public function getButtonDelete(): bool;
 
     /**
      * @return mixed
@@ -63,7 +64,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return boll
      */
-    public function getButtonApply (): bool;
+    public function getButtonApply(): bool;
 
     /**
      * @return bool
@@ -83,7 +84,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getFieldShow(): array ;
+    public function getFieldShow(): array;
 
     /**
      * @return array
@@ -106,31 +107,31 @@ interface NodeModelConfigurationInterface
     /**
      * @return int
      */
-    public function getShowEntries():int ;
+    public function getShowEntries(): int;
 
     /**
      * @return array
      * todo измененные названия полей сортировка
      */
-    public function nameColumns():array ;
+    public function nameColumns(): array;
 
     /**
      * @param $obj
      * @return mixed
      * todo передача в функцию обратного вызова отрисовка каждой строки в таблице вызывается функция
      */
-    public function SetTableRowsRenderCollback ($obj);
+    public function SetTableRowsRenderCollback($obj);
 
 
     /**
      * @return mixed
      */
-    public function getColumnColorWhere ();
+    public function getColumnColorWhere();
 
     /**
      * @return mixed
      */
-    public function getNewAction ();
+    public function getNewAction();
 
 
     /**
@@ -138,14 +139,14 @@ interface NodeModelConfigurationInterface
      * @param $obj
      * @return mixed
      */
-    public function newActionCollback (Closure $closure, $obj);
+    public function newActionCollback(Closure $closure, $obj);
 
     /**
      * @param string $field
      * @return mixed
      * todo получаем вид поля нвпример select по ключу
      */
-    public function getTypeField (string $field);
+    public function getTypeField(string $field);
 
 
     /**
@@ -153,19 +154,19 @@ interface NodeModelConfigurationInterface
      * @return mixed
      * todo клас для поля
      */
-    public function getFieldClass (string $field);
+    public function getFieldClass(string $field);
 
     /**
      * @param string $field
      * @return mixed
      */
-    public function getFieldTitle (string $field);
+    public function getFieldTitle(string $field);
 
     /**
      * @param string $field
      * @return mixed
      */
-    public function getFieldPlaceholder (string $field);
+    public function getFieldPlaceholder(string $field);
 
 
     /**
@@ -185,7 +186,7 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getTab ();
+    public function getTab();
 
 
     /**
@@ -209,7 +210,7 @@ interface NodeModelConfigurationInterface
      * @param array $arrFieldType
      * @return mixed
      */
-    public function setValue (array $arrFieldType);
+    public function setValue(array $arrFieldType);
 
     /**
      * @param $field
@@ -217,7 +218,7 @@ interface NodeModelConfigurationInterface
      * @param null $status
      * @return mixed
      */
-    public function setFileUploadSeting ($nameField, $fieldSetindArr);
+    public function setFileUploadSeting($nameField, $fieldSetindArr);
 
     /**
      * @param string $field
@@ -240,25 +241,25 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function setDashboard ($data);
+    public function setDashboard($data);
 
     /**
      * @return mixed
      */
-    public function getDashboard ();
+    public function getDashboard();
 
     /**
      * @return mixed
      * todo метод хранит модель и поля таблицы для meny to meny
      */
-    public function getCurentValueMultiple ($nameField, $model);
+    public function getCurentValueMultiple($nameField, $model);
 
     /**
      * @param $nameField
      * @return mixed
      * получаем данные таблицы отношения
      */
-    public function getOtherTable ($objClassSelectAjax);
+    public function getOtherTable($objClassSelectAjax);
 
 
     /**
@@ -266,30 +267,30 @@ interface NodeModelConfigurationInterface
      * @return array
      * получаем масив для поля отношения к таблице данные таблицы и полей
      */
-    public function getOtherTableArray ($fieldName):array;
+    public function getOtherTableArray($fieldName): array;
 
     /**
      * @param $fieldName
      * @return mixed
      */
-    public function getTooltip ($fieldName);
+    public function getTooltip($fieldName);
 
 
     /**
      * @return mixed
      */
-    public function getValidationRule ();
+    public function getValidationRule();
 
 
     /**
      * @return mixed
      */
-    public function getValidationMessage ();
+    public function getValidationMessage();
 
     /**
      * @return mixed
      */
-    public function getOneToMany ($fieldName);
+    public function getOneToMany($fieldName);
 
 
     /**
@@ -297,7 +298,7 @@ interface NodeModelConfigurationInterface
      * @param $model
      * @return mixed
      */
-    public function getCurentValueOneToMany ($nameField, $model);
+    public function getCurentValueOneToMany($nameField, $model);
 
     /**
      * @param $objClass
@@ -318,20 +319,20 @@ interface NodeModelConfigurationInterface
      * @param $fieldName
      * @return mixed
      */
-    public function getRequired ($fieldName);
+    public function getRequired($fieldName);
 
 
     /**
      * @return mixed
      */
-    public function getRenderCustom ();
+    public function getRenderCustom();
 
 
     /**
      * @param $param
      * @return mixed
      */
-    public function getAlertDelete ($param);
+    public function getAlertDelete($param);
 
 
     /**
@@ -347,7 +348,7 @@ interface NodeModelConfigurationInterface
      * @param $view
      * @return mixed
      */
-    public function SetShowChildRows($obj, $view);
+    public function SetShowChildRows();
 
     /**
      * @return mixed
@@ -359,13 +360,13 @@ interface NodeModelConfigurationInterface
      * @param $request
      * @return mixed
      */
-    public function setAjaxBeforeLoadSelect ($model, $request);
+    public function setAjaxBeforeLoadSelect($model, $request);
 
     /**
      * @param string $field
      * @return mixed
      */
-    public function getDefaultSelected (string $field);
+    public function getDefaultSelected(string $field);
 
 
     /**

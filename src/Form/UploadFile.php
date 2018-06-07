@@ -8,7 +8,6 @@
 
 namespace Trafik8787\LaraCrud\Form;
 
-
 use Illuminate\Http\Request;
 use Trafik8787\LaraCrud\Contracts\Component\UploadFileInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
@@ -21,7 +20,12 @@ class UploadFile implements UploadFileInterface
     private $jsonMultipleArr;
     private $uploadAllSettings;
 
-    public function __construct (Request $request) {
+    /**
+     * UploadFile constructor.
+     * @param Request $request
+     */
+    public function __construct(Request $request)
+    {
 
         $this->request = $request;
 
@@ -36,11 +40,11 @@ class UploadFile implements UploadFileInterface
 
         /**
          * array:1 [▼
-        "email" => array:2 [▼
-        "path" => "image"
-        "status" => "multiple"
-        ]
-        ]
+         * "email" => array:2 [▼
+         * "path" => "image"
+         * "status" => "multiple"
+         * ]
+         * ]
          */
 
         if (!empty($this->request->file())) {
@@ -122,12 +126,12 @@ class UploadFile implements UploadFileInterface
     {
         $fieldSetings = $this->objConfig->getFileUploadSeting($nameField);
 
-        $path = base_path('public/'.$fieldSetings['path']);
+        $path = base_path('public/' . $fieldSetings['path']);
         $nameFile = $file->hashName();
-       // dd(get_class_methods($file));
-      //  dd($file->getSize());
+        // dd(get_class_methods($file));
+        //  dd($file->getSize());
         $file->move($path, $nameFile);
-        return $fieldSetings['path'].'/'.$nameFile;
+        return $fieldSetings['path'] . '/' . $nameFile;
     }
 
 
@@ -139,7 +143,7 @@ class UploadFile implements UploadFileInterface
     public static function formatBytes($size, $precision = 2)
     {
         if ($size > 0) {
-            $size = (int) $size;
+            $size = (int)$size;
             $base = log($size) / log(1024);
             $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
 

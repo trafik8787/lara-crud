@@ -2,7 +2,8 @@
     <li class="header">MAIN NAVIGATION</li>
     @foreach($nav as $url => $item)
         @if($url !== 'tabs')
-            <li @if ('/'.request()->path() === $url) class="active" @endif><a href="{{$url}}"><i class="fa {{$item['icon']}}"></i> <span>{{$item['title']}}</span></a></li>
+            <li @if ('/'.request()->path() === $url) class="active" @endif><a href="{{$url}}"><i
+                            class="fa {{$item['icon']}}"></i> <span>{{$item['title']}}</span></a></li>
 
         @else
 
@@ -17,7 +18,8 @@
                     </a>
                     <ul class="treeview-menu">
                         @foreach($item2['node'] as  $url => $item3)
-                            <li @if ('/'.request()->path() === $url) class="active" @endif ><a href="{{$url}}"><i class="fa {{$item3['icon']}}"></i> <span>{{$item3['title']}}</span></a></li>
+                            <li @if ('/'.request()->path() === $url) class="active" @endif ><a href="{{$url}}"><i
+                                            class="fa {{$item3['icon']}}"></i> <span>{{$item3['title']}}</span></a></li>
                         @endforeach
                     </ul>
                 </li>

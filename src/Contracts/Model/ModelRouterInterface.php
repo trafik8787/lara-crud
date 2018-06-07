@@ -11,6 +11,6 @@ namespace Trafik8787\LaraCrud\Contracts\Model;
 
 interface ModelRouterInterface
 {
-    public function getRoute ();
+    public function getRoute();
 
 }

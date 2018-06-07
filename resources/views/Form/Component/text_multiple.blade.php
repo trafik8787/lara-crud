@@ -1,5 +1,6 @@
 <div class="form-group @if (!empty($errors->get($obj->name))) has-error @endif">
-    <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}} @if ($obj->required !== false) <span class="text-red">*</span> @endif @if(($obj->tooltip))<i
+    <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}} @if ($obj->required !== false) <span
+                class="text-red">*</span> @endif @if(($obj->tooltip))<i
                 class="fa fa-fw fa-info-circle" data-toggle="tooltip" data-placement="{{$obj->tooltip}}"
                 data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
@@ -28,12 +29,14 @@
                         @foreach($item as $nameField => $item2)
                             @if($nameField !== $obj->value['primary_key_relation'])
                                 <td><input type="text" class="form-control"
-                                           name="{{$obj->name}}[{{$nameField}}][{{$loop->parent->iteration}}]" value="{{$item2}}">
+                                           name="{{$obj->name}}[{{$nameField}}][{{$loop->parent->iteration}}]"
+                                           value="{{$item2}}">
                                 </td>
                             @endif
                         @endforeach
                         <td>
-                            <button type="button" class="btn btn-danger remove-{{$obj->name}}"><i class="glyphicon glyphicon-remove-sign"></i>
+                            <button type="button" class="btn btn-danger remove-{{$obj->name}}"><i
+                                        class="glyphicon glyphicon-remove-sign"></i>
                             </button>
                         </td>
 

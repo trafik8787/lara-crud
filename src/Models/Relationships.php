@@ -7,6 +7,7 @@
  */
 
 namespace Trafik8787\LaraCrud\Models;
+
 use Trafik8787\LaraCrud\Contracts\Model\RelationshipsInterface;
 
 /**
@@ -29,7 +30,8 @@ class Relationships implements RelationshipsInterface
      * @param $foreign_key
      * @param $local_key
      */
-    public function __construct ($model, $class, $other_table = null, $foreign_key, $local_key) {
+    public function __construct($model, $class, $other_table = null, $foreign_key, $local_key)
+    {
         $this->model = $model;
         $this->class = $class;
         $this->foreign_key = $foreign_key;

@@ -97,17 +97,15 @@ class ChildRows implements ChildRowsInterface
                 }
             }
 
-
         } else {
 
             foreach ($this->model->toArray() as $name => $item) {
                 $nameField[] = [
-                    'name' => $this->nameField[$name],
+                    'name' => $name,
                     'value' => $item];
             }
         }
 
         return $nameField;
     }
-
 }

@@ -479,6 +479,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->arrField = $arrField;
     }
+
+    /**
+     * @param Closure $closure
+     */
+    public function addViewsCustomTop(Closure $closure)
+    {
+        $this->addViewsCustomTop = $closure;
+    }
 }
 
 

@@ -40,8 +40,6 @@ class DataTable implements TableInterface
      */
     public function render()
     {
-
-        //dump(config('lara-config.url_group'));
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'json_field' => $this->getJsonColumnDataTable(),
@@ -51,6 +49,7 @@ class DataTable implements TableInterface
             'buttonGroupDelete' => $this->objConfig->getButtonGroupDelete(),
             'buttonAction' => $this->actionTable->enableColumnAction(),
             'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
+            'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelObj()),
             'data_json' => json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
@@ -262,10 +261,8 @@ class DataTable implements TableInterface
      */
     public function searchModel($objModel, $searchValue, $TableColumns)
     {
-
         foreach ($TableColumns as $tableColumn) {
 
-//            $objModel->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
             $objModel->where(function ($query) use ($tableColumn, $searchValue) {
                 $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
             });
@@ -321,7 +318,6 @@ class DataTable implements TableInterface
      */
     public function nameColumnsOrder(int $index): string
     {
-
         $data = [];
         $i = null;
 

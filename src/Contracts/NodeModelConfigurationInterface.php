@@ -374,4 +374,10 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function getModelCollback($model);
+
+    /**
+     * @param $model
+     * @return mixed
+     */
+    public function setViewsCustomTop($model);
 }

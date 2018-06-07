@@ -19,6 +19,7 @@ class ChildRows implements ChildRowsInterface
     protected $model;
     protected $view = 'lara::Table.child_rows';
     public $closure;
+    protected $nameField = [];
 
     /**
      * ChildRows constructor.
@@ -62,7 +63,7 @@ class ChildRows implements ChildRowsInterface
     public function render($objConfig)
     {
 
-        $result = view($this->view, ['model' => $this->model]);
+        $result = view($this->view, ['model' => $this->getData()]);
 
         if ($this->closure !== true and $this->closure !== null) {
             $result_closure = $this->closure->call($this, $this->model, view($this->view));
@@ -70,8 +71,43 @@ class ChildRows implements ChildRowsInterface
         }
 
         return $result;
-
     }
 
+    /**
+     * @param array $arrayField
+     */
+    public function nameField(array $arrayField = [])
+    {
+        $this->nameField = $arrayField;
+    }
+
+
+    /**
+     * @return array
+     */
+    private function getData(): array
+    {
+        if (!empty($this->nameField)) {
+
+            foreach ($this->model->toArray() as $name => $item) {
+                if (!empty($this->nameField[$name])) {
+                    $nameField[] = [
+                        'name' => $this->nameField[$name],
+                        'value' => $item];
+                }
+            }
+
+
+        } else {
+
+            foreach ($this->model->toArray() as $name => $item) {
+                $nameField[] = [
+                    'name' => $this->nameField[$name],
+                    'value' => $item];
+            }
+        }
+
+        return $nameField;
+    }
 
 }

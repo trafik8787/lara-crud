@@ -29,4 +29,10 @@ interface ChildRowsInterface
      */
     public function render($objConfig);
 
+    /**
+     * @param array $arrayField
+     * @return mixed
+     */
+    public function nameField(array $arrayField = []);
+
 }

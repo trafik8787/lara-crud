@@ -312,7 +312,7 @@ interface NodeModelConfigurationInterface
      * @return bool
      * todo определяем будет ли отображен столбец checkbox
      */
-    public function getBolleanCheckedColumn(): bool;
+    public function getBolleanCheckedColumn();
 
 
     /**

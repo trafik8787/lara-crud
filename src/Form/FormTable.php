@@ -50,6 +50,9 @@ class FormTable extends FormManagerTable
     public function renderFormEdit($id = null)
     {
 
+        if ($this->objConfig->getButtonEdit() === false) {
+            return redirect()->back();
+        }
         /**
          * если запрос пришел от поля SELECT2
          */
@@ -88,6 +91,10 @@ class FormTable extends FormManagerTable
      */
     public function renderFormInsert()
     {
+
+        if ($this->objConfig->getButtonAdd() === false) {
+            return redirect()->back();
+        }
         /**
          * если запрос пришел от поля SELECT2
          */

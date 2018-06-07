@@ -1,8 +1,8 @@
 <table class="table" cellpadding="5" cellspacing="0" border="0">
-    @foreach($model->toArray() as $name => $rows)
+    @foreach($model as $rows)
         <tr>
-            <td>{{ $name }}</td>
-            <td>{!! $rows !!}</td>
+            <td><b>{{ $rows['name'] }}:</b></td>
+            <td>{!! $rows['value'] !!}</td>
         </tr>
     @endforeach
 </table>

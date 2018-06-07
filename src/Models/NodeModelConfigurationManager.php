@@ -825,13 +825,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return bool
      */
-    public function getBolleanCheckedColumn(): bool
+    public function getBolleanCheckedColumn()
     {
         if ($this->getButtonGroupDelete() === true OR $this->getButtonCopy() === true) {
             return true;
+        } else {
+            return "false";
         }
-
-        return false;
     }
 
 

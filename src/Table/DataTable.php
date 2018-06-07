@@ -320,7 +320,7 @@ class DataTable implements TableInterface
     {
         $data = [];
         $i = null;
-
+//        die(print_r($this->objConfig->getBolleanCheckedColumn()));
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             //в зависимости от того будет ли столбец чекбоксов определяем будет ли начинатся масив с нуля или с единицы
             if ($this->objConfig->getBolleanCheckedColumn() === false) {

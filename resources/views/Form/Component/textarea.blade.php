@@ -9,7 +9,7 @@
         <textarea id="{{$obj->name}}{{$obj->enableEditor ? '-editor-textarea': '' }}"
                   class="form-control {{$obj->classStyle}}"
                   name="{{$obj->name}}" rows="3"
-                  placeholder="{{$obj->placeholder}}">{{$obj->value ?? old($obj->name)}}</textarea>
+                  placeholder="{{$obj->placeholder}}">{{old($obj->name) ?? $obj->value}}</textarea>
         @include('lara::Form.Component.include.validate-errors')
     </div>
     <script>

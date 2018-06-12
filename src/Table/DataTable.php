@@ -261,10 +261,12 @@ class DataTable implements TableInterface
      */
     public function searchModel($objModel, $searchValue, $TableColumns)
     {
-        foreach ($TableColumns as $tableColumn) {
+        if (!empty($searchValue)) {
 
-            $objModel->orWhere(function ($query) use ($tableColumn, $searchValue) {
-                $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+            $objModel->where(function ($query) use ($TableColumns, $searchValue) {
+                foreach ($TableColumns as $tableColumn) {
+                    $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
+                }
             });
         }
 

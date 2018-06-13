@@ -287,9 +287,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                     $this->setOtherTable($nameField, $item[3]);
                 }
 
+                if (!empty($item[3]) and $item[2] === 'one-to-one') {
+                    $this->setOtherTable($nameField, $item[3]);
+                }
+
                 if (!empty($item[3]) and $item[2] === 'one-to-many') {
                     $this->setOneToMany($nameField, $item[3]);
                 }
+
+
 
                 switch ($item[0]) {
                     case 'file':

@@ -8,7 +8,7 @@
         <select name="{{$obj->name}}" class="form-control select2-{{$obj->name}} {{$obj->classStyle}}">
             @if(isset($obj->value['selectValue']))
                 @foreach($obj->value['selectValue'] as $value => $title)
-                    <option {{$obj->value['curentValue'] == $value ? 'selected="selected"' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>
+                    <option {{(old($obj->name) == $value or $obj->value['curentValue'] == $value) ? 'selected="selected"' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>
                 @endforeach
             @else
                 @if(!empty($obj->value['ajaxCurentValue']))

@@ -24,11 +24,11 @@
                 </div>
                 <div class="col-md-6 ">
                     <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
-                                class="glyphicon glyphicon-floppy-saved"></span> @lang('datatable.SAVE_FORM')
+                                class="glyphicon glyphicon-floppy-saved"></span> @lang('lara-crud::datatable.SAVE_FORM')
                     </button>
                     @if($buttonApply)
                         <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-floppy-open"></span> @lang('datatable.APPLY_FORM')
+                            <span class="glyphicon glyphicon-floppy-open"></span> @lang('lara-crud::datatable.APPLY_FORM')
                         </button>
                     @endif
                 </div>

@@ -8,7 +8,12 @@
         @foreach($obj->value['selectValue'] as $value => $title)
             <label class="radio-inline">
                 <input type="radio" class="{{$obj->classStyle}}"
-                       {{($obj->value['curentValue'] == $value) ? 'checked="checked"' : ''}} name="{{$obj->name}}"
+                       @if(!empty(old($obj->name)) and (old($obj->name) == $value))
+                       checked="checked"
+                       @elseif(empty(old($obj->name)) and $obj->value['curentValue'] == $value)
+                       checked="checked"
+                       @endif
+                       name="{{$obj->name}}"
                        value="{{$value}}">
                 {{$title}}
             </label>

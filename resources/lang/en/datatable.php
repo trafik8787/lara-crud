@@ -26,5 +26,8 @@ return [
     'lEdit' => "Edit",
     'lDelete' => "Delete",
     'lCopy' =>  "Copy",
-    'lAction' => "Action"
+    'lAction' => "Action",
+
+    'SAVE_FORM' => 'Save',
+    'APPLY_FORM' => 'Apply'
 ];

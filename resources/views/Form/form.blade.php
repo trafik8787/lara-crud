@@ -10,7 +10,7 @@
             </div>
 
         </div>
-        {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-repleace', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}
+        {!! Form::open(array('class' => 'form-horizontal '.$classForm, 'id' => 'form-repleace', 'role' => 'form', 'url' => $formActionUrl, 'method' => $formMetod, 'files' => true)) !!}
 
         @if (!empty($id))
             {{ Form::hidden($keyName, $id) }}
@@ -24,11 +24,11 @@
                 </div>
                 <div class="col-md-6 ">
                     <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
-                                class="glyphicon glyphicon-floppy-saved"></span> Save
+                                class="glyphicon glyphicon-floppy-saved"></span> @lang('datatable.SAVE_FORM')
                     </button>
                     @if($buttonApply)
                         <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-floppy-open"></span> Apply
+                            <span class="glyphicon glyphicon-floppy-open"></span> @lang('datatable.APPLY_FORM')
                         </button>
                     @endif
                 </div>

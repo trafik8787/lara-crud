@@ -493,6 +493,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->addViewsCustomTop = $closure;
     }
+
+    /**
+     * @param string $class
+     */
+    public function setClassForm(string $class)
+    {
+        $this->setClassForm = $class;
+    }
 }
 
 

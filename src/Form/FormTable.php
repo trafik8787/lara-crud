@@ -79,6 +79,7 @@ class FormTable extends FormManagerTable
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'PATCH',
             'objField' => $this->getFieldRender(),
+            'classForm' => $this->objConfig->getClassForm(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData())
         ];
 
@@ -110,6 +111,7 @@ class FormTable extends FormManagerTable
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender(),
+            'classForm' => $this->objConfig->getClassForm(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->objConfig->getModelObj())
         ];
 

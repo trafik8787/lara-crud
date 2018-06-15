@@ -81,6 +81,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $showChildRowsClass;
     protected $addViewsCustomTop; //хук вывод произвольного вида над формой или таблицей
 
+    protected $setClassForm = null;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -721,7 +722,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         if ($this->modelRelation !== null) {
             return $this->modelRelation->OneToMany()->get($select)->toArray();
         }
-        return null;
+        return [];
     }
 
     /**
@@ -912,5 +913,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $this->addViewsCustomTop->call($this, $model);
         }
         return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClassForm ()
+    {
+        return $this->setClassForm;
     }
 }

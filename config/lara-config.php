@@ -13,5 +13,6 @@ return [
     'field_disable' => [
         'created_at',
         'updated_at'
-    ]
+    ],
+    'namespace' => 'Trafik8787\LaraCrud\Controllers'
 ];

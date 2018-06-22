@@ -29,6 +29,7 @@ class FormTable extends FormManagerTable
     private $file;
     private $request;
     protected $validator;
+    protected $relation_to_many;
 
     /**
      * FormTable constructor.
@@ -252,12 +253,16 @@ class FormTable extends FormManagerTable
         if ($this->RuleValidation($arr_request) !== true) {
             return false;
         }
-//        dd($arr_request);
+
         foreach ($arr_request as $name => $item) {
 
-            if ($this->objConfig->getOneToMany($name)) {
+            if ($this->objConfig->getOneToMany($name) and $type === 'update')
+            {
                 $arrId = $this->saveRelationTableOneToMany($name, $item, $model);
                 $item = json_encode($arrId);
+
+            } elseif ($this->objConfig->getOneToMany($name) and $type === 'insert') {
+                $this->relation_to_many[$name] = $item;
             }
 
             /**
@@ -267,6 +272,17 @@ class FormTable extends FormManagerTable
                 $model->{$name} = is_array($item) ? json_encode($item) : $item;
             }
         }
+
+        /**
+         * hooc after Insert
+         */
+        $model::created(function ($value){
+
+            foreach ($this->relation_to_many as $name => $item) {
+                $arrId = $this->saveRelationTableOneToMany($name, $item, $value);
+            }
+
+        });
 
         $model->save();
 

@@ -1,6 +1,6 @@
 @if (!empty($obj->value))
     <div class="form-group">
-        <div class="col-md-1">
+        <div class="col-md-2">
 
         </div>
         <div class="col-md-9">
@@ -34,7 +34,7 @@
 @endif
 
 <div class="form-group  @if (!empty($errors->get($obj->name))) has-error @endif">
-    <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}} @if ($obj->required !== false) <span
+    <label for="{{$obj->name}}" class="col-md-2 control-label">{{$obj->label}} @if ($obj->required !== false) <span
                 class="text-red">*</span> @endif @if(($obj->tooltip))<i class="fa fa-fw fa-info-circle"
                                                                         data-toggle="tooltip"
                                                                         data-placement="{{$obj->tooltip}}"

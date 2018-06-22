@@ -1,5 +1,5 @@
 <div class="form-group @if (!empty($errors->get($obj->name))) has-error @endif">
-    <label for="{{$obj->name}}" class="col-md-1 control-label">{{$obj->label}} @if(($obj->tooltip))<i
+    <label for="{{$obj->name}}" class="col-md-2 control-label">{{$obj->label}} @if(($obj->tooltip))<i
                 class="fa fa-fw fa-info-circle" data-toggle="tooltip" data-placement="{{$obj->tooltip}}"
                 data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">

@@ -273,16 +273,18 @@ class FormTable extends FormManagerTable
             }
         }
 
-        /**
-         * hooc after Insert
-         */
-        $model::created(function ($value){
+        if (!empty($this->relation_to_many)) {
+            /**
+             * hooc after Insert
+             */
+            $model::created(function ($value) {
 
-            foreach ($this->relation_to_many as $name => $item) {
-                $arrId = $this->saveRelationTableOneToMany($name, $item, $value);
-            }
+                foreach ($this->relation_to_many as $name => $item) {
+                    $arrId = $this->saveRelationTableOneToMany($name, $item, $value);
+                }
 
-        });
+            });
+        }
 
         $model->save();
 

@@ -72,6 +72,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public static $navigation_title;
     protected $closure;
 
+    protected $closureRowsRender;
+    protected $closureShowFormCollback;
+
     protected $view = null; //для кастомного вида
     protected $alertDelete;
     protected $showChildRows; //обратный вызов для child rows
@@ -267,7 +270,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function SetTableRowsRenderCollback($obj)
     {
-        return $this->closure !== null ? $this->closure->call($this, $obj) : $obj;
+        return $this->closureRowsRender !== null ? $this->closureRowsRender->call($this, $obj) : $obj;
     }
 
     /**
@@ -277,8 +280,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      */
     public function SetBeforeShowFormCollback($obj, $view)
     {
-        if ($this->closure !== null) {
-            $return = $this->closure->call($this, $obj, $view);
+        if ($this->closureShowFormCollback !== null) {
+            $return = $this->closureShowFormCollback->call($this, $obj, $view);
             return $return ? $return : $view;
         } else {
             return $view;

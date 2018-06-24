@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label class="col-md-1 control-label">{{$obj->label}} @if(($obj->tooltip))<i class="fa fa-fw fa-info-circle"
+    <label class="col-md-2 control-label">{{$obj->label}} @if(($obj->tooltip))<i class="fa fa-fw fa-info-circle"
                                                                                  data-toggle="tooltip"
                                                                                  data-placement="{{$obj->tooltip}}"
                                                                                  data-title="{{$obj->title}}"></i>@endif

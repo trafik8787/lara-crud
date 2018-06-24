@@ -165,13 +165,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      */
     public function tableRowsRenderCollback(Closure $closure)
     {
-        $this->closure = $closure;
+        $this->closureRowsRender = $closure;
 
     }
 
     public function beforeShowFormCollback(Closure $closure)
     {
-        $this->closure = $closure;
+        $this->closureShowFormCollback = $closure;
     }
 
     /**

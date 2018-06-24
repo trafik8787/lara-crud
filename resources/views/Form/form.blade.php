@@ -19,7 +19,7 @@
         {!! $objField !!}
         <div class="box-footer">
             <div class="form-group">
-                <div class="col-md-1">
+                <div class="col-md-2">
 
                 </div>
                 <div class="col-md-6 ">

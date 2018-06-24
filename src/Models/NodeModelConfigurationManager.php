@@ -85,6 +85,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $addViewsCustomTop; //хук вывод произвольного вида над формой или таблицей
 
     protected $setClassForm = null;
+
+    protected $_afterUpdate;
+
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -924,5 +927,15 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getClassForm ()
     {
         return $this->setClassForm;
+    }
+
+    /**
+     * @param $model
+     */
+    public function setAfterUpdate($model)
+    {
+        if ($this->_afterUpdate !== null) {
+            $this->_afterUpdate->call($this, $model);
+        }
     }
 }

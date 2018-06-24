@@ -221,6 +221,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     }
 
     /**
+     * @param Closure $closure
+     */
+    public function _afterUpdate(Closure $closure)
+    {
+        $this->_afterUpdate = $closure;
+    }
+
+    /**
      * @param $funk
      * todo хук перед обновлением
      */

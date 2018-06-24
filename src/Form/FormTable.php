@@ -291,6 +291,10 @@ class FormTable extends FormManagerTable
 
         $model->save();
 
+        if ($type === 'update') {
+            $this->objConfig->setAfterUpdate($model);
+        }
+
         //сохранить отношение многие ко многим
         $this->saveRelationTable($arr_request, $model);
         //сохранить отношение один ко многим

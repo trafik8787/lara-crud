@@ -176,6 +176,9 @@ class FormTable extends FormManagerTable
         /**
          * hooks before render edit
          */
+        if (empty($model)) {
+            $model = $this->objConfig->getModelObj();
+        }
 
         $result = $this->objConfig->SetBeforeShowFormCollback($model, $result);
 

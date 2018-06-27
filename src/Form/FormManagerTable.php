@@ -124,7 +124,8 @@ abstract class FormManagerTable implements FormManagerInterface
                 'multiple' => $this->getMultiple($name),
                 'options' => $this->objConfig->getFieldOption($name),
                 'one_to_many' => $this->objConfig->getOneToMany($name),
-                'required' => $this->objConfig->getRequired($name)
+                'required' => $this->objConfig->getRequired($name),
+                'attribute' =>  $this->objConfig->getAttribute($name)
             ];
         }
 

@@ -26,6 +26,7 @@ class Text
     public $multiple;
     public $one_to_many;
     public $required;
+    public $attribute;
 
 
     public $view = 'lara::Form.Component.text';
@@ -50,6 +51,7 @@ class Text
         $this->multiple = $managerBuilder->multiple;
         $this->one_to_many = $managerBuilder->one_to_many;
         $this->required = $managerBuilder->required;
+        $this->attribute = $managerBuilder->attribute;
 
 
 //        switch ($this->type) {

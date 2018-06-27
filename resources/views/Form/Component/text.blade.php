@@ -6,7 +6,7 @@
                                                                         data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
         {{--{{Form::{$obj->type}($obj->name, $obj->value, ['class' => 'form-control '.$obj->classStyle, 'id' => $obj->name, 'placeholder' => $obj->placeholder]) }}--}}
-        <input type="{{$obj->type}}" name="{{$obj->name}}" value="{{old($obj->name) ?? $obj->value}}"
+        <input type="{{$obj->type}}"  {!! $obj->attribute !!} name="{{$obj->name}}" value="{{old($obj->name) ?? $obj->value}}"
                class="form-control {{$obj->classStyle}}" id="{{$obj->name}}" placeholder="{{$obj->placeholder}}">
         @include('lara::Form.Component.include.validate-errors')
     </div>

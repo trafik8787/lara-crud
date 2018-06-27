@@ -29,6 +29,7 @@
                         @foreach($item as $nameField => $item2)
                             @if($nameField !== $obj->value['primary_key_relation'])
                                 <td><input type="text" class="form-control"
+                                           {!! $obj->attribute !!}
                                            name="{{$obj->name}}[{{$nameField}}][{{$loop->parent->iteration}}]"
                                            value="{{$item2}}">
                                 </td>

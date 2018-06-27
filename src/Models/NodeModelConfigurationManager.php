@@ -87,6 +87,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setClassForm = null;
 
     protected $_afterUpdate;
+    protected $fieldAttribute;
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -937,5 +938,17 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         if ($this->_afterUpdate !== null) {
             $this->_afterUpdate->call($this, $model);
         }
+    }
+
+    /**
+     * @param $field
+     * @return null
+     */
+    public function getAttribute($field)
+    {
+        if (!empty($this->fieldAttribute[$field])) {
+            return $this->fieldAttribute[$field];
+        }
+        return null;
     }
 }

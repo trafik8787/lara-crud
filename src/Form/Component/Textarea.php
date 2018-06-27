@@ -20,6 +20,7 @@ class Textarea
     public $enableEditor;
     public $tooltip;
     public $required;
+    public $attribute;
 
     public $view = 'lara::Form.Component.textarea';
 
@@ -38,6 +39,7 @@ class Textarea
         $this->enableEditor = $managerBuilder->enableEditor;
         $this->tooltip = $managerBuilder->tooltip;
         $this->required = $managerBuilder->required;
+        $this->attribute = $managerBuilder->attribute;
     }
 
 

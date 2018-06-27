@@ -6,7 +6,7 @@
                                                                         data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
         <input type="hidden" name="{{$obj->name}}" value="">
-        <select name="{{$obj->name}}[]" class="form-control select2-{{$obj->name}} {{$obj->classStyle}}"
+        <select name="{{$obj->name}}[]"  {!! $obj->attribute !!} class="form-control select2-{{$obj->name}} {{$obj->classStyle}}"
                 multiple="multiple">
             @if(isset($obj->value['ajaxCurentValueMultiple']))
                 @foreach($obj->value['ajaxCurentValueMultiple'] as $value)

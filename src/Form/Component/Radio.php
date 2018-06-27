@@ -18,6 +18,7 @@ class Radio
     public $label;
     public $classStyle;
     public $tooltip;
+    public $attribute;
 
     public $view = 'lara::Form.Component.radio';
 
@@ -29,6 +30,7 @@ class Radio
         $this->name = $managerBuilder->name;
         $this->title = $managerBuilder->title;
         $this->tooltip = $managerBuilder->tooltip;
+        $this->attribute = $managerBuilder->attribute;
     }
 
     /**

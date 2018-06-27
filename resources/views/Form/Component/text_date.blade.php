@@ -7,7 +7,7 @@
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
-            <input type="date" name="{{$obj->name}}" value="{{ old($obj->name) ?? $obj->value}}"
+            <input type="date" name="{{$obj->name}}"  {!! $obj->attribute !!} value="{{ old($obj->name) ?? $obj->value}}"
                    class="form-control pull-right datepicker {{$obj->classStyle}}" id="{{$obj->name}}"
                    placeholder="{{$obj->placeholder}}">
         </div>

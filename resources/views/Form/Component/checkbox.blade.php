@@ -7,6 +7,7 @@
             <label>
                 <input type="hidden" name="{{$obj->name}}" value="0">
                 <input type="checkbox" name="{{$obj->name}}"
+                       {!! $obj->attribute !!}
                        {{ ($obj->value['selectValue'] == $obj->value['curentValue']) ? 'checked' : '' }} title="{{$obj->title}}"
                        value="{!! $obj->value['selectValue'] !!}" class="{{$obj->classStyle}}" id="{{$obj->name}}">
             </label>

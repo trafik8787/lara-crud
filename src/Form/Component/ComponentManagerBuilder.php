@@ -191,6 +191,21 @@ class ComponentManagerBuilder implements ComponentManagerBuilderInterface
         return $this;
     }
 
+    /**
+     * @param null $data
+     * @return $this
+     */
+    public function attribute($data = null)
+    {
+        $this->attribute = $data;
+
+        if ($data === null) {
+            $this->attribute = $this->objField['attribute'];
+        }
+
+        return $this;
+    }
+
 
     /**
      * @param null $data

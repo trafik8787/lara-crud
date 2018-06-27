@@ -5,7 +5,7 @@
                                                                         data-placement="{{$obj->tooltip}}"
                                                                         data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
-        <select name="{{$obj->name}}" class="form-control select2-{{$obj->name}} {{$obj->classStyle}}">
+        <select name="{{$obj->name}}"  {!! $obj->attribute !!} class="form-control select2-{{$obj->name}} {{$obj->classStyle}}">
             @if(isset($obj->value['selectValue']))
                 @foreach($obj->value['selectValue'] as $value => $title)
                     <option {{(old($obj->name) == $value or $obj->value['curentValue'] == $value) ? 'selected="selected"' : ''}}  value="{{$value}}">{{strip_tags($title)}}</option>

@@ -44,6 +44,7 @@
                {{$obj->multiple ? 'multiple' : ''}}  name="{{$obj->multiple ? $obj->name.'[]' : $obj->name}}"
                title="{{$obj->title}}"
                value="{{old($obj->name)}}"
+               {!! $obj->attribute !!}
                class="form-control {{$obj->classStyle}}" id="{{$obj->name}}" placeholder="{{$obj->placeholder}}">
         @include('lara::Form.Component.include.validate-errors')
     </div>

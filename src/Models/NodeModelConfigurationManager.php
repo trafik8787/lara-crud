@@ -429,6 +429,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                         break;
 
                     case 'radio':
+                        if (!empty($this->setValue[$nameField])) {
+                            $valueModel = $this->setValue[$nameField];
+                        }
                         return ['curentValue' => $valueModel, 'selectValue' => $this->setTypeField[$nameField][1]];
                         break;
                     default:

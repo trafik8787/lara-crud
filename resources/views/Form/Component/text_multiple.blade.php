@@ -4,7 +4,6 @@
                 class="fa fa-fw fa-info-circle" data-toggle="tooltip" data-placement="{{$obj->tooltip}}"
                 data-title="{{$obj->title}}"></i>@endif</label>
     <div class="col-md-9">
-        <button class="addRow-{{$obj->name}}">Add</button>
         <input type="hidden" class="form-control" name="{{$obj->name}}" value="">
         <table class="table table-bordered table-hover dataTable one-to-many-table-{{$obj->name}}" role="grid">
             <thead>
@@ -12,7 +11,7 @@
                 @foreach($obj->one_to_many['list_fields'] as $item)
                     <th>{{$item}}</th>
                 @endforeach
-                <th>#</th>
+                    <th width="50" class="text-right"><button class="btn btn-block btn-success btn-flat addRow-{{$obj->name}}">Add</button></th>
             </tr>
             </thead>
 
@@ -36,7 +35,7 @@
                             @endif
                         @endforeach
                         <td>
-                            <button type="button" class="btn btn-danger remove-{{$obj->name}}"><i
+                            <button type="button" class="btn btn-block btn-flat btn-danger remove-{{$obj->name}}"><i
                                         class="glyphicon glyphicon-remove-sign"></i>
                             </button>
                         </td>
@@ -71,7 +70,7 @@
                 @foreach($obj->one_to_many['list_fields'] as $nameField => $item)
                     '<input type="text" class="form-control" name="{{$obj->name}}[{{$nameField}}][' + counter + ']" value="">',
                 @endforeach
-                    '<button type="button" class="btn btn-danger remove-{{$obj->name}}"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+                    '<button type="button" class="btn btn-block btn-flat btn-danger remove-{{$obj->name}}"><i class="glyphicon glyphicon-remove-sign"></i></button>'
             ]).draw(false);
 
             counter++;

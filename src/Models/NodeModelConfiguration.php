@@ -517,6 +517,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->fieldAttribute = $arrField;
     }
+
+    /**
+     * @param array $arrField
+     */
+    public function setValueDefault(array $arrField)
+    {
+        $this->setValue = $arrField;
+    }
 }
 
 

@@ -125,7 +125,15 @@ class FormTable extends FormManagerTable
      */
     public function getModelData()
     {
-        return $this->objConfig->getModelObj()->find($this->id);
+        if (!empty($this->id)) {
+            $result = $this->objConfig->getWhere($this->objConfig->getModelObj());
+
+            if (!empty($result->find($this->id))) {
+                return $result->find($this->id);
+            }
+
+        }
+        return null;
     }
 
 

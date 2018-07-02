@@ -260,7 +260,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getWhere($query)
     {
         if (!empty($this->setWhere)) {
-            $query->where($this->setWhere[0], $this->setWhere[1], $this->setWhere[2]);
+            $query = $query->where($this->setWhere[0], $this->setWhere[1], $this->setWhere[2]);
         }
 
         return $query;

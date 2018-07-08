@@ -53,7 +53,9 @@ class DataTable implements TableInterface
             'data_json' => json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
-                'rowsColorWidth' => $this->objConfig->getColumnColorWhere()
+                'rowsColorWidth' => $this->objConfig->getColumnColorWhere(),
+                'rowReorder' => $this->objConfig->getEnableDragAndDrop(),
+                'orderFixed' => $this->objConfig->getOrderFixed(),
             ])
         );
 
@@ -117,6 +119,8 @@ class DataTable implements TableInterface
             return $this->objConfig->SetShowChildRows()
                 ->model($this->getModelObj())
                 ->render($this->objConfig);
+        } elseif (isset($request['rowReorder']) and $request->ajax()) {
+            $this->sortDragAndDrop($request['rowReorder']);
         }
 
 
@@ -172,7 +176,7 @@ class DataTable implements TableInterface
         }
 
         foreach ($this->objConfig->nameColumns() as $field => $name) {
-            $data_field[] = array('data' => $field);
+            $data_field[] = array('data' => $field, "orderable" => $this->objConfig->getFieldOrderByDisable($field));
         }
 
         if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
@@ -348,4 +352,52 @@ class DataTable implements TableInterface
             return $this->redirect();
         }
     }
+
+
+    /**
+     * @param $arrValues
+     */
+    public function sortDragAndDrop ($arrValues)
+    {
+        // dd($arrValues);
+        $name = $this->objConfig->enableDragAndDrop();
+        $model = $this->getModelObj();
+
+        $result = null;
+
+        if (count($arrValues) == 2) {
+            $arrValues = [array_shift($arrValues)];
+        } else {
+            $arrValues = array_reverse($arrValues);
+        }
+        //dd($arrValues);
+        foreach ($arrValues as $arrValue) {
+
+            $resultOld = $model->where($name, $arrValue['oldData'])->first();
+            $resultNew = $model->where($name, $arrValue['newData'])->first();
+
+
+            $resultOld->{$name} = $arrValue['newData'];
+            $resultOld->save();
+//
+            $resultNew->{$name} = $arrValue['oldData'];
+            $resultNew->save();
+
+
+//            $resultOld = $model->where('sort', $arrValue['oldData'])->first();
+//            $resultOld->sort = $arrValue['newData'];
+//            $resultOld->save();
+//
+//            $resultNew = $model->where('sort', $arrValue['newData'])->first();
+//            $resultNew->sort = $arrValue['oldData'];
+//            $resultNew->save();
+//
+//
+//            $resultOld = null;
+//            $resultNew = null;
+        }
+
+        exit(200);
+    }
+
 }

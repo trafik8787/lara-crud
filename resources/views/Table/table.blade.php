@@ -9,6 +9,7 @@
                 "bPaginate": true,
                 "stateSave": true,
                 'autoWidth': false,
+                "orderFixed": data_json.orderFixed,
                 "sPaginationType": "full_numbers",
                 "ajax": {
                     "url": "{{ url()->current()}}",
@@ -19,6 +20,10 @@
                         d.numPage = (d.start / d.length) + 1;
                         d._token = "{{csrf_token()}}"
                     }
+                },
+                rowReorder: {
+                    dataSrc: data_json.rowReorder,
+                    enable: (data_json.rowReorder !== false) ? true : false
                 },
                 "columns": JSON.parse('{!! $json_field !!}'),
                 "order": [
@@ -58,6 +63,30 @@
                 "oLanguage": JSON.parse('{!! json_encode(__('lara-crud::datatable')) !!}')
 
             });
+
+
+            table.on('row-reorder', function ( e, diff, edit ) {
+
+                var result = [];
+                for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
+
+                    result[i] = {oldData: diff[i].oldData, newData: diff[i].newData}
+                }
+
+                $.ajax({
+                    url: "{{ url()->current()}}",
+                    type: 'post',
+                    data:  {
+                        _token: "{{csrf_token()}}",
+                        rowReorder: result,
+                        // order: [{column: 2, dir: 'desc'}]
+                    }
+                })
+
+                return false;
+            });
+
+
 
             // Add event listener for opening and closing details
             $('#example tbody').on('click', 'td .details-control-div', function () {

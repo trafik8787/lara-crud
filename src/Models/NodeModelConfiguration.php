@@ -525,6 +525,28 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->setValue = $arrField;
     }
+
+    /**
+     * @param array $nameArr
+     */
+    public function fieldOrderByDisable(array $nameArr)
+    {
+        $this->fieldOrderByDisable = $nameArr;
+    }
+
+
+    /**
+     * @param string $field
+     */
+    public function enableDragAndDrop(string $field)
+    {
+        $this->enableDragAndDrop = $field;
+    }
+
+    public function setOrderFixed(array $field)
+    {
+        $this->setOrderFixed = $field;
+    }
 }
 
 

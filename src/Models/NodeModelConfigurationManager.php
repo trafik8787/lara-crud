@@ -88,6 +88,9 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $_afterUpdate;
     protected $fieldAttribute;
+    protected $fieldOrderByDisable;
+    protected $enableDragAndDrop;
+    protected $setOrderFixed;
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -954,4 +957,43 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
         return null;
     }
+
+    /**
+     * @param $nameField
+     * @return bool
+     */
+    public function getFieldOrderByDisable($nameField)
+    {
+
+        if (!empty($this->fieldOrderByDisable) and in_array($nameField, $this->fieldOrderByDisable)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getEnableDragAndDrop()
+    {
+        if (!empty($this->enableDragAndDrop)) {
+            return $this->enableDragAndDrop;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderFixed ()
+    {
+        if (!empty($this->setOrderFixed)) {
+            return $this->setOrderFixed;
+        }
+        return false;
+    }
+
 }

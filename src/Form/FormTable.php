@@ -210,7 +210,12 @@ class FormTable extends FormManagerTable
         $arr_request = $this->FormRequestModelSave('update');
 
         if (!empty($arr_request['save_button'])) {
-            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
+
+            $success = 0;
+            if (empty($this->validator)) {
+                $success = 1;
+            }
+            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel'])->with('success', $success);
         }
 
         return redirect()->back()->withErrors($this->validator)->exceptInput();

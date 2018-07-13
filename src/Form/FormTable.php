@@ -226,7 +226,11 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel'])->with('success', $success);
         }
 
-        return redirect($arr_request['url_redirect_form'])->withErrors($this->validator)->exceptInput();
+        if ($this->validator->fails()) {
+            return redirect()->back()->withErrors($this->validator)->exceptInput();
+        }
+
+        return redirect($this->request->input('url_redirect_form'))->exceptInput();
     }
 
 
@@ -243,7 +247,11 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
         }
 
-        return redirect($arr_request['url_redirect_form'])->withErrors($this->validator)->exceptInput();
+        if ($this->validator->fails()) {
+            return redirect()->back()->withErrors($this->validator)->exceptInput();
+        }
+
+        return redirect($this->request->input('url_redirect_form'))->exceptInput();
     }
 
 

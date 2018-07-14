@@ -71,8 +71,9 @@ class FormTable extends FormManagerTable
             $formActionUrl = url()->current();
         }
 
-        $nameModelArr = array_flip($this->admin->nameModelArr);
-        $urlRedirect = $nameModelArr[key($this->admin->getModels()->toArray())];
+        if (empty($this->getModelData())) {
+            return redirect($this->getUrlRedirect());
+        }
 
         $data = [
             'keyName' => $this->admin->KeyName, //name primary Key
@@ -83,7 +84,7 @@ class FormTable extends FormManagerTable
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'PATCH',
             'objField' => $this->getFieldRender(),
-            'urlRedirect' => config('lara-config.url_group') .'/'. $urlRedirect,
+            'urlRedirect' => $this->getUrlRedirect(),
             'classForm' => $this->objConfig->getClassForm(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData())
         ];
@@ -109,9 +110,6 @@ class FormTable extends FormManagerTable
             return $this->returnDataAjaxForSelect();
         }
 
-        $nameModelArr = array_flip($this->admin->nameModelArr);
-        $urlRedirect = $nameModelArr[key($this->admin->getModels()->toArray())];
-
         $data = [
             'urlAction' => $this->admin->route->parameters['adminModel'],
             'formActionUrl' => url()->current(),
@@ -120,7 +118,7 @@ class FormTable extends FormManagerTable
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender(),
             'classForm' => $this->objConfig->getClassForm(),
-            'urlRedirect' => config('lara-config.url_group') .'/'. $urlRedirect,
+            'urlRedirect' => $this->getUrlRedirect(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->objConfig->getModelObj())
         ];
 
@@ -454,4 +452,14 @@ class FormTable extends FormManagerTable
         })->toArray();
     }
 
+
+    /**
+     * @return string
+     */
+    public function getUrlRedirect()
+    {
+        $nameModelArr = array_flip($this->admin->nameModelArr);
+        $urlRedirect = $nameModelArr[key($this->admin->getModels()->toArray())];
+        return config('lara-config.url_group') .'/'. $urlRedirect;
+    }
 }

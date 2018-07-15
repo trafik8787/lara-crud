@@ -355,46 +355,27 @@ class DataTable implements TableInterface
 
 
     /**
-     * @param $arrValues
+     * @param $request
      */
-    public function sortDragAndDrop ($arrValues)
+    public function sortDragAndDrop ($request)
     {
-        // dd($arrValues);
-        $name = $this->objConfig->enableDragAndDrop();
+        $arrValues = $request['rowReorder'];
+
+        $name = 'sort';
         $model = $this->getModelObj();
 
         $result = null;
 
-        if (count($arrValues) == 2) {
-            $arrValues = [array_shift($arrValues)];
-        } else {
-            $arrValues = array_reverse($arrValues);
-        }
-        //dd($arrValues);
+        $newResult = [];
         foreach ($arrValues as $arrValue) {
+            $idRow = $model->where($name, $arrValue['oldData'])->first();
+            $newResult[] = [$this->admin->KeyName => $idRow->{$this->admin->KeyName}, $name => $arrValue['newData']];
+        }
 
-            $resultOld = $model->where($name, $arrValue['oldData'])->first();
-            $resultNew = $model->where($name, $arrValue['newData'])->first();
-
-
-            $resultOld->{$name} = $arrValue['newData'];
-            $resultOld->save();
-//
-            $resultNew->{$name} = $arrValue['oldData'];
-            $resultNew->save();
-
-
-//            $resultOld = $model->where('sort', $arrValue['oldData'])->first();
-//            $resultOld->sort = $arrValue['newData'];
-//            $resultOld->save();
-//
-//            $resultNew = $model->where('sort', $arrValue['newData'])->first();
-//            $resultNew->sort = $arrValue['oldData'];
-//            $resultNew->save();
-//
-//
-//            $resultOld = null;
-//            $resultNew = null;
+        foreach ($newResult as $row) {
+            $data = $model->find($row[$this->admin->KeyName]);
+            $data->{$name} = $row[$name];
+            $data->save();
         }
 
         exit(200);

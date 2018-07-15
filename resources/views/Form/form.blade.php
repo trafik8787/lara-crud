@@ -23,6 +23,7 @@
 
                 </div>
                 <div class="col-md-6 ">
+                    <input type="hidden" name="url_redirect_form" value="{{$urlRedirect}}">
                     <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
                                 class="glyphicon glyphicon-floppy-saved"></span> @lang('lara-crud::datatable.SAVE_FORM')
                     </button>

@@ -71,6 +71,10 @@ class FormTable extends FormManagerTable
             $formActionUrl = url()->current();
         }
 
+        if (empty($this->getModelData())) {
+            return redirect($this->getUrlRedirect());
+        }
+
         $data = [
             'keyName' => $this->admin->KeyName, //name primary Key
             'id' => $this->id,
@@ -80,6 +84,7 @@ class FormTable extends FormManagerTable
             'buttonApply' => $this->objConfig->getButtonApply(),
             'formMetod' => 'PATCH',
             'objField' => $this->getFieldRender(),
+            'urlRedirect' => $this->getUrlRedirect(),
             'classForm' => $this->objConfig->getClassForm(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData())
         ];
@@ -113,6 +118,7 @@ class FormTable extends FormManagerTable
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender(),
             'classForm' => $this->objConfig->getClassForm(),
+            'urlRedirect' => $this->getUrlRedirect(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->objConfig->getModelObj())
         ];
 
@@ -218,7 +224,11 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel'])->with('success', $success);
         }
 
-        return redirect()->back()->withErrors($this->validator)->exceptInput();
+        if ($this->validator->fails()) {
+            return redirect()->back()->withErrors($this->validator)->exceptInput();
+        }
+
+        return redirect($this->request->input('url_redirect_form'))->exceptInput();
     }
 
 
@@ -235,7 +245,11 @@ class FormTable extends FormManagerTable
             return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
         }
 
-        return redirect()->back()->withErrors($this->validator)->exceptInput();
+        if ($this->validator->fails()) {
+            return redirect()->back()->withErrors($this->validator)->exceptInput();
+        }
+
+        return redirect($this->request->input('url_redirect_form'))->exceptInput();
     }
 
 
@@ -438,4 +452,14 @@ class FormTable extends FormManagerTable
         })->toArray();
     }
 
+
+    /**
+     * @return string
+     */
+    public function getUrlRedirect()
+    {
+        $nameModelArr = array_flip($this->admin->nameModelArr);
+        $urlRedirect = $nameModelArr[key($this->admin->getModels()->toArray())];
+        return config('lara-config.url_group') .'/'. $urlRedirect;
+    }
 }

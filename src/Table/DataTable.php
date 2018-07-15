@@ -120,7 +120,7 @@ class DataTable implements TableInterface
                 ->model($this->getModelObj())
                 ->render($this->objConfig);
         } elseif (isset($request['rowReorder']) and $request->ajax()) {
-            $this->sortDragAndDrop($request['rowReorder']);
+            $this->sortDragAndDrop($request);
         }
 
 
@@ -329,7 +329,7 @@ class DataTable implements TableInterface
 
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             //в зависимости от того будет ли столбец чекбоксов определяем будет ли начинатся масив с нуля или с единицы
-            if ($this->objConfig->getBolleanCheckedColumn() === 'false') {
+            if (getEnableDragAndDropgetBolleanCheckedColumn() === 'false') {
                 $data[] = $field;
             } else {
                 $i = ++$i;
@@ -361,7 +361,7 @@ class DataTable implements TableInterface
     {
         $arrValues = $request['rowReorder'];
 
-        $name = 'sort';
+        $name = $this->objConfig->getEnableDragAndDrop();
         $model = $this->getModelObj();
 
         $result = null;

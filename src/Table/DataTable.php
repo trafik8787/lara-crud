@@ -329,7 +329,7 @@ class DataTable implements TableInterface
 
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             //в зависимости от того будет ли столбец чекбоксов определяем будет ли начинатся масив с нуля или с единицы
-            if (getEnableDragAndDropgetBolleanCheckedColumn() === 'false') {
+            if ($this->objConfig->getBolleanCheckedColumn() === 'false') {
                 $data[] = $field;
             } else {
                 $i = ++$i;

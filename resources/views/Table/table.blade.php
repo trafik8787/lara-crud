@@ -23,7 +23,8 @@
                 },
                 rowReorder: {
                     dataSrc: data_json.rowReorder,
-                    enable: (data_json.rowReorder !== false) ? true : false
+                    enable: (data_json.rowReorder !== false) ? true : false,
+                    update: false
                 },
                 "columns": JSON.parse('{!! $json_field !!}'),
                 "order": [

@@ -66,6 +66,15 @@
             });
 
 
+            if (data_json.rowReorder !== false) {
+                $.extend(
+                    $.fn.dataTable.RowReorder.defaults,
+                    {selector: 'tr'}
+                );
+
+                $.fn.dataTable.defaults.rowReorder = true;
+            }
+
             table.on('row-reorder', function ( e, diff, edit ) {
 
                 var result = [];

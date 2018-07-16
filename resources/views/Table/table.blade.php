@@ -69,7 +69,7 @@
             if (data_json.rowReorder !== false) {
                 $.extend(
                     $.fn.dataTable.RowReorder.defaults,
-                    {selector: 'tr'}
+                    {selector: 'td:not(td:last-child)'}
                 );
 
                 $.fn.dataTable.defaults.rowReorder = true;

@@ -299,7 +299,16 @@ class Admin implements AdminInterface
         $this->KeyName = $model->getKeyName();
 
         $full_field = DB::connection()->getSchemaBuilder()->getColumnListing($table_name);
-        $this->TableColumns = array_diff($full_field, config('lara-config.field_disable'));
+
+        $fieldDisable = config('lara-config.field_disable');
+
+        if (!empty($this->objConfig->getFieldDisable()))
+        {
+            $fieldDisable = $this->objConfig->getFieldDisable();
+        }
+
+
+        $this->TableColumns = array_diff($full_field, $fieldDisable);
 
         foreach ($this->TableColumns as $item) {
             $this->TableTypeColumns[$item] = DB::connection()->getSchemaBuilder()->getColumnType($table_name, $item);

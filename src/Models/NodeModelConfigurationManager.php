@@ -91,6 +91,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $fieldOrderByDisable;
     protected $enableDragAndDrop;
     protected $setOrderFixed;
+    protected $fieldDisable;
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -994,6 +995,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return $this->setOrderFixed;
         }
         return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFieldDisable()
+    {
+        return $this->fieldDisable;
     }
 
 }

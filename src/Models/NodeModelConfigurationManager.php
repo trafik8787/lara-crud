@@ -92,6 +92,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $enableDragAndDrop;
     protected $setOrderFixed;
     protected $fieldDisable;
+    protected $saveRedirect; //редирект на казаний урл при сохранении формы
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -1003,6 +1004,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getFieldDisable()
     {
         return $this->fieldDisable;
+    }
+
+    public function getSaveRedirect()
+    {
+        return $this->saveRedirect;
     }
 
 }

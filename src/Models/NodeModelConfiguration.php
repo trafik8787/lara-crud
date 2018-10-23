@@ -558,6 +558,11 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->fieldDisable = $field;
     }
+
+    public function saveRedirect($str)
+    {
+        $this->saveRedirect = $str;
+    }
 }
 
 

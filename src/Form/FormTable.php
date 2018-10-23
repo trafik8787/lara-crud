@@ -221,7 +221,12 @@ class FormTable extends FormManagerTable
             if (empty($this->validator)) {
                 $success = 1;
             }
-            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel'])->with('success', $success);
+
+            if (!empty($this->objConfig->getSaveRedirect())) {
+                return redirect($this->objConfig->getSaveRedirect())->with('success', $success);
+            } else {
+                return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel'])->with('success', $success);
+            }
         }
 
         if ($this->validator->fails()) {
@@ -241,8 +246,13 @@ class FormTable extends FormManagerTable
 
         $arr_request = $this->FormRequestModelSave('insert');
 
-        if (!empty($arr_request['save_button'])) {
-            return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
+        if (!empty($arr_request['save_button']))
+        {
+            if (!empty($this->objConfig->getSaveRedirect())) {
+                return redirect($this->objConfig->getSaveRedirect())->with('success', $success);
+            } else {
+                return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
+            }
         }
 
         if ($this->validator->fails()) {

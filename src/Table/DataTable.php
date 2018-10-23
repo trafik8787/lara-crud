@@ -302,7 +302,12 @@ class DataTable implements TableInterface
 
         $id = $admin->getRequest()->input('id');
         $this->getModelObj()->find($id)->delete();
-        return $this->redirect();
+
+        if (!empty($this->objConfig->getSaveRedirect())) {
+            return redirect($this->objConfig->getSaveRedirect());
+        } else {
+            return $this->redirect();
+        }
     }
 
     /**

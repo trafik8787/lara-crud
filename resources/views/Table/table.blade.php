@@ -6,7 +6,7 @@
             var table = $('#example').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "bPaginate": true,
+                "bPaginate": data_json.disablePaginate,
                 "stateSave": true,
                 'autoWidth': false,
                 "orderFixed": data_json.orderFixed,

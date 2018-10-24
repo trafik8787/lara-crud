@@ -56,6 +56,7 @@ class DataTable implements TableInterface
                 'rowsColorWidth' => $this->objConfig->getColumnColorWhere(),
                 'rowReorder' => $this->objConfig->getEnableDragAndDrop(),
                 'orderFixed' => $this->objConfig->getOrderFixed(),
+                'disablePaginate' => $this->objConfig->getDisablePaginate()
             ])
         );
 
@@ -153,7 +154,7 @@ class DataTable implements TableInterface
         return Response::json([
             'draw' => $request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
-            'recordsFiltered' => $dataArr['total'],
+            'recordsFiltered' => $this->objConfig->getDisablePaginate() ? $dataArr['total'] : 0, //если пагинация отключена ставим 0
             'data' => $data
         ]);
 
@@ -243,7 +244,12 @@ class DataTable implements TableInterface
         $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
         $result = $result->orderBy($order_field, $order['dir']);
 
-        $result = $result->paginate($total);
+        //если пагинация включена
+        if ($this->objConfig->getDisablePaginate()) {
+            $result = $result->paginate($total);
+        } else {
+            $result = $result->get();
+        }
 
         $result->map(function ($object) {
 

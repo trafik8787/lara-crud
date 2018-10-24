@@ -93,6 +93,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setOrderFixed;
     protected $fieldDisable;
     protected $saveRedirect; //редирект на казаний урл при сохранении формы
+    protected $disablePaginate = true; //отключение пагинации
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -1006,9 +1007,21 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->fieldDisable;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSaveRedirect()
     {
         return $this->saveRedirect;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function getDisablePaginate()
+    {
+        return $this->disablePaginate;
     }
 
 }

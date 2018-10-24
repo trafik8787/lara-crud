@@ -559,9 +559,20 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->fieldDisable = $field;
     }
 
+    /**
+     * @param $str
+     */
     public function saveRedirect($str)
     {
         $this->saveRedirect = $str;
+    }
+
+    /**
+     * @param bool $val
+     */
+    public function disablePaginate($val = false)
+    {
+        $this->disablePaginate = $val;
     }
 }
 

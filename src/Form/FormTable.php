@@ -249,7 +249,7 @@ class FormTable extends FormManagerTable
         if (!empty($arr_request['save_button']))
         {
             if (!empty($this->objConfig->getSaveRedirect())) {
-                return redirect($this->objConfig->getSaveRedirect())->with('success', $success);
+                return redirect($this->objConfig->getSaveRedirect());
             } else {
                 return redirect('/' . config('lara-config.url_group') . '/' . $this->admin->route->parameters['adminModel']);
             }

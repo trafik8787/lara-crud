@@ -185,7 +185,7 @@ class FormTable extends FormManagerTable
             $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
 
-            $result[] = $objBilder->build();
+            $result[$objBilder->name] = $objBilder->build();
         }
 
 

@@ -232,15 +232,13 @@ class DataTable implements TableInterface
     public function getModelData($total, $curent_page, $searchValue, $order)
     {
 
-        $select = array_keys($this->objConfig->nameColumns());
-        $select[] = $this->admin->KeyName;
 
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->objConfig->getWhere($this->getModelObj());
         //хук модели таблицы
         $result = $this->objConfig->getModelCollback($result);
-        $result = $result->select($select);
+
         $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
         $result = $result->orderBy($order_field, $order['dir']);
 

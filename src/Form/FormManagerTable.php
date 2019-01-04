@@ -47,6 +47,7 @@ abstract class FormManagerTable implements FormManagerInterface
             'varchar' => 'text',
             'tinyint' => 'radio',
             'simple_array' => 'text',
+            'smallint' => 'number'
 
         );
 

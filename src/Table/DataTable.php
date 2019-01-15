@@ -239,13 +239,17 @@ class DataTable implements TableInterface
      */
     public function getModelData($total, $curent_page, $searchValue, $order)
     {
+        $select = $this->objConfig->getFieldShow();
+
 
         $nameColumn = $this->objConfig->nameColumns();
 
         $select = array_keys($nameColumn);
         $select = array_diff($select, $this->objConfig->getNewColumn());
 
-        $select[] = $this->admin->KeyName;
+        if (!in_array($this->admin->KeyName, $select)) {
+            $select[] = $this->admin->KeyName;
+        }
 
 
         $this->setPageCurent($curent_page);

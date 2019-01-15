@@ -95,6 +95,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $saveRedirect; //редирект на казаний урл при сохранении формы
     protected $disablePaginate = true; //отключение пагинации
 
+    protected $newColumn = [];
+
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -236,7 +238,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function nameColumns(): array
     {
 
-        $field = $this->admin->TableColumns;
+        $field = array_merge($this->admin->TableColumns, $this->newColumn);
+
         $field_name = $this->getFieldName();
         $field_display = $this->getFieldShow();
 
@@ -1024,4 +1027,16 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         return $this->disablePaginate;
     }
 
+
+    /**
+     * @param bool $column
+     * @return array|bool|mixed
+     */
+    public function getNewColumn($column = false)
+    {
+        if ($column !== false) {
+            return (in_array($column, $this->newColumn)) ? $column : false;
+        }
+        return $this->newColumn;
+    }
 }

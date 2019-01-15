@@ -380,4 +380,11 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function setViewsCustomTop($model);
+
+
+    /**
+     * @return mixed
+     */
+    public function getNewColumn ();
+
 }

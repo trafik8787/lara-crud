@@ -574,6 +574,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->disablePaginate = $val;
     }
+
+    /**
+     * @param $column
+     * //новая колонка в таблице
+     */
+    public function addColumn ($column)
+    {
+        $this->newColumn[] = $column;
+    }
 }
 
 

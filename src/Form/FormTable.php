@@ -30,6 +30,7 @@ class FormTable extends FormManagerTable
     private $request;
     protected $validator;
     protected $relation_to_many;
+    protected $getModelData;
 
     /**
      * FormTable constructor.
@@ -71,7 +72,9 @@ class FormTable extends FormManagerTable
             $formActionUrl = url()->current();
         }
 
-        if (empty($this->getModelData())) {
+        $this->getModelData = $this->getModelData();
+
+        if (empty($this->getModelData)) {
             return redirect($this->getUrlRedirect());
         }
 
@@ -86,10 +89,9 @@ class FormTable extends FormManagerTable
             'objField' => $this->getFieldRender(),
             'urlRedirect' => $this->getUrlRedirect(),
             'classForm' => $this->objConfig->getClassForm(),
-            'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData())
+            'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelData)
         ];
 
-//        dump($this->admin);
         return view('lara::Form.form', $data);
     }
 
@@ -134,8 +136,10 @@ class FormTable extends FormManagerTable
         if (!empty($this->id)) {
             $result = $this->objConfig->getWhere($this->objConfig->getModelObj());
 
-            if (!empty($result->find($this->id))) {
-                return $result->find($this->id);
+            $obj = $result->find($this->id);
+
+            if (!empty($obj)) {
+                return $obj;
             }
 
         }
@@ -149,20 +153,20 @@ class FormTable extends FormManagerTable
      */
     public function getFieldRender()
     {
+
         /**
          * добавляем в класс Tabs обьект конфигурации
          */
         $this->tabs->objConfig($this->objConfig);
 
-        $model = $this->getModelData();
 
         $result = [];
 
         foreach ($this->getArrayField() as $item) {
 
             //todo получаем данные из таблицы многие ко многим для вывода в поле
-            $this->objConfig->getCurentValueMultiple($item['field'], $model);
-            $this->objConfig->getCurentValueOneToMany($item['field'], $model);
+            $this->objConfig->getCurentValueMultiple($item['field'], $this->getModelData);
+            $this->objConfig->getCurentValueOneToMany($item['field'], $this->getModelData);
 
             //конструктор форм
             $objBilder = (new ComponentManagerBuilder($item));
@@ -180,12 +184,13 @@ class FormTable extends FormManagerTable
             $objBilder->required();
             $objBilder->attribute();
 
-            $model_field_value = !empty($model->{$item['field']}) ? $model->{$item['field']} : null;
+            $model_field_value = !empty($this->getModelData->{$item['field']}) ? $this->getModelData->{$item['field']} : null;
 
             $objBilder->value($this->objConfig->getValue($item['field'], $model_field_value));
 
 
             $result[$objBilder->name] = $objBilder->build();
+           // die(2);
         }
 
 

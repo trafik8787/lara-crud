@@ -177,7 +177,15 @@ class DataTable implements TableInterface
         }
 
         foreach ($this->objConfig->nameColumns() as $field => $name) {
-            $data_field[] = array('data' => $field, "orderable" => $this->objConfig->getFieldOrderByDisable($field));
+
+            $orderable = $this->objConfig->getFieldOrderByDisable($field);
+
+            //проверяем новое ли это поле
+            if ($this->objConfig->getNewColumn($field)) {
+                $orderable = false;
+            }
+
+            $data_field[] = array('data' => $field, "orderable" => $orderable );
         }
 
         if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
@@ -232,8 +240,13 @@ class DataTable implements TableInterface
     public function getModelData($total, $curent_page, $searchValue, $order)
     {
 
-        $select = array_keys($this->objConfig->nameColumns());
+        $nameColumn = $this->objConfig->nameColumns();
+
+        $select = array_keys($nameColumn);
+        $select = array_diff($select, $this->objConfig->getNewColumn());
+
         $select[] = $this->admin->KeyName;
+
 
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
@@ -251,13 +264,23 @@ class DataTable implements TableInterface
             $result = $result->get();
         }
 
-        $result->map(function ($object) {
+       // dd( $nameColumn);
+
+        $result->map(function ($object) use ($nameColumn) {
+
+            foreach ($nameColumn as $key => $rows) {
+                if (!isset($object->{$key})) {
+                    $object->{$key} = null;
+                }
+            }
 
             $object = $this->objConfig->SetTableRowsRenderCollback($object);
             $object = $this->objConfig->getTextLimit($object);
 
             return $object;
         });
+
+      //  dd($result);
 
         return $result;
     }

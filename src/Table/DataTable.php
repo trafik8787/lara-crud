@@ -258,7 +258,7 @@ class DataTable implements TableInterface
         //хук модели таблицы
         $result = $this->objConfig->getModelCollback($result);
         $result = $result->select($select);
-        $result = $this->searchModel($result, $searchValue, $this->objConfig->getFieldShow());
+        $result = $this->searchModel($result, $searchValue, $select);
         $result = $result->orderBy($order_field, $order['dir']);
 
         //если пагинация включена

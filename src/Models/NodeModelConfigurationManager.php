@@ -291,10 +291,10 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @return mixed
      * todo хук перед открытием формы редактирования
      */
-    public function SetBeforeShowFormCollback($obj, $view)
+    public function SetBeforeShowFormCollback($obj, $view, $curentModel)
     {
         if ($this->closureShowFormCollback !== null) {
-            $return = $this->closureShowFormCollback->call($this, $obj, $view);
+            $return = $this->closureShowFormCollback->call($this, $obj, $view, $curentModel);
             return $return ? $return : $view;
         } else {
             return $view;

@@ -201,7 +201,7 @@ class FormTable extends FormManagerTable
             $model = $this->objConfig->getModelObj();
         }
 
-        $result = $this->objConfig->SetBeforeShowFormCollback($model, $result);
+        $result = $this->objConfig->SetBeforeShowFormCollback($model, $result, $this->getModelData);
 
         $result = $this->tabs->build($result);
 

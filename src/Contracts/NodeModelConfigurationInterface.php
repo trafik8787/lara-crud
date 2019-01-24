@@ -340,7 +340,7 @@ interface NodeModelConfigurationInterface
      * @param $view
      * @return mixed
      */
-    public function SetBeforeShowFormCollback($obj, $view);
+    public function SetBeforeShowFormCollback($obj, $view, $curentModel);
 
 
     /**

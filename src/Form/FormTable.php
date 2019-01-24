@@ -162,6 +162,8 @@ class FormTable extends FormManagerTable
 
         $result = [];
 
+        $this->getModelData = $this->objConfig->getBeforeModelFormCollback($this->getModelData);
+
         foreach ($this->getArrayField() as $item) {
 
             //todo получаем данные из таблицы многие ко многим для вывода в поле

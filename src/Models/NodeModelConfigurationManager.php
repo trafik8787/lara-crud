@@ -97,6 +97,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $newColumn = [];
 
+    protected $setBeforeModelFormCollback = null; //можно изменить данные модели перед самим выводом формы
+
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -1038,5 +1040,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
             return (in_array($column, $this->newColumn)) ? $column : false;
         }
         return $this->newColumn;
+    }
+
+    /**
+     * @param $obj
+     * @return mixed
+     */
+    public function getBeforeModelFormCollback ($obj)
+    {
+        return $this->setBeforeModelFormCollback !== null ? $this->setBeforeModelFormCollback->call($this, $obj) : $obj;
     }
 }

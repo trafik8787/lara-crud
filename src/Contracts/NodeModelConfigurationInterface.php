@@ -387,4 +387,10 @@ interface NodeModelConfigurationInterface
      */
     public function getNewColumn ();
 
+    /**
+     * @param $obj
+     * @return mixed
+     */
+    public function getBeforeModelFormCollback ($obj);
+
 }

@@ -583,6 +583,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->newColumn[] = $column;
     }
+
+    /**
+     * @param Closure $closure
+     * визов модели перед передачей в форму
+     */
+    public function setBeforeModelFormCollback (Closure $closure)
+    {
+        $this->setBeforeModelFormCollback = $closure;
+    }
 }
 
 

@@ -38,6 +38,12 @@ class UploadFile implements UploadFileInterface
     {
         $request_all = $this->request->input();
 
+//        array_walk_recursive($request_all, function(&$request_all) {
+//            $request_all = filter_var($request_all, FILTER_SANITIZE_SPECIAL_CHARS);
+//        });
+
+       // dd( $request_all);
+
         /**
          * array:1 [▼
          * "email" => array:2 [▼

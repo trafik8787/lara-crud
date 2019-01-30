@@ -24,6 +24,7 @@ class DataTable implements TableInterface
     public $admin;
     public $app;
     public $actionTable;
+    private $searchColumn; //храним поле и строку запроса
 
     /**
      * DataTable constructor.
@@ -42,6 +43,7 @@ class DataTable implements TableInterface
     {
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
+            'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
             'json_field' => $this->getJsonColumnDataTable(),
             'titlePage' => $this->objConfig->getTitle(),
             'buttonAdd' => $this->objConfig->getButtonAdd(),
@@ -108,6 +110,9 @@ class DataTable implements TableInterface
     public function jsonResponseTable($admin)
     {
         $request = $admin->getRequest();
+
+       //dd($request['columns']);
+        $this->searchColumn($request['columns']);
 
         //груповое удаление
         if (isset($request['delete_group_' . csrf_token()])) {
@@ -291,6 +296,24 @@ class DataTable implements TableInterface
 
 
     /**
+     * @param $columns
+     * //формируем масив
+     */
+    private function searchColumn ($columns)
+    {
+
+        if ($this->objConfig->getColumnIndividualSearch()) {
+
+            foreach ($columns as $column) {
+                if (!empty($column['search']['value'])) {
+                    $this->searchColumn[$column['data']] = $column['search']['value'];
+                }
+            }
+
+        }
+    }
+
+    /**
      * @param $objModel
      * @param $searchValue
      * @param $TableColumns
@@ -305,6 +328,18 @@ class DataTable implements TableInterface
                     $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
                 }
             });
+        }
+
+        if ($this->searchColumn) {
+
+            $column = $this->searchColumn;
+
+            $objModel->where(function ($query) use ($column) {
+                foreach ($column as $column => $value) {
+                    $query->where($column, 'like', $value . '%');
+                }
+            });
+
         }
 
         return $objModel;

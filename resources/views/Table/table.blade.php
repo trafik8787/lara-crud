@@ -3,7 +3,22 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var data_json = JSON.parse('{!! $data_json !!}');
+
+
+
+            $('#example thead tr:eq(1) th').each( function (i) {
+
+                $( 'input', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table.column(i).search(this.value).draw();
+                    }
+                });
+            });
+
+
             var table = $('#example').DataTable({
+                "orderCellsTop": true,
+                "fixedHeader": true,
                 "processing": true,
                 "serverSide": true,
                 "bPaginate": data_json.disablePaginate,
@@ -64,6 +79,8 @@
                 "oLanguage": JSON.parse('{!! json_encode(__('lara-crud::datatable')) !!}')
 
             });
+
+
 
 
             if (data_json.rowReorder !== false) {
@@ -171,6 +188,29 @@
                     @endif
 
                 </tr>
+
+                @if($columnSearch)
+                    <tr role="row">
+                        @if($childRowsColumnBool)
+                            <th rowspan="1" colspan="1"></th>
+                        @endif
+                        @if($buttonGroupDelete or $buttonCopy)
+                            <th rowspan="1" colspan="1"></th>
+                        @endif
+                        @foreach ($name_field as $originalNameField => $field)
+
+                            @if(isset($columnSearch[$originalNameField]))
+                                <th rowspan="1" colspan="1"><input style="width: 100%;" type="text"></th>
+                            @else
+                                <th rowspan="1" colspan="1"></th>
+                            @endif
+
+                        @endforeach
+                        @if($buttonAction)
+                                <th rowspan="1" colspan="1"></th>
+                        @endif
+                    </tr>
+                @endif
                 </thead>
                 <tfoot>
                 <tr>

@@ -393,4 +393,11 @@ interface NodeModelConfigurationInterface
      */
     public function getBeforeModelFormCollback ($obj);
 
+
+    /**
+     * @return mixed
+     */
+    public function getColumnIndividualSearch($value);
+
+
 }

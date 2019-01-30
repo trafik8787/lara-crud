@@ -592,6 +592,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->setBeforeModelFormCollback = $closure;
     }
+
+    /**
+     * @param $arrColumn
+     */
+    public function setColumnIndividualSearch ($arrColumn)
+    {
+        $this->setColumnIndividualSearch = $arrColumn;
+    }
 }
 
 

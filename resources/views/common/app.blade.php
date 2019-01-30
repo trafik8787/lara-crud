@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/plugins/timepicker/bootstrap-timepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
 
     <link rel="stylesheet" href="{{asset('vendor/lara-crud/css/all.css')}}">
     <!--[if lt IE 9]>
@@ -41,6 +42,7 @@
 
     <script src="{{asset('vendor/lara-crud/bower_components/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="https://cdn.datatables.net/rowreorder/1.2.5/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js" type="text/javascript"></script>
 
     <script src="{{asset('vendor/lara-crud/js/adminlte.min.js')}}"></script>
     <script src="{{asset('vendor/lara-crud/js/app.js')}}"></script>

@@ -98,6 +98,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $newColumn = [];
 
     protected $setBeforeModelFormCollback = null; //можно изменить данные модели перед самим выводом формы
+    protected $setColumnIndividualSearch = null; //колонки для индивидуального поиска
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -939,7 +940,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return mixed
      */
-    public function getClassForm ()
+    public function getClassForm()
     {
         return $this->setClassForm;
     }
@@ -996,7 +997,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     /**
      * @return mixed
      */
-    public function getOrderFixed ()
+    public function getOrderFixed()
     {
         if (!empty($this->setOrderFixed)) {
             return $this->setOrderFixed;
@@ -1046,8 +1047,25 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param $obj
      * @return mixed
      */
-    public function getBeforeModelFormCollback ($obj)
+    public function getBeforeModelFormCollback($obj)
     {
         return $this->setBeforeModelFormCollback !== null ? $this->setBeforeModelFormCollback->call($this, $obj) : $obj;
+    }
+
+
+    /**
+     * @param null $value
+     * @return bool|mixed
+     */
+    public function getColumnIndividualSearch($value = null)
+    {
+
+        if ($value === null and $this->setColumnIndividualSearch === null) {
+            return false;
+        } elseif ($value === null and $this->setColumnIndividualSearch !== null) {
+            return array_flip($this->setColumnIndividualSearch);
+        }
+
+        return false;
     }
 }

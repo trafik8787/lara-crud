@@ -268,8 +268,9 @@ class DataTable implements TableInterface
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->objConfig->getWhere($this->getModelObj());
 
-        //хук модели таблицы
+        //передача в класс
         $result = $this->objConfig->joinTableObj()->setModel($result);
+        //хук модели таблицы
         $result = $this->objConfig->getModelCollback($result);
 
         $result = $result->select($select);

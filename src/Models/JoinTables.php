@@ -121,8 +121,10 @@ class JoinTables implements JoinTablesInterface
      */
     public function setModel ($model)
     {
-        foreach ($this->joinTable as $table => $item) {
-            $model = $model->{$this->typeJoin}($table, $item[0], '=', $item[1]);
+        if ($this->joinTable !== null) {
+            foreach ($this->joinTable as $table => $item) {
+                $model = $model->{$this->typeJoin}($table, $item[0], '=', $item[1]);
+            }
         }
 
         return $model;

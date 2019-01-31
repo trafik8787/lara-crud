@@ -16,13 +16,14 @@
 
             var table = $('#example').DataTable({
                 "orderCellsTop": true,
-                "fixedHeader": true,
+                //"fixedHeader": true,
                 "processing": true,
                 "serverSide": true,
                 "searching": data_json.searching,
                 "bPaginate": data_json.disablePaginate,
                 "stateSave": data_json.stateSave,
                 'autoWidth': false,
+                //'scrollX': true,
                 "orderFixed": data_json.orderFixed,
                 "sPaginationType": "full_numbers",
                 "ajax": {

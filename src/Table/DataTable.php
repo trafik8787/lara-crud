@@ -41,6 +41,7 @@ class DataTable implements TableInterface
      */
     public function render()
     {
+        //dd($this->objConfig->nameColumns());
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
@@ -111,7 +112,6 @@ class DataTable implements TableInterface
     {
         $request = $admin->getRequest();
 
-       //dd($request['columns']);
         $this->searchColumn($request['columns']);
 
         //груповое удаление
@@ -250,19 +250,34 @@ class DataTable implements TableInterface
         $nameColumn = $this->objConfig->nameColumns();
 
         $select = array_keys($nameColumn);
+
         $select = array_diff($select, $this->objConfig->getNewColumn());
 
         if (!in_array($this->admin->KeyName, $select)) {
             $select[] = $this->admin->KeyName;
         }
 
+        //если определен Join
+        if ($this->objConfig->joinTableObj()->getJoinTable() != null) {
+            $select = $this->objConfig->joinTableObj()->getSelect();
+        }
 
         $this->setPageCurent($curent_page);
         $order_field = $this->nameColumnsOrder($order['column']);
         $result = $this->objConfig->getWhere($this->getModelObj());
+
         //хук модели таблицы
+        $result = $this->objConfig->joinTableObj()->setModel($result);
         $result = $this->objConfig->getModelCollback($result);
+
         $result = $result->select($select);
+
+        //если определен Join
+        if ($this->objConfig->joinTableObj()->getJoinTable() != null) {
+            $select = $this->objConfig->joinTableObj()->getAsNameSearch();
+        }
+
+        //поиск
         $result = $this->searchModel($result, $searchValue, $select);
         $result = $result->orderBy($order_field, $order['dir']);
 
@@ -272,8 +287,6 @@ class DataTable implements TableInterface
         } else {
             $result = $result->get();
         }
-
-       // dd( $nameColumn);
 
         $result->map(function ($object) use ($nameColumn) {
 
@@ -289,7 +302,6 @@ class DataTable implements TableInterface
             return $object;
         });
 
-      //  dd($result);
 
         return $result;
     }
@@ -305,8 +317,12 @@ class DataTable implements TableInterface
         if ($this->objConfig->getColumnIndividualSearch()) {
 
             foreach ($columns as $column) {
-                if (!empty($column['search']['value'])) {
-                    $this->searchColumn[$column['data']] = $column['search']['value'];
+
+                if (!empty($column['search']['value']))
+                {
+                    //получаем названия полей по полю после AS
+                    $col = $this->objConfig->joinTableObj()->getFieldToAs($column['data']);
+                    $this->searchColumn[$col] = $column['search']['value'];
                 }
             }
 

@@ -99,6 +99,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     protected $setBeforeModelFormCollback = null; //можно изменить данные модели перед самим выводом формы
     protected $setColumnIndividualSearch = null; //колонки для индивидуального поиска
+    protected $joinTableObj; //храним обьект класса JoinTables присоединение таблиц
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -110,6 +111,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
         $this->app = $app;
         $this->model = $model;
+
+        $this->joinTableObj = new JoinTables();
     }
 
     /**
@@ -241,7 +244,16 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function nameColumns(): array
     {
 
-        $field = array_merge($this->admin->TableColumns, $this->newColumn);
+        //поля исходной таблицы берутся из схемы данных таблицы
+        $tableColumns = $this->admin->TableColumns;
+
+        //проверяем есть ли присоединенная таблица если есть берем поля после AS
+        if ($this->joinTableObj()->getJoinTable() != null) {
+            $tableColumns = $this->joinTableObj()->getAsName();
+        }
+
+        $field = array_merge($tableColumns, $this->newColumn);
+
 
         $field_name = $this->getFieldName();
         $field_display = $this->getFieldShow();
@@ -1067,5 +1079,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         }
 
         return false;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function joinTableObj ()
+    {
+        return $this->joinTableObj;
     }
 }

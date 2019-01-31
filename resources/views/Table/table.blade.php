@@ -4,17 +4,15 @@
         $(document).ready(function () {
             var data_json = JSON.parse('{!! $data_json !!}');
 
-
-
             $('#example thead tr:eq(1) th').each( function (i) {
 
-                $( 'input', this ).on( 'keyup change', function () {
+                $('.input-individual-search', this ).on( 'keyup change', function () {
                     if ( table.column(i).search() !== this.value ) {
                         table.column(i).search(this.value).draw();
                     }
+
                 });
             });
-
 
             var table = $('#example').DataTable({
                 "orderCellsTop": true,
@@ -152,7 +150,7 @@
             </div>
         </div>
         <div class="box-body">
-            {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false)) !!}
+            {!! Form::open(array('class' => 'form-horizontal', 'id' => 'form-table-display', 'role' => 'form', 'files' => false, 'onsubmit' => 'return false;')) !!}
             <div class="mailbox-controls text-right">
                 @if($buttonAdd)
                     <a href="{{ url()->current()}}/create" class="btn btn-success"><span
@@ -200,7 +198,7 @@
                         @foreach ($name_field as $originalNameField => $field)
 
                             @if(isset($columnSearch[$originalNameField]))
-                                <th rowspan="1" colspan="1"><input style="width: 100%;" type="text"></th>
+                                <th rowspan="1" colspan="1"><input class="input-individual-search" style="width: 100%;" type="text"></th>
                             @else
                                 <th rowspan="1" colspan="1"></th>
                             @endif

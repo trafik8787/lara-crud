@@ -9,6 +9,7 @@
 namespace Trafik8787\LaraCrud\Models;
 
 use Closure;
+use Illuminate\Contracts\Foundation\Application;
 use Request;
 use Illuminate\View\View;
 use Trafik8787\LaraCrud\Table\ChildRows;
@@ -600,6 +601,18 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->setColumnIndividualSearch = $arrColumn;
     }
+
+    /**
+     * @param $tableName
+     * @param $tableColumnNew
+     * @param $tableColumnOld
+     */
+    public function tableJoin ($tableName, $tableColumnNew, $tableColumnOld)
+    {
+        $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld);
+        return $this->joinTableObj;
+    }
+
 }
 
 

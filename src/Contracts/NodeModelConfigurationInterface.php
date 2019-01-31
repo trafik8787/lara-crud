@@ -49,7 +49,7 @@ interface NodeModelConfigurationInterface
      * @param array $field
      * @return mixed
      */
-    public function fieldName(array $field);
+    public function getFieldName();
 
     /**
      * @return mixed
@@ -399,5 +399,10 @@ interface NodeModelConfigurationInterface
      */
     public function getColumnIndividualSearch($value);
 
+
+    /**
+     * @return mixed
+     */
+    public function joinTableObj ();
 
 }

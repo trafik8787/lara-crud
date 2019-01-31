@@ -100,6 +100,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setBeforeModelFormCollback = null; //можно изменить данные модели перед самим выводом формы
     protected $setColumnIndividualSearch = null; //колонки для индивидуального поиска
     protected $joinTableObj; //храним обьект класса JoinTables присоединение таблиц
+    protected $stateSave = true; //сохранение пагинации
+    protected $searchDisable = true; //отключение поиска включен по дефолту
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -1088,5 +1090,21 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function joinTableObj ()
     {
         return $this->joinTableObj;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getStateSave()
+    {
+        return $this->stateSave;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getSearchDisable()
+    {
+        return $this->searchDisable;
     }
 }

@@ -41,7 +41,7 @@ class DataTable implements TableInterface
      */
     public function render()
     {
-        //dd($this->objConfig->nameColumns());
+
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
             'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
@@ -59,7 +59,9 @@ class DataTable implements TableInterface
                 'rowsColorWidth' => $this->objConfig->getColumnColorWhere(),
                 'rowReorder' => $this->objConfig->getEnableDragAndDrop(),
                 'orderFixed' => $this->objConfig->getOrderFixed(),
-                'disablePaginate' => $this->objConfig->getDisablePaginate()
+                'disablePaginate' => $this->objConfig->getDisablePaginate(),
+                'stateSave' => $this->objConfig->getStateSave(),
+                'searching' => $this->objConfig->getSearchDisable()
             ])
         );
 

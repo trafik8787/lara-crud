@@ -405,4 +405,15 @@ interface NodeModelConfigurationInterface
      */
     public function joinTableObj ();
 
+
+    /**
+     * @return mixed
+     */
+    public function getStateSave();
+
+
+    /**
+     * @return mixed
+     */
+    public function getSearchDisable();
 }

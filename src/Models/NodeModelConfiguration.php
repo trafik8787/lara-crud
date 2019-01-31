@@ -609,10 +609,27 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      */
     public function tableJoin ($tableName, $tableColumnNew, $tableColumnOld)
     {
+        $this->stateSave(false);
         $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld);
         return $this->joinTableObj;
     }
 
+    /**
+     * @param bool $value
+     * сохранение положения пагинации и поиска при перезагрузке
+     */
+    public function stateSave (bool $value)
+    {
+        $this->stateSave = $value;
+    }
+
+    /**
+     *отключает общий поиск
+     */
+    public function searchDisable ()
+    {
+        $this->searchDisable = false;
+    }
 }
 
 

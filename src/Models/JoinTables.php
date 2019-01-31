@@ -21,7 +21,7 @@ class JoinTables implements JoinTablesInterface
     protected $joinTable = null;
     protected $asName = null;
     protected $fieldToAs;
-    protected $typeJoin; //тип джойна Left, Right, Inner
+    protected $typeJoin = 'join'; //тип джойна Left, Right, Inner
 
     /**
      * @param $tableName
@@ -32,6 +32,7 @@ class JoinTables implements JoinTablesInterface
     public function joinTable($tableName, $tableColumnNew, $tableColumnOld)
     {
         $this->joinTable[$tableName] = [$tableColumnNew, $tableColumnOld];
+
         return $this;
     }
 
@@ -96,19 +97,23 @@ class JoinTables implements JoinTablesInterface
         return $this->joinTable;
     }
 
+    /**
+     * @return $this
+     */
     public function leftJoin()
     {
+        $this->typeJoin = 'leftJoin';
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return $this
      */
-    public function getJoinType ()
+    public function rightJoin()
     {
-        return $this->joinType;
+        $this->typeJoin = 'rightJoin';
+        return $this;
     }
-
     /**
      * @param $model
      * @return mixed
@@ -117,7 +122,7 @@ class JoinTables implements JoinTablesInterface
     public function setModel ($model)
     {
         foreach ($this->joinTable as $table => $item) {
-            $model = $model->join($table, $item[0], '=', $item[1]);
+            $model = $model->{$this->typeJoin}($table, $item[0], '=', $item[1]);
         }
 
         return $model;

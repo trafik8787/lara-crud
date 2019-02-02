@@ -13,7 +13,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Trafik8787\LaraCrud\Contracts\ActionTableInterface;
-use Trafik8787\LaraCrud\Contracts\ChildRowsInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
 
 class DataTable implements TableInterface
@@ -24,7 +23,7 @@ class DataTable implements TableInterface
     public $admin;
     public $app;
     public $actionTable;
-    private $searchColumn; //храним поле и строку запроса
+    private $request;
 
     /**
      * DataTable constructor.
@@ -41,10 +40,12 @@ class DataTable implements TableInterface
      */
     public function render()
     {
-
+        //dd($this->objConfig->getSearshIndividualObject()->getColumns());
+        // dd($this->objConfig->getSearshIndividualObject());
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
-            'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
+            // 'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
+            'columnSearch' => $this->objConfig->getSearshIndividualObject(), //индивидуальный поиск по полям
             'json_field' => $this->getJsonColumnDataTable(),
             'titlePage' => $this->objConfig->getTitle(),
             'buttonAdd' => $this->objConfig->getButtonAdd(),
@@ -112,27 +113,26 @@ class DataTable implements TableInterface
      */
     public function jsonResponseTable($admin)
     {
-        $request = $admin->getRequest();
+        $this->request = $admin->getRequest();
 
-        $this->searchColumn($request['columns']);
 
         //груповое удаление
-        if (isset($request['delete_group_' . csrf_token()])) {
-            return $this->groupDelete($request);
+        if (isset($this->request['delete_group_' . csrf_token()])) {
+            return $this->groupDelete($this->request);
             //копирование
-        } elseif (isset($request['copy_' . csrf_token()])) {
-            return $this->copyData($request);
+        } elseif (isset($this->request['copy_' . csrf_token()])) {
+            return $this->copyData($this->request);
             //запрос на child rows
-        } elseif (isset($request['child_rows'])) {
+        } elseif (isset($this->request['child_rows'])) {
             return $this->objConfig->SetShowChildRows()
                 ->model($this->getModelObj())
                 ->render($this->objConfig);
-        } elseif (isset($request['rowReorder']) and $request->ajax()) {
-            $this->sortDragAndDrop($request);
+        } elseif (isset($this->request['rowReorder']) and $this->request->ajax()) {
+            $this->sortDragAndDrop($this->request);
         }
 
 
-        $obj = $this->getModelData($request['length'], $request['numPage'], $request['search']['value'], $request['order'][0]);
+        $obj = $this->getModelData($this->request['length'], $this->request['numPage'], $this->request['search']['value'], $this->request['order'][0]);
         $dataArr = $obj->toArray();
         $data = [];
 
@@ -159,7 +159,7 @@ class DataTable implements TableInterface
         }
 
         return Response::json([
-            'draw' => $request['draw'],
+            'draw' => $this->request['draw'],
             'recordsTotal' => $this->getModelObj()->count(),
             'recordsFiltered' => $this->objConfig->getDisablePaginate() ? $dataArr['total'] : 0, //если пагинация отключена ставим 0
             'data' => $data
@@ -192,7 +192,7 @@ class DataTable implements TableInterface
                 $orderable = false;
             }
 
-            $data_field[] = array('data' => $field, "orderable" => $orderable );
+            $data_field[] = array('data' => $field, "orderable" => $orderable);
         }
 
         if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
@@ -311,28 +311,6 @@ class DataTable implements TableInterface
 
 
     /**
-     * @param $columns
-     * //формируем масив
-     */
-    private function searchColumn ($columns)
-    {
-
-        if ($this->objConfig->getColumnIndividualSearch()) {
-
-            foreach ($columns as $column) {
-
-                if (!empty($column['search']['value']))
-                {
-                    //получаем названия полей по полю после AS
-                    $col = $this->objConfig->joinTableObj()->getFieldToAs($column['data']);
-                    $this->searchColumn[$col] = $column['search']['value'];
-                }
-            }
-
-        }
-    }
-
-    /**
      * @param $objModel
      * @param $searchValue
      * @param $TableColumns
@@ -349,15 +327,20 @@ class DataTable implements TableInterface
             });
         }
 
-        if ($this->searchColumn) {
 
-            $column = $this->searchColumn;
+        if ($this->objConfig->getSearshIndividualObject()) {
 
-            $objModel->where(function ($query) use ($column) {
-                foreach ($column as $column => $value) {
-                    $query->where($column, 'like', $value . '%');
-                }
-            });
+            $column = $this->objConfig->getSearshIndividualObject()->searchColumn($this->request['columns']);
+
+            if ($column) {
+
+                $objModel->where(function ($query) use ($column) {
+                    foreach ($column as $column => $value) {
+                        $query->where($column, 'like', $value . '%');
+                    }
+                });
+
+            }
 
         }
 
@@ -449,7 +432,7 @@ class DataTable implements TableInterface
     /**
      * @param $request
      */
-    public function sortDragAndDrop ($request)
+    public function sortDragAndDrop($request)
     {
         $arrValues = $request['rowReorder'];
 

@@ -189,7 +189,7 @@
 
                 </tr>
 
-                @if($columnSearch)
+                @if(!empty($columnSearch))
                     <tr role="row">
                         @if($childRowsColumnBool)
                             <th rowspan="1" colspan="1"></th>
@@ -197,15 +197,9 @@
                         @if($buttonGroupDelete or $buttonCopy)
                             <th rowspan="1" colspan="1"></th>
                         @endif
-                        @foreach ($name_field as $originalNameField => $field)
 
-                            @if(isset($columnSearch[$originalNameField]))
-                                <th rowspan="1" colspan="1"><input class="input-individual-search" style="width: 100%;" type="text"></th>
-                            @else
-                                <th rowspan="1" colspan="1"></th>
-                            @endif
+                            {!! $columnSearch->render() !!}
 
-                        @endforeach
                         @if($buttonAction)
                                 <th rowspan="1" colspan="1"></th>
                         @endif

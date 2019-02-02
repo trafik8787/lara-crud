@@ -13,6 +13,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Request;
 use Illuminate\View\View;
 use Trafik8787\LaraCrud\Table\ChildRows;
+use Trafik8787\LaraCrud\Table\SearshIndividualColumn;
 
 class NodeModelConfiguration extends NodeModelConfigurationManager
 {
@@ -305,7 +306,6 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
                 }
 
 
-
                 switch ($item[0]) {
                     case 'file':
                         $this->setFileUploadSeting($nameField, $item);
@@ -514,7 +514,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $arrField
      */
-    public function fieldAttribute (array $arrField)
+    public function fieldAttribute(array $arrField)
     {
         $this->fieldAttribute = $arrField;
     }
@@ -555,7 +555,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param array $field
      */
-    public function fieldDisable (array $field)
+    public function fieldDisable(array $field)
     {
         $this->fieldDisable = $field;
     }
@@ -580,7 +580,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $column
      * //новая колонка в таблице
      */
-    public function addColumn ($column)
+    public function addColumn($column)
     {
         $this->newColumn[] = $column;
     }
@@ -589,7 +589,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param Closure $closure
      * визов модели перед передачей в форму
      */
-    public function setBeforeModelFormCollback (Closure $closure)
+    public function setBeforeModelFormCollback(Closure $closure)
     {
         $this->setBeforeModelFormCollback = $closure;
     }
@@ -597,9 +597,12 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      * @param $arrColumn
      */
-    public function setColumnIndividualSearch ($arrColumn)
+    public function setColumnIndividualSearch($arrColumn = null)
     {
-        $this->setColumnIndividualSearch = $arrColumn;
+
+        $this->searshIndividualObject = new SearshIndividualColumn($arrColumn, $this);
+
+        return $this->searshIndividualObject;
     }
 
     /**
@@ -607,7 +610,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $tableColumnNew
      * @param $tableColumnOld
      */
-    public function tableJoin ($tableName, $tableColumnNew, $tableColumnOld)
+    public function tableJoin($tableName, $tableColumnNew, $tableColumnOld)
     {
         $this->stateSave(false);
         $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld);
@@ -618,7 +621,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param bool $value
      * сохранение положения пагинации и поиска при перезагрузке
      */
-    public function stateSave (bool $value)
+    public function stateSave(bool $value)
     {
         $this->stateSave = $value;
     }
@@ -626,7 +629,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     /**
      *отключает общий поиск
      */
-    public function searchDisable ()
+    public function searchDisable()
     {
         $this->searchDisable = false;
     }

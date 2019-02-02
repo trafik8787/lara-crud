@@ -397,12 +397,6 @@ interface NodeModelConfigurationInterface
     /**
      * @return mixed
      */
-    public function getColumnIndividualSearch($value);
-
-
-    /**
-     * @return mixed
-     */
     public function joinTableObj ();
 
 
@@ -416,4 +410,9 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function getSearchDisable();
+
+    /**
+     * @return mixed
+     */
+    public function getSearshIndividualObject ();
 }

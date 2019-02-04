@@ -95,7 +95,7 @@ class SearshIndividualColumn implements SearshIndividualColumnInterface
 
             foreach ($columns as $column) {
 
-                if (!empty($column['search']['value'])) {
+                if ($column['search']['value'] != '') {
                     //получаем названия полей по полю после AS
                     $col = $this->objConfig->joinTableObj()->getFieldToAs($column['data']);
                     $searchColumn[$col] = $column['search']['value'];

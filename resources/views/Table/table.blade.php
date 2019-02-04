@@ -17,7 +17,6 @@
             var table = $('#example').DataTable({
                 "orderCellsTop": true,
                 //"fixedHeader": true,
-                "processing": true,
                 "serverSide": true,
                 "searching": data_json.searching,
                 "bPaginate": data_json.disablePaginate,
@@ -47,8 +46,9 @@
                 ],
                 "pageLength": data_json.pageLength,
                 "oLanguage": {
-                    "sProcessing": '<div class="preloader row"><div class="wrap-loading"><div class="loading loading-4"></div></div></div>'
+                    "sProcessing": '<img src="{{asset("vendor/lara-crud/img/loader.gif")}}">'
                 },
+                "processing": true,
                 "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 
                     if (data_json.rowsColorWidth != false) {

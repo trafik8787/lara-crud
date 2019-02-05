@@ -610,10 +610,10 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
      * @param $tableColumnNew
      * @param $tableColumnOld
      */
-    public function tableJoin($tableName, $tableColumnNew, $tableColumnOld)
+    public function tableJoin($tableName, $tableColumnNew, $tableColumnOld, Closure $closure = null)
     {
         $this->stateSave(false);
-        $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld);
+        $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld, $closure);
         return $this->joinTableObj;
     }
 

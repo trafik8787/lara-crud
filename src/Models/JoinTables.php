@@ -29,9 +29,9 @@ class JoinTables implements JoinTablesInterface
      * @param $tableColumnOld
      * @return $this
      */
-    public function joinTable($tableName, $tableColumnNew, $tableColumnOld)
+    public function joinTable($tableName, $tableColumnNew, $tableColumnOld, $closure = null)
     {
-        $this->joinTable[$tableName] = [$tableColumnNew, $tableColumnOld];
+        $this->joinTable[$tableName] = [$tableColumnNew, $tableColumnOld, $closure];
 
         return $this;
     }
@@ -123,7 +123,12 @@ class JoinTables implements JoinTablesInterface
     {
         if ($this->joinTable !== null) {
             foreach ($this->joinTable as $table => $item) {
-                $model = $model->{$this->typeJoin}($table, $item[0], '=', $item[1]);
+                //проверка есть ли колбек
+                if ($item[2] !== null) {
+                    $model = $item[2]->call($this, $model);
+                } else {
+                    $model = $model->{$this->typeJoin}($table, $item[0], '=', $item[1]);
+                }
             }
         }
 

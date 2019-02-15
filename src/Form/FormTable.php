@@ -118,6 +118,7 @@ class FormTable extends FormManagerTable
             'formActionUrl' => url()->current(),
             'titlePage' => $this->objConfig->getTitle(),
             'buttonApply' => $this->objConfig->getButtonApply(),
+            'buttonSave' => $this->objConfig->getButtonSave(),
             'formMetod' => 'POST',
             'objField' => $this->getFieldRender(),
             'classForm' => $this->objConfig->getClassForm(),

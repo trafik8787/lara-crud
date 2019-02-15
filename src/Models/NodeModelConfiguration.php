@@ -633,6 +633,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->searchDisable = false;
     }
+
+    /**
+     * @param bool $value
+     * отключает кнопку сохранить
+     */
+    public function buttonSave(bool $value = true)
+    {
+        $this->buttonSave = $value;
+    }
 }
 
 

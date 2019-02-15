@@ -415,4 +415,9 @@ interface NodeModelConfigurationInterface
      * @return mixed
      */
     public function getSearshIndividualObject ();
+
+    /**
+     * @return bool
+     */
+    public function getButtonSave(): bool;
 }

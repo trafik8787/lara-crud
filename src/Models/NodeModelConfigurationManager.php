@@ -103,7 +103,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $stateSave = true; //сохранение пагинации
     protected $searchDisable = true; //отключение поиска включен по дефолту
     protected $searshIndividualObject;//колонки для индивидуального поиска
-
+    protected $buttonSave = true;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -1098,5 +1098,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getSearshIndividualObject()
     {
         return $this->searshIndividualObject;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getButtonSave(): bool
+    {
+        return $this->buttonSave;
     }
 }

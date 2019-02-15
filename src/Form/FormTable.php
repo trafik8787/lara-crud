@@ -85,6 +85,7 @@ class FormTable extends FormManagerTable
             'urlAction' => $this->admin->route->parameters['adminModel'],
             'titlePage' => $this->objConfig->getTitle(),
             'buttonApply' => $this->objConfig->getButtonApply(),
+            'buttonSave' => $this->objConfig->getButtonSave(),
             'formMetod' => 'PATCH',
             'objField' => $this->getFieldRender(),
             'urlRedirect' => $this->getUrlRedirect(),

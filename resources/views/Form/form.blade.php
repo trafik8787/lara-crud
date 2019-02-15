@@ -17,24 +17,29 @@
         @endif
 
         {!! $objField !!}
-        <div class="box-footer">
-            <div class="form-group">
-                <div class="col-md-2">
 
-                </div>
-                <div class="col-md-6 ">
-                    <input type="hidden" name="url_redirect_form" value="{{$urlRedirect}}">
-                    <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
-                                class="glyphicon glyphicon-floppy-saved"></span> @lang('lara-crud::datatable.SAVE_FORM')
-                    </button>
-                    @if($buttonApply)
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-floppy-open"></span> @lang('lara-crud::datatable.APPLY_FORM')
-                        </button>
-                    @endif
+        @if($buttonSave or $buttonApply)
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-6 ">
+                        @if($buttonSave)
+                            <input type="hidden" name="url_redirect_form" value="{{$urlRedirect}}">
+                            <button type="submit" name="save_button" value="1" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-floppy-saved"></span> @lang('lara-crud::datatable.SAVE_FORM')
+                            </button>
+                        @endif
+                        @if($buttonApply)
+                            <button type="submit" class="btn btn-success">
+                                <span class="glyphicon glyphicon-floppy-open"></span> @lang('lara-crud::datatable.APPLY_FORM')
+                            </button>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
         {!! Form::close() !!}
     </div>
     <script type="text/javascript">

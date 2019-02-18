@@ -16,6 +16,7 @@ class ActionTable implements ActionTableInterface
     protected $id;
     protected $objConfig;
     protected $view = 'lara::Form.action';
+    protected $actionEdit;
 
 
     /**
@@ -44,15 +45,27 @@ class ActionTable implements ActionTableInterface
     public function render(int $id)
     {
         $this->id = $id;
-        return view($this->view, ['id' => $this->id, 'configNode' => $this->objConfig])->render();
+        return view($this->view, ['id' => $this->id, 'configNode' => $this->objConfig, 'actionEdit' => $this->actionEdit])->render();
     }
+
+
+    /**
+     * @param $value
+     * @return $this
+     */
+    public function beforeShowButtonEdit ($value)
+    {
+        $this->actionEdit = $value;
+        return $this;
+    }
+
 
     /**
      * @return bool
      */
     public function enableColumnAction(): bool
     {
-        if (!$this->objConfig->getButtonEdit()
+        if (!$this->actionEdit
             and !$this->objConfig->getButtonDelete()
             and !$this->objConfig->getNewAction()) {
 

@@ -136,17 +136,20 @@ class DataTable implements TableInterface
         $dataArr = $obj->toArray();
         $data = [];
 
+        $actionTable = $this->actionTable->objConfig($this->objConfig);
+
         foreach ($obj as $item) {
+
 
             $arr_button = [];
             if ($this->objConfig->getShowChildRows()) {
                 $arr_button = array(' ' => '<a href="#" class="details-control-div" data-id="' . $item->{$this->admin->KeyName} . '"><span class="glyphicon glyphicon-plus-sign"></span></a>');
             }
 
-            if ($this->actionTable->objConfig($this->objConfig)->enableColumnAction()) {
-                $item['Action'] = $this->actionTable->objConfig($this->objConfig)->render($item->{$this->admin->KeyName});
+            if ($actionTable->enableColumnAction()) {
+                $item['Action'] = $actionTable->beforeShowButtonEdit($this->objConfig->getButtonEdit($item))
+                    ->render($item->{$this->admin->KeyName});
             }
-
 
             if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
                 $item['#'] = '<input class="text-center" name="selected_' . csrf_token() . '[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';

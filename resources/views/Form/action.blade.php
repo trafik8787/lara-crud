@@ -1,4 +1,4 @@
-@if($configNode->getButtonEdit())
+@if($actionEdit)
     <a href="{{ url()->current()}}/{{$id}}/edit" class="btn btn-warning btn-flat "><i
                 class="fa fa-fw fa-edit"></i> {{__('lara-crud::datatable.lEdit')}}</a>
 @endif

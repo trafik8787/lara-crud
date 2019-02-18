@@ -57,9 +57,10 @@ interface NodeModelConfigurationInterface
     public function getButtonDelete(): bool;
 
     /**
+     * @param $obj
      * @return mixed
      */
-    public function getButtonEdit(): bool;
+    public function getButtonEdit($obj);
 
     /**
      * @return boll

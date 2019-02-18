@@ -87,11 +87,13 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     }
 
     /**
-     * @param bool $value
+     * @param bool $active
+     * @param Closure|null $closure
      */
-    public function buttonEdit(bool $value = true)
+    public function buttonEdit(bool $active = true, Closure $closure = null)
     {
-        $this->buttonEdit = $value;
+        $this->buttonEdit = $active;
+        $this->buttonEditClosure = $closure;
     }
 
     /**

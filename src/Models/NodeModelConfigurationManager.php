@@ -104,6 +104,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $searchDisable = true; //отключение поиска включен по дефолту
     protected $searshIndividualObject;//колонки для индивидуального поиска
     protected $buttonSave = true;
+
+    protected $buttonEditClosure;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -195,11 +197,26 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     }
 
     /**
-     * @return bool
+     * @param $obj
+     * @return bool|mixed
      */
-    public function getButtonEdit(): bool
+    public function getButtonEdit($obj)
     {
+
+        if (is_callable($this->buttonEditClosure) and $obj !== null) {
+
+            $res = $this->buttonEditClosure->call($this, $obj);
+
+            if ($res === true) {
+                return true;
+            } elseif(empty($res)) {
+                return false;
+            }
+
+        }
+
         return $this->buttonEdit;
+
     }
 
     /**

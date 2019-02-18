@@ -52,9 +52,6 @@ class FormTable extends FormManagerTable
     public function renderFormEdit($id = null)
     {
 
-        if ($this->objConfig->getButtonEdit() === false) {
-            return redirect()->back();
-        }
         /**
          * если запрос пришел от поля SELECT2
          */
@@ -73,6 +70,11 @@ class FormTable extends FormManagerTable
         }
 
         $this->getModelData = $this->getModelData();
+
+
+        if ($this->objConfig->getButtonEdit($this->getModelData) === false) {
+            return redirect()->back();
+        }
 
         if (empty($this->getModelData)) {
             return redirect($this->getUrlRedirect());
@@ -194,7 +196,7 @@ class FormTable extends FormManagerTable
 
 
             $result[$objBilder->name] = $objBilder->build();
-           // die(2);
+            // die(2);
         }
 
 

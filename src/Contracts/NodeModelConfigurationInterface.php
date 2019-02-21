@@ -60,7 +60,7 @@ interface NodeModelConfigurationInterface
      * @param $obj
      * @return mixed
      */
-    public function getButtonEdit($obj);
+    public function getButtonEdit($obj = null);
 
     /**
      * @return boll

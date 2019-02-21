@@ -200,7 +200,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
      * @param $obj
      * @return bool|mixed
      */
-    public function getButtonEdit($obj)
+    public function getButtonEdit($obj = null)
     {
 
         if (is_callable($this->buttonEditClosure) and $obj !== null) {

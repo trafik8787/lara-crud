@@ -106,6 +106,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $buttonSave = true;
 
     protected $buttonEditClosure;
+    protected $setTableModelCollback; //хук после сортировки или фильтрации таблицы
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -1123,5 +1124,26 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getButtonSave(): bool
     {
         return $this->buttonSave;
+    }
+
+    /**
+     * @param $model
+     * @return mixed
+     * получаем модель с отфильтрованными данными
+     */
+    public function getTableModelCollback($model)
+    {
+        if ($this->setTableModelCollback !== null) {
+            $query = $this->setTableModelCollback->call($this, $model);
+
+            if (empty($query)) {
+                return $model;
+            }
+
+            return $query;
+
+        } else {
+            return $model;
+        }
     }
 }

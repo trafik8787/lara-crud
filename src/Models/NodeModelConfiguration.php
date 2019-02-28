@@ -644,6 +644,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->buttonSave = $value;
     }
+
+    /**
+     * @param Closure $closure
+     */
+    public function setTableModelCollback(Closure $closure)
+    {
+        $this->setTableModelCollback  = $closure;
+    }
 }
 
 

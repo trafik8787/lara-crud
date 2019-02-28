@@ -421,4 +421,12 @@ interface NodeModelConfigurationInterface
      * @return bool
      */
     public function getButtonSave(): bool;
+
+
+    /**
+     * @return mixed
+     */
+    public function getTableModelCollback($model);
+
+
 }

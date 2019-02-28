@@ -287,6 +287,9 @@ class DataTable implements TableInterface
         $result = $this->searchModel($result, $searchValue, $select);
         $result = $result->orderBy($order_field, $order['dir']);
 
+        //хук
+        $result = $this->objConfig->getTableModelCollback($result);
+
         //если пагинация включена
         if ($this->objConfig->getDisablePaginate()) {
             $result = $result->paginate($total);

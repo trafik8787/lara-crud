@@ -444,6 +444,15 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                             //получам текст для поля select
                             $arr = ['ajaxCurentValue' => null, 'ajaxCurrentText' => null];
 
+                            if ($this->getDefaultSelected($nameField) !== null)
+                            {
+                                $text = $this->objClassSelectAjax[$nameField]['model']
+                                    ->where($this->objClassSelectAjax[$nameField]['id'], $this->getDefaultSelected($nameField))
+                                    ->first()
+                                    ->{$this->objClassSelectAjax[$nameField]['select']};
+                                $arr = ['ajaxCurentValue' => $this->getDefaultSelected($nameField), 'ajaxCurrentText' => $text];
+                            }
+
                             //проверяем если 'multiple' то будем брать данные из сторонней таблицы
                             if (empty($this->setTypeField[$nameField][2]) or $this->setTypeField[$nameField][2] !== 'multiple') {
 

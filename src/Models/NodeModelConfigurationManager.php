@@ -456,9 +456,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                             //проверяем если 'multiple' то будем брать данные из сторонней таблицы
                             if (empty($this->setTypeField[$nameField][2]) or $this->setTypeField[$nameField][2] !== 'multiple') {
 
-                                if (!empty($this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']})) {
+                                $curentSelect = $this->objClassSelectAjax[$nameField]['model']
+                                    ->where($this->objClassSelectAjax[$nameField]['id'], $valueModel)
+                                    ->first()->{$this->objClassSelectAjax[$nameField]['select']};
 
-                                    $ajaxCurrentText = $this->objClassSelectAjax[$nameField]['model']->find($valueModel)->{$this->objClassSelectAjax[$nameField]['select']};
+                                if (!empty($curentSelect)) {
+
+                                    $ajaxCurrentText = $curentSelect;
 
                                     $arr['ajaxCurentValue'] = $valueModel;
                                     $arr['ajaxCurrentText'] = $ajaxCurrentText;

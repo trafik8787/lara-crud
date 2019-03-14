@@ -458,11 +458,11 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
                                 $curentSelect = $this->objClassSelectAjax[$nameField]['model']
                                     ->where($this->objClassSelectAjax[$nameField]['id'], $valueModel)
-                                    ->first()->{$this->objClassSelectAjax[$nameField]['select']};
+                                    ->first();
 
                                 if (!empty($curentSelect)) {
 
-                                    $ajaxCurrentText = $curentSelect;
+                                    $ajaxCurrentText = $curentSelect->{$this->objClassSelectAjax[$nameField]['select']};
 
                                     $arr['ajaxCurentValue'] = $valueModel;
                                     $arr['ajaxCurrentText'] = $ajaxCurrentText;

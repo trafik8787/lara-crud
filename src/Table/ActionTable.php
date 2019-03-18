@@ -65,9 +65,9 @@ class ActionTable implements ActionTableInterface
      */
     public function enableColumnAction(): bool
     {
-        if (!$this->actionEdit
-            and !$this->objConfig->getButtonDelete()
-            and !$this->objConfig->getNewAction()) {
+        if (!$this->objConfig->getButtonDelete()
+            and !$this->objConfig->getNewAction()
+            and empty($this->objConfig->buttonEditClosure)) {
 
             return false;
         }

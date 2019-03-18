@@ -105,7 +105,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $searshIndividualObject;//колонки для индивидуального поиска
     protected $buttonSave = true;
 
-    protected $buttonEditClosure;
+    public $buttonEditClosure;
     protected $setTableModelCollback; //хук после сортировки или фильтрации таблицы
     /**
      * NodeModelConfigurationManager constructor.

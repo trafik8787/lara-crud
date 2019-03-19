@@ -67,7 +67,8 @@ class ActionTable implements ActionTableInterface
     {
         if (!$this->objConfig->getButtonDelete()
             and !$this->objConfig->getNewAction()
-            and empty($this->objConfig->buttonEditClosure)) {
+            and empty($this->objConfig->buttonEditClosure)
+            and !$this->objConfig->getButtonEdit()) {
 
             return false;
         }

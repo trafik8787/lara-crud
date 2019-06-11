@@ -325,12 +325,8 @@ class DataTable implements TableInterface
     public function searchModel($objModel, $searchValue, $TableColumns)
     {
         if (!empty($searchValue)) {
-
-            $objModel->where(function ($query) use ($TableColumns, $searchValue) {
-                foreach ($TableColumns as $tableColumn) {
-                    $query->orWhere($tableColumn, 'like', '%' . $searchValue . '%');
-                }
-            });
+            //поиск подключаем метод класса
+            $objModel = $this->objConfig->getSearchConfig()->setSearch($objModel, $TableColumns, $searchValue);
         }
 
 

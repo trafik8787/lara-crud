@@ -652,6 +652,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->setTableModelCollback  = $closure;
     }
+
+    /**
+     * @return mixed
+     * клас для конфигурации поиска возвращает обьект класса
+     */
+    public function searchConfig ()
+    {
+        return $this->searchConfig;
+    }
 }
 
 

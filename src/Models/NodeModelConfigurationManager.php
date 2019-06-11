@@ -11,6 +11,7 @@ namespace Trafik8787\LaraCrud\Models;
 use App;
 use Illuminate\Contracts\Foundation\Application;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Table\SearchTable;
 use Trafik8787\LaraCrud\Traits\Helper;
 
 abstract class NodeModelConfigurationManager implements NodeModelConfigurationInterface
@@ -107,6 +108,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
     public $buttonEditClosure;
     protected $setTableModelCollback; //хук после сортировки или фильтрации таблицы
+    protected $searchConfig; //конфигурация поиска
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -119,6 +121,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         $this->model = $model;
 
         $this->joinTableObj = new JoinTables();
+        $this->searchConfig = new SearchTable();
     }
 
     /**
@@ -1158,5 +1161,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
         } else {
             return $model;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSearchConfig () {
+
+        return $this->searchConfig;
     }
 }

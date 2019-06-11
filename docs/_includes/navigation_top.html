@@ -1,0 +1,11 @@
+<nav class="my-2 my-md-0 mr-md-3">
+    {% assign doclist = site.pages | sort: 'priory'  %}
+
+    {% for row in doclist %}
+        {% if row.title != "404 - Page not found" %}
+        <a class="p-2 text-dark" href="{{ site.baseurl }}{{row.url}}">{{row.title}}</a>
+        {% endif %}
+    {% endfor %}
+
+
+</nav>

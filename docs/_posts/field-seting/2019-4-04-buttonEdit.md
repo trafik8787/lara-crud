@@ -10,13 +10,28 @@ permalink: /:categories/:title/
 
 ---
 
-#### $this->buttonEdit(<span style="color: #693">bool</span> $var = true)
+#### $this->buttonEdit(<span style="color: #693">bool</span> $var = true, <span style="color: #693">callable</span>$callback)
 
+## Parameter List
 
+***var***
+
+Takes a boolean value
 
 `
 Example:
-$this->buttonEdit(true);
+$this->buttonEdit(false);
+`
+
+***callable***
+
+The callback function gets the model:
+
+`
+Example:
+$this->buttonEdit(false, function ($model){
+    return true; //or return fasle;
+});
 `
 
 

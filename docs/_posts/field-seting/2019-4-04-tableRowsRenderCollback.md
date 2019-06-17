@@ -1,7 +1,7 @@
 ---
 layout: post4
-title:  The callback function is triggered each time a table row is rendered. The use works only in the showDisplay() 
-seo_title: LaraCrud  The callback function is triggered each time a table row is rendered tableRowsRenderCollback()
+title: Сallback function gets model object when rendering each row of a table. The call works only in the showDisplay() method
+seo_title: LaraCrud callback function gets model object when rendering each row of a table tableRowsRenderCollback()
 categories: [documentation]
 published: true
 method: tableRowsRenderCollback()
@@ -10,17 +10,19 @@ permalink: /:categories/:title/
 
 ---
 
-####  $this->tableRowsRenderCollback(<span style="color: #693">callable</span>$callback)
+#### $this->tableRowsRenderCollback(<span style="color: #693">callable</span>$callback)
 
-The method allows you to override the data that is displayed in the table.
+## Parameter List
 
-    Example:
-    $this->tableRowsRenderCollback(function ($model){
-            if ($model->active == 1) {
-                $model->active = 'Yes';
-            }    
-            return $model;
-        });
+***callable***
 
+The callback function gets the model:
+
+`
+Example:
+$this->tableRowsRenderCollback(function ($model){
+    return $model;
+});
+`
 
 

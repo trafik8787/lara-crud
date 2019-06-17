@@ -133,37 +133,49 @@ class DataTable implements TableInterface
 
 
         $obj = $this->getModelData($this->request['length'], $this->request['numPage'], $this->request['search']['value'], $this->request['order'][0]);
-        $dataArr = $obj->toArray();
+
+        if ($this->objConfig->getEmptyDataTable() and $obj === false) {
+            $dataArr['total'] = 0;
+            $count = 0;
+        } else {
+
+            $dataArr = $obj->toArray();
+            $count = $this->getModelObj()->count();
+        }
+
         $data = [];
 
         $actionTable = $this->actionTable->objConfig($this->objConfig);
 
-        foreach ($obj as $item) {
+        if (!empty($obj)) {
+
+            foreach ($obj as $item) {
 
 
-            $arr_button = [];
-            if ($this->objConfig->getShowChildRows()) {
-                $arr_button = array(' ' => '<a href="#" class="details-control-div" data-id="' . $item->{$this->admin->KeyName} . '"><span class="glyphicon glyphicon-plus-sign"></span></a>');
+                $arr_button = [];
+                if ($this->objConfig->getShowChildRows()) {
+                    $arr_button = array(' ' => '<a href="#" class="details-control-div" data-id="' . $item->{$this->admin->KeyName} . '"><span class="glyphicon glyphicon-plus-sign"></span></a>');
+                }
+
+                if ($actionTable->enableColumnAction()) {
+                    $item['Action'] = $actionTable->beforeShowButtonEdit($this->objConfig->getButtonEdit($item))
+                        ->render($item->{$this->admin->KeyName});
+                }
+
+                if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
+                    $item['#'] = '<input class="text-center" name="selected_' . csrf_token() . '[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
+                }
+
+                $arr2 = array_merge($arr_button, $item->toArray());
+
+                $data[] = $arr2;
+
             }
-
-            if ($actionTable->enableColumnAction()) {
-                $item['Action'] = $actionTable->beforeShowButtonEdit($this->objConfig->getButtonEdit($item))
-                    ->render($item->{$this->admin->KeyName});
-            }
-
-            if ($this->objConfig->getButtonGroupDelete() or $this->objConfig->getButtonCopy()) {
-                $item['#'] = '<input class="text-center" name="selected_' . csrf_token() . '[]" type="checkbox" value="' . $item->{$this->admin->KeyName} . '">';
-            }
-
-            $arr2 = array_merge($arr_button, $item->toArray());
-
-            $data[] = $arr2;
-
         }
 
         return Response::json([
             'draw' => $this->request['draw'],
-            'recordsTotal' => $this->getModelObj()->count(),
+            'recordsTotal' => $count,
             'recordsFiltered' => $this->objConfig->getDisablePaginate() ? $dataArr['total'] : 0, //если пагинация отключена ставим 0
             'data' => $data
         ]);
@@ -261,6 +273,12 @@ class DataTable implements TableInterface
         if (!in_array($this->admin->KeyName, $select)) {
             $select[] = $this->admin->KeyName;
         }
+
+        if ($this->objConfig->getEmptyDataTable() and empty($searchValue)) {
+
+            return false;
+        }
+
 
         //если определен Join
         if ($this->objConfig->joinTableObj()->getJoinTable() != null) {

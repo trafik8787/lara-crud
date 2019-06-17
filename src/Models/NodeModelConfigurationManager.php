@@ -109,6 +109,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public $buttonEditClosure;
     protected $setTableModelCollback; //хук после сортировки или фильтрации таблицы
     protected $searchConfig; //конфигурация поиска
+    protected $emptyDataTable = false;
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -1169,5 +1170,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getSearchConfig () {
 
         return $this->searchConfig;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEmptyDataTable()
+    {
+        return $this->emptyDataTable;
     }
 }

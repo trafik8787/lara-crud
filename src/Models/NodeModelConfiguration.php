@@ -661,6 +661,15 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         return $this->searchConfig;
     }
+
+
+    /**
+     * метод запрещает загрузку данрнних в таблицу кроме поиска при поиске данние загружаются
+     */
+    public function emptyDataTable()
+    {
+        $this->emptyDataTable = true;
+    }
 }
 
 

@@ -380,14 +380,9 @@ class FormTable extends FormManagerTable
         $data = $this->objConfig->getObjClassSelectAjax($this->request->input('field'));
 
         $model = $this->objConfig->setAjaxBeforeLoadSelect($data['model'], $this->request);
-        $model = $model->where($data['select'], 'like', $this->request->input('term') . '%')->limit(10)->select($data['id'], $data['select']);
-        $result = $model->get()->toArray();
 
-        foreach ($result as $item) {
-            $new_data[] = ['id' => [$item[$data['id']]], 'text' => strip_tags($item[$data['select']])];
-        }
-        // 'pagination' => ['more' => true]]
-        return json_encode(['results' => $new_data]);
+        //Class SelectAjax
+        return $this->objConfig->getObjectSelectAjax()->setData($model, $data)->getJson();
 
     }
 

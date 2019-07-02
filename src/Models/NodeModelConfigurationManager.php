@@ -10,7 +10,9 @@ namespace Trafik8787\LaraCrud\Models;
 
 use App;
 use Illuminate\Contracts\Foundation\Application;
+use Request;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
+use Trafik8787\LaraCrud\Form\SelectAjax;
 use Trafik8787\LaraCrud\Table\SearchTable;
 use Trafik8787\LaraCrud\Traits\Helper;
 
@@ -110,6 +112,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $setTableModelCollback; //хук после сортировки или фильтрации таблицы
     protected $searchConfig; //конфигурация поиска
     protected $emptyDataTable = false;
+    protected $objectSelectAjax; //Class SelectAjax
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -123,6 +126,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
 
         $this->joinTableObj = new JoinTables();
         $this->searchConfig = new SearchTable();
+        $this->objectSelectAjax = new SelectAjax(Request::input());
     }
 
     /**
@@ -460,17 +464,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
                             //проверяем если 'multiple' то будем брать данные из сторонней таблицы
                             if (empty($this->setTypeField[$nameField][2]) or $this->setTypeField[$nameField][2] !== 'multiple') {
 
-                                $curentSelect = $this->objClassSelectAjax[$nameField]['model']
-                                    ->where($this->objClassSelectAjax[$nameField]['id'], $valueModel)
-                                    ->first();
-
-                                if (!empty($curentSelect)) {
-
-                                    $ajaxCurrentText = $curentSelect->{$this->objClassSelectAjax[$nameField]['select']};
-
-                                    $arr['ajaxCurentValue'] = $valueModel;
-                                    $arr['ajaxCurrentText'] = $ajaxCurrentText;
-                                }
+                                $arr = $this->getObjectSelectAjax()->getCurentValue($this->objClassSelectAjax[$nameField], $valueModel);
 
                             } else {
 
@@ -1178,5 +1172,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getEmptyDataTable()
     {
         return $this->emptyDataTable;
+    }
+
+    /**
+     * @return SelectAjax
+     * возвращает екземпляр класса  SelectAjax
+     */
+    public function getObjectSelectAjax()
+    {
+        return $this->objectSelectAjax;
     }
 }

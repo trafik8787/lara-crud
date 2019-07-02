@@ -487,6 +487,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     public function ajaxBeforeLoadSelect(Closure $closure = null)
     {
         $this->ajaxBeforeLoadSelect = $closure;
+        return $this->objectSelectAjax;
     }
 
     /**

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The field validation method is a wrapper around the base
-seo_title: LaraCrud The field validation method is a wrapper around the base Validation()
+seo_title: Lara-Crud The field validation method is a wrapper around the base Validation()
 categories: [documentation]
 published: true
 method: Validation()

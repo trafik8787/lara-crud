@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Override the sort in the default table. The call works only in the showDisplay() method
-seo_title: LaraCrud Override the sort in the default table. The call works only in the showDisplay() method fieldOrderBy()
+seo_title: Lara-Crud Override the sort in the default table. The call works only in the showDisplay() method fieldOrderBy()
 categories: [documentation]
 published: true
 method: fieldOrderBy()

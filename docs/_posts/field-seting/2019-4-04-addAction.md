@@ -1,7 +1,7 @@
 ---
 layout: post4
 title:  The callback function adds a custom button to each line. Instead of a function, there may be a name for the router showDisplay() 
-seo_title: LaraCrud The callback function adds a custom button to each line. Instead of a function, there may be a name for the router. addAction()
+seo_title: Lara-Crud The callback function adds a custom button to each line. Instead of a function, there may be a name for the router. addAction()
 categories: [documentation]
 published: true
 method: addAction()

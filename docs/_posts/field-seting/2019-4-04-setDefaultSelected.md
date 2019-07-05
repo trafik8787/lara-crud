@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The method takes an array where the default selection values for the select fields are defined.
-seo_title: LaraCrud The method takes an array where the default selection values for the select fields are defined setDefaultSelected()
+seo_title: Lara-Crud The method takes an array where the default selection values for the select fields are defined setDefaultSelected()
 categories: [documentation]
 published: true
 method: setDefaultSelected()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Accepts model object after update in database. Called even if the changes were not.
-seo_title: LaraCrud Accepts model object after update in database _afterUpdate()
+seo_title: Lara-Crud Accepts model object after update in database _afterUpdate()
 categories: [documentation]
 published: true
 method: _afterUpdate()

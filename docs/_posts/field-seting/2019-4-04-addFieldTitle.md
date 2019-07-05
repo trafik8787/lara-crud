@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Adding to the title field
-seo_title: LaraCrud Adding to the title field
+seo_title: Lara-Crud Adding to the title field
 categories: [documentation]
 published: true
 method: addFieldTitle()

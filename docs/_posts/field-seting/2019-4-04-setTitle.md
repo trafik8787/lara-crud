@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Set the page name from the top
-seo_title: LaraCrud Set the page name from the top setTitle() 
+seo_title: Lara-Crud Set the page name from the top setTitle() 
 categories: [documentation]
 published: true
 method: setTitle()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The method determines the properties of fields
-seo_title: LaraCrud The method determines the properties of fields
+seo_title: Lara-Crud The method determines the properties of fields
 categories: [documentation]
 published: true
 method: setTypeField()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Allows overriding form elements.
-seo_title: LaraCrud Allows overriding form elements beforeShowFormCollback()
+seo_title: Lara-Crud Allows overriding form elements beforeShowFormCollback()
 categories: [documentation]
 published: true
 method: beforeShowFormCollback()

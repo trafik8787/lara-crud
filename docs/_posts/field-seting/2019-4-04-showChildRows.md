@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: It takes a callback function as an argument.
-seo_title: LaraCrud  The call works only in the showDisplay()
+seo_title: Lara-Crud  The call works only in the showDisplay()
 categories: [documentation]
 published: true
 method: showChildRows()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Overrides the names of fields in tables or forms
-seo_title: LaraCrud Overrides the names of fields in tables or forms fieldName()
+seo_title: Lara-Crud Overrides the names of fields in tables or forms fieldName()
 categories: [documentation]
 published: true
 method: fieldName()

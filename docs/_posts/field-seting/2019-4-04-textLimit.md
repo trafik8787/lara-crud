@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Determines the number of characters displayed in the table, in which case the string ends. The call works only in the showDisplay() method
-seo_title: LaraCrud Determines the number of characters displayed in the table, in which case the string ends. The call works only in the showDisplay method textLimit()
+seo_title: Lara-Crud Determines the number of characters displayed in the table, in which case the string ends. The call works only in the showDisplay method textLimit()
 categories: [documentation]
 published: true
 method: textLimit()

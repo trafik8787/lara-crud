@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The method allows you to add a class to the create and edit form.
-seo_title: LaraCrud The method allows you to add a class to the create and edit form setClassForm()
+seo_title: Lara-Crud The method allows you to add a class to the create and edit form setClassForm()
 categories: [documentation]
 published: true
 method: setClassForm()

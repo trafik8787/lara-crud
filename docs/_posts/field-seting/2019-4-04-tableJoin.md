@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Join tables into one
-seo_title: LaraCrud Join tables into one. The call works only in the showDisplay() method showDisplay()
+seo_title: Lara-Crud Join tables into one. The call works only in the showDisplay() method showDisplay()
 categories: [documentation]
 published: true
 method: tableJoin()

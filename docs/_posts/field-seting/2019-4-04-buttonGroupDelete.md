@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Button for group deleting rows from a table
-seo_title: LaraCrud Button for group deleting rows from a table buttonGroupDelete()
+seo_title: Lara-Crud Button for group deleting rows from a table buttonGroupDelete()
 categories: [documentation]
 published: true
 method: buttonGroupDelete()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Defines the selection of data from the database table by condition. The call works only in the showDisplay() method
-seo_title: LaraCrud Defines the selection of data from the database table by condition. The call works only in the showDisplay() method setWhere()
+seo_title: Lara-Crud Defines the selection of data from the database table by condition. The call works only in the showDisplay() method setWhere()
 categories: [documentation]
 published: true
 method: setWhere()

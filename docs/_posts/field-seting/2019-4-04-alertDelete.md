@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Overrides the output form on the page
-seo_title: LaraCrud Overrides the output form on the page alertDelete()
+seo_title: Lara-Crud Overrides the output form on the page alertDelete()
 categories: [documentation]
 published: true
 method: alertDelete()

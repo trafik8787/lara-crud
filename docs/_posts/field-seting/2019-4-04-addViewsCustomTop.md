@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The method allows to display an arbitrary template above the table and form.
-seo_title: LaraCrud  The method allows to display an arbitrary template above the table and form. addViewsCustomTop()
+seo_title: Lara-Crud  The method allows to display an arbitrary template above the table and form. addViewsCustomTop()
 categories: [documentation]
 published: true
 method: addViewsCustomTop()

@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Accepts a model object after deletion from the database.
-seo_title: LaraCrud Accepts a model object after deletion from the database afterDelete()
+seo_title: Lara-Crud Accepts a model object after deletion from the database afterDelete()
 categories: [documentation]
 published: true
 method: afterDelete()

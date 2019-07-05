@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Add to the pleaceholder field
-seo_title: LaraCrud Add to the pleaceholder field
+seo_title: Lara-Crud Add to the pleaceholder field
 categories: [documentation]
 published: true
 method: addFieldPlaceholder()

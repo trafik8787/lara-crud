@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Connect a text editor to the specified fields in the array
-seo_title: LaraCrud Connect a text editor to the specified fields in the array
+seo_title: Lara-Crud Connect a text editor to the specified fields in the array
 categories: [documentation]
 published: true
 method: enableEditor()

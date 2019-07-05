@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Accepts a model object before updating to the database. You can change the data before saving.
-seo_title: LaraCrud Accepts a model object before updating to the database. You can change the data before saving beforeUpdate()
+seo_title: Lara-Crud Accepts a model object before updating to the database. You can change the data before saving beforeUpdate()
 categories: [documentation]
 published: true
 method: beforeUpdate()

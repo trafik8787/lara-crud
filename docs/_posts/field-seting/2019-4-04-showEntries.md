@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The number of rows in the table on one page. The call works only in the showDisplay() method
-seo_title: LaraCrud The number of rows in the table on one page. The call works only in the showDisplay() method showEntries()
+seo_title: Lara-Crud The number of rows in the table on one page. The call works only in the showDisplay() method showEntries()
 categories: [documentation]
 published: true
 method: showEntries()

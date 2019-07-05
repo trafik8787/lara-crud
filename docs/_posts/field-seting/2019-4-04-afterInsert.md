@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Accepts a model object after being added to the database.
-seo_title: LaraCrud Accepts a model object after being added to the database afterInsert()
+seo_title: Lara-Crud Accepts a model object after being added to the database afterInsert()
 categories: [documentation]
 published: true
 method: afterInsert()

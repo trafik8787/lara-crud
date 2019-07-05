@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Add a css class field
-seo_title: LaraCrud Add a css class field
+seo_title: Lara-Crud Add a css class field
 categories: [documentation]
 published: true
 method: addFieldClass()

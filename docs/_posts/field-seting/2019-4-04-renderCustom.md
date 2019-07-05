@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: Overrides the output form on the page
-seo_title: LaraCrud Overrides the output form on the page renderCustom()
+seo_title: Lara-Crud Overrides the output form on the page renderCustom()
 categories: [documentation]
 published: true
 method: renderCustom()

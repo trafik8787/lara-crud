@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The display of the Delete buttons in the rows of the table can be true or false
-seo_title: LaraCrud The display of the Delete buttons in the rows of the table can be true or false buttonDelete()
+seo_title: Lara-Crud The display of the Delete buttons in the rows of the table can be true or false buttonDelete()
 categories: [documentation]
 published: true
 method: buttonDelete()

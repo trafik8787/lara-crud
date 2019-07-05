@@ -1,7 +1,7 @@
 ---
 layout: post4
 title: The method is designed to control the "Select" field. It makes it possible to override data in the field when requesting an AJAX to the database.
-seo_title: LaraCrud The method is designed to control the "Select" field. It makes it possible to override data in the field when requesting an AJAX to the database ajaxBeforeLoadSelect()
+seo_title: Lara-Crud The method is designed to control the "Select" field. It makes it possible to override data in the field when requesting an AJAX to the database ajaxBeforeLoadSelect()
 categories: [documentation]
 published: true
 method: ajaxBeforeLoadSelect()

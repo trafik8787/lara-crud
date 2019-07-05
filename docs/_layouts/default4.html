@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include meta.html %}
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+    <link rel="icon" href="https://maxcdn.icons8.com/Share/icon/color/Gaming/pokecoin1600.png"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/all.css"/>
+</head>
+
+
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h1 class="my-0 mr-md-auto font-weight-normal">{{ site.name }}</h1>
+    <h3 class="my-0 mr-md-auto font-weight-normal">Package for quick deployment admin panel on Laravel</h3>
+    {% include navigation_top.html %}
+</div>
+
+<div class="container-fluid" id="body-container-fluid">
+    <div class="container">
+        <div class="col">
+
+            {{content}}
+
+        </div>
+    </div>
+</div>
+
+
+<footer class="my-5 text-center">
+
+
+    <small>
+        <a class="m-2">DEVELOPERS</a>
+    </small>
+
+    <small>
+        <a href="#" target="_blank" class="m-2">@TRAFIK8787</a>
+
+
+        {% if site.footer-links.dribbble %}<a href="https://dribbble.com/{{ site.footer-links.dribbble }}" target="_blank"><i class="svg-icon dribbble"></i></a>{% endif %}
+        {% if site.footer-links.email %}<a  href="mailto:{{ site.footer-links.email }}" target="_blank"><i class="svg-icon email"></i></a>{% endif %}
+        {% if site.footer-links.facebook %}<a  href="https://www.facebook.com/{{ site.footer-links.facebook }}" target="_blank"><i class="svg-icon facebook"></i></a>{% endif %}
+        {% if site.footer-links.flickr %}<a href="https://www.flickr.com/{{ site.footer-links.flickr }}" target="_blank"><i class="svg-icon flickr"></i></a>{% endif %}
+        {% if site.footer-links.github %}<a  href="https://github.com/{{ site.footer-links.github }}" target="_blank"><i class="svg-icon github"></i></a>{% endif %}
+        {% if site.footer-links.instagram %}<a  href="https://instagram.com/{{ site.footer-links.instagram }}" target="_blank"><i class="svg-icon instagram"></i></a>{% endif %}
+        {% if site.footer-links.linkedin %}<a  href="https://www.linkedin.com/in/{{ site.footer-links.linkedin }}" target="_blank"><i class="svg-icon linkedin"></i></a>{% endif %}
+        {% if site.footer-links.pinterest %}<a href="https://www.pinterest.com/{{ site.footer-links.pinterest }}" target="_blank"><i class="svg-icon pinterest"></i></a>{% endif %}
+        {% if site.footer-links.rss %}<a  href="{{ site.baseurl }}/feed.xml" target="_blank"><i class="svg-icon rss"></i></a>{% endif %}
+        {% if site.footer-links.twitter %}<a  href="https://www.twitter.com/{{ site.footer-links.twitter }}" target="_blank"><i class="svg-icon twitter"></i></a>{% endif %}
+        {% if site.footer-links.stackoverflow %}<a c href="http://stackoverflow.com/{{ site.footer-links.stackoverflow }}" target="_blank"><i class="svg-icon stackoverflow"></i></a>{% endif %}
+        {% if site.footer-links.youtube %}<a  href="https://youtube.com/{{ site.footer-links.youtube }}" target="_blank"><i class="svg-icon youtube"></i></a>{% endif %}
+        {% if site.footer-links.googleplus %}<a href="https://plus.google.com/{{ site.footer-links.googleplus }}" target="_blank"><i class="svg-icon googleplus"></i></a>{% endif %}
+    </small>
+
+
+    <p class="mb-2">
+        <small>COPYRIGHT © 2019. LaraCrud
+        </small>
+    </p>
+</footer>
+
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+<footer>
+</footer>
+
+

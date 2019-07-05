@@ -1,0 +1,170 @@
+---
+---
+
+@import "svg-icons";
+
+#top-container-fluid-nav
+{
+  background-color:white;
+  background-attachment:scroll;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+#banner-container-fluid
+{
+  background-image: url("https://newevolutiondesigns.com/images/freebies/dog-wallpaper-12.jpg");
+  background-attachment:scroll;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+
+
+#body-container-fluid
+{
+
+  background-attachment:scroll;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+  margin:60px 60px;
+}
+
+
+
+
+#footer-container-fluid
+{
+  background-color:white;
+  background-attachment:scroll;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+  margin:60px 60px;
+
+}
+
+/**********************
+		GLOBAL DECLARATIONS
+**********************/
+a:hover
+{
+  text-decoration:none;
+  cursor:hand;
+}
+
+
+
+#banner-container-fluid  .jumbotron
+{
+  background-color:#9e9e9e54;
+  color:white;
+  max-height:500px;
+  height:430px;
+}
+#banner-container-fluid  .jumbotron .lead
+{
+  text-align:center;
+}
+#banner-container-fluid  .jumbotron .leader
+{
+  text-align:center;
+}
+#banner-container-fluid  .jumbotron p
+{
+  text-align:center;
+}
+
+.colorgraph
+{
+  width:80%;
+  text-align:center;
+  margin: 0 auto;
+}
+
+
+.tab-content {padding:20px;max-height:1000px;}
+
+.tab-content .card-block
+{
+  padding:5px;
+}
+.tab-content .list-group-item
+{
+  border:0px solid white;
+
+}
+.tab-content .list-group-item h5
+{
+  color:#057e8e;
+}
+.tab-content .list-group-item .mb-1  {
+  font-size:15px;
+}
+
+#related li
+{
+  font-size:12px;
+}
+#related h3
+{
+  font-size:20px;
+}
+#related a
+{
+  font-size:11px;
+  color:skyblue;
+}
+
+span
+{
+  font-size:10px;
+  float:right;
+  background-color:#F4F7F9;
+  border-radius:10px;
+  padding:3px 8px;
+  color:#84919B;
+}
+.lower-case
+{
+  color:#84919B;
+  font-size:12px;
+  text-align:center;
+}
+
+
+#footer-container-fluid  li
+{
+  list-style-type:none;
+  color:#098c9c;
+  font-size:10px;
+}
+
+#footer-container-fluid ul .title
+{
+  color:black;
+  font-size:15px;
+}
+
+#footer-container-fluid ul .address
+{
+  color:#607d8bad;
+}
+
+hr {
+  width: 100% ;
+}
+
+code {
+  background-color: #eeeeeec9;
+  width: 100%;
+  display: block;
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.image100 {
+  width: 100%;
+}

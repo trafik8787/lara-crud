@@ -1,71 +1,23 @@
 ---
-layout: page
+layout: page4
 title: Documentation
+name: document-page
 permalink: /documentation/
+priory: 2
 ---
+
 ***
 
-- [Field Settings]({{ site.baseurl }}/Field-Settings)
-- [Node Class]({{ site.baseurl }}/Node-Class)
-- [Relations]({{ site.baseurl }}/Relations)
-- [Validation]({{ site.baseurl }}/Validation)
-- [Callback]({{ site.baseurl }}/Callback)
-- [Navigation]({{ site.baseurl }}/Navigation)
-- [Configuration]({{ site.baseurl }}/Configuration)
+<div class="row">
+
+{% include navigation_left.html %}
 
 
-## Introduction
-***
-The package includes many methods that will allow you to adapt the admin panel to your needs.
+<div class="col">
+    <h2>
+    Documentation
+    </h2>
+    Documentation on API methods here describes methods that can be used when working with LaraCrud. I would be grateful for the pleasant feedback and for the stars on the githab.
+</div>
 
-## Installation!
-***
-A place to include any other types of information that you'd like to include about yourself.
-
-1. To get the latest version, simply require the project using [Composer](https://getcomposer.org):
- 
-    ```
-    $ composer require trafik8787/lara-crud 
-
-    ```
-    
-2. Run the installation and wait for it to finish. (Beforehand, make sure that you are connected to the database)
-     
-    ```
-    artisan lara:example
-    ```
-    
-3. Add service provider ***App\Providers\LaraCrudProvider::class*** to /config/app.php file.
-
-    ```
-    'providers' => [
-        ...
-    
-         App\Providers\LaraCrudProvider::class,
-    ],
-    
-    ```
-
-4. Finish you can go to the link ***http://you_domain/admin***
-
-
-## Create new Pages
-
-    Example:
-    artisan lara:node ExampleNode
- 
-&nbsp;   
-The command creates two classes in the class `ExampleNode` and `ExampleNodeModel`. Add them to the array in the provider `App\Providers\LaraCrudProvider`:
-
-    Example:
-    protected $nodes = [
-            ...
-    
-            'App\Http\Node\Model\ExampleNodeModel' => 'App\Http\Node\ExampleNode',
-    ];
-    
-
-You can go to http://you_domain/admin/example_node_model        
-    
-**Next documentation** [Navigation]({{ site.baseurl }}/Navigation)
-    
+</div>

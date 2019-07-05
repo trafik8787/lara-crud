@@ -1,0 +1,13 @@
+
+<div class="col-lg-3">
+    <ul class="w3-ul w3-small">
+
+        {% for post in site.posts %}
+
+            <li {% if page.url == post.url %} class="w3-blue" {% endif %} >
+                <a href="{{ site.baseurl }}{{post.url }}">{{ post.method }}</a>
+            </li>
+        {% endfor %}
+
+    </ul>
+</div>

@@ -1,6 +1,7 @@
 ---
 layout: default4
 title: Home
+seo_title: Home – LaraCrud – Administrative panel for laravel which will help to speed up the development of your web projects.
 published: true
 priory: 1
 ---
@@ -8,7 +9,146 @@ priory: 1
 <div class="home">
     <div class="text-center"><h1>Lara Crud Admin-Panel</h1></div>
 
-    <h3>The package is aimed at the fastest deployment and flexible configuration of the admin panel. It has a lot of methods with which you can set it up as you like.</h3>
+    <h3>The package is aimed at the fastest deployment and flexible configuration of the admin panel. It has a lot of
+        methods with which you can set it up as you like.</h3>
 
-    <img src="images/Screenshot_2.png" alt="Lara-Crud">
+    <img src="images/Screenshot_2.png" width="100%" alt="Lara-Crud">
+</div>
+
+<div class="row">
+
+    <div class="col">
+        <h1 class="text-center">Quick start</h1>
+        <h2>Introduction</h2>
+        <p>The package includes many methods that will allow you to adapt the admin panel to your needs.</p>
+
+        <h2>Installation</h2>
+        <p>A place to include any other types of information that you’d like to include about yourself.</p>
+        <ol>
+            <li>To get the latest version, simply require the project using <a
+                    href="https://getcomposer.org/">Composer</a>:
+
+                <p><code>$composer require trafik8787/lara-crud --dev</code></p>
+            </li>
+            <li>Run the installation and wait for it to finish. (Beforehand, make sure that you are connected to the
+                database)
+
+                <p><code>php artisan lara:example</code></p>
+            </li>
+            <li>Add service provider <strong>App\Providers\LaraCrudProvider::class</strong> to /config/app.php file.
+                <p><code>
+                    'providers' => [ <br>
+                    ... <br>
+
+                    App\Providers\LaraCrudProvider::class, <br>
+                    ],
+                </code></p>
+
+            </li>
+            <li>
+                Finish you can go to the link <strong>http://you_domain/admin</strong>
+            </li>
+        </ol>
+
+        <h2>Create new Pages</h2>
+        <p><code>php artisan lara:node ExampleNode</code></p>
+
+        <p>The command creates two classes in the class <strong>ExampleNode</strong> and
+            <strong>ExampleNodeModel</strong>. Add them to the array in the provider <strong>App\Providers\LaraCrudProvider</strong>:
+        </p>
+
+        <p><code>
+            protected $nodes = [ <br>
+            ... <br>
+
+            'App\Http\Node\Model\ExampleNodeModel' => 'App\Http\Node\ExampleNode', <br>
+            ];
+        </code></p>
+
+        <p>ou can go to <strong>http://you_domain/admin/example_node_model</strong></p>
+
+        <h2>Navigation</h2>
+
+        <p>Example of an array of navigation in the file Add service provider <strong>App\Providers\LaraCrudProvider::class</strong>
+        </p>
+
+        <h2>Parameter List</h2>
+
+        <ul class="list-unstyled">
+            <li>
+                <strong>tabs</strong>
+                <p>Inside the tabs array, there are tabs</p>
+                <p>
+                    <img src="images/Screenshot_tab.png" alt="Screenshot_tab.png">
+                </p>
+            </li>
+            <li>
+                <strong>tab_name</strong>
+                <p>Tab name</p>
+            </li>
+            <li>
+                <strong>settings</strong>
+                <p>Tab Settings</p>
+            </li>
+            <li>
+                <strong>priory</strong>
+                <p>Sorting order</p>
+            </li>
+            <li>
+                <strong>icon</strong>
+                <p>Class Icons <a href="http://fontawesome.io/icons/">http://fontawesome.io/icons/</a></p>
+
+            </li>
+        </ul>
+
+
+        <pre class="highlight">
+            <code>
+            Example:
+            protected $navigation = [
+
+                'App\Http\Node\ExampleNode' =&gt; [
+                    'priory' =&gt; 1,
+                    'title' =&gt; 'Example',
+                    'icon' =&gt; 'fa-user-secret'
+                ],
+
+                'tabs' =&gt; [
+
+                    'tab_name' =&gt; [
+
+                        'settings' =&gt; [
+                           'icon' =&gt; 'fa-user-secret',
+                            'priory' =&gt; 2,
+                        ],
+
+                        'node' =&gt; [
+
+                            'App\Http\Node\Articles' =&gt; [
+                                'priory' =&gt; 2,
+                                'title' =&gt; 'Articles',
+                                'icon' =&gt; 'fa-tree'
+                            ]
+                        ]
+                    ],
+
+                    'tab_name2' =&gt; [
+                        ...
+                    ]
+
+                ],
+
+                'App\Http\Node\Users' =&gt; [
+                    'priory' =&gt; 3,
+                    'title' =&gt; 'Users',
+                    'icon' =&gt; 'fa-tree'
+                ],
+
+            ];
+            </code>
+        </pre>
+
+
+    </div>
+
 </div>

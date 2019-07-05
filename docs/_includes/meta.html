@@ -3,13 +3,14 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    {% if page.excerpt %}
-    <meta name="description" content="{{ page.excerpt| strip_html }}" />
-    <meta property="og:description" content="{{ page.excerpt| strip_html }}" />
+    {% if page.seo_title %}
+    <meta name="description" content="{{ page.seo_title| strip_html }}" />
+    <meta property="og:description" content="{{ page.seo_title| strip_html }}" />
     {% else %}
     <meta name="description" content="{{ site.description }}">
     <meta property="og:description" content="{{ site.description }}" />
     {% endif %}
+
     <meta name="author" content="{{ site.name }}" />
 
     {%if page.keywords %}

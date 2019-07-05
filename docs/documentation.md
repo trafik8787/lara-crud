@@ -6,19 +6,18 @@ permalink: /documentation/
 priory: 2
 ---
 
-<div class="row">
-  <div class="col">
-    {% include nav_tom_docum.html %}
-  </div>
-</div>
-
-
 ***
 
 <div class="row">
 
 {% include navigation_left.html %}
 
-sdfgdfg
+
+<div class="col">
+    <h2>
+    Documentation
+    </h2>
+    Documentation on API methods here describes methods that can be used when working with LaraCrud. I would be grateful for the pleasant feedback and for the stars on the githab.
+</div>
 
 </div>

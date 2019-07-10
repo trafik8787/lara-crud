@@ -10,7 +10,13 @@ permalink: /:categories/:title/
 
 ---
 
-#### $this->tableJoin(<span style="color: #693">string</span>$tableName, <span style="color: #693">string</span>$tableColumnOld, <span style="color: #693">string</span>$tableColumnLocal)->select(<span style="color: #693">string</span>$fieldTable, <span style="color: #693">string</span>$asName)
+    $this->tableJoin($tableName, string$tableColumnOld, string$tableColumnLocal)
+                ->select($fieldTable, $asName);
+
+Or
+
+      $this->tableJoin(Closure $closure)
+                ->select($fieldTable, $asName);
 
 Join tables into one. The call works only in the showDisplay() method showDisplay()
 
@@ -36,6 +42,9 @@ The column of the table to be displayed: <kbd> users.name </kbd>
 
 New column name: <kbd> users.name </kbd> 
 
+***Closure $closure***
+
+
 
     Example:
     public function showDisplay () {
@@ -59,9 +68,25 @@ New column name: <kbd> users.name </kbd>
         $this->fieldName(['LOGS_TEXT' => 'Text logs', 'LOGS_DATE' => 'Logs date']);
         
           -------other code------
-        
     }
     
+    
+    Example:
+    public function showDisplay () {
+       
+          -------other code------
+        //inner Join
+        $this->tableJoin(function ($model){
+             return $model->join('logs', function ($join){
+                 $join->on('logs.user_id', '=', 'user.id');
+ 
+             });
+        })
+        ->select('logs.text', 'LOGS_TEXT')
+        ->select('logs.date', 'LOGS_DATE');
+        
+          -------other code------
+    }
 
 
 

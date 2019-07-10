@@ -29,7 +29,7 @@ class JoinTables implements JoinTablesInterface
      * @param $tableColumnOld
      * @return $this
      */
-    public function joinTable($tableName, $tableColumnNew, $tableColumnOld, $closure = null)
+    public function joinTable($tableName = null, $tableColumnNew = null, $tableColumnOld = null, $closure = null)
     {
         $this->joinTable[$tableName] = [$tableColumnNew, $tableColumnOld, $closure];
 

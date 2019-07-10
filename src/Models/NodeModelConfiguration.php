@@ -597,8 +597,10 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->setBeforeModelFormCollback = $closure;
     }
 
+
     /**
-     * @param $arrColumn
+     * @param null $arrColumn
+     * @return SearshIndividualColumn
      */
     public function setColumnIndividualSearch($arrColumn = null)
     {
@@ -608,13 +610,27 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         return $this->searshIndividualObject;
     }
 
+
     /**
-     * @param $tableName
-     * @param $tableColumnNew
-     * @param $tableColumnOld
+     * @return JoinTables
      */
-    public function tableJoin($tableName, $tableColumnNew, $tableColumnOld, Closure $closure = null)
+    public function tableJoin()
     {
+        $args = func_get_args();
+
+        $tableName = null;
+        $tableColumnNew = null;
+        $tableColumnOld = null;
+        $closure = null;
+
+        if($args[0] instanceof Closure) {
+            $closure = $args[0];
+        } else {
+            $tableName = $args[0];
+            $tableColumnNew = $args[1];
+            $tableColumnOld = $args[2];
+        }
+
         $this->stateSave(false);
         $this->joinTableObj->joinTable($tableName, $tableColumnNew, $tableColumnOld, $closure);
         return $this->joinTableObj;

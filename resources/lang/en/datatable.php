@@ -9,7 +9,7 @@ return [
     "sInfoThousands"=>  ",",
     "sLengthMenu"=>     "Show _MENU_ entries",
     "sLoadingRecords"=> "Loading...",
-    "sProcessing"=>     "Processing...",
+    "sProcessing"=>     '<div id=\"loader-wrapper\"><div id=\"loader\"></div></div>',
     "sSearch"=>         "Search ",
     "sZeroRecords"=>    "No matching records found",
     "oPaginate"=> [

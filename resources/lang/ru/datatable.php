@@ -9,7 +9,7 @@ return [
     "sInfoThousands"=>  ",",
     "sLengthMenu"=>     "Показать _MENU_ записей",
     "sLoadingRecords"=> "Загрузка записей...",
-    "sProcessing"=>     "Подождите...",
+    "sProcessing"=>     '<div id=\"loader-wrapper\"><div id=\"loader\"></div></div>',
     "sSearch"=>         "Поиск ",
     "sZeroRecords"=>    "Записи отсутствуют.",
     "oPaginate"=> [

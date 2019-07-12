@@ -113,6 +113,8 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $searchConfig; //конфигурация поиска
     protected $emptyDataTable = false;
     protected $objectSelectAjax; //Class SelectAjax
+    protected $disableAjaxLoadData = true;
+
     /**
      * NodeModelConfigurationManager constructor.
      * @param Application $app
@@ -1181,5 +1183,13 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     public function getObjectSelectAjax()
     {
         return $this->objectSelectAjax;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisableAjaxLoadData ()
+    {
+        return $this->disableAjaxLoadData;
     }
 }

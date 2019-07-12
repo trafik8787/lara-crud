@@ -14,18 +14,9 @@
                 });
             });
 
-            var table = $('#example').DataTable({
-                "orderCellsTop": true,
-                //"fixedHeader": true,
-                "serverSide": true,
-                "searching": data_json.searching,
-                "bPaginate": data_json.disablePaginate,
-                "stateSave": data_json.stateSave,
-                'autoWidth': false,
-                //'scrollX': true,
-                "orderFixed": data_json.orderFixed,
-                "sPaginationType": "full_numbers",
-                "ajax": {
+            var ajaxData = '';
+            if (data_json.serverSide) {
+                ajaxData = {
                     "url": "{{ url()->current()}}",
                     "dataType": "json",
                     "type": "POST",
@@ -34,13 +25,27 @@
                         d.numPage = (d.start / d.length) + 1;
                         d._token = "{{csrf_token()}}"
                     }
-                },
+                }
+            }
+
+            var table = $('#example').DataTable({
+                "orderCellsTop": true,
+                //"fixedHeader": true,
+                "serverSide": data_json.serverSide,
+                "searching": data_json.searching,
+                "bPaginate": data_json.disablePaginate,
+                "stateSave": data_json.stateSave,
+                'autoWidth': false,
+                //'scrollX': true,
+                "orderFixed": data_json.orderFixed,
+                "sPaginationType": "full_numbers",
+                "ajax": ajaxData,
                 rowReorder: {
                     dataSrc: data_json.rowReorder,
                     enable: (data_json.rowReorder !== false) ? true : false,
                     update: false
                 },
-                "columns": JSON.parse('{!! $json_field !!}'),
+                "columns": JSON.parse('{!! json_encode($json_field, true) !!}'),
                 "order": [
                     data_json.order
                 ],
@@ -48,7 +53,7 @@
                 "oLanguage": {
                     "sProcessing": '<img src="{{asset("vendor/lara-crud/img/loader.gif")}}">'
                 },
-                "processing": true,
+                "processing": data_json.serverSide,
                 "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 
                     if (data_json.rowsColorWidth != false) {
@@ -198,14 +203,25 @@
                             <th rowspan="1" colspan="1"></th>
                         @endif
 
-                            {!! $columnSearch->render() !!}
+                        {!! $columnSearch->render() !!}
 
                         @if($buttonAction)
-                                <th rowspan="1" colspan="1"></th>
+                            <th rowspan="1" colspan="1"></th>
                         @endif
                     </tr>
                 @endif
                 </thead>
+                @if (!empty($tableDataBody))
+                    <tbody>
+                        @foreach($tableDataBody as $body)
+                            <tr>
+                                @foreach($json_field as $item)
+                                    <td>{!! $body[$item['data']] !!}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                @endif
                 <tfoot>
                 <tr>
                     @if($childRowsColumnBool)

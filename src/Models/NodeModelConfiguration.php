@@ -687,6 +687,16 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->emptyDataTable = true;
     }
+
+    /**
+     * метод отключает загрузку данных Ajax
+     */
+    public function disableAjaxLoadData ()
+    {
+        $this->disablePaginate(false);
+        $this->disableAjaxLoadData = false;
+    }
+
 }
 
 

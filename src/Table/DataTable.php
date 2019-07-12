@@ -44,7 +44,6 @@ class DataTable implements TableInterface
         // dd($this->objConfig->getSearshIndividualObject());
         $data = array(
             'name_field' => $this->objConfig->nameColumns(), //названия полей для таблицы HTML
-            // 'columnSearch' => $this->objConfig->getColumnIndividualSearch(), //индивидуальный поиск по полям
             'columnSearch' => $this->objConfig->getSearshIndividualObject(), //индивидуальный поиск по полям
             'json_field' => $this->getJsonColumnDataTable(),
             'titlePage' => $this->objConfig->getTitle(),
@@ -54,19 +53,29 @@ class DataTable implements TableInterface
             'buttonAction' => $this->actionTable->enableColumnAction(),
             'childRowsColumnBool' => $this->objConfig->getShowChildRows(),
             'addViewCustom' => $this->objConfig->setViewsCustomTop($this->getModelObj()),
+            'tableDataBody' => $this->getDataBodytable(),
             'data_json' => json_encode([
                 'order' => $this->objConfig->getFieldOrderBy(), //сортировка
                 'pageLength' => $this->objConfig->getShowEntries(),
                 'rowsColorWidth' => $this->objConfig->getColumnColorWhere(),
                 'rowReorder' => $this->objConfig->getEnableDragAndDrop(),
                 'orderFixed' => $this->objConfig->getOrderFixed(),
-                'disablePaginate' => $this->objConfig->getDisablePaginate(),
+                'disablePaginate' => $this->paginateStatus(),
                 'stateSave' => $this->objConfig->getStateSave(),
-                'searching' => $this->objConfig->getSearchDisable()
+                'searching' => $this->objConfig->getSearchDisable(),
+                'serverSide' => $this->objConfig->getDisableAjaxLoadData()
             ])
         );
 
         return view('lara::Table.table', $data);
+    }
+
+    public function paginateStatus ()
+    {
+        if (!$this->objConfig->getDisableAjaxLoadData()) {
+            return true;
+        }
+        return $this->objConfig->getDisablePaginate();
     }
 
     /**
@@ -143,6 +152,21 @@ class DataTable implements TableInterface
             $count = $this->getModelObj()->count();
         }
 
+
+        $data = $this->getData($obj);
+
+        return Response::json([
+            'draw' => $this->request['draw'],
+            'recordsTotal' => $count,
+            'recordsFiltered' => $this->objConfig->getDisablePaginate() ? $dataArr['total'] : 0, //если пагинация отключена ставим 0
+            'data' => $data
+        ]);
+
+    }
+
+
+    public function getData($obj)
+    {
         $data = [];
 
         $actionTable = $this->actionTable->objConfig($this->objConfig);
@@ -173,14 +197,17 @@ class DataTable implements TableInterface
             }
         }
 
-        return Response::json([
-            'draw' => $this->request['draw'],
-            'recordsTotal' => $count,
-            'recordsFiltered' => $this->objConfig->getDisablePaginate() ? $dataArr['total'] : 0, //если пагинация отключена ставим 0
-            'data' => $data
-        ]);
-
+        return $data;
     }
+
+
+    public function getDataBodytable()
+    {
+        if (!$this->objConfig->getDisableAjaxLoadData()) {
+            return $this->getData($this->getModelData());
+        }
+    }
+
 
     /**
      * @return string
@@ -214,7 +241,7 @@ class DataTable implements TableInterface
             $data_field[] = array('data' => 'Action', 'orderable' => false, 'width' => 'auto');
         }
 
-        return json_encode($data_field, true);
+        return $data_field;
     }
 
     /**
@@ -259,7 +286,7 @@ class DataTable implements TableInterface
      * @param $curent_page
      * @return mixed
      */
-    public function getModelData($total, $curent_page, $searchValue, $order)
+    public function getModelData($total = null, $curent_page = null, $searchValue = null, $order = null)
     {
         $select = $this->objConfig->getFieldShow();
 
@@ -286,7 +313,13 @@ class DataTable implements TableInterface
         }
 
         $this->setPageCurent($curent_page);
-        $order_field = $this->nameColumnsOrder($order['column']);
+
+        //если загрузка Ajax выключеена
+        if ($this->objConfig->getDisableAjaxLoadData() !== false) {
+            $order_field = $this->nameColumnsOrder($order['column']);
+        }
+
+
         $result = $this->objConfig->getWhere($this->getModelObj());
 
         //передача в класс
@@ -301,9 +334,12 @@ class DataTable implements TableInterface
             $select = $this->objConfig->joinTableObj()->getAsNameSearch();
         }
 
-        //поиск
-        $result = $this->searchModel($result, $searchValue, $select);
-        $result = $result->orderBy($order_field, $order['dir']);
+        //если загрузка Ajax выключеена
+        if ($this->objConfig->getDisableAjaxLoadData() !== false) {
+            //поиск
+            $result = $this->searchModel($result, $searchValue, $select);
+            $result = $result->orderBy($order_field, $order['dir']);
+        }
 
         //хук
         $result = $this->objConfig->getTableModelCollback($result);
@@ -417,7 +453,7 @@ class DataTable implements TableInterface
      * @return array
      * todo order[0][column]: получаем название поля по индексу переданному из DataTable
      */
-    public function nameColumnsOrder(int $index): string
+    public function nameColumnsOrder(int $index = 1): string
     {
         $data = [];
         $i = null;

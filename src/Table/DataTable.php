@@ -461,10 +461,22 @@ class DataTable implements TableInterface
         foreach ($this->objConfig->nameColumns() as $field => $name) {
             //в зависимости от того будет ли столбец чекбоксов определяем будет ли начинатся масив с нуля или с единицы
             if ($this->objConfig->getBolleanCheckedColumn() === 'false') {
-                $data[] = $field;
+                //фикс для получения правильного поля дла сортировки таблицы
+                if ($this->objConfig->joinTableObj()->getJoinTable() != null) {
+                    $data[] = $this->objConfig->joinTableObj()->getField($field);
+                } else {
+                    $data[] = $field;
+                }
             } else {
                 $i = ++$i;
-                $data[$i] = $field;
+
+                //фикс для получения правильного поля дла сортировки таблицы
+                if ($this->objConfig->joinTableObj()->getJoinTable() != null) {
+                    $data[$i] = $this->objConfig->joinTableObj()->getField($field);
+                } else {
+                    $data[$i] = $field;
+                }
+
             }
         }
 

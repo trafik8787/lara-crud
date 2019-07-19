@@ -10,12 +10,12 @@ permalink: /:categories/:title/
 
 ---
 
-#### $this->textLimit(<span style="color: #693">int</span> $var)
+#### $this->textLimit(<span style="color: #693">string</span> $field, <span style="color: #693">int</span> $var)
 
 
 `
 Example:
-$this->textLimit(25);
+$this->textLimit('description',25);
 `
 
     namespace App\Http\Node;
@@ -28,7 +28,7 @@ $this->textLimit(25);
         
             public function showDisplay ()
             {
-                $this->textLimit(25);
+                $this->textLimit('description', 25);
                 
                 ....
             }

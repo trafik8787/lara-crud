@@ -82,6 +82,16 @@ class JoinTables implements JoinTablesInterface
     }
 
     /**
+     * @param $field
+     * @return mixed
+     */
+    public function getField($field)
+    {
+        $arr = array_flip($this->select);
+        return $arr[$field];
+    }
+
+    /**
      * @return |null
      */
     public function getAsName()

@@ -26,7 +26,7 @@
     "require": {
        "php": ">=7.0",
        "doctrine/dbal": "^2.5",
-       "laravelcollective/html":"^5.2.0"
+       "laravelcollective/html":"^6.0"
     },
     "require-dev": {
       "mockery/mockery": "0.9.*",

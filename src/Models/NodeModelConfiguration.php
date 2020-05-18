@@ -697,6 +697,14 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
         $this->disableAjaxLoadData = false;
     }
 
+    /**
+     * @param Closure $closure
+     * обратный вызов из контроллера
+     */
+    public function showAuth(Closure $closure)
+    {
+        $this->showAuth = $closure;
+    }
 }
 
 

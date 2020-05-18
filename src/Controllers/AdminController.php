@@ -5,6 +5,7 @@ namespace Trafik8787\LaraCrud\Controllers;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 use Trafik8787\LaraCrud\Contracts\TableInterface;
@@ -26,6 +27,7 @@ class AdminController extends Controller
     private $dataTable;
     private $request;
     protected $admin;
+    private $admins;
 
     /**
      * AdminController constructor.
@@ -37,6 +39,19 @@ class AdminController extends Controller
      */
     public function __construct(Request $request, AdminInterface $admin, Application $application, TableInterface $table, FormManagerInterface $form)
     {
+        $this->admins = $admin;
+
+        $this->middleware(function ($request, $next){
+
+            $getAuth = $this->admins->objConfig->getAuth(Auth::user(), $request);
+
+            if ($getAuth !== null) {
+                return $getAuth;
+            }
+
+            return $next($request);
+        });
+
 
     }
 

@@ -114,6 +114,7 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     protected $emptyDataTable = false;
     protected $objectSelectAjax; //Class SelectAjax
     protected $disableAjaxLoadData = true;
+    protected $showAuth;
 
     /**
      * NodeModelConfigurationManager constructor.
@@ -1192,4 +1193,14 @@ abstract class NodeModelConfigurationManager implements NodeModelConfigurationIn
     {
         return $this->disableAjaxLoadData;
     }
+
+    public function getAuth($user, $request)
+    {
+        if ($this->showAuth !== null) {
+            return $this->showAuth->call($this, $user, $request);
+        }
+
+        return null;
+    }
+
 }

@@ -705,6 +705,7 @@ class NodeModelConfiguration extends NodeModelConfigurationManager
     {
         $this->showAuth = $closure;
     }
+
 }
 
 

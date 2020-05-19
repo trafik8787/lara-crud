@@ -3,12 +3,12 @@
     "description": "Simple flexible and multifunctional Admin Panel CRUD in which all the necessary for 95% of the cases are developed.",
     "homepage": "https://trafik8787.github.io/lara-crud",
     "keywords": [
-      "laravel",
-      "admin",
-      "administrator",
-      "crud",
-      "lara",
-      "panel"
+        "laravel",
+        "admin",
+        "administrator",
+        "crud",
+        "lara",
+        "panel"
     ],
     "license": "MIT",
     "authors": [
@@ -24,42 +24,38 @@
         "docs": "https://trafik8787.github.io/lara-crud/documentation/"
     },
     "require": {
-        "php": ">=7.2.5",
-        "illuminate/http": "^6.0|^7.0",
-        "illuminate/routing": "^6.0|^7.0",
-        "illuminate/session": "^6.0|^7.0",
-        "illuminate/support": "^6.0|^7.0",
-        "illuminate/view": "^6.0|^7.0",
-        "laravelcollective/html": "^6.1"
+        "php": ">=7.0",
+        "doctrine/dbal": "^2.5",
+        "laravelcollective/html":"^5.2.0"
     },
     "require-dev": {
-        "illuminate/database": "^6.0",
-        "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~7.1"
+        "mockery/mockery": "0.9.10",
+        "phpunit/phpunit": "~5.7"
     },
     "autoload": {
-      "psr-4": {
-        "Trafik8787\\LaraCrud\\": "src/",
-        "Trafik8787\\LaraCrud\\Seeder\\": "src/Console/Commands/Example/seeds",
-        "Trafik8787\\LaraCrud\\Tests\\": "tests/"
-      }
+        "psr-4": {
+            "Trafik8787\\LaraCrud\\": "src/",
+            "Trafik8787\\LaraCrud\\Seeder\\": "src/Console/Commands/Example/seeds",
+            "Trafik8787\\LaraCrud\\Tests\\": "tests/"
+        }
     },
     "autoload-dev": {
-      "classmap": [
-        "tests/TestCase.php"
-      ]
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
-      "branch-alias": {
-        "dev-master": "1.6.0-dev"
-      },
-      "laravel": {
-        "providers": [
-          "Trafik8787\\LaraCrud\\LaraCrudProvider"
-        ]
-      }
+        "branch-alias": {
+            "dev-master": "1.3.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Trafik8787\\LaraCrud\\LaraCrudProvider"
+            ]
+        }
     }
 
 }
+

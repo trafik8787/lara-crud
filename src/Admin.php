@@ -11,6 +11,7 @@ namespace Trafik8787\LaraCrud;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Trafik8787\LaraCrud\Contracts\AdminInterface;
 use Trafik8787\LaraCrud\Contracts\FormManagerInterface;
 use Trafik8787\LaraCrud\Contracts\NodeModelConfigurationInterface;
@@ -103,7 +104,7 @@ class Admin implements AdminInterface
      */
     public function setUrlDefaultModel(string $strModelName, $nodeClass)
     {
-        $url = snake_case(class_basename($strModelName));
+        $url = Str::snake(class_basename($strModelName));
 
         //переопределяем параметры меню
         $this->setNavigationParams($nodeClass);
